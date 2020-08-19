@@ -27,10 +27,9 @@ The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. 
 
 #### HTTP Status 429: Too many requests
 
-Rate limiting has been exceeded. Chameleon sets very high limits on the number of requests total and the amount of concurrency we support.
-At this time we enforce rate limiting only in situations where the API is being abused in some way
+Rate limiting has been exceeded.
 
-When enforcing Rate limiting we give a `X-Ratelimit-Wait` header with the number of seconds until requests can proceed without further rate limiting
+See also [Rate limiting](rate-limiting.md)
 
 - Headers
 

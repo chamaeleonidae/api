@@ -1,6 +1,8 @@
 # Incoming Webooks: User Profiles
 
-Send User Profile data **into Chameleon**  from services like Customer.io, Heap, Zapier or from you own backend
+Send User Profile data **into Chameleon** from services like Customer.io, Heap, Zapier or from you own backend
+
+Profile data updates are processed synchronously on the application server
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/profiles`
