@@ -5,7 +5,7 @@
   - [Errors](errors.md)
   - [Pagination](pagination.md)
   - [Rate limiting](rate-limiting.md)
-  - [Filters expressions](concepts/filters.md)
+  - [Filter expressions](concepts/filters.md)
 
 - Sending Data to Chameleon (REST API)
   - [User Profiles](webhooks/profiles.md)
