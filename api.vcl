@@ -1,33 +1,34 @@
 sub vcl_recv {
 #FASTLY recv
 
+  # Chameleon:BN add default request headers when forwarding to backend
+  set req.http.X-Fastly-Api = server.hostname;
+
   # Chameleon:BN - Forward requests to the observe backend
   #
-  if (req.url ~ "^/v\d/observe/") {
+  if (req.url ~ "^/v3/observe") {
+    set req.http.X-Fastly-Backend = "observe";
     set req.backend = F_observe_trychameleon_com;
-    set req.url = regsub(req.url, "/observe/", "/");
+    set req.url = regsub(req.url, "^/v3/observe", "/v3");
   }
   # Chameleon:BN - Forward requests to the edit backend
   #
-  elsif (req.url ~ "^/v\d/edit/") {
+  elsif (req.url ~ "^/v3/edit") {
+    set req.http.X-Fastly-Backend = "edit";
     set req.backend = F_edit_trychameleon_com;
-    set req.url = regsub(req.url, "/edit/", "/");
-  }
-  # Chameleon:BN - Forward requests to the integral backend
-  #
-  elsif (req.url ~ "^/v\d/integral/") {
-    set req.backend = F_integral_trychameleon_com;
-    set req.url = regsub(req.url, "/integral/", "/");
+    set req.url = regsub(req.url, "^/v3/edit", "/v3");
   }
   # Chameleon:BN - Forward requests to the forage-analyze backend
   #
-  elsif (req.url ~ "^/v\d/analyze/") {
+  elsif (req.url ~ "^/v3/analyze") {
+    set req.http.X-Fastly-Backend = "analyze";
     set req.backend = F_analyze_trychameleon_com;
-    set req.url = regsub(req.url, "/analyze/", "/");
+    set req.url = regsub(req.url, "^/v3/analyze", "/v3");
   }
   # Chameleon:BN - Proxy all other requests to app.trychameleon.com with the full url intact
   #
   else {
+    set req.http.X-Fastly-Backend = "app";
     set req.backend = F_app_trychameleon_com;
   }
 
@@ -57,19 +58,10 @@ sub vcl_fetch {
     return(pass);
   }
 
-  if (beresp.status == 500 || beresp.status == 503) {
+  if (beresp.status == 403 || beresp.status == 404 || beresp.status == 500 || beresp.status == 503) {
     set req.http.Fastly-Cachetype = "ERROR";
     set beresp.ttl = 1s;
     set beresp.grace = 5s;
-    return(deliver);
-  }
-
-  # Chameleon:BN Do a similar thing to 500/503 when a static asset is a 404 (i.e. it should not be missing so don't cache is as missing)
-  #
-  if (beresp.status == 404 && req.http.X-Dashboard-Static-Asset) {
-    set req.http.Fastly-Cachetype = "ERROR";
-    set beresp.ttl = 10s;
-    set beresp.grace = 20s;
     return(deliver);
   }
 
@@ -102,7 +94,7 @@ sub vcl_deliver {
 
   # Chameleon:BN We should identify ourselves since we're awesome
   #
-  set resp.http.Via = "1.1 trychameleon.com (Api)";
+  set resp.http.Via = "1.1 trychameleon.com (API - " + req.http.X-Fastly-Backend + ")";
 
   unset resp.http.Server;
   unset resp.http.Age;
@@ -117,6 +109,13 @@ sub vcl_deliver {
   #
   unset resp.http.X-Request-Id;
   unset resp.http.X-Runtime;
+  unset resp.http.X-Frame-Options;
+  unset resp.http.X-Xss-Protection;
+  unset resp.http.X-Content-Type-Options;
+  unset resp.http.X-Download-Options;
+  unset resp.http.X-Permitted-Cross-Domain-Policies;
+  unset resp.http.Referrer-Policy;
+  unset resp.http.Accept-Ranges;
 
   return(deliver);
 }

@@ -29,7 +29,7 @@ Company data updates are processed synchronously on the application server
 
 ```json
 {
-  "status": 200
+  "code": 200
 }
 ```
 

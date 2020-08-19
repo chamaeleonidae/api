@@ -6,7 +6,7 @@ The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. 
 
 ```json
 {
-  "status": 403,
+  "code": 403,
   "messages": []
 }
 ```
@@ -20,7 +20,7 @@ The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. 
 
 ```json
 {
-  "status": 404,
+  "code": 404,
   "messages": []
 }
 ```
@@ -41,7 +41,7 @@ X-Ratelimit-Wait: 120
 
 ```json
 {
-  "status": 429,
+  "code": 429,
   "messages": ["Please wait for 120 more seconds before retrying your request"]
 }
 ```
@@ -52,7 +52,7 @@ An Error occurred that we had not otherwise planned on receiving. Typically thes
 
 ```json
 {
-  "status": 500,
+  "code": 500,
   "messages": []
 }
 ```
@@ -63,7 +63,7 @@ Unexpected maintenence or the inability to shen enough load with rate-limiting
 
 ```json
 {
-  "status": 503,
+  "code": 503,
   "messages": []
 }
 ```
