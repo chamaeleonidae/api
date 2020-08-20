@@ -2,7 +2,9 @@
 
 The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. That being said, you can check our [Statuspage](https://status.trychameleon.com) or reference the errors found here for more information.
 
-#### HTTP Status 403: Account token is not valid or has been revoked
+## HTTP Status 403 :id=status-403
+
+Account token is not valid or has been revoked
 
 ```json
 {
@@ -11,7 +13,9 @@ The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. 
 }
 ```
 
-#### HTTP Status 404: Endpoint not found
+## HTTP Status 404 :id=status-404
+
+Endpoint or Resource not found
 
 404's happen fo a couple of reasons:
 
@@ -25,16 +29,16 @@ The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. 
 }
 ```
 
-#### HTTP Status 429: Too many requests
+## HTTP Status 429 :id=status-429
 
-Rate limiting has been exceeded.
+You have made too many requests and exceeded your Rate limit.
 
 See also [Rate limiting](rate-limiting.md)
 
 - Headers
 
 ```
-X-Ratelimit-Wait: 120
+X-Ratelimit-Wait: 114
 ```
 
 - Body
@@ -42,13 +46,15 @@ X-Ratelimit-Wait: 120
 ```json
 {
   "code": 429,
-  "messages": ["Please wait for 120 more seconds before retrying your request"]
+  "messages": ["Please wait for 114 more seconds before retrying your request"]
 }
 ```
 
-#### HTTP Status 500: Server error
+## HTTP Status 500 :id=status-500
 
-An Error occurred that we had not otherwise planned on receiving. Typically these issues stem from downstream issues such as when a databse is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
+Server error
+
+An Error occurred that we had not otherwise planned on receiving. Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
 
 ```json
 {
@@ -57,9 +63,11 @@ An Error occurred that we had not otherwise planned on receiving. Typically thes
 }
 ```
 
-#### HTTP Status 503: Server not available
+## HTTP Status 503 :id=status-503
 
-Unexpected maintenence or the inability to shen enough load with rate-limiting
+Server not available or backend didn't respond in time
+
+Unexpected maintenance or the inability to shed enough load with [Rate limiting](rate-limiting.md)
 
 ```json
 {
