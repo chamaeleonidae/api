@@ -18,6 +18,13 @@ sub vcl_recv {
     set req.backend = F_edit_trychameleon_com;
     set req.url = regsub(req.url, "^/v3/edit", "/v3");
   }
+  # Chameleon:BN - Forward requests to the integral backend
+  #
+  elsif (req.url ~ "^/v3/integral") {
+    set req.http.X-Fastly-Backend = "integral";
+    set req.backend = F_integral_trychameleon_com;
+    set req.url = regsub(req.url, "^/v3/integral", "/v3");
+  }
   # Chameleon:BN - Forward requests to the forage-analyze backend
   #
   elsif (req.url ~ "^/v3/analyze") {
