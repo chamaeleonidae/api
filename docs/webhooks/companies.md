@@ -1,8 +1,10 @@
-# Companies
+# Incoming Webook: Companies
 
 Send Company data **into Chameleon**  from services like Customer.io, Heap, Zapier or from you own backend
 
 Company data updates are processed synchronously on the application server
+
+## Update a Company (Coming soon)
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/companies`
@@ -33,7 +35,12 @@ Company data updates are processed synchronously on the application server
 }
 ```
 
-### Limits <!-- Make sure to change this elsewhere too -->
+## Limits
 
-- Up to a total of 512 characters are stored for each value. Data received longer than 512 will be truncated and an alert will be set on the [Data management](https://app.trychameleon.com/data/properties/profile) page.
-- Nested object are acceptable as long as they are kept to 3 levels and aren't nested within array values
+- Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit
+- See the full page on [Limits](concepts/normalization.md?id=limits) for more info
+
+## Normalization
+
+- Property names are normalized to lower case and underscored i.e. `planName` => `plan_name`
+- See the full page on [Normalization](concepts/normalization.md?id=properties) for more info

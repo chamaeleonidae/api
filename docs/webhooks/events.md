@@ -2,7 +2,9 @@
 
 Send Event data **into Chameleon** from services like Customer.io, Heap, Zapier or from you own backend
 
-Events are processed asynchronously (typically within ~5 seconds).
+Events are processed asynchronously (typically within a few seconds).
+
+## Create an event :id=events-create
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/events`
@@ -24,6 +26,14 @@ Events are processed asynchronously (typically within ~5 seconds).
 
 ```json
 {
-  "status": 200
+  "code": 200
 }
 ```
+
+## Normalized Event naming
+
+By Default events are grouped by their case insensitive and normalized name value. The following are all counted as the _Same event_
+
+- "Imported Leads" => `imported_leads`
+- "ImporteD leads" => `imported_leads`
+- "imported-leads" => `imported_leads`
