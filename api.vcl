@@ -67,16 +67,14 @@ sub vcl_fetch {
 
   if (beresp.status == 403 || beresp.status == 404 || beresp.status == 500 || beresp.status == 503) {
     set req.http.Fastly-Cachetype = "ERROR";
-    set beresp.ttl = 1s;
-    set beresp.grace = 5s;
-    return(deliver);
+    return(pass);
   }
 
   if (beresp.http.Expires || beresp.http.Surrogate-Control ~ "max-age" || beresp.http.Cache-Control ~ "(s-maxage|max-age)") {
     # keep the ttl here
   } else {
     # apply the default ttl
-    set beresp.ttl = 3600s;
+    set beresp.ttl = 0s;
   }
 
   return(deliver);

@@ -41,4 +41,8 @@
 
 ## List Microsurvey Responses :id=responses-index
 
+#### Filtering by Segment :id=filter-segment
+
+See [Listing Related models](apis/segments.md?id=segment-experiences-index)
+
 ## Delete a Microsurvey Response :id=responses-show

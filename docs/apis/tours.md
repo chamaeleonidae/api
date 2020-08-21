@@ -43,7 +43,7 @@ A Tour is a sequence of steps that shows to your end-users when they meet all of
 | before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 
-#### HTTP Response (kind=tours)
+#### HTTP Response
 
 ```json
 {
@@ -72,6 +72,10 @@ A Tour is a sequence of steps that shows to your end-users when they meet all of
   }
 }
 ```
+
+#### Filtering by Segment :id=filter-segment
+
+See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
 ## Show a Tour :id=campaigns-show
 
