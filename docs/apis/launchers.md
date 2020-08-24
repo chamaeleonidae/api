@@ -63,7 +63,7 @@ A Launcher is a collection of items shown in a menu to your end-users when they 
 | before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 
-#### HTTP Response (kind=launchers)
+#### HTTP Response
 
 ```json
 {
@@ -95,7 +95,7 @@ A Launcher is a collection of items shown in a menu to your end-users when they 
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
-## Show a Launcher :id=campaigns-show
+## Show a Launcher :id=launchers-show
 
 Show a single Launcher
 

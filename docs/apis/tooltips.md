@@ -19,7 +19,7 @@ A Tooltip is a single step shown when your end-users click or hover on:
 | before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 
-#### HTTP Response (kind=tooltips)
+#### HTTP Response
 
 ```json
 {

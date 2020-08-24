@@ -132,7 +132,7 @@ A segment can be configured to be attached to **many Chameleon Experiences** inc
 | id | required | A Segment ID to lookup
 | kind | required | One of `tour` `survey` `launcher`
 
-#### HTTP Response (kind=tours)
+#### HTTP Response
 
 ```json
 {
