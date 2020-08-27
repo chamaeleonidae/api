@@ -1,7 +1,7 @@
 # Microsurveys
 
-Chameleon Microsurveys are a primary "question" step followed by a free form input follow-up question and a thank you at the end.
-By keeping them short and contextual (seeing it at just the right moment) the feedback is of **much higher signal** than other Surveying channels
+Chameleon Microsurveys are a primary "question" step which can be followed by a freeform input follow-up question and a thank you at the end.
+By keeping them short and contextual (sending at just the right moment) the feedback is of **much higher signal** than other surveying channels
 
 ## Schema :id=schema
 

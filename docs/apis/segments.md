@@ -1,6 +1,6 @@
 # Segments
 
-Segments are fundamental to targeting users withing Chameleon. They are used for Microsyrveys, Tours and Launchers to make sure the right users see the right content at the right moment.
+Segments are fundamental to targeting users within Chameleon. They are used for Microsurveys, Tours and Launchers to make sure the right users see the right content at the right moment.
 
 A Segment is a collection of [Segmentation filter expressions](concepts/filters.md) in the `items` key
 
@@ -122,7 +122,7 @@ Show a single Segment
 
 ## Listing Related Experiences :id=segment-experiences-index
 
-A segment can be configured to be attached to **many Chameleon Experiences** including Microsurveys, Tours and Launchers. This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
+A Segment can be configured to be attached to **many Chameleon Experiences** including Microsurveys, Tours and Launchers. This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
 
 #### HTTP Request
 `GET` to `https://api.trychameleon.com/v3/edit/segments/:id/:kind`

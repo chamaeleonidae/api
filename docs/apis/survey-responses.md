@@ -1,6 +1,6 @@
 # Microsurvey Responses
 
-A Response to a microsurvey is a single object with all of the information about the buttons clicked on the first step, the text input entered in the follow up step and the time that the survey was finished.
+A Response to a Microsurvey is a single object with all of the information about the buttons clicked on the first step, the text input entered in the follow up step and the time that the Microsurvey was finished.
 
 
 

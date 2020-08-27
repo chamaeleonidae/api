@@ -43,7 +43,7 @@
 | `description` | string | The display description in the Launcher menu |
 | `segment_id` | ID | The Chameleon ID of the configured segment |
 | `url` | string | The URL to link to when `kind=url |
-| `campaign_id` | ID | The Chameleon ID of the Tour or Survey referenced when `kind=tour` or `kind=survey` |
+| `campaign_id` | ID | The Chameleon ID of the Tour or Microsurvey referenced when `kind=tour` or `kind=survey` |
 | `script` | string | The JavaScript code snippet to execute when this item is clicked by your end-user |
 | `hide` | none | Whether or not to remove this item from the list after clicked/completed |
 

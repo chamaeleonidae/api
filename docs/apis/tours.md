@@ -1,6 +1,6 @@
 # Tours
 
-A Tour is a sequence of steps that shows to your end-users when they meet all of the predefined matching criteria
+A Tour is a sequence of steps that shows to your end-users when they meet all of the predefined matching criteria, including:
  - First step URL (on the right page) - required
  - Segmentation matches (User is the right person) - required but can be to match All Users
  - Element appears on the page - optional
