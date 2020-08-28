@@ -1,6 +1,6 @@
 # Chameleon API Docs
 
-**This documentation offers a preview of Chameleon's upcoming API. Until general release is announced, users should beware features may not work as inteded! 🐛**
+**This documentation offers a preview of Chameleon's upcoming API. Until general release is announced, users should beware that features may not work as intended! 🐛**
 
 Welcome to the Chameleon API. You can use this documentation alongside our [Product documentation](https://help.trychameleon.com) to do more with Chameleon. With the various APIs available you can Track Events, store properties on your User Profiles, see your Microsurvey Responses, assess the size of User Segments, and much more.
 
