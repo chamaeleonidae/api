@@ -4,7 +4,7 @@ Send User Profile data **into Chameleon** from services like Customer.io, Heap, 
 
 Profile data updates are processed synchronously on the application server
 
-## Update a Profile :id=profiles-update
+## Create/Update a Profile :id=profiles-update
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/profiles`
@@ -13,6 +13,7 @@ Profile data updates are processed synchronously on the application server
 |---|---|---|
 | id | optional | The Chameleon ID of the User Profile |
 | uid | optional | The User Profile Identifier (typically the Database ID from your backend) |
+| company_id | optional | The Chameleon Company ID that this user is a member of |
 | *others | optional | All other properties will be stored on the Profile |
 
 ```json
@@ -31,7 +32,9 @@ Profile data updates are processed synchronously on the application server
 
 ```json
 {
-  "code": 200
+  "profile": {
+    "id": "5f3c4232c712de665632a2a3"
+  }
 }
 ```
 

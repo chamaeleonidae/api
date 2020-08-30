@@ -7,7 +7,6 @@ A Tooltip is a single step which can be shown when your end-users click or hover
 ## Schema :id=schema
 
 
-
 ## List Tooltips :id=tooltips-index
 
 #### HTTP Request

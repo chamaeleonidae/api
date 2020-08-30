@@ -26,7 +26,9 @@ Events are processed asynchronously (typically within a few seconds).
 
 ```json
 {
-  "code": 200
+  "event": {
+    "id": "5f3c4232c712de665632a2a3"
+  }
 }
 ```
 

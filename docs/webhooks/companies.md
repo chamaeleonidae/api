@@ -4,7 +4,7 @@ Send Company data **into Chameleon**  from services like Customer.io, Heap, Zapi
 
 Company data updates are processed synchronously on the application server
 
-## Update a Company (Coming soon)
+## Create/Update a Company
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/companies`
@@ -17,7 +17,7 @@ Company data updates are processed synchronously on the application server
 
 ```json
 {
-  "uid": 18821,
+  "uid": "18821",
   "domain": "chmln.co",
   "name": "Leon Inc.",
   "plan": "Growth",
@@ -31,7 +31,9 @@ Company data updates are processed synchronously on the application server
 
 ```json
 {
-  "code": 200
+  "company": {
+    "id": "5f3c4232c712de665632a2a3"
+  }
 }
 ```
 
