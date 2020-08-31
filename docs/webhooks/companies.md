@@ -6,6 +6,9 @@ Company data updates are processed synchronously on the application server
 
 ## Create/Update a Company
 
+When you are creating/upserting the Company, simply send the `uid` and any other properties pertinent to that company.
+When you are updating the Company, simply send the Chameleon `id` field or use the `uid` and any other properties pertinent to that company.
+
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/companies`
 
