@@ -10,7 +10,8 @@ When you are creating/upserting the Profile, simply send the `uid` and any other
 When you are updating the Profile, simply send the Chameleon `id` field or use the `uid` and any other properties pertinent to that profile.
 
 #### HTTP Request
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/profiles`
+`POST` to `https://api.trychameleon.com/v3/observe/hooks/profiles` or
+`POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles`
 
 | param | - | description |
 |---|---|---|

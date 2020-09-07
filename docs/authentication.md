@@ -2,11 +2,13 @@
 
 ## Basics
 
-Every request uses the base URL of `api.trychameleon`, is authenticated with the `X-Account-Secret` header and uses `https://` and returns singular/plural top-level resource names depending on the requested resource. Your Secret token can be [generated here](https://app.trychameleon.com/setup/integrations/api). All tokens are Account-specific but can only be downloaded once.
+Every request uses the base URL of `api.trychameleon`, is authenticated with either the `X-Account-Secret` header or `account_secret` parameter and uses `https://`. Endpoints return singular/plural top-level resource names depending on the requested resource. Your Secret token can be [generated here](https://app.trychameleon.com/setup/integrations/api). All tokens are Account-specific but can only be downloaded once.
 
 To check your Secret token simply make this request:
 
-`curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.trychameleon.com`
+- `curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.trychameleon.com`
+- `curl https://api.trychameleon.com?account_secret=ACCOUNT_SECRET`
+- `curl -X POST -d {"account_secret":"ACCOUNT_SECRET"} https://api.trychameleon.com`
 
 To receive:
 

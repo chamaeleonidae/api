@@ -10,7 +10,8 @@ When you are creating/upserting the Company, simply send the `uid` and any other
 When you are updating the Company, simply send the Chameleon `id` field or use the `uid` and any other properties pertinent to that company.
 
 #### HTTP Request
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/companies`
+`POST` to `https://api.trychameleon.com/v3/observe/hooks/companies` or
+`POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies`
 
 | param | - | description |
 |---|---|---|
