@@ -8,6 +8,7 @@ Events are processed asynchronously (typically within a few seconds).
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/events` or
+
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/events`
 
 | param | - | description |

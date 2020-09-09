@@ -11,6 +11,7 @@ When you are updating the Profile, simply send the Chameleon `id` field or use t
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/profiles` or
+
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles`
 
 | param | - | description |

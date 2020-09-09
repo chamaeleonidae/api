@@ -67,9 +67,9 @@ By keeping them short and contextual (sending at just the right moment) the feed
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
-## Show a Microsurvey :id=campaigns-show
+## Retrieve a Microsurvey :id=campaigns-show
 
-Show a single Microsurvey
+Retrieve a single Microsurvey
 
 #### HTTP Request
 

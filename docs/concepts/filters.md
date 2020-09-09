@@ -56,7 +56,6 @@ Not all combinations of kinds and operators will work, see the subsections for s
   "op": "eq",
   "value": "admin"
 }
-
 ```
 
 ###### User whose "role is admin or owner or superuser"

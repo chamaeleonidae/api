@@ -36,7 +36,7 @@ All responses look the same with a pluralized top-level key with the list of mod
 }
 ```
 
-#### For a show a single item, it will be singular!
+#### When Retrieving a single item, it will be singular!
 
 ```json
 {

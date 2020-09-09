@@ -46,9 +46,9 @@ A Tooltip is a single step which can be shown when your end-users click or hover
 }
 ```
 
-## Show a Tooltip :id=campaigns-show
+## Retrieve a Tooltip :id=campaigns-show
 
-Show a single Tooltip
+Retrieve a single Tooltip
 
 #### HTTP Request
 

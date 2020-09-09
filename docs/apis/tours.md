@@ -77,9 +77,9 @@ A Tour is a sequence of steps that shows to your end-users when they meet all of
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
-## Show a Tour :id=campaigns-show
+## Retrieve a Tour :id=campaigns-show
 
-Show a single Tour
+Retrieve a single Tour
 
 #### HTTP Request
 

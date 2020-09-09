@@ -81,7 +81,7 @@ From the previous response `cursor.before`
 
 ## Showing a Segment :id=segments-show
 
-Show a single Segment
+Retrieve a single Segment
 
 #### HTTP Request
 

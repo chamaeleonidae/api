@@ -95,9 +95,9 @@ A Launcher is a collection of items shown in a menu to your end-users when they 
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
-## Show a Launcher :id=launchers-show
+## Retrieve a Launcher :id=launchers-show
 
-Show a single Launcher
+Retrieve a single Launcher
 
 #### HTTP Request
 

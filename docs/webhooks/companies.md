@@ -11,6 +11,7 @@ When you are updating the Company, simply send the Chameleon `id` field or use t
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/companies` or
+
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies`
 
 | param | - | description |
