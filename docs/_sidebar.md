@@ -8,6 +8,13 @@
   - [Filter expressions](concepts/filters.md)
   - [Normalization](concepts/normalization.md)
   - [Listing Models](concepts/any-model.md)
+  
+- Javascript API
+  - [Overview](js-api/overview.md)
+  - [Listen to Chameleon events](js-api/js-listen-events.md)
+  - [Send user properties](js-api/js-user-properties.md)
+  - [Send events](js-api/js-events.md)
+  - [Show a Tour](js-api/js-show-tour.md)
 
 - Data in / Webhooks
   - [Overview](webhooks/overview.md)
@@ -28,12 +35,6 @@
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/launchers.md)
  
-- Javascript API
-  - [Overview](js-api/overview.md)
-  - [Listen to Chameleon events](js-api/js-listen-events.md)
-  - [Send user properties](js-api/js-user-properties.md)
-  - [Send events](js-api/js-events.md)
-  - [Show a Tour](js-api/js-show-tour.md)
 
       
 
