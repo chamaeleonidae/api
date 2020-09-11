@@ -10,7 +10,7 @@
 
 
 
-## Force a tour to show
+## Force a Tour to show
 
 Call `chmln.show`  with the Chameleon ID of the Tour and the Tour will redirect to the right page (if necessary) and start the tour from the beginning.
 
