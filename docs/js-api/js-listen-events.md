@@ -26,11 +26,12 @@ Have an overview of the data Chameleon collects for analysis, by reading [this a
 
 ## Examples
 
-- Listen for Tour/Survey events -- send to custom integration.
+- [Listen for Tour/Survey events -- send to custom integration](#Listen for Tour/Survey events -- send to custom integration)
 
-- Send properties.
+- [Send properties](#Send properties)
 
-- Sending data to other tools directly.
+- [Sending data to other tools directly](#Sending data to other tools directly)
+
 
   
 
