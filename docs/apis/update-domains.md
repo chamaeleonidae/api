@@ -1,4 +1,4 @@
-# Update Domains via REST API
+# Domains
 
 **Automate which domains Chameleon is enabled for**
 
