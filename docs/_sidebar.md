@@ -15,6 +15,8 @@
   - [Send user properties](js-api/js-user-properties.md)
   - [Send events](js-api/js-events.md)
   - [Show a Tour](js-api/js-show-tour.md)
+  - [Show a Launcher](js-api/js-show-launcher.md)
+  - [Check the completion status of a checklist](js-api/js-checklist-completion-status.md)
 
 - Data in / Webhooks
   - [Overview](webhooks/overview.md)
