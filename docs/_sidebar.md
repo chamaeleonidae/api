@@ -17,6 +17,7 @@
 
 - Data out / Assessment (REST API)
   - [Overview](apis/overview.md)
+  - [Domains](apis/update-domains.md)
   - [User Profiles](apis/profiles.md)
   - [Searching User Profiles](apis/profiles-search.md)
   - [Microsurveys](apis/surveys.md)
@@ -26,5 +27,6 @@
   - [Segments (audiences)](apis/segments.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/launchers.md)
+  
 
 
