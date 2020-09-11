@@ -33,5 +33,6 @@
      - [Listen to Chameleon events](js-api/js-listen-events.md)
      - [Send user properties](js-api/js-user-properties.md)
      - [Send events](js-api/js-events.md)
+     - [Show a Tour](js-api/js-show-tour.md)
 
 
