@@ -15,7 +15,7 @@
   - [Events](webhooks/events.md)
   - [Companies](webhooks/companies.md)
 
-- Data out / Assessment (REST API)
+- REST API
   - [Overview](apis/overview.md)
   - [Domains](apis/domains.md)
   - [User Profiles](apis/profiles.md)
@@ -27,6 +27,9 @@
   - [Segments (audiences)](apis/segments.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/launchers.md)
-  
-
-
+ 
+ - Javascript API
+  - [Overview](js-api/overview.md)
+  - [Listen to Chameleon events](js-api/js-listen-events.md)
+  - [Send user properties](js-api/js-user-properties.md)
+  - [Send events](js-api/js-events.md)
