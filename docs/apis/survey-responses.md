@@ -15,6 +15,7 @@ A Response to a Microsurvey is a single object with all of the information about
 | `button_id` | ID | The Chameleon ID of the button |
 | `input_text` | string | Text comment left by the user (if configured) |
 | `finished_at` | timestamp | When the last step of Microsurvey response was completed |
+| `profile` | object | An expandable [Profile](apis/profiles.md) model |
 
 
 ## List Microsurvey Responses :id=responses-index

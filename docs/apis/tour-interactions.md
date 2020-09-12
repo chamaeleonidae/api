@@ -16,7 +16,7 @@ A Tour Interaction is a state object which contains the current view of a Tour f
 | `defer_count` | number | The number of times this Tour was snoozed until later |
 | `defer_until` | timestamp | The timestamp of when the snoozed ends |
 | `goal_at` | timestamp | The timestamp of when the configured Goal was met |
-| `profile` | object | An [expandable](apis/survey-responses.md?id=profile-expand) [Profile](apis/profiles.md) model |
+| `profile` | object | An expandable [Profile](apis/profiles.md) model |
 
 
 ## List Tour Interactions :id=tour-interactions-index

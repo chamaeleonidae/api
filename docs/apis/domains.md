@@ -1,101 +1,162 @@
 # Domains
 
-**Automate which domains Chameleon is enabled for**
+## Schema :id=schema
 
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `host` | string | The fully qualified domain of this URL (i.e. app.example.com) |
+| `domain` | string | The top-level domain (i.e. example.com) |
+| `enabled` | string | The authorization state of this Url, `subdomain` means that new urls are `on` vs safely defaulting to `off`: One of `off`, `on`, or `subdomain` |
+| `installed_at` | timestamp | When the JavaScript snippet was installed on this domain |
+| `first_seen_at` | timestamp | When this domain had its first User Profile identified |
+| `last_seen_at` | timestamp | The most recent time a User Profile as identified |
+| `unlisted` | boolean | If this Url is hidden from the list of domains |
 
+A Url is a record of authorization and permission ([read more here](https://help.trychameleon.com/en/articles/1318033-managing-domains-and-subdomains)).
 
-> **Note:** The domain preauthorize API is **available by request**. Please [email us](mailto:help@trychameleon.com?subject=enable domains api) to enable for your account.
-
-
-
-*For an overview of how the Chameleon API works, please first read* [*this article*](https://help.trychameleon.com/developer-docs/api-basics)*.*
-
-------
-
-
+Without a Url record authorizing a particular domain:
+ - The Live Experiences will not display and the Chameleon JavaScript will not be loaded onto the page.
+ - HTTP requests it our Internal APIS (to edit any Experiences or content) will fail.
 
 Enabling Domains on your Chameleon account via API can be helpful for: 
 
 - Enabling new domains on a top-level-domain.
 - Enabling Chameleon on a white-label application.
 
+------
 
 
-## Enabling a domain via REST API
+## Create a Url (Enable a new domain)
 
-#### **Create a domain on your account**
+#### HTTP Request
+`POST` to `https://api.trychameleon.com/v3/edit/urls`.
 
-Send a `POST`  to `https://app.trychameleon.com/urls/preauthorize` .
+| param | - | description |
+|---|---|---|
+| host | required | The fully qualified domain of this URL (i.e. app.example.com) |
+| enabled | optional | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain` |
+| unlisted | optional | Whether or not the Url is displayed on the [Domains page](https://app.trychameleon.com/settings/domains) in the dashboard |
 
-Include a `host` value for the domain being added or updated (required).
 
-> *Note: domains (e.g. google.com) must be submitted to Chameleon prior to subdomains (e.g. mail.google.com).*
+#### HTTP Response
 
-Include an `enable` and set to `on` or `off` to enable or disable the domain (optional).
-
-> *Note: by default, enable is set to `on`.* 
-
-**Example: Enabling a domain unseen by Chameleon**
-
-Request:
-
-```
-curl -X POST https://app.trychameleon.com/urls/preauthorize -H "X-Account-Secret: SECRET" -d '{"host":"myenableddomain.com"}' -H 'Content-Type: application/json'
-```
-
-Response:
-
-```
+```json
 {
-    "url":{
-        "id":"5c4950c34733cc0004d5bfd7",
-        "created_at":"2019-01-24T05:44:35.000Z",
-        "updated_at":"2019-01-24T21:47:33.472Z",
-        "enabled":"subdomain",
-        "host":"myenableddomain.com",
-        "domain":"myenableddomain.com",
-        "installed_at":null,
-        "first_seen_at":null,
-        "last_seen_at":null
-    }
+  "url": {
+     "id": "5c4950c34733cc0004d5bfd7",
+     "host": "app.example.com",
+     "domain": "example.com",
+     "enabled": "on",
+     ...
+  }
 }
 ```
 
+-------
+
+## Update a Url
+
+#### HTTP Request
+`POST` to `https://api.trychameleon.com/v3/edit/urls/:id`.
+
+| param | - | description |
+|---|---|---|
+| id | required | The Chameleon ID of the Url to update|
+| enabled | optional | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain` |
+| unlisted | optional | Whether or not the Url is displayed on the [Domains page](https://app.trychameleon.com/settings/domains) in the dashboard |
 
 
-#### Update a domain on your account
+#### HTTP Response
 
-Send a `POST`  to  `https://app.trychameleon.com/urls/preauthorize`.
-Include the same information as when enabling an unseen domain. 
-Include an `enable` and set to `"on"` or `"off"` to enable or disable the domain (optional).
-
-> *Note: by default, enable is set to `on`.* 
-
-
-
-**Example: Disabling a subdomain seen by Chameleon**
-
-Request:
-
-```
-curl -X POST https://app.trychameleon.com/urls/preauthorize -H "X-Account-Secret: SECRET" -d '{"host":"subdomain.myenableddomain.com","enabled":"off"}' -H 'Content-Type: application/json'
-```
-
-Response:
-
-```
+```json
 {
-    "url":{
-        "id":"5c4950c34733cc0004d5bfd7",
-        "created_at":"2019-01-24T05:44:35.000Z",
-        "updated_at":"2019-01-24T21:47:33.472Z",
-        "enabled":"off",
-        "host":"subdomain.myenableddomain.com",
-        "domain":"subdomain.myenableddomain.com",
-        "installed_at":null,
-        "first_seen_at":null,
-        "last_seen_at":null
-    }
+  "url": {
+     "id": "5c4950c34733cc0004d5bfd7",
+     "host": "app.example.com",
+     "domain": "example.com",
+     "enabled": "on",
+     ...
+  }
 }
 ```
+
+-------
+
+## Listing all Urls
+
+#### HTTP Request
+`GET` to `https://api.trychameleon.com/v3/edit/urls`.
+
+| param | - | description |
+|---|---|---|
+| domain | optional | Filter to urls only on this domain (i.e. ex.io will return app.ex.io, dashboard.ex.io but not app.example.com) |
+| limit | optional | Defaults to `50` with a maximum of `500` |
+| before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+
+#### HTTP Response
+
+```json
+{
+  "urls": [
+     {
+       "id": "5c4950c34733cc0004d5bfd7",
+       "host": "app.example.com",
+       "domain": "example.com",
+       "enabled": "on",
+       ...
+    },
+     {
+       "id": "5c4950c34733cc0004d5bfd4",
+       "host": "example.com",
+       "domain": "example.com",
+       "enabled": "subdomain",
+       ...
+    },
+     {
+       "id": "5c4950c34733cc0004d5bfd2",
+       "host": "internal.example.com",
+       "domain": "example.com",
+       "enabled": "off",
+       ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5c4950c34733cc0004d5bfd2"
+  }
+}
+```
+
+-------
+
+
+## Retrieve a Url
+
+#### HTTP Request
+`GET` to `https://api.trychameleon.com/v3/edit/urls/:id`.
+
+| param | - | description |
+|---|---|---|
+| id | required | The Chameleon ID of the Url to update|
+
+
+#### HTTP Response
+
+```json
+{
+  "url": {
+     "id": "5c4950c34733cc0004d5bfd7",
+     "host": "app.example.com",
+     "domain": "example.com",
+     "enabled": "on",
+     ...
+  }
+}
+```
+
 
