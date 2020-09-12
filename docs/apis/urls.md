@@ -28,8 +28,7 @@ Enabling Domains on your Chameleon account via API can be helpful for:
 
 ------
 
-
-## Create a Url (Enable a new domain)
+## Create a Url (Enable a new domain) :id=urls-create
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/edit/urls`.
@@ -57,7 +56,7 @@ Enabling Domains on your Chameleon account via API can be helpful for:
 
 -------
 
-## Update a Url
+## Update a Url :id=urls-update
 
 #### HTTP Request
 `POST` to `https://api.trychameleon.com/v3/edit/urls/:id`.
@@ -85,7 +84,7 @@ Enabling Domains on your Chameleon account via API can be helpful for:
 
 -------
 
-## Listing all Urls
+## Listing all Urls :id=urls-index
 
 #### HTTP Request
 `GET` to `https://api.trychameleon.com/v3/edit/urls`.
@@ -135,7 +134,7 @@ Enabling Domains on your Chameleon account via API can be helpful for:
 -------
 
 
-## Retrieve a Url
+## Retrieve a Url :id=urls-show
 
 #### HTTP Request
 `GET` to `https://api.trychameleon.com/v3/edit/urls/:id`.

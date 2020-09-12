@@ -9,6 +9,7 @@ The Chameleon API allows generic listing and showing of models. Currently suppor
 | [Microsurveys](apis/surveys.md) | `GET /v3/edit/surveys` | `GET /v3/edit/surveys/:id` |
 | [Launchers](apis/launchers.md) | `GET /v3/edit/launchers` | `GET /v3/edit/launchers/:id` |
 | [Tooltips](apis/tooltips.md) | `GET /v3/edit/tooltips` | `GET /v3/edit/tooltips/:id` |
+| [Domains](apis/urls.md) | `GET /v3/edit/urls` | `GET /v3/edit/urls/:id` |
 
 #### HTTP Responses
 

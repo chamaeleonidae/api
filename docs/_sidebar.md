@@ -35,7 +35,7 @@
   - [Segments (audiences)](apis/segments.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
-  - [Domains](apis/domains.md)
+  - [Domains](apis/urls.md)
  
 
       
