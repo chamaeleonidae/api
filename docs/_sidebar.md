@@ -1,22 +1,22 @@
 - Getting started
 
   - [Overview]()
-  - [Authentication](authentication.md)
-  - [Errors](errors.md)
-  - [Pagination](pagination.md)
-  - [Rate limiting](rate-limiting.md)
+  - [Authentication](concepts/authentication.md)
+  - [Errors](concepts/errors.md)
+  - [Pagination](concepts/pagination.md)
+  - [Rate limiting](concepts/rate-limiting.md)
   - [Filter expressions](concepts/filters.md)
   - [Normalization](concepts/normalization.md)
   - [Listing Models](concepts/any-model.md)
   
 - Javascript API
-  - [Overview](js-api/overview.md)
-  - [Listen to Chameleon events](js-api/js-listen-events.md)
-  - [Send user properties](js-api/js-user-properties.md)
-  - [Send events](js-api/js-events.md)
-  - [Show a Tour](js-api/js-show-tour.md)
-  - [Show a Launcher](js-api/js-show-launcher.md)
-  - [Check the completion status of a checklist](js-api/js-checklist-completion-status.md)
+  - [Overview](js/overview.md)
+  - [Identify Users](js/profiles.md)
+  - [Send events](js/events.md)
+  - [Show a Tour / Survey](js/show-tour.md)
+  - [Show a Launcher](js/show-launcher.md)
+  - [Check the completion status of a checklist](js/checklist-completion-status.md)
+  - [Listen to Chameleon events](js/listen.md)
 
 - Data in / Webhooks
   - [Overview](webhooks/overview.md)
@@ -26,7 +26,6 @@
 
 - REST API
   - [Overview](apis/overview.md)
-  - [Domains](apis/domains.md)
   - [User Profiles](apis/profiles.md)
   - [Searching User Profiles](apis/profiles-search.md)
   - [Microsurveys](apis/surveys.md)
@@ -35,7 +34,8 @@
   - [Tour interactions](apis/tour-interactions.md)
   - [Segments (audiences)](apis/segments.md)
   - [Launchers](apis/launchers.md)
-  - [Tooltips](apis/launchers.md)
+  - [Tooltips](apis/tooltips.md)
+  - [Domains](apis/domains.md)
  
 
       
