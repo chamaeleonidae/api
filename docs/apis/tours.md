@@ -102,7 +102,4 @@ Retrieve a single Tour
 }
 ```
 
-## List Tour Flows :id=tours-index
-
-Coming soon
-
+--------
