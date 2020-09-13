@@ -9,7 +9,7 @@ Account token is not valid or has been revoked
 ```json
 {
   "code": 403,
-  "messages": []
+  "messages": ["Unauthorized: Please check your Chameleon Account Secret"]
 }
 ```
 
@@ -25,7 +25,7 @@ Endpoint or Resource not found
 ```json
 {
   "code": 404,
-  "messages": []
+  "messages": ["Endpoint not found: Please recheck with the API docs https://developers.trychameleon.com"]
 }
 ```
 
@@ -46,7 +46,8 @@ X-Ratelimit-Wait: 114
 ```json
 {
   "code": 429,
-  "messages": ["Please wait for 114 more seconds before retrying your request"]
+  "messages": ["Rate Limited: Please refer to the API docs https://developers.trychameleon.com/#/concepts/rate-limiting for more information"],
+  "wait": 14
 }
 ```
 
@@ -54,7 +55,7 @@ X-Ratelimit-Wait: 114
 
 Server error
 
-An Error occurred that we had not otherwise planned on receiving. Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
+An Internal server error occurred (one that we otherwise had no planned on receiving). Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
 
 ```json
 {
@@ -65,13 +66,26 @@ An Error occurred that we had not otherwise planned on receiving. Typically thes
 
 ## HTTP Status 503 :id=status-503
 
-Server not available or backend didn't respond in time
+Server not available or backend didn't respond in time -- possibly not a JSON response depending on the origin of the 503
 
-Unexpected maintenance or the inability to shed enough load with [Rate limiting](rate-limiting.md)
+Unexpected maintenance, API downtime or the inability to shed enough load with [Rate limiting](rate-limiting.md)
 
 ```json
 {
   "code": 503,
   "messages": []
+}
+```
+
+## HTTP Status 504 :id=status-504
+
+The Server contacted or proxied your request to a different Service which took too long to respond
+
+This can happen when a request is too complex or the system load is too high. You may retry your request again after a suitable delay.
+
+```json
+{
+  "code": 504,
+  "messages": ["Internal timeout: An internal operation took too long."]
 }
 ```
