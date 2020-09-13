@@ -7,6 +7,14 @@ The Chameleon User Profiles API allows you to
  - Search for Users or get the Count of Users by any of the properties you have sent to us
  - Search for Users by any of the interactions they had with Chameleon (answered a Microsurvey etc.)
 
+> [Rate Limiting](concepts/rate-limiting.md) applies
+>
+> | endpoint | Maximum concurrent requests |
+> |---|---|
+> | `/profiles` | 2  |
+> | `/profiles/count` | 1 |
+
+
 ## Schema :id=schema
 
 See the full [User Profile schema](api/profiles.md?id=schema)
