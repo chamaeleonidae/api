@@ -1,8 +1,8 @@
 # Errors
 
-The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. That being said, you can check our [Status Page](https://status.trychameleon.com) or reference the errors found here for more information.
+The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. In case you are facing any error, you can check our [Status Page](https://status.trychameleon.com) or make use of the following error reference to have more information.
 
-## HTTP Status 403 :id=status-403
+## HTTP Status 403 (:id=status-403)
 
 Account token is not valid or has been revoked
 
@@ -13,7 +13,7 @@ Account token is not valid or has been revoked
 }
 ```
 
-## HTTP Status 404 :id=status-404
+## HTTP Status 404 (:id=status-404)
 
 Endpoint or Resource not found
 
@@ -29,7 +29,7 @@ Endpoint or Resource not found
 }
 ```
 
-## HTTP Status 429 :id=status-429
+## HTTP Status 429 (:id=status-429)
 
 You have made too many requests and exceeded your Rate limit.
 
@@ -51,7 +51,7 @@ X-Ratelimit-Wait: 114
 }
 ```
 
-## HTTP Status 500 :id=status-500
+## HTTP Status 500 (:id=status-500)
 
 Server error
 
@@ -64,7 +64,7 @@ An Internal server error occurred (one that we otherwise had no planned on recei
 }
 ```
 
-## HTTP Status 503 :id=status-503
+## HTTP Status 503 (:id=status-503)
 
 Server not available or backend didn't respond in time -- possibly not a JSON response depending on the origin of the 503
 
@@ -77,7 +77,7 @@ Unexpected maintenance, API downtime or the inability to shed enough load with [
 }
 ```
 
-## HTTP Status 504 :id=status-504
+## HTTP Status 504 (:id=status-504)
 
 The Server contacted or proxied your request to a different Service which took too long to respond
 
