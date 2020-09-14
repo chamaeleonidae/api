@@ -1,4 +1,4 @@
-# Check completion status of a checklist via JS API
+# Review a checklist status via JS API
 
 **Query data for checklist within Launchers using the JS API**
 
