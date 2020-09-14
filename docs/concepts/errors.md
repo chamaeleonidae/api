@@ -2,6 +2,8 @@
 
 The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. In case you are facing any error, you can check our [Status Page](https://status.trychameleon.com) or make use of the following error reference to have more information.
 
+---
+
 ## HTTP Status 403 (:id=status-403)
 
 Account token is not valid or has been revoked
