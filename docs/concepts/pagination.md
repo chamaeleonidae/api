@@ -1,8 +1,10 @@
 # Pagination / Filtering
 
-Pagination is simply a way to handle structural inability to return all results in a single HTTP request. For example, ou may want to access the latest 2000 records of 1 million)
+Pagination is simply a way to handle the structural inability to return all the results in a single HTTP request. For example, you may want to access the latest 2000 records from a total of 1 million.
 
-As a general rule any endpoint where you "List models" supports these pagination parameters (unless otherwise noted).
+---
+
+Unless noted otherwise, any endpoint where you **list models** (e.g. list users, tours, etc.) supports the following pagination parameters.
 
 | param | - | description |
 |---|---|---|
