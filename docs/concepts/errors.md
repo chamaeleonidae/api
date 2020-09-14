@@ -1,6 +1,6 @@
 # Errors
 
-The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. That being said, you can check our [Statuspage](https://status.trychameleon.com) or reference the errors found here for more information.
+The Chameleon APIs here are robust with 99.99% uptime and extensive monitoring. That being said, you can check our [Status Page](https://status.trychameleon.com) or reference the errors found here for more information.
 
 ## HTTP Status 403 :id=status-403
 
