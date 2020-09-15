@@ -1,5 +1,3 @@
-<details class="details-reset details-overlay details-
-
 # User Profiles
 
 User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.
@@ -9,11 +7,9 @@ User Profiles represent your *product's end-users*: real individuals who were id
 ---
 
 
-
 The Chameleon User Profiles API allows you to:
 
 - Retrieve a user by `id`, `uid` and `email`.
-
 - Search for users or get the count of users using any of the properties you have sent to us.
 
   
