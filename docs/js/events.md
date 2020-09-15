@@ -1,6 +1,6 @@
 # Send events via JS API
 
-*Track and send event data for users.*
+**Track and send event data for users.**
 
 ---
 
