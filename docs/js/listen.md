@@ -1,18 +1,14 @@
 # Listen to Chameleon events
 
-**Register a callback to certain state changes and events; useful for custom integrations with Chameleon**
+**Register a callback to certain state changes and events. This can be useful for custom integrations with Chameleon**
 
-
-
-*For an overview of how the Chameleon API works, please first read* [*this article*](https://help.trychameleon.com/developer-docs/api-basics)*.*
-
-------
-
+---
 
 
 You can send data automatically collected by Chameleon to your database or any other tools, using the methods below. 
 
 Have an overview of the data Chameleon collects for analysis, by reading [this article](https://help.trychameleon.com/en/articles/1226450-what-analytics-does-chameleon-provide).
+
 
 ## List of supported events
 
