@@ -1,5 +1,10 @@
 # Normalization
 
+Data in Chameleon is normalized for storage, to eliminate redundancy and data inconsistency, and to ensure proper querying and analysis.
+
+---
+
+
 ## Properties and Events
 
 - User Property names are normalized to their lower cased and underscored versions.
