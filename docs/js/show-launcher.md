@@ -17,7 +17,7 @@ Call `chmln.show`  with the Chameleon ID of the Launcher, and the Launcher will 
 chmln.show('ID');
 ```
 
-\-----
+---
 
 #### Finding the Launcher ID
 
@@ -27,7 +27,7 @@ To find the `ID`  of a Launcher, use the Browser Console. Right click the Launch
 
 Hover over the `<li id="chmln-list-XXXXXXXX"`  row which corresponds to the Launcher above and then use the `XXXXXXXXX`  as the `ID` .
 
-\-----
+---
 
 With the Chameleon sidebar showing, run:
 
