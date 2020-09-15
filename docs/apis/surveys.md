@@ -1,41 +1,57 @@
-# Microsurveys
+# [Microsurveys](https://developers.trychameleon.com/#/apis/surveys?id=microsurveys)
 
-Chameleon Microsurveys are a primary "question" step which can be followed by a freeform input follow-up question and a thank you at the end.
-By keeping them short and contextual (sending at just the right moment) the feedback is of **much higher signal** than other surveying channels
+**Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.** 
 
-## Schema :id=schema
-
-| Property | Type | Description |
-| --- | --- | --- |
-| `id` | ID | The Chameleon ID |
-| `created_at` | timestamp | When this happened or when this was added to the Database |
-| `updated_at` | timestamp | The last time any property was updated |
-| `name` | string | The name given by an administrator of Chameleon |
-| `position` | number | The order that these appear in lists (starting from 0) |
-| `segment_id` | ID | The Chameleon ID of the configured segment |
-| `published_at` | timestamp | The time this was most recently published |
-| `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
-| `stats` | object | Aggregated statistics for this model (all-time) |
-| `stats.started_count` | number | Number of your end-users who saw this |
-| `stats.last_started_at` | timestamp | Most recent time any user saw this |
-| `stats.completed_count` | number | Number of your end-users who completed/finished this |
-| `stats.last_completed_at` | timestamp | Most recent time any user completed/finished this |
-| `stats.exited_count` | number | Number of your end-users who dismissed/exited this |
-| `stats.last_exited_at` | timestamp | Most recent time any user dismissed/exited this |
+------
 
 
-## List Microsurveys :id=campaigns-index
 
-#### HTTP Request
-`GET` to `https://api.trychameleon.com/v3/edit/surveys`
+With the Chameleon Microsurveys API, you can:
 
-| param | - | description |
-|---|---|---|
-| limit | optional | Defaults to `50` with a maximum of `500` |
+- List all microsurveys that follow your indicated parameters.
+- Retrieve a single microsurvey using its `id`.
+
+
+
+## [Schema](https://developers.trychameleon.com/#/apis/surveys?id=schema)
+
+| Property                  | Type      | Description                                                  |
+| ------------------------- | --------- | ------------------------------------------------------------ |
+| `id`                      | ID        | The Chameleon ID                                             |
+| `created_at`              | timestamp | When this happened or when this was added to the Database    |
+| `updated_at`              | timestamp | The last time any property was updated                       |
+| `name`                    | string    | The name given by an administrator of Chameleon              |
+| `position`                | number    | The order that these appear in lists (starting from 0)       |
+| `segment_id`              | ID        | The Chameleon ID of the configured segment                   |
+| `published_at`            | timestamp | The time this was most recently published                    |
+| `rate_unlimit_at`         | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
+| `stats`                   | object    | Aggregated statistics for this model (all-time)              |
+| `stats.started_count`     | number    | Number of your end-users who saw this                        |
+| `stats.last_started_at`   | timestamp | Most recent time any user saw this                           |
+| `stats.completed_count`   | number    | Number of your end-users who completed/finished this         |
+| `stats.last_completed_at` | timestamp | Most recent time any user completed/finished this            |
+| `stats.exited_count`      | number    | Number of your end-users who dismissed/exited this           |
+| `stats.last_exited_at`    | timestamp | Most recent time any user dismissed/exited this              |
+
+## [List Microsurveys](https://developers.trychameleon.com/#/apis/surveys?id=campaigns-index)
+
+List all Microsurveys that follow your indicated parameters.
+
+#### [HTTP Request](https://developers.trychameleon.com/#/apis/surveys?id=http-request)
+
+```
+GET` to `https://api.trychameleon.com/v3/edit/surveys
+```
+
+| param  | -        | description                                                  |
+| ------ | -------- | ------------------------------------------------------------ |
+| limit  | optional | Defaults to `50` with a maximum of `500`                     |
 | before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 
-#### HTTP Response
+
+
+#### [HTTP Response](https://developers.trychameleon.com/#/apis/surveys?id=http-response)
 
 ```json
 {
@@ -63,21 +79,25 @@ By keeping them short and contextual (sending at just the right moment) the feed
 }
 ```
 
-#### Filtering by Segment :id=filter-segment
 
-See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
-## Retrieve a Microsurvey :id=campaigns-show
+#### [Filtering by Segment](https://developers.trychameleon.com/#/apis/surveys?id=filter-segment)
 
-Retrieve a single Microsurvey
+See [Listing Related models](https://developers.trychameleon.com/#/apis/segments?id=segment-experiences-index)
 
-#### HTTP Request
+## [Retrieve a Microsurvey](https://developers.trychameleon.com/#/apis/surveys?id=campaigns-show)
 
-`GET` to `https://api.trychameleon.com/v3/edit/surveys/:id`
+Retrieve a single Microsurvey.
 
-| param | - | description |
-|---|---|---|
-| id | required | A Microsurvey ID to lookup
+#### [HTTP Request](https://developers.trychameleon.com/#/apis/surveys?id=http-request-1)
+
+```
+GET` to `https://api.trychameleon.com/v3/edit/surveys/:id
+```
+
+| param | -        | description                |
+| ----- | -------- | -------------------------- |
+| id    | required | A Microsurvey ID to lookup |
 
 ```json
 {
