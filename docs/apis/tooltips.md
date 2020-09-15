@@ -1,26 +1,49 @@
 # Tooltips
 
-A Tooltip is a single step which can be shown when your end-users click or hover on either:
- - A specific element already present on the page (button, header, text field)
- - A Custom Icon tha Chameleon adds to the page (beta or new label etc.)
+**A Tooltip is a single step which can be shown when your end-users click or hover on either:**
+
+- **A specific element already present on the page (button, header, text field).**
+- **A Custom Icon tha Chameleon adds to the page (beta or new label etc.)**
+
+
+
+*To know more about Tooltips, feel free to visit our [product documentation](https://help.trychameleon.com/en/articles/2177293-how-to-add-a-tooltip)*.
+
+------
+
+
+
+With the Chameleon API for Tooltips, you can:
+
+- List all the Tooltips that follow a specified set of parameters.
+
+- Retrieve a single Tooltip based on the `id`.
+
+  
 
 ## Schema :id=schema
 
+TBD
 
 ## List Tooltips :id=tooltips-index
 
-#### HTTP Request
-`GET` to `https://api.trychameleon.com/v3/edit/tooltips`
+List all the Tooltips that follow a specified set of parameters.
 
-| param | - | description |
-|---|---|---|
-| limit | optional | Defaults to `50` with a maximum of `500` |
+#### HTTP Request
+
+```
+GET` to `https://api.trychameleon.com/v3/edit/tooltips
+```
+
+| param  | -        | description                                                  |
+| ------ | -------- | ------------------------------------------------------------ |
+| limit  | optional | Defaults to `50` with a maximum of `500`                     |
 | before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 
 #### HTTP Response
 
-```json
+```
 {
   "tooltips": [
     {
@@ -52,13 +75,15 @@ Retrieve a single Tooltip
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/tooltips/:id`
+```
+GET` to `https://api.trychameleon.com/v3/edit/tooltips/:id
+```
 
-| param | - | description |
-|---|---|---|
-| id | required | A Tooltip ID to lookup
+| param | -        | description            |
+| ----- | -------- | ---------------------- |
+| id    | required | A Tooltip ID to lookup |
 
-```json
+```
 {
   "tooltip": {
     "id": "5f3c4232c712de665632a2a1",
