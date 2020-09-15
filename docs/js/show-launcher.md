@@ -1,13 +1,10 @@
 # Show a Launcher via JS API
 
-**Show a particular Launcher using the JS API. Optionally open or close the Launcher.**
+Show a particular Launcher using the JS API. Optionally open or close the Launcher.
 
-
-
-*For an overview of how the Chameleon API works, please first read* [*this article*](https://help.trychameleon.com/developer-docs/api-basics)*.
 To learn more about the Chameleon Launchers product, please read* [*this article*](https://help.trychameleon.com/launchers)*.*
 
-------
+---
 
 
 
