@@ -1,6 +1,6 @@
 # Show a Launcher via JS API
 
-Show a particular Launcher using the JS API. Optionally open or close the Launcher.
+*Show a particular Launcher using the JS API. Optionally open or close the Launcher.*
 
 To learn more about the Chameleon Launchers product, please read* [*this article*](https://help.trychameleon.com/launchers)*.*
 
