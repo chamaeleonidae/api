@@ -8,6 +8,8 @@
 - **Element must be clicked on or hovered over - optional**
 - **etc.**
 
+*To know more about Tours, you can visit our [product documentation](https://help.trychameleon.com/en/collections/74747-tours).*
+
 ------
 
 
