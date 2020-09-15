@@ -1,6 +1,6 @@
 # User Profiles
 
-User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.
+*User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.*
 
 ---
 
