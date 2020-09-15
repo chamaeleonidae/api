@@ -18,7 +18,15 @@ With the Chameleon API for Segments, you can:
 
 ## Schema :id=schema
 
-TBD
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `name` | string | The name given by an administrator of Chameleon |
+| `items` | array | An array of items that each define a [Segmentation Filter expression](concepts/filters.md) |
+
+
 
 ## Listing Segments :id=segments-index
 
