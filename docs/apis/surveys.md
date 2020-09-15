@@ -85,7 +85,7 @@ GET` to `https://api.trychameleon.com/v3/edit/surveys
 
 #### Filtering by Segment
 
-See [Listing Related Models](https://developers.trychameleon.com/#/apis/segments?id=segment-experiences-index).
+See [Listing Related Models](apis/segments.md?id=segment-experiences-index).
 
 ## Retrieve a Microsurvey
 

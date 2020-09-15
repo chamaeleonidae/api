@@ -91,7 +91,7 @@ List all the tours that follow the specified parameters.
 
 #### Filtering by Segment :id=filter-segment
 
-See [Listing Related models](https://github.com/chamaeleonidae/api/blob/master/docs/apis/apis/segments.md?id=segment-experiences-index)
+See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
 ## Retrieve a Tour :id=campaigns-show
 

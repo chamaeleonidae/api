@@ -10,12 +10,12 @@ The currently supported models are:
 
 | Model + details                                              | List URL                 | Show URL                     |
 | ------------------------------------------------------------ | ------------------------ | ---------------------------- |
-| [Segments](https://github.com/chamaeleonidae/api/blob/master/docs/concepts/apis/segments.md) | `GET /v3/edit/segments`  | `GET /v3/edit/segments/:id`  |
-| [Tours](https://github.com/chamaeleonidae/api/blob/master/docs/concepts/apis/tours.md) | `GET /v3/edit/tours`     | `GET /v3/edit/tours/:id`     |
-| [Microsurveys](https://github.com/chamaeleonidae/api/blob/master/docs/concepts/apis/surveys.md) | `GET /v3/edit/surveys`   | `GET /v3/edit/surveys/:id`   |
-| [Launchers](https://github.com/chamaeleonidae/api/blob/master/docs/concepts/apis/launchers.md) | `GET /v3/edit/launchers` | `GET /v3/edit/launchers/:id` |
-| [Tooltips](https://github.com/chamaeleonidae/api/blob/master/docs/concepts/apis/tooltips.md) | `GET /v3/edit/tooltips`  | `GET /v3/edit/tooltips/:id`  |
-| [Domains](https://github.com/chamaeleonidae/api/blob/master/docs/concepts/apis/urls.md) | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |
+| [Segments](apis/segments.md) | `GET /v3/edit/segments`  | `GET /v3/edit/segments/:id`  |
+| [Tours](apis/tours.md) | `GET /v3/edit/tours`     | `GET /v3/edit/tours/:id`     |
+| [Microsurveys](apis/surveys.md) | `GET /v3/edit/surveys`   | `GET /v3/edit/surveys/:id`   |
+| [Launchers](apis/launchers.md) | `GET /v3/edit/launchers` | `GET /v3/edit/launchers/:id` |
+| [Tooltips](apis/tooltips.md) | `GET /v3/edit/tooltips`  | `GET /v3/edit/tooltips/:id`  |
+| [Domains](apis/urls.md) | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |
 
 
 

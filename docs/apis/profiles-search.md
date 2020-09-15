@@ -2,7 +2,7 @@
 
 **User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon.** 
 
-*If you want to know more about User Profiles, visit the [User Profiles section](https://developers.trychameleon.com/#/apis/profiles).*
+*If you want to know more about User Profiles, visit the [User Profiles section](apis/profiles.md).*
 
 ------
 
@@ -29,8 +29,7 @@ Searching User Profiles through the Chameleon API allows you to:
 
 ## Schema
 
-See the full [User Profile schema](api/profiles.md?id=schema).
-
+See the full [User Profile schema](apis/profiles.md?id=schema).
 
 
 ## Examples :id=examples
@@ -38,6 +37,16 @@ See the full [User Profile schema](api/profiles.md?id=schema).
 All of these examples are based directly on the full schema of [Segmentation Filter Expressions](concepts/filters.md).
 
 > *Note: A fully-fledged version of these examples is implemented in the Chameleon Builder section for Segments.*
+
+Each example below is used as the value for the `filters` key in the JSON request body:
+
+```json
+{
+  "filters": [
+    ...
+  ]
+}
+```
 
 #### 1. User Profiles that Completed a Tour
 

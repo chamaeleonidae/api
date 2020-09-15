@@ -22,7 +22,7 @@ With the Chameleon API, you can list Tour Interactions that follow the specified
 | `defer_count` | number    | The number of times this Tour was snoozed until later        |
 | `defer_until` | timestamp | The timestamp of when the snoozed ends                       |
 | `goal_at`     | timestamp | The timestamp of when the configured Goal was met            |
-| `profile`     | object    | An expandable [Profile](https://github.com/chamaeleonidae/api/blob/master/docs/apis/apis/profiles.md) model |
+| `profile`     | object    | An expandable [Profile](apis/profiles.md) model |
 
 ## List Tour Interactions :id=tour-interactions-index
 

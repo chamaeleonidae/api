@@ -2,7 +2,7 @@
 
 **Query data for checklist within Launchers using the JS API**
 
-*To know how to find the ID of a particular Launcher, please first read the [Show a Launcher section](https://developers.trychameleon.com/#/js/show-launcher)*
+*To know how to find the ID of a particular Launcher, please first read the [Show a Launcher section](js/show-launcher.md)*
 
 ----
 
