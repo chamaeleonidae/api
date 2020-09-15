@@ -1,4 +1,4 @@
-# [Microsurveys](https://developers.trychameleon.com/#/apis/surveys?id=microsurveys)
+# Microsurveys
 
 **Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.** 
 
@@ -13,7 +13,7 @@ With the Chameleon Microsurveys API, you can:
 
 
 
-## [Schema](https://developers.trychameleon.com/#/apis/surveys?id=schema)
+## Schema
 
 | Property                  | Type      | Description                                                  |
 | ------------------------- | --------- | ------------------------------------------------------------ |
@@ -33,11 +33,11 @@ With the Chameleon Microsurveys API, you can:
 | `stats.exited_count`      | number    | Number of your end-users who dismissed/exited this           |
 | `stats.last_exited_at`    | timestamp | Most recent time any user dismissed/exited this              |
 
-## [List Microsurveys](https://developers.trychameleon.com/#/apis/surveys?id=campaigns-index)
+## List Microsurveys
 
 List all Microsurveys that follow your indicated parameters.
 
-#### [HTTP Request](https://developers.trychameleon.com/#/apis/surveys?id=http-request)
+#### HTTP Request
 
 ```
 GET` to `https://api.trychameleon.com/v3/edit/surveys
@@ -51,7 +51,7 @@ GET` to `https://api.trychameleon.com/v3/edit/surveys
 
 
 
-#### [HTTP Response](https://developers.trychameleon.com/#/apis/surveys?id=http-response)
+#### HTTP Response
 
 ```json
 {
@@ -81,19 +81,19 @@ GET` to `https://api.trychameleon.com/v3/edit/surveys
 
 
 
-#### [Filtering by Segment](https://developers.trychameleon.com/#/apis/surveys?id=filter-segment)
+#### Filtering by Segment
 
-See [Listing Related models](https://developers.trychameleon.com/#/apis/segments?id=segment-experiences-index)
+See [Listing Related Models](https://developers.trychameleon.com/#/apis/segments?id=segment-experiences-index).
 
-## [Retrieve a Microsurvey](https://developers.trychameleon.com/#/apis/surveys?id=campaigns-show)
+## Retrieve a Microsurvey
 
 Retrieve a single Microsurvey.
 
-#### [HTTP Request](https://developers.trychameleon.com/#/apis/surveys?id=http-request-1)
+#### HTTP Request
 
-```
-GET` to `https://api.trychameleon.com/v3/edit/surveys/:id
-```
+
+`GET` to `https://api.trychameleon.com/v3/edit/surveys/:id`
+
 
 | param | -        | description                |
 | ----- | -------- | -------------------------- |
