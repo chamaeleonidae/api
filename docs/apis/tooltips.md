@@ -23,7 +23,15 @@ With the Chameleon API for Tooltips, you can:
 
 ## Schema :id=schema
 
-TBD
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `name` | string | The name given by an administrator of Chameleon |
+| `position` | number | The order that these appear in lists (starting from 0) |
+| `published_at` | timestamp | The time this was most recently published |
+
 
 ## List Tooltips :id=tooltips-index
 
