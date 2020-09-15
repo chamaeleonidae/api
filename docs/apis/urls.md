@@ -24,11 +24,8 @@ Enabling Domains on your Chameleon account via API can be helpful for:
 With the Chameleon API for Domains, you can:
 
 - Enable new domains.
-
 - Update a previously existing domain.
-
 - Retrieve all domains that correspond to the specified parameters.
-
 - Retrieve a specific domain based on its `id`.
 
   
