@@ -1,29 +1,43 @@
-# User Profile Searching + Counting
+# Searching and Counting User Profiles
 
-User Profiles are "your product's end-users", they represent a real person who was identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are. 
+**User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon.** 
 
-The Chameleon User Profiles API allows you to
- - Search for a User by `id`, `uid` and `email`
- - Search for Users or get the Count of Users by any of the properties you have sent to us
- - Search for Users by any of the interactions they had with Chameleon (answered a Microsurvey etc.)
+*If you want to know more about User Profiles, visit the [User Profiles section](https://developers.trychameleon.com/#/apis/profiles).*
 
-> [Rate Limiting](concepts/rate-limiting.md) applies
->
-> | endpoint | Maximum concurrent requests |
-> |---|---|
-> | `/profiles` | 2  |
-> | `/profiles/count` | 1 |
+------
 
 
-## Schema :id=schema
 
-See the full [User Profile schema](api/profiles.md?id=schema)
+Searching User Profiles through the Chameleon API allows you to:
+
+ - Search for a user by `id`, `uid` and `email`.
+
+ - Search for users or get the Count of Users by any of the properties you have sent to us.
+
+ - Search for users by any of the interactions they had with Chameleon (answered a Microsurvey etc.).
+
+   
+
+> *Note: [Rate Limiting](concepts/rate-limiting.md) applies according to the table below.*
+
+| endpoint          | Maximum concurrent requests |
+| ----------------- | --------------------------- |
+| `/profiles`       | 2                           |
+| `/profiles/count` | 1                           |
+
+
+
+## Schema
+
+See the full [User Profile schema](api/profiles.md?id=schema).
+
+
 
 ## Examples :id=examples
 
-All of these examples are based directly on the full schema of [Segmentation filter expressions](concepts/filters.md)
+All of these examples are based directly on the full schema of [Segmentation Filter Expressions](concepts/filters.md).
 
-A fully-fledged version of this is implemented in the Chameleon Builder section for Segments
+> *Note: A fully-fledged version of these examples is implemented in the Chameleon Builder section for Segments.*
 
 #### 1. User Profiles that Completed a Tour
 
@@ -37,10 +51,12 @@ A fully-fledged version of this is implemented in the Chameleon Builder section 
 ]
 ```
 
+
+
 #### 2. User Profiles that exited a Tour within last 3 days
 
-`cond` - A secondary time-based filter operator
-`int` - A secondary time-based filter # of days
+`cond` - A secondary time-based filter operator.
+`int` - A secondary time-based filter # of days.
 
 ```json
 [
@@ -55,12 +71,13 @@ A fully-fledged version of this is implemented in the Chameleon Builder section 
 ```
 
 
+
 #### 3. User Profiles that are an NPS promoter
 
-For a 11-button NPS, value `range` are 0,1,2,3,4,5,6,7,8,9,10
+`mod` - A secondary matching condition for range.
+`range` - A secondary matching range (in this case, button index).
 
-`mod` - A secondary matching condition for range
-`range` - A secondary matching range (in this case, button index)
+> *Note: For a 11-button NPS, value `range` are 0,1,2,3,4,5,6,7,8,9,10.*
 
 ```json
 [
@@ -73,12 +90,14 @@ For a 11-button NPS, value `range` are 0,1,2,3,4,5,6,7,8,9,10
 ]
 ```
 
+
+
 #### 4. User Profiles that answered negatively to CES Microsurvey
 
-For a 5-button CES, value `range` are 0,1,2,3,4
+`mod` - A secondary matching condition for range.
+`range` - A secondary matching range (in this case, button index).
 
-`mod` - A secondary matching condition for range
-`range` - A secondary matching range (in this case, button index)
+> *Note: For a 5-button CES, value `range` are 0,1,2,3,4.*
 
 ```json
 [
@@ -90,6 +109,8 @@ For a 5-button CES, value `range` are 0,1,2,3,4
   }
 ]
 ```
+
+
 
 #### 5. User Profiles that were most recently active more than 7 days ago
 
@@ -104,8 +125,10 @@ For a 5-button CES, value `range` are 0,1,2,3,4
 ]
 ```
 
+
+
 #### 6. Admins who are responsible for 3 or more user invites on their account
-        
+
 ```json
 [
   {
@@ -121,18 +144,22 @@ For a 5-button CES, value `range` are 0,1,2,3,4
 ]
 ```
 
-## Listing / Searching Users :id=profiles-index
+
+
+## [Searching Users] :id=profiles-index
 
 #### HTTP Request
-`GET|POST` to `https://api.trychameleon.com/v3/analyze/profiles` (plural)
 
-| param | - | description |
-|---|---|---|
+`GET|POST` to `https://api.trychameleon.com/v3/analyze/profiles` (plural).
+
+| param      | -        | description                                                  |
+| ---------- | -------- | ------------------------------------------------------------ |
 | segment_id | optional | The Chameleon Segment ID from the [List of Segments](apis/segments.md) |
-| filters | optional | The array of [Segmentation filter expressions](concepts/filters.md) |
+| filters    | optional | The array of [Segmentation filter expressions](concepts/filters.md) |
 
 
 #### Example: Segment ID
+
 ```json
 {
   "segment_id": "5f3c4232c712de665632a6d7"
@@ -142,6 +169,8 @@ For a 5-button CES, value `range` are 0,1,2,3,4
 #### Example: Segmentation filter expressions
 
 [See examples above](api/profiles-search.md?id=examples)
+
+
 
 #### HTTP Response
 
@@ -170,12 +199,17 @@ For a 5-button CES, value `range` are 0,1,2,3,4
 
 ------
 
+
+
 ## Counting Users :id=profiles-count
 
 #### HTTP Request
+
 `GET|POST` to `https://api.trychameleon.com/v3/analyze/profiles/count`
 
 **Use the same params / request body as [Searching Users](apis/profiles-search.md?id=profiles-index)**
+
+
 
 #### HTTP Response
 
