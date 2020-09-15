@@ -98,8 +98,6 @@ When using a **POST** request send one of these properties:
 }
 ```
 
-------
-
 
 
 ## Clear or Reset a User Profile
