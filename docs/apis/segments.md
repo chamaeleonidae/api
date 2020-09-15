@@ -1,21 +1,36 @@
 # Segments
 
-Segments are fundamental to targeting users within Chameleon. They are used for Microsurveys, Tours and Launchers to make sure the right users see the right content at the right moment.
+**Segments are fundamental to targeting users within Chameleon. They are used for Microsurveys, Tours and Launchers to make sure the right users see the right content at the right moment.**
 
-A Segment is a collection of [Segmentation filter expressions](concepts/filters.md) in the `items` key
+**A Segment is a collection of [Segmentation filter expressions](concepts/filters.md) in the `items` key**.
+
+------
+
+
+
+With the Chameleon API for Segments, you can:
+
+- Retrieve a list of segments according to the specified parameters.
+- Retrieve a single segment based on the `id`.
+- List all the Chameleon Experiences (Tours, Microsurveys, Launchers) that are connected to a defined segment.
+
+
 
 ## Schema :id=schema
 
+TBD
 
 ## Listing Segments :id=segments-index
+
+Retrieve a list of segments according to the specified parameters.
 
 #### HTTP Request
 
 `GET` to `https://api.trychameleon.com/v3/edit/segments`
 
-| param | - | description |
-|---|---|---|
-| limit | optional | Defaults to `50` with a maximum of `500` |
+| param  | -        | description                                                  |
+| ------ | -------- | ------------------------------------------------------------ |
+| limit  | optional | Defaults to `50` with a maximum of `500`                     |
 | before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 
@@ -81,7 +96,7 @@ From the previous response `cursor.before`
 
 ## Showing a Segment :id=segments-show
 
-Retrieve a single Segment
+Retrieve a single Segment.
 
 #### HTTP Request
 
@@ -122,9 +137,10 @@ Retrieve a single Segment
 
 ## Listing Related Experiences :id=segment-experiences-index
 
-A Segment can be configured to be attached to **many Chameleon Experiences** including Microsurveys, Tours and Launchers. This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
+A Segment can be configured to be attached to many Chameleon Experiences, including Microsurveys, Tours and Launchers. This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
 
 #### HTTP Request
+
 `GET` to `https://api.trychameleon.com/v3/edit/segments/:id/:kind`
 
 | param | - | description |
