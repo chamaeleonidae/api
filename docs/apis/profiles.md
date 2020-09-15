@@ -2,10 +2,7 @@
 
 User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.
 
-
-
 ---
-
 
 The Chameleon User Profiles API allows you to:
 
@@ -175,4 +172,3 @@ The deletion is an internal Chameleon record that can be referenced for proof of
   }
 }
 ```
-
