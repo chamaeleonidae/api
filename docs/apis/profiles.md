@@ -11,6 +11,8 @@ The Chameleon User Profiles API allows you to:
 
 - Retrieve a user by `id`, `uid` and `email`.
 - Search for users or get the count of users using any of the properties you have sent to us.
+- Clear or reset a specific user's data.
+- Delete a user permanently
 
   
 
