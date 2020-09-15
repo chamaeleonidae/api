@@ -9,7 +9,6 @@
 Using Chameleon's API for microsurvey responses, you can:
 
 - List microsurvey responses.
-
 - Delete a microsurvey response.
 
   
@@ -33,9 +32,8 @@ Using Chameleon's API for microsurvey responses, you can:
 
 #### HTTP Request
 
-```
-GET` to `https://api.trychameleon.com/v3/analyze/responses
-```
+`GET` to `https://api.trychameleon.com/v3/analyze/responses`
+
 
 | param          | -        | description                                                  |
 | -------------- | -------- | ------------------------------------------------------------ |
