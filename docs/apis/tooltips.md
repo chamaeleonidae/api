@@ -3,7 +3,7 @@
 **A Tooltip is a single step which can be shown when your end-users click or hover on either:**
 
 - **A specific element already present on the page (button, header, text field).**
-- **A Custom Icon tha Chameleon adds to the page (beta or new label etc.)**
+- **A Custom Icon that Chameleon adds to the page (beta or new label etc.)**
 
 
 
