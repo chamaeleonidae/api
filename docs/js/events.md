@@ -1,13 +1,8 @@
 # Send events via JS API
 
-**Track and send event data for users**
+Track and send event data for users
 
-
-
-*For an overview of how the Chameleon API works, please first read* [*this article*](https://help.trychameleon.com/developer-docs/api-basics)*.*
-
-------
-
+---
 
 
 Sending event data to Chameleon can be valuable for:
