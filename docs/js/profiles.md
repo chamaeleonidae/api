@@ -1,6 +1,6 @@
 # Send user properties via JS API
 
-*Create and update data attributes for users and companies*
+**Create and update data attributes for users and companies**
 
 ---
 
