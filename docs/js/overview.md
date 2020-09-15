@@ -3,6 +3,7 @@
 
 The Javascript API is the client-side portion of Chameleon's API. With it, you can access and manipulate a wide variety of data that exists on the client.
 
+---
 
 
 ## Ideas for how you can use this API
