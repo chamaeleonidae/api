@@ -1,12 +1,8 @@
 # Send user properties via JS API
 
-**Create and update data attributes for users and companies**
+Create and update data attributes for users and companies
 
-
-
-*For an overview of how the Chameleon API works, please first read* [*this article*](https://help.trychameleon.com/developer-docs/api-basics)*.*
-
-------
+---
 
 
 
