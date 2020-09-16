@@ -1,6 +1,6 @@
 # Segmentation Filter Expressions
 
-A filter expression is a type of codified query used for user segmentation, that contains a combination of keys and values that instruct the query builder how to query the User Profile data.
+**A filter expression is a type of codified query used for user segmentation, that contains a combination of keys and values that instruct the query builder how to query the User Profile data.**
 
 ------
 
