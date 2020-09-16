@@ -1,4 +1,4 @@
-# Events
+# Events (Incoming Webhook)
 
 **Send Event data into Chameleon from services like Customer.io, Heap, Zapier or from you own backend.**
 
