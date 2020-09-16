@@ -41,9 +41,7 @@ List all Microsurveys that follow your indicated parameters.
 
 #### HTTP Request
 
-```
-GET` to `https://api.trychameleon.com/v3/edit/surveys
-```
+`GET` to `https://api.trychameleon.com/v3/edit/surveys`
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
