@@ -6,7 +6,7 @@
 
 
 
-Currently, it supports the following endpoints:
+Currently, our REST API supports the following endpoints:
 
 | Model + details                                              | List URL                 | Show URL                     |
 | ------------------------------------------------------------ | ------------------------ | ---------------------------- |
