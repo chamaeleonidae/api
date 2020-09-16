@@ -12,10 +12,12 @@ Currently, our REST API supports the following endpoints:
 | ------------------------------------------------------------ | ------------------------ | ---------------------------- |
 | [Segments](https://developers.trychameleon.com/#/apis/segments) | `GET /v3/edit/segments`  | `GET /v3/edit/segments/:id`  |
 | [Tours](https://developers.trychameleon.com/#/apis/tours)    | `GET /v3/edit/tours`     | `GET /v3/edit/tours/:id`     |
+| [Tour Interactions](https://developers.trychameleon.com/#/apis/tour-interactions) | `GET /v3/analyze/interactions` | `GET /v3/analyze/interactions/:id` |
 | [Microsurveys](https://developers.trychameleon.com/#/apis/surveys) | `GET /v3/edit/surveys`   | `GET /v3/edit/surveys/:id`   |
 | [Launchers](https://developers.trychameleon.com/#/apis/launchers) | `GET /v3/edit/launchers` | `GET /v3/edit/launchers/:id` |
 | [Tooltips](https://developers.trychameleon.com/#/apis/tooltips) | `GET /v3/edit/tooltips`  | `GET /v3/edit/tooltips/:id`  |
 | [Domains](https://developers.trychameleon.com/#/apis/urls)   | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |
+| [User Profiles](https://developers.trychameleon.com/#/apis/profiles) | `GET /v3/analyze/profiles`| `GET v3/analyze/profiles/:id` |
 
 
 
