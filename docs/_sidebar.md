@@ -18,7 +18,7 @@
   - [Review a checklist status](js/launcher-checklist.md)
   - [Listen to Chameleon events](js/listen.md)
 
-- Data in / Webhooks
+- Webhooks (Data In)
   - [Overview](webhooks/overview.md)
   - [User Profiles](webhooks/profiles.md)
   - [Events](webhooks/events.md)
