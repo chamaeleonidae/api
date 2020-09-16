@@ -1,6 +1,6 @@
 # Pagination
 
-Pagination is a way to handle the structural inability to return all the results in a single HTTP request. For example, you may want to access the latest 2000 records from a total of 1 million.
+**Pagination is a way to handle the structural inability to return all the results in a single HTTP request. For example, you may want to access the latest 2000 records from a total of 1 million.**
 
 ---
 
