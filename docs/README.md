@@ -11,7 +11,7 @@
 You can use this documentation alongside our [Product Documentation](https://help.trychameleon.com/) to do more with Chameleon. 
 
 
-**Our Chameleon API is subdivided essentially in three main portions:** a client-side [JavaScript API](/js/overview.md), a REST API and Webhooks. With these, you can achieve more with our product and create custom integrations to fit your use cases.
+**Our Chameleon API is subdivided essentially in three main portions:** a client-side [JavaScript API](/js/overview.md), a [REST API](/apis/overview.md) and [Webhooks](/webhooks/overview.md). With these, you can achieve more with our product and create custom integrations to fit your use cases.
 
 You can interact with our API to:
 - **Send data to Chameleon**: This can include letting Chameleon know when a user completes an action, or when their profile changes (e.g. they become paid.) You can remove/delete user data, opt a user out of Chameleon Experiences, and send variables for users to use within the copy of any Experience (e.g. user first names). 
