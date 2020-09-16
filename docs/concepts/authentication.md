@@ -14,7 +14,7 @@ To check your Account Secret token simply make this request:
 
 - `curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.trychameleon.com`
 - `curl https://api.trychameleon.com?account_secret=ACCOUNT_SECRET`
-- `curl -X POST -d {"account_secret":"ACCOUNT_SECRET"} https://api.trychameleon.com`
+- `curl -X POST -d '{"account_secret":"ACCOUNT_SECRET"}' https://api.trychameleon.com`
 
 To receive:
 
