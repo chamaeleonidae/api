@@ -50,6 +50,11 @@ Profile data updates are processed synchronously on the application server.
 }
 ```
 
+## Disabling all Chameleon Experiences
+
+To disable all Chameleon experiences you can add the `disabled: true` boolean value for the use via the JavaScript API or via REST API
+
+
 ## Limits
 
 - Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.

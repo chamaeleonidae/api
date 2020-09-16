@@ -4,13 +4,10 @@
 
 ------
 
-
-
 Using Chameleon's API for microsurvey responses, you can:
 
 - List microsurvey responses.
 - Delete a microsurvey response.
-
   
 
 ## Schema :id=schema
@@ -42,7 +39,10 @@ Using Chameleon's API for microsurvey responses, you can:
 | before         | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before         | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | expand         | optional | Object that specifies relationships to include/exclude.      |
-| expand.profile | optional | use values of `all` or `none` control the properties present in the `profile`. Defaults to a minimal representation |
+| expand.profile | optional | use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to a minimal representation, `min` |
+| expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to a minimal representation, `min` |
+
+Note: A `profile` keys will always be present with an object value. THe `company` key will be missing when User Profile is not attached to a Company but will otherwise be an object..
 
 #### HTTP Response
 
@@ -74,6 +74,10 @@ Using Chameleon's API for microsurvey responses, you can:
         "id": "5f3c4232c712de665632a6d6",
         "uid": "55125",
         ...
+      },
+      "company": {
+        "id": "5f3c4232c712de665632a6d7",
+        "uid": "3321",
       },
       ...
     },
