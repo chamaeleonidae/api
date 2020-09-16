@@ -22,4 +22,4 @@ The API is straightforward, flexible, and designed with RESTful intentions. It i
 
 
 
-> **If you have any questions/comments/feature requests they can be [submitted here](https://app.trychameleon.com/help/request).**
+> **If you have any questions/comments/feature requests they can be [submitted here](https://app.trychameleon.com/help/report).**
