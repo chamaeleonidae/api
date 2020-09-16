@@ -1,6 +1,6 @@
 # Authentication
 
-Authentication is necessary to access the Chameleon API. To authenticate, you will need to retrieve an account-specific secret token.
+**Authentication is necessary to access the Chameleon API. To authenticate, you will need to retrieve an account-specific secret token.**
 
 ---
 
