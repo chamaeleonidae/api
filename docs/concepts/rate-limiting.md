@@ -1,6 +1,6 @@
 # Rate limiting
 
-Rate limiting is used to prevent the frequency of an operation from exceeding some constraint, thus being crucial to the timely handling of all critical requests.
+**Rate limiting is used to prevent the frequency of an operation from exceeding some constraint, thus being crucial to the timely handling of all critical requests.**
 
 ---
 
