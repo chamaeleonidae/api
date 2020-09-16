@@ -24,6 +24,7 @@ Using Chameleon's API for microsurvey responses, you can:
 | `input_text`   | string    | Text comment left by the user (if configured)                |
 | `finished_at`  | timestamp | When the last step of Microsurvey response was completed     |
 | `profile`      | object    | An expandable [Profile](apis/profiles.md) model |
+| `company`      | object    | An expandable [Company](apis/companies.md) model |
 
 ## List Microsurvey Responses :id=responses-index
 
@@ -39,10 +40,10 @@ Using Chameleon's API for microsurvey responses, you can:
 | before         | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before         | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | expand         | optional | Object that specifies relationships to include/exclude.      |
-| expand.profile | optional | use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to a minimal representation, `min` |
-| expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to a minimal representation, `min` |
+| expand.profile | optional | use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to `min` |
+| expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
 
-Note: A `profile` keys will always be present with an object value. THe `company` key will be missing when User Profile is not attached to a Company but will otherwise be an object..
+Note: A `profile` key will always be present with an object value. THe `company` key will be missing when the User Profile is not attached to a Company but will otherwise be an object.
 
 #### HTTP Response
 
@@ -54,7 +55,7 @@ Note: A `profile` keys will always be present with an object value. THe `company
       "href": "https://app.example.com/starting/page/1",
       "button_text": "Yes please 👍",
       "button_order": 3,
-      "input_text": "",
+      "input_text": "I saw...",
       "finished_at": "2029-04-07T12:18:00Z",
       "profile": {
         "id": "5f3c4232c712de665632a6d5",

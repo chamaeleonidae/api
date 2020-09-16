@@ -70,7 +70,7 @@ With the Chameleon API for Launchers, you can:
 
 ## List Launchers :id=launchers-index
 
-List all launchers based on the specified set of parameters.
+List all Launchers based on the specified set of parameters.
 
 #### HTTP Request
 

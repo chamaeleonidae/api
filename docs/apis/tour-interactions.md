@@ -23,6 +23,7 @@ With the Chameleon API, you can list Tour Interactions that follow the specified
 | `defer_until` | timestamp | The timestamp of when the snoozed ends                       |
 | `goal_at`     | timestamp | The timestamp of when the configured Goal was met            |
 | `profile`     | object    | An expandable [Profile](apis/profiles.md) model |
+| `company`     | object    | An expandable [Company](apis/companies.md) model |
 
 ## List Tour Interactions :id=tour-interactions-index
 
@@ -37,7 +38,10 @@ With the Chameleon API, you can list Tour Interactions that follow the specified
 | before         | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before         | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | expand         | optional | Object that specifies relationships to include/exclude.      |
-| expand.profile | optional | use values of `all` or `none` control the properties present in the `profile`. Defaults to a minimal representation |
+| expand.profile | optional | use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to `min` |
+| expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
+
+Note: A `profile` key will always be present with an object value. THe `company` key will be missing when the User Profile is not attached to a Company but will otherwise be an object.
 
 #### HTTP Response
 
