@@ -1,6 +1,6 @@
 # Listing Models
 
-The Chameleon API allows a generic retrieval and listing of data models. 
+**The Chameleon API allows a generic retrieval and listing of data models.**
 
 ------
 
