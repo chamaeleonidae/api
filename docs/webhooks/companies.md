@@ -1,24 +1,33 @@
-# Incoming Webook: Companies
+# Companies (Incoming Webhook)
 
-Send Company data **into Chameleon**  from services like Customer.io, Heap, Zapier or from you own backend
+**Send Company data into Chameleon  from services like Customer.io, Heap, Zapier or from you own backend.**
 
-Company data updates are processed synchronously on the application server
+------
+
+Company data updates are processed synchronously on the application server.
+
+
 
 ## Create/Update a Company
 
-When you are creating/upserting the Company, simply send the `uid` and any other properties pertinent to that company.
-When you are updating the Company, simply send the Chameleon `id` field or use the `uid` and any other properties pertinent to that company.
+- When you are creating the Company, simply send the `uid` and any other properties pertinent to that company.
+- When you are updating the Company, simply send the Chameleon `id` field or use the `uid` and any other properties pertinent to that company.
+
+
 
 #### HTTP Request
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/companies` or
+
+`POST` to `https://api.trychameleon.com/v3/observe/hooks/companies` 
+
+*or*
 
 `POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies`
 
-| param | - | description |
-|---|---|---|
-| id | optional | The Chameleon ID of the Company |
-| uid | optional | The Company Identifier (typically the Database ID from your backend) |
-| *others | optional | All other properties will be stored on the Company |
+| param   | -        | description                                                  |
+| ------- | -------- | ------------------------------------------------------------ |
+| id      | optional | The Chameleon ID of the Company                              |
+| uid     | optional | The Company Identifier (typically the Database ID from your backend) |
+| *others | optional | All other properties will be stored on the Company           |
 
 ```json
 {
@@ -32,6 +41,8 @@ When you are updating the Company, simply send the Chameleon `id` field or use t
 }
 ```
 
+
+
 #### HTTP Response
 
 ```json
@@ -42,12 +53,17 @@ When you are updating the Company, simply send the Chameleon `id` field or use t
 }
 ```
 
+
+
 ## Limits
 
-- Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit
-- See the full page on [Limits](concepts/normalization.md?id=limits) for more info
+- Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
+- See the full page on [Limits](concepts/normalization.md?id=limits) for more information.
+
+
 
 ## Normalization
 
-- Property names are normalized to lower case and underscored i.e. `planName` => `plan_name`
-- See the full page on [Normalization](concepts/normalization.md?id=properties) for more info
+- Property names are normalized to lower case and underscored i.e. `planName` => `plan_name`.
+- See the full page on [Normalization](concepts/normalization.md?id=properties) for more information.
+
