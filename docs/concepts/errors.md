@@ -4,17 +4,6 @@
 
 ---
 
-## HTTP Status 400
-
-Request body parsing error
-
-```json
-{
-  "code": 400,
-  "messages": ["Request error: Unable to parse the JSON request body."]
-}
-```
-
 ## HTTP Status 403
 Account token is not valid or has been revoked
 
