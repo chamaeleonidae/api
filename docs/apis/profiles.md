@@ -11,7 +11,6 @@ The Chameleon User Profiles API allows you to:
 - Clear or reset a specific user's data.
 - Delete a user permanently
 
-  
 
 ## Schema
 
@@ -23,6 +22,7 @@ The Chameleon User Profiles API allows you to:
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
 | `uid` | string | The external ID that came from your backend system |
+| `company_id` | ID | The Chameleon ID of the [Company](apis/companies.md?id=schema) (only if associated) |
 | `browser_x` | number | Browser width in pixels |
 | `browser_tz` | number | Browser timezone in integer offset (+/-) from UTC |
 | `browser_l` | string | Language code as reported by the Accept-Language header |
@@ -31,6 +31,7 @@ The Chameleon User Profiles API allows you to:
 | `percent` | number | Randomly assigned but stable, used for A/B testing |
 | `last_seen_at` | timestamp | When the user was las active on a page where Chameleon is installed |
 | `last_seen_session_count` | number | Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes |
+| `company` | object | The expandable [Company](apis/companies.md?id=schema) (only if associated)  |
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
 
