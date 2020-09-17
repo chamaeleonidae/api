@@ -1,10 +1,12 @@
 # Companies (Incoming Webhook)
 
-**Send Company data into Chameleon  from services like Customer.io, Heap, Zapier or from you own backend.**
+**Send Company data to Chameleon from services like Customer.io, Heap, Zapier or from you own backend.** Looking for the [JavaScript API](js/profiles.md?id=company)?
 
 ------
 
-Company data updates are processed synchronously on the application server.
+A Company that does not yet exist by `uid` will first be created and then updated with the other data included in this request.
+
+> Company data updates are processed synchronously on the application server.
 
 
 
@@ -17,11 +19,11 @@ Company data updates are processed synchronously on the application server.
 
 #### HTTP Request
 
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/companies` 
-
-*or*
-
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies`
+```
+POST https://api.trychameleon.com/v3/observe/hooks/companies
+# OR
+POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies
+```
 
 | param   | -        | description                                                  |
 | ------- | -------- | ------------------------------------------------------------ |

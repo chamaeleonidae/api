@@ -14,7 +14,7 @@ Syncing user and company data to Chameleon account can be helpful for:
 
 
 
-## Identifying users
+## Identifying user :id=profile
 
 **Users need to be identified with a unique ID** (`UID`) to enable them to see tours. We also strongly recommend sending `email` to maintain a user's identity across Chameleon and any integrations you enable. 
 
@@ -36,7 +36,7 @@ This includes any company (group) associated with the user, and related company 
 > *Note: Please confirm the attributes to be sent with your project owner.*
 
 ```
-chmln.identify(USER.ID_IN_DB, {      // Unique ID in your database (e.g. 23443 or "590b80e5f433ea81b96c9bf6")
+chmln.identify(USER.ID_IN_DB, {     // Unique ID in your database (e.g. 23443 or "590b80e5f433ea81b96c9bf6")
   email: USER.EMAIL,                // Put quotes around text strings (e.g. "jim@example.com")
   created: USER.SIGN_UP_DATE,       // Send dates in ISO or unix timestamp format (e.g. "2017-07-01T03:21:10Z" or 1431432000)
   name: USER.NAME,                  // We will parse this to extra first and last names (e.g. "James Doe")
@@ -65,4 +65,15 @@ chmln.identify(USER.ID_IN_DB, {      // Unique ID in your database (e.g. 23443 o
 A UID simply needs to be a unique string that identifies the current user, and it needs to be consistent. Unique meaning no user will share one with another user, and consistent meaning it won't change between servers, logins, or browsers. Consistent also means you'll always have access to this attribute to send to Chameleon.
 
 
+## Identifying companies/accounts :id=company
 
+Simply include a company key in the call to identify
+
+```
+chmln.identify(USER.ID_IN_DB, {
+  company: {
+    uid: COMPANY.ID_IN_DB,
+    ...
+  },
+});
+```

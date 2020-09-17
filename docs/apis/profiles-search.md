@@ -159,7 +159,9 @@ Each example below is used as the value for the `filters` key in the JSON reques
 
 #### HTTP Request
 
-`GET|POST` to `https://api.trychameleon.com/v3/analyze/profiles` (plural).
+```
+GET|POST https://api.trychameleon.com/v3/analyze/profiles (plural)
+```
 
 | param      | -        | description                                                  |
 | ---------- | -------- | ------------------------------------------------------------ |
@@ -214,7 +216,9 @@ Each example below is used as the value for the `filters` key in the JSON reques
 
 #### HTTP Request
 
-`GET|POST` to `https://api.trychameleon.com/v3/analyze/profiles/count`
+```
+GET|POST https://api.trychameleon.com/v3/analyze/profiles/count
+```
 
 **Use the same params / request body as [Searching Users](apis/profiles-search.md?id=profiles-index)**
 

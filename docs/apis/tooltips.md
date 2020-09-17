@@ -40,7 +40,7 @@ List all the Tooltips that follow a specified set of parameters.
 #### HTTP Request
 
 ```
-GET` to `https://api.trychameleon.com/v3/edit/tooltips
+GET https://api.trychameleon.com/v3/edit/tooltips
 ```
 
 | param  | -        | description                                                  |
@@ -84,7 +84,7 @@ Retrieve a single Tooltip
 #### HTTP Request
 
 ```
-GET` to `https://api.trychameleon.com/v3/edit/tooltips/:id
+GET https://api.trychameleon.com/v3/edit/tooltips/:id
 ```
 
 | param | -        | description            |

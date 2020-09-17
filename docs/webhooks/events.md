@@ -1,20 +1,20 @@
 # Events (Incoming Webhook)
 
-**Send Event data into Chameleon from services like Customer.io, Heap, Zapier or from you own backend.**
+**Track Events to Chameleon from services like Customer.io, Heap, Zapier or from you own backend.** Looking for the [JavaScript API](js/events.md)?
 
 ------
 
-Events are processed asynchronously (typically within a few seconds).
+> Events are processed asynchronously (typically within a few seconds).
 
 ## Create an event :id=events-create
 
 #### HTTP Request
 
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/events` 
-
-*or*
-
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/events`
+```
+POST https://api.trychameleon.com/v3/observe/hooks/events
+# OR
+POST to https://api.trychameleon.com/v3/observe/hooks/:account_secret/events
+```
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |

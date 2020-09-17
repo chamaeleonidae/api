@@ -4,6 +4,17 @@
 
 ---
 
+## HTTP Status 400
+
+Request body parsing error
+
+```json
+{
+  "code": 400,
+  "messages": ["Request error: Unable to parse the JSON request body."]
+}
+```
+
 ## HTTP Status 403
 Account token is not valid or has been revoked
 
@@ -32,7 +43,7 @@ Endpoint or Resource not found
 
 ## HTTP Status 429
 
-You have made too many requests and exceeded your Rate limit.
+You have made too many concurrent or bucketed requests and exceeded your Rate limit.
 
 See also [Rate limiting](rate-limiting.md)
 
@@ -56,12 +67,12 @@ X-Ratelimit-Wait: 114
 
 Server error
 
-An Internal server error occurred (one that we otherwise had no planned on receiving). Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
+An Internal server error occurred (one that we otherwise had not planned on receiving). Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
 
 ```json
 {
   "code": 500,
-  "messages": []
+  "messages": ["Internal server error: Please retry later"]
 }
 ```
 

@@ -32,8 +32,9 @@ Using Chameleon's API for microsurvey responses, you can:
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/analyze/responses`
-
+```
+GET https://api.trychameleon.com/v3/analyze/responses
+```
 
 | param          | -        | description                                                  |
 | -------------- | -------- | ------------------------------------------------------------ |
@@ -95,9 +96,13 @@ Note: A `profile` key will always be present with an object value. The `company`
 
 ## Delete a Microsurvey Response :id=responses-destroy
 
+Deleting a Microsurvey response also clears the associated metrics and summaries 
+
 #### HTTP Request
 
-`DELETE` to `https://api.trychameleon.com/v3/edit/responses/:id`
+```
+DELETE https://api.trychameleon.com/v3/edit/responses/:id
+```
 
 | param | -        | description             |
 | ----- | -------- | ----------------------- |

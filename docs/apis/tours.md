@@ -51,7 +51,9 @@ List all the tours that follow the specified parameters.
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/tours`
+```
+GET https://api.trychameleon.com/v3/edit/tours
+```
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
@@ -99,7 +101,9 @@ Retrieve a single tour.
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/tours/:id`.
+```
+GET https://api.trychameleon.com/v3/edit/tours/:id
+```
 
 | param | -        | description         |
 | ----- | -------- | ------------------- |

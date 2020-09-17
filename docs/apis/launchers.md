@@ -74,7 +74,9 @@ List all Launchers based on the specified set of parameters.
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/launchers`
+```
+GET https://api.trychameleon.com/v3/edit/launchers
+```
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
@@ -120,7 +122,9 @@ Retrieve a single Launcher.
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/launchers/:id`
+```
+GET https://api.trychameleon.com/v3/edit/launchers/:id
+```
 
 | param | - | description |
 |---|---|---|

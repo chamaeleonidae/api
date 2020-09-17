@@ -51,7 +51,9 @@ With the Chameleon API for Domains, you can:
 
 #### HTTP Request
 
-`POST` to `https://api.trychameleon.com/v3/edit/urls`.
+```
+POST https://api.trychameleon.com/v3/edit/urls
+```
 
 | param    | -        | description                                                  |
 | -------- | -------- | ------------------------------------------------------------ |
@@ -79,7 +81,9 @@ With the Chameleon API for Domains, you can:
 
 #### HTTP Request
 
-`POST` to `https://api.trychameleon.com/v3/edit/urls/:id`.
+```
+PUT|PATCH https://api.trychameleon.com/v3/edit/urls/:id
+```
 
 | param    | -        | description                                                  |
 | -------- | -------- | ------------------------------------------------------------ |
@@ -107,7 +111,9 @@ With the Chameleon API for Domains, you can:
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/urls`.
+```
+GET https://api.trychameleon.com/v3/edit/urls
+```
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
@@ -157,7 +163,9 @@ With the Chameleon API for Domains, you can:
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/urls/:id`.
+```
+GET https://api.trychameleon.com/v3/edit/urls/:id
+```
 
 | param | -        | description                           |
 | ----- | -------- | ------------------------------------- |

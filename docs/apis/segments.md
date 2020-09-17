@@ -34,7 +34,9 @@ Retrieve a list of segments according to the specified parameters.
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/segments`
+```
+GET https://api.trychameleon.com/v3/edit/segments
+```
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
@@ -108,7 +110,9 @@ Retrieve a single Segment.
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/segments/:id`
+```
+GET https://api.trychameleon.com/v3/edit/segments/:id
+```
 
 | param | - | description |
 |---|---|---|
@@ -149,12 +153,14 @@ A Segment can be configured to be attached to many Chameleon Experiences, includ
 
 #### HTTP Request
 
-`GET` to `https://api.trychameleon.com/v3/edit/segments/:id/:kind`
+```
+GET https://api.trychameleon.com/v3/edit/segments/:id/:kind
+```
 
 | param | - | description |
 |---|---|---|
 | id | required | A Segment ID to lookup
-| kind | required | One of `tour` `survey` `launcher`
+| kind | required | One of `tour`, `survey` or `launcher`
 
 #### HTTP Response
 

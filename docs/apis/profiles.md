@@ -49,7 +49,9 @@ The Chameleon User Profiles API allows you to:
 
 #### HTTP Request
 
-`GET|POST` to `https://api.trychameleon.com/v3/analyze/profile` (singular)
+```
+GET|POST https://api.trychameleon.com/v3/analyze/profile (singular)
+```
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
@@ -116,12 +118,14 @@ It is possible to clear a user profile through the [Chameleon Dashboard](https:/
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/observe/profiles/:id` `DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
+DELETE https://api.trychameleon.com/v3/observe/profiles/:id
+# OR
+DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
 ```
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| id    | optional | A User Profile ID to lookup                                  |
+| id    | optional | A Chameleon User Profile ID to lookup                        |
 | uid   | optional | The User Profile Identifier (typically the Database ID from your backend) |
 
 #### HTTP Response
@@ -149,7 +153,9 @@ The ability to delete a User Permanently is part of our effort to allow your use
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/observe/profiles/:id/forever` `DELETE https://api.trychameleon.com/v3/observe/profiles/forever?uid=:uid
+DELETE https://api.trychameleon.com/v3/observe/profiles/:id/forever
+# OR
+DELETE https://api.trychameleon.com/v3/observe/profiles/forever?uid=:uid
 ```
 
 | param | -        | description                                                  |

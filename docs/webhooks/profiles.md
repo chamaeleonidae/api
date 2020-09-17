@@ -1,12 +1,12 @@
 # User Profiles (Incoming Webhook)
 
-**Send User Profile data into Chameleon from services like Customer.io, Heap, Zapier or from you own backend.** 
+**Send User Profile data to Chameleon from services like Customer.io, Heap, Zapier or from you own backend.** Looking for the [JavaScript API](js/profiles.md)?
 
 ------
 
 A User Profile that does not yet exist by `uid` will first be created and then updated with the other data included in this request.
 
-Profile data updates are processed synchronously on the application server.
+> Profile data updates are processed synchronously on the application server.
 
 ## Create/Update a Profile :id=profiles-update
 
@@ -15,11 +15,11 @@ Profile data updates are processed synchronously on the application server.
 
 #### HTTP Request
 
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/profiles` 
-
-*or*
-
-`POST` to `https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles`
+```
+POST https://api.trychameleon.com/v3/observe/hooks/profiles
+# OR
+POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles
+```
 
 | param      | -        | description                                                  |
 | ---------- | -------- | ------------------------------------------------------------ |
@@ -52,7 +52,7 @@ Profile data updates are processed synchronously on the application server.
 
 ## Disabling all Chameleon Experiences
 
-To disable all Chameleon experiences you can add the `disabled: true` boolean value for the use via the JavaScript API or via REST API
+To disable all Chameleon experiences you can add the `disabled: true` boolean value for the use via the [JavaScript API](js/profiles.md) or via [REST API](apis/profiles.md)
 
 
 ## Limits
