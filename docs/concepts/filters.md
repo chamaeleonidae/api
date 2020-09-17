@@ -78,14 +78,13 @@ Operator if `in-v` means treat the value as a CSV `["admin","owner","superuser"]
 
 The postfix `-d` in `lt-d` instructs the value to be treated as a number of days.
 
-Subtract X days from the current time and look for `last_last_seen_at` values that are less than it.
+Subtract X days from the current time and look for `last_seen_at` values that are less than it.
 
-> *Note: The extra last_ in `last_last_seen_at` is not a typo but a default property that represents that previous version of `last_seen_at` which is reset to the current time on page load.*
 
 ```json
 {
   "kind": "property",
-  "prop":"last_last_seen_at",
+  "prop":"last_seen_at",
   "op":"lt-d",
   "value":"7"
 }
