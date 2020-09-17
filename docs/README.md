@@ -1,12 +1,6 @@
 # Chameleon Developer Hub
 
-**This documentation offers a preview of Chameleon's upcoming API. Until general release is announced, users should beware that features may not work as intended! 🐛**
-
----
-
-
-
-#### Welcome to the Chameleon Developer Hub! 
+#### Welcome! 
 
 You can use this documentation alongside our [Product Documentation](https://help.trychameleon.com/) to do more with Chameleon. 
 
@@ -22,4 +16,4 @@ The API is straightforward, flexible, and designed with RESTful intentions. It i
 
 
 
-> **If you have any questions/comments/feature requests they can be [submitted here](https://app.trychameleon.com/help/report).**
+> If you have any questions/comments/feature requests they can be submitted via the "Useful links" Launcher in the bottom-right.  
