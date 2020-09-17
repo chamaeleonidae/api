@@ -8,15 +8,15 @@
 
 Syncing user and company data to Chameleon account can be helpful for: 
 
-- Targeting users with tours based on who they are.
-- Personalizing content within tours (merge tags in content).
+- Targeting users with Tours based on who they are.
+- Personalizing content within Tours (merge tags in content).
 - Better URL matching (merge tags in URLs).
 
 
 
 ## Identifying user :id=profile
 
-**Users need to be identified with a unique ID** (`UID`) to enable them to see tours. We also strongly recommend sending `email` to maintain a user's identity across Chameleon and any integrations you enable. 
+**Users need to be identified with a unique ID** (`UID`) to enable them to see Tours. We also strongly recommend sending `email` to maintain a user's identity across Chameleon and any integrations you enable. 
 
 Use the `chmln.identify` method, calling this as soon as the user is identifiable on page load. 
 

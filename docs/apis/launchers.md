@@ -16,8 +16,8 @@
 
 With the Chameleon API for Launchers, you can:
 
-- List all launchers based on the specified set of parameters.
-- Retrieve a specific launcher based on its `id`.
+- List all Launchers based on the specified set of parameters.
+- Retrieve a specific Launcher based on its `id`.
 
 
 

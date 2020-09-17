@@ -39,11 +39,14 @@ GET  https://api.trychameleon.com/v3/analyze/interactions
 | limit          | optional | Defaults to `50` with a maximum of `500`                     |
 | before         | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before         | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| after          | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 | expand         | optional | Object that specifies relationships to include/exclude.      |
 | expand.profile | optional | use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to `min` |
 | expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
 
 Note: A `profile` key will always be present with an object value. The `company` (embedded within `profile`) will be missing when the User Profile is not attached to a Company, otherwise it will be an object.
+
+Note: The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Tour Interaction (send the max ID from your last import as the `after` parameter).
 
 #### HTTP Response
 

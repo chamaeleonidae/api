@@ -53,7 +53,7 @@ chmln.on('chmln:event', function(eventName, options) {
 
 This might be relevant in the following instances:
 
-- Sending data to your database, to allow deeper analysis of Chameleon events.
+- Sending data to your database, to allow deeper analysis of Chameleon Events.
 - Sending data that is not collected by your analytics tool (e.g. "Chameleon testing ID").
 
 ```

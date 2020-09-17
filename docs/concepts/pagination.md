@@ -4,7 +4,7 @@
 
 ---
 
-Unless noted otherwise, any endpoint where you **list models** (e.g. list users, tours, etc.) supports the following pagination parameters.
+Unless noted otherwise, any endpoint where you **list models** (e.g. list Segments, Tours, etc.) supports the following pagination parameters.
 
 | param | - | description |
 |---|---|---|

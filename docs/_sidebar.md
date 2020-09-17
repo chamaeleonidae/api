@@ -12,7 +12,7 @@
 - Javascript API
   - [Overview](js/overview.md)
   - [Identify Users](js/profiles.md)
-  - [Send events](js/events.md)
+  - [Send Events](js/events.md)
   - [Show a Tour / Survey](js/show-tour.md)
   - [Show a Launcher](js/show-launcher.md)
   - [Review a checklist status](js/launcher-checklist.md)

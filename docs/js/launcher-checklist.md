@@ -8,7 +8,7 @@
 
 
 
-With Chameleon loaded on the page, you can query for the completion status of the tours in a checklist:
+With Chameleon loaded on the page, you can query for the completion status of the Tours in a checklist:
 
 ```
 chmln.models.List.find('ID').tourSummary();

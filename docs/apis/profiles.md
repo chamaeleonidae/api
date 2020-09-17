@@ -107,11 +107,11 @@ Clearing a profile consists of:
 - Resetting the properties such as browser width, last seen time, sessions count, etc..
 - Removing Microsurvey responses.
 - Reverts summary data from any actions this user took (i.e. Tour Started counts decremented appropriately).
-- Removes and resets any events that were tracked for this user.
+- Removes and resets any Events that were tracked for this user.
 - A new `percent` is assigned and `last_cleared_at` is updated to `"$now"`.
 - A few other internal cleanup items.
 
-It is possible to clear a user profile through the [Chameleon Dashboard](https://app.trychameleon.com/testing) but is limited to profiles associated with the currently logged-in Chameleon Admin. To clear any profile on your account use this API.
+It is also possible to clear a user profile through the [Chameleon Dashboard](https://app.trychameleon.com/testing) but is limited to profiles associated with the currently logged-in Chameleon Admin. To clear any profile on your account use this API.
 
 
 

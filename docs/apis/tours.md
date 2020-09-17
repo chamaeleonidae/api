@@ -16,8 +16,8 @@
 
 With the Chameleon API for Tours, you can:
 
-- List all the existing tours according to the indicated parameters.
-- Retrieve a single tour.
+- List all the existing  Tours according to the indicated parameters.
+- Retrieve a single  Tour.
 
 
 
@@ -47,7 +47,7 @@ With the Chameleon API for Tours, you can:
 
 ## List Tours :id=campaigns-index
 
-List all the tours that follow the specified parameters.
+List all the  Tours that follow the specified parameters.
 
 #### HTTP Request
 
@@ -97,7 +97,7 @@ See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
 ## Retrieve a Tour :id=campaigns-show
 
-Retrieve a single tour.
+Retrieve a single  Tour.
 
 #### HTTP Request
 

@@ -8,5 +8,5 @@ https://trello.com/c/pzunGaiO/1818-api-revamp
 # TODO
 
  - Add segment properties and link in relevant places
- - Add event names and link in relevant places
+ - Add Event names and link in relevant places
  
