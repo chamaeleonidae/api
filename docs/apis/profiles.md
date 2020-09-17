@@ -17,21 +17,22 @@ The Chameleon User Profiles API allows you to:
 
 #### Fully-expanded profile when listed directly or embedded with `expand` param specified properly
 
-| Property                  | Type      | Description                                                  |
-| ------------------------- | --------- | ------------------------------------------------------------ |
-| `id`                      | ID        | The Chameleon ID                                             |
-| `created_at`              | timestamp | When this happened or when this was added to the Database    |
-| `updated_at`              | timestamp | The last time any property was updated                       |
-| `uid`                     | string    | The external ID that came from your backend system           |
-| `browser_x`               | number    | Browser width in pixels                                      |
-| `browser_tz`              | number    | Browser timezone in integer offset (+/-) from UTC            |
-| `browser_l`               | string    | Language code as reported by the Accept-Language header      |
-| `browser_n`               | string    | Browser name: One of `chrome`, `firefox`, `safari`, `opera`, `ie10`, `ie11`, or `edge` |
-| `browser_k`               | string    | Browser kind: One of `desktop` or `mobile`                   |
-| `percent`                 | number    | Randomly assigned but stable, used for A/B testing           |
-| `last_seen_at`            | timestamp | When the user was las active on a page where Chameleon is installed |
-| `last_seen_session_count` | number    | Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes |
-| `*any options`            | mixed     | Any other options you have sent as Custom Properties will show up here too |
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `uid` | string | The external ID that came from your backend system |
+| `browser_x` | number | Browser width in pixels |
+| `browser_tz` | number | Browser timezone in integer offset (+/-) from UTC |
+| `browser_l` | string | Language code as reported by the Accept-Language header |
+| `browser_n` | string | Browser name: One of `chrome`, `firefox`, `safari`, `opera`, `ie10`, `ie11`, or `edge` |
+| `browser_k` | string | Browser kind: One of `desktop` or `mobile` |
+| `percent` | number | Randomly assigned but stable, used for A/B testing |
+| `last_seen_at` | timestamp | When the user was las active on a page where Chameleon is installed |
+| `last_seen_session_count` | number | Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes |
+| `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
+
 
 #### Non-expanded profile when embedded in another (i.e. Microsurvey response)
 

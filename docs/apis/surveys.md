@@ -17,23 +17,23 @@ With the Chameleon Microsurveys API, you can:
 
 ## Schema
 
-| Property                  | Type      | Description                                                  |
-| ------------------------- | --------- | ------------------------------------------------------------ |
-| `id`                      | ID        | The Chameleon ID                                             |
-| `created_at`              | timestamp | When this happened or when this was added to the Database    |
-| `updated_at`              | timestamp | The last time any property was updated                       |
-| `name`                    | string    | The name given by an administrator of Chameleon              |
-| `position`                | number    | The order that these appear in lists (starting from 0)       |
-| `segment_id`              | ID        | The Chameleon ID of the configured segment                   |
-| `published_at`            | timestamp | The time this was most recently published                    |
-| `rate_unlimit_at`         | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
-| `stats`                   | object    | Aggregated statistics for this model (all-time)              |
-| `stats.started_count`     | number    | Number of your end-users who saw this                        |
-| `stats.last_started_at`   | timestamp | Most recent time any user saw this                           |
-| `stats.completed_count`   | number    | Number of your end-users who completed/finished this         |
-| `stats.last_completed_at` | timestamp | Most recent time any user completed/finished this            |
-| `stats.exited_count`      | number    | Number of your end-users who dismissed/exited this           |
-| `stats.last_exited_at`    | timestamp | Most recent time any user dismissed/exited this              |
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `name` | string | The name given by an administrator of Chameleon |
+| `position` | number | The order that these appear in lists (starting from 0) |
+| `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
+| `published_at` | timestamp | The time this was most recently published |
+| `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
+| `stats` | object | Aggregated statistics for this model (all-time) |
+| `stats.started_count` | number | Number of your end-users who saw this |
+| `stats.last_started_at` | timestamp | Most recent time any user saw this |
+| `stats.completed_count` | number | Number of your end-users who completed/finished this |
+| `stats.last_completed_at` | timestamp | Most recent time any user completed/finished this |
+| `stats.exited_count` | number | Number of your end-users who dismissed/exited this |
+| `stats.last_exited_at` | timestamp | Most recent time any user dismissed/exited this |
 
 ## List Microsurveys
 

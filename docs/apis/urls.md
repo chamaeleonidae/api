@@ -32,18 +32,18 @@ With the Chameleon API for Domains, you can:
 
 ## Schema :id=schema
 
-| Property        | Type      | Description                                                  |
-| --------------- | --------- | ------------------------------------------------------------ |
-| `id`            | ID        | The Chameleon ID                                             |
-| `created_at`    | timestamp | When this happened or when this was added to the Database    |
-| `updated_at`    | timestamp | The last time any property was updated                       |
-| `host`          | string    | The fully qualified domain of this URL (i.e. app.example.com) |
-| `domain`        | string    | The top-level domain (i.e. example.com)                      |
-| `enabled`       | string    | The authorization state of this Url, `subdomain` means that new urls are `on` vs safely defaulting to `off`: One of `off`, `on`, or `subdomain` |
-| `installed_at`  | timestamp | When the JavaScript snippet was installed on this domain     |
-| `first_seen_at` | timestamp | When this domain had its first User Profile identified       |
-| `last_seen_at`  | timestamp | The most recent time a User Profile as identified            |
-| `unlisted`      | boolean   | If this Url is hidden from the list of domains               |
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `host` | string | The fully qualified domain of this URL (i.e. app.example.com) |
+| `domain` | string | The top-level domain (i.e. example.com) |
+| `enabled` | string | The authorization state of this Url. `subdomain` means that new urls are `on` vs safely defaulting to `off`: One of `off`, `on`, or `subdomain` |
+| `installed_at` | timestamp | When the JavaScript snippet was installed on this domain |
+| `first_seen_at` | timestamp | When this domain had its first User Profile identified |
+| `last_seen_at` | timestamp | The most recent time a User Profile as identified |
+| `unlisted` | boolean | If this Url is hidden from the list of domains |
 
 
 

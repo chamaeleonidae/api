@@ -8,20 +8,20 @@
 
 ## Schema
 
-| Property      | Type      | Description                                                  |
-| ------------- | --------- | ------------------------------------------------------------ |
-| `id`          | ID        | The Chameleon ID                                             |
-| `created_at`  | timestamp | When this happened or when this was added to the Database    |
-| `updated_at`  | timestamp | The last time any property was updated                       |
-| `kind`        | string    | The type of Segmentation filter item: One of `property`, `event`, `tour`, `action`, `intercom`, or `segment` |
-| `integration` | string    | The data partner if any                                      |
-| `prop`        | string    | The specific property that forms the left hand side of an expression |
-| `op`          | string    | The specific operation to be performed. Can be compounded with a value translation |
-| `value`       | string    | The specific Value that forms the right hand side of an expression |
-| `mod`         | string    | A secondary condition is modified with this Operator         |
-| `range`       | string    | A secondary condition is compared with this Value            |
-| `cond`        | string    | A Secondary condition Operator used 1-to1 with `int` to form a time-range limitation on the main match |
-| `int`         | string    | Used 1-to-1 with `cond` to specify an interval               |
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `kind` | string | The type of Segmentation filter item: One of `property`, `event`, `tour`, `action`, `intercom`, or `segment` |
+| `integration` | string | The data partner if any |
+| `prop` | string | The specific property that forms the left hand side of an expression |
+| `op` | string | The specific operation to be performed. Can be compounded with a value translation |
+| `value` | string | The specific Value that forms the right hand side of an expression |
+| `mod` | string | A secondary condition is modified with this Operator |
+| `range` | string | A secondary condition is compared with this Value |
+| `cond` | string | A Secondary condition Operator used 1-to1 with `int` to form a time-range limitation on the main match |
+| `int` | string | Used 1-to-1 with `cond` to specify an interval |
 
 Not all combinations of keys and values will work, see the other subsections for specific definitions and usage.
 
