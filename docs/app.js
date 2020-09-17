@@ -23,7 +23,6 @@
   }
 
   function identify() {
-    console.log('identify', app.data.user.id)
     if(!app.data.user.id) {
       return;
     }
