@@ -69,7 +69,7 @@ When receiving a webhook from Chameleon you should:
 | Property | Type | Description |
 | --- | --- | --- |
 | `id` | ID | The Chameleon ID |
-| `set_at` | timestamp | The current server time when this webhook was sent (used in [verification](?id=verification)) |
+| `sent_at` | timestamp | The current server time when this webhook was sent (used in [verification](?id=verification)) |
 | `kind` | enum | The [topic identifier](?id=topics) |
 | `data` | object | Contains the webhook payload data. This can be any models included by singular or plural name |
 
@@ -79,7 +79,7 @@ When receiving a webhook from Chameleon you should:
 | --- | --- |--- |
 | `X-Chameleon-Id` | `5f3c4232c712de665632a2a3` | The Chameleon ID of the webhook entry in our Database |
 | `X-Chameleon-Signature` | 5a17b.... | The SHA256-HMAC of the raw request body |
-| `User-Agent` | `Chameleon Webhooks/v3 (trychameleon.com; hello@trychameleon.com; integral)` | The request is from the Chameleon v3 API (integral environment)|
+| `User-Agent` | `Chameleon Webhooks/v3 (trychameleon.com; integral)` | The request is from the Chameleon v3 API (integral environment)|
 | `Content-Type` | `application/json` | Signifying that the request body is JSON |
 | `Accept` | `application/json` | Signifying that the response should be JSON (or nothing) |
 
@@ -95,7 +95,7 @@ The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychamele
 # Assumes this code runs in a Controller to access the `request` object
 # Could easily be run in a background task or elsewhere by passing the `X-Chameleon-Signature` and `request.raw_post` exactly as-is
 
-secret = ENV['CHAMELEON_WEBHOOK_SECRET']
+secret = ENV['CHAMELEON_VERIFICATION_SECRET']
 received = request.headers['X-Chameleon-Signature']
 expected = OpenSSL::HMAC.hexdigest('SHA256', secret, request.raw_post)
 
