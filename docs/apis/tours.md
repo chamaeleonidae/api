@@ -91,7 +91,7 @@ GET https://api.trychameleon.com/v3/edit/tours
 }
 ```
 
-#### Filtering by Segment :id=filter-segment
+## Filtering by Segment :id=filter-segment
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 

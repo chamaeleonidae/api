@@ -147,7 +147,7 @@ DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
 
 
 
-## Delete a User Profile permanently
+## Delete a User Profile permanently :id=delete-a-user-profile-permanently
 
 The ability to delete a User Permanently is part of our effort to allow your users to opt-out of continued data storage by Chameleon and its partners.
 
@@ -161,14 +161,14 @@ DELETE https://api.trychameleon.com/v3/observe/profiles/forever?uid=:uid
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| id    | optional | A User Profile ID to lookup                                  |
+| id    | optional | A Chameleon User Profile ID to remove                                  |
 | uid   | optional | The User Profile Identifier (typically the Database ID from your backend) |
 
 
 
 #### HTTP Response
 
-The deletion is an internal Chameleon record that can be referenced for proof of initiating a request to forgot a specific User Profile.
+The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
 
 ```
 {

@@ -40,13 +40,23 @@ GET  https://api.trychameleon.com/v3/analyze/interactions
 | before         | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | before         | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | after          | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
-| expand         | optional | Object that specifies relationships to include/exclude.      |
+| expand         | optional | Object that specifies relationships to include/exclude. Supported keys are `profile` and `company`      |
 | expand.profile | optional | use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to `min` |
 | expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
 
-Note: A `profile` key will always be present with an object value. The `company` (embedded within `profile`) will be missing when the User Profile is not attached to a Company, otherwise it will be an object.
+#### Using the `expand` parameter
 
-Note: The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Tour Interaction (send the max ID from your last import as the `after` parameter).
+```
+# As a URL parameter
+expand[profile]=all&expand[company]=skip
+
+# In the Reqeust body
+{"expand":{"profile":"all","company":"skip"}}
+```
+
+Notes:
+- A `profile` key will always be present with an object value. The `company` (embedded within `profile`) will be missing when the User Profile is not attached to a Company, otherwise it will be an object.
+- The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Tour Interaction (send the max ID from your last import as the `after` parameter).
 
 #### HTTP Response
 
