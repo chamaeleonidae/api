@@ -25,6 +25,11 @@
 | `uid` | string | The external ID that came from your backend system |
 
 
+## Create / Update a Company :id=companies-create
+
+See the [Companies Webhook](webhooks/companies.md) for sending User data to Chameleon
+
+
 ## List Companies :id=companies-index
 
 [Coming soon] List all Companies based on the specified set of parameters.

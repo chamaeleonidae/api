@@ -23,5 +23,5 @@ To use the **JavaScript API**, using our `chmln.track` method:
 chmln.track(EVENT_NAME);  // The name of the event (e.g. "Subscribed to Plan", "Imported leads")
 ```
 
-> *Note: Chameleon ignores Events from admins, so they don't clog up your analytics. In order to test whether the track method on your page is working, you'll need to be logged out of the browser you're testing on, or use Chameleon's [Test Mode](https://intercom.help/chameleon/becoming-a-chameleon-expert/testing-analyzing-and-iterating/how-can-i-test-my-tour#test-mode).*
+> *Note: Chameleon ignores Events from admins, so they don't clog up your analytics. In order to test whether the track method on your page is working, you'll need to be logged out of the browser you're testing on, or use Chameleon's [Test Mode](https://help.trychameleon.com/en/articles/1201812-how-can-i-test-my-chameleon-experience#test-mode).*
 

@@ -39,7 +39,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 
 ## Data out of Chameleon [Coming soon] :id=outgoing-webhooks
 
-> **Interested in the Outgoing Webhooks BETA program?? [Ping us here](https://app.trychameleon.com/help/report)**
+> **Interested in the Outgoing Webhooks BETA program?? [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
 
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](?id=verification) of any webhook requests before processing any included data.
 
@@ -62,7 +62,7 @@ When receiving a webhook from Chameleon you should:
 | `ping` |  | Sent as a simple check to make sure the endpoint is working |
 | `survey.finished` | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md) | Sent when the Microsurvey is finished (all steps completed; including text comment if configured) |
 
-> **Looking for a different topic? We're excited to chat about your use case! [Ping us here](https://app.trychameleon.com/help/report)**
+> **Looking for a different topic? We're excited to chat about your use case! [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
 
 #### Schema (request body) :id=schema
 
@@ -77,7 +77,7 @@ When receiving a webhook from Chameleon you should:
 
 | Header | Example value | Description |
 | --- | --- |--- |
-| `X-Chameleon-Id` | `5f3c4232c712de665632a2a3` | The Chameleon ID of the webhook entry in our Database |
+| `X-Chameleon-Id` | `5f3c4232c712de665632a2a3` | The Chameleon ID of this webhook |
 | `X-Chameleon-Signature` | 5a17b.... | The SHA256-HMAC of the raw request body |
 | `User-Agent` | `Chameleon Webhooks/v3 (trychameleon.com; integral)` | The request is from the Chameleon v3 API (integral environment)|
 | `Content-Type` | `application/json` | Signifying that the request body is JSON |

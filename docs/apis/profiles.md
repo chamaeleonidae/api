@@ -6,6 +6,7 @@
 
 The Chameleon User Profiles API allows you to:
 
+- Create / Update custom User properties
 - Retrieve a user by `id`, `uid` and `email`.
 - Search for users or get the count of users using any of the properties you have sent to us.
 - Clear or reset a specific user's data.
@@ -45,8 +46,12 @@ The Chameleon User Profiles API allows you to:
 | `uid`        | string    | The external ID that came from your backend system        |
 
 
+## Create / Update a User :id=profiles-create
 
-## Retrieve a specific user
+See the [User Profiles Webhook](webhooks/profiles.md) for sending User data to Chameleon
+
+
+## Retrieve a specific User :id=profiles-show
 
 #### HTTP Request
 
