@@ -153,7 +153,7 @@ Each example below is used as the value for the `filters` key in the JSON reques
 
 
 
-## [Searching Users] :id=profiles-index
+## Searching Users :id=profiles-index
 
 #### HTTP Request
 
