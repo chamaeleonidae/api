@@ -18,6 +18,7 @@ Currently, our REST API supports the following endpoints:
 | [Tooltips](apis/tooltips.md) | `GET /v3/edit/tooltips`  | `GET /v3/edit/tooltips/:id`  |
 | [Domains](apis/urls.md)   | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |
 | [User Profiles](apis/profiles.md) | `GET /v3/analyze/profiles`| `GET v3/analyze/profiles/:id` |
+| [Companies](apis/companies.md) | `GET /v3/analyze/companies`| `GET v3/analyze/companies/:id` |
 
 
 

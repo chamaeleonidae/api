@@ -28,6 +28,7 @@
   - [Overview](apis/overview.md)
   - [User Profiles](apis/profiles.md)
   - [Searching User Profiles](apis/profiles-search.md)
+  - [Companies](apis/companies.md)
   - [Microsurveys](apis/surveys.md)
   - [Microsurvey Responses](apis/survey-responses.md)
   - [Tours](apis/tours.md)
