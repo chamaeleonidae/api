@@ -25,13 +25,16 @@ All the HTTP responses look the same, with a pluralized top-level key with the l
 
 ```
 {
- "segments": [
-   {
-     "id": "5f3c4232c712de665632a2a1",
-     ...
-   }
- ]
+  "segments": [
+    {
+      "id": "5f3c4232c712de665632a2a1",
+      ...
+    }
+  ]
 }
+
+# OR
+
 {
   "launchers": [
     {
@@ -54,7 +57,6 @@ When retrieving a single item, its designation will be singular (`launchers` bec
   }
 }
 ```
-
 
 
 > **Are we missing a model you need and care about?** [Contact us](mailto:hello@trychameleon.com?subject=Listing+any+Model) to request a different one.

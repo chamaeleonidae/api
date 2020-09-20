@@ -13,7 +13,7 @@ The Chameleon User Profiles API allows you to:
 - Delete a user permanently
 
 
-## Schema
+## Schema :id=schema
 
 #### Fully-expanded profile when listed directly or embedded with `expand` param specified properly
 
@@ -65,7 +65,7 @@ GET|POST https://api.trychameleon.com/v3/analyze/profile (singular)
 | uid   | optional | The User Profile identifier (typically the Database ID from your backend) |
 | email | optional | If you have sent an email address this will be available for single-user lookup |
 
-Only one of these parameters is required. Users matched are uniquelyidentified based on these keys (no two users have the same `uid` or `email`)
+Only one of these parameters is required. Users matched are uniquely identified based on these keys (no two users have the same `uid` or `email`)
 
 When using a **GET** request:
 
@@ -106,7 +106,7 @@ When using a **POST** request send one of these properties:
 
 
 
-## Clear or Reset a User Profile
+## Clear or Reset a User Profile :id=profiles-destroy
 
 Clearing a profile consists of:
 

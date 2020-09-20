@@ -27,7 +27,7 @@ Searching User Profiles through the Chameleon API allows you to:
 
 
 
-## Schema
+## Schema :id=schema
 
 See the full [User Profile schema](apis/profiles.md?id=schema).
 

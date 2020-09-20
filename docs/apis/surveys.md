@@ -15,7 +15,7 @@ With the Chameleon Microsurveys API, you can:
 
 
 
-## Schema
+## Schema :id=schema
 
 | Property | Type | Description |
 | --- | --- | --- |
