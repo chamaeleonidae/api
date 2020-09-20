@@ -11,9 +11,7 @@
 Searching User Profiles through the Chameleon API allows you to:
 
  - Search for a user by `id`, `uid` and `email`.
-
  - Search for users or get the Count of Users by any of the properties you have sent to us.
-
  - Search for users by any of the interactions they had with Chameleon (answered a Microsurvey etc.).
 
    
@@ -167,7 +165,22 @@ GET|POST https://api.trychameleon.com/v3/analyze/profiles (plural)
 | ---------- | -------- | ------------------------------------------------------------ |
 | segment_id | optional | The Chameleon Segment ID from the [List of Segments](apis/segments.md) |
 | filters    | optional | The array of [Segmentation filter expressions](concepts/filters.md) |
+| expand         | optional | Object that specifies relationships to include/exclude. Supported keys are `profile` and `company`      |
+| expand.profile | optional | use values of `all`, `min` to control the properties present in the `profile`. Defaults to `all` |
+| expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
 
+#### Using the `expand` parameter
+
+```
+# As a URL parameter
+expand[profile]=min&expand[company]=skip
+
+# In the Reqeust body
+{"expand":{"profile":"min","company":"skip"}}
+```
+
+Notes:
+- A `profile` key will always be present with an object value. The `company` (embedded within `profile`) will be missing when the User Profile is not attached to a Company, otherwise it will be an object.
 
 #### Example: Segment ID
 

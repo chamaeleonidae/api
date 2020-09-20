@@ -56,7 +56,9 @@ See the [User Profiles Webhook](webhooks/profiles.md) for sending User data to C
 #### HTTP Request
 
 ```
-GET|POST https://api.trychameleon.com/v3/analyze/profile (singular)
+GET|POST https://api.trychameleon.com/v3/analyze/profiles/:id
+# OR
+GET|POST https://api.trychameleon.com/v3/analyze/profile # with parameters
 ```
 
 | param | -        | description                                                  |
@@ -67,7 +69,7 @@ GET|POST https://api.trychameleon.com/v3/analyze/profile (singular)
 
 Only one of these parameters is required. Users matched are uniquely identified based on these keys (no two users have the same `uid` or `email`)
 
-When using a **GET** request:
+When using a **GET** request with parameters:
 
 ```
 ?id=5f3c4232c712de665632a6d5
