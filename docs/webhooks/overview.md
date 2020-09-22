@@ -1,10 +1,13 @@
 # Overview
 
-Chameleon supports a robust data pipeline including receiving data from may different sources and sending Chameleon Experience data out to you connected destinations.
+**Chameleon supports a robust data pipeline including receiving data from may different sources and sending Chameleon Experience data out to you connected destinations.**
+
+---
+
 
 ## Data into Chameleon :id=incoming-webhooks
 
-**These REST endpoints are a simple way to get data into Chameleon**.
+**These webhooks are a simple way to get data into Chameleon**.
 
 Currently, our Incoming Webhooks API supports the following two advanced use cases:
 
