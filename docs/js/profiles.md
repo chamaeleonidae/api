@@ -77,3 +77,122 @@ chmln.identify(USER.ID_IN_DB, {
   },
 });
 ```
+
+## Seeing existing user properties
+
+To view the user properties associated with the ***current user\***, you can use the following command within the JS console:
+
+```
+chmln.data.profile.attributes
+```
+
+To see ***all*** the user properties currently being sent, you can run some code in your local browser. Open the JavaScript console, under Developer Tools and paste the following code and hit Enter:
+
+```
+chmln.data.segment_properties.where({kind: 'profile', source: 'chmln'}).map(function(p) { return p.get('prop') })
+```
+
+Here are some more examples of what you might send (in Ruby, Javascript, Ajax and PHP). More available on [our Github](https://github.com/trychameleon/snippet.js/tree/master/examples).
+
+**Ruby:**
+
+```
+  // Add the snippet here with account id (i.e. '<%= ENV['CHAMELEON_ACCOUNT_TOKEN'] %>')
+  // Assuming you have exposed `helper_method :current_user` in your `ApplicationController`
+  <% if current_user.present? %>
+      chmln.identify({
+          uid: '<%= current_user.id %>',
+          created: '<%= current_user.created_at.iso8601 %>',
+          email: '<%= current_user.email %>',
+          plan: '<%= current_user.account.plan_name %>',
+          spend: '<%= current_user.account.plan_cost %>'
+      });
+  <% end %>
+```
+
+**Javascript:**
+
+```// Add the snippet here with account id (i.e. config.chameleonAccountId)
+// Assuming you preload your page with a current user(function() {
+  if(currentUser.id) {
+    chmln.identify({
+      uid: currentUser.id,
+      created: currentUser.createdAt,
+      email: currentUser.email,
+      plan: currentUser.planName,
+      spend: currentUser.planCost
+    });
+  }
+})();
+```
+
+**Ajax:**
+
+```JavaScript
+// Add the snippet here with account id (i.e. config.chameleonAccountId)
+// Assuming you call `currentUserLoaded` after fetching the user(function() {
+  var currentUserLoaded = function(currentUser) {
+    chmln.identify({
+      uid: currentUser.id,
+      created: currentUser.createdAt,
+      email: currentUser.email,
+      plan: currentUser.planName,
+      spend: currentUser.planCost
+    });
+  };  var xhr = $.get('/user.json');
+  xhr.done(function(data) {
+    // Setup other aspects of the environment    currentUserLoaded(data.user);
+  });
+})();
+```
+
+**PHP:**
+
+```JavaScript
+  // Add the snippet here with account id (i.e. <?php echo $GLOBALS['chameleonAccountId'] ?>)
+  // Assuming your page has loaded the current user as the object $current_user
+  <?php if (var_dump((bool) $current_user->present)): ?>
+    chmln.identify({
+      uid: '<?php echo $current_user->id ?>',
+      created: '<?php echo $current_user->created_at ?>',
+      email: '<?php echo $current_user->email ?>',
+      plan: '<?php echo $current_user->account->plan_name ?>',
+      spend: '<?php echo $current_user->account->plan_cost ?>'
+    });
+  <?php endif; ?>
+```
+
+
+## Disabling experiences for specific users
+
+By default, all users that match the target audience will see a Chameleon Experience when they first visit the page where that Experience automatically begins. Users will see this Experience until they complete or exit it, and then not again. 
+
+However you can **prevent certain users from seeing any Experiences, by adding a property to their user profile**:  `disabled: true`.
+
+
+## Timestamps
+
+Chameleon will interpret a property as a timestamp for a few reasons:
+
+1. If the timestamp is [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601), Chameleon will **always** assume the value is a timestamp.
+2. If the timestamp is a Unix Timestamp that falls between 1973 and 2033 and the name is either 'created', or ends in '_at' or '_time'. 
+
+Chameleon will interpret any of these properties as a timestamps: `{started: \"2016-09-05T15:45:39+00:00\", ended: \"2016-09-05T15:45:39Z\", created: 1472985601, started_at: 1095292800, ended_at: 1095352800}`.
+
+
+
+## Default properties
+
+From the JavaScript code snippet, we collect a set of default properties that cannot be overridden, they are `browser_x`, `browser_n` and `browser_tz`. In addition our servers add `browser_l` , `last_seen_session_count` , `last_seen_at` , and `last_last_seen_at` which cannot be permanently overridden.
+
+
+
+## Reserved Keywords
+
+Chameleon has some reserved keywords that are not passable in identify. They include: `id`, `user_id`, `userId`, `account_id` , `accountId` , `profile_id`, `profileId` , `created_at`, `createdAt` , `updated_at`, `updatedAt` , `options`, `at` , `now` , `disabled`, `chameleon_admin` and `percent` .
+
+
+
+## Limits and Errors
+
+The value for each user property and each Array member is limited to 768 byte. Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.trychameleon.com/data/properties/profile) or for [company data](https://app.trychameleon.com/data/properties/company).
