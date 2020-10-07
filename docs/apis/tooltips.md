@@ -45,10 +45,10 @@ GET https://api.trychameleon.com/v3/edit/tooltips
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
-| limit  | optional | Defaults to `50` with a maximum of `500`                     |
-| before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
-| before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
-| after  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
 #### HTTP Response
 
@@ -90,7 +90,7 @@ GET https://api.trychameleon.com/v3/edit/tooltips/:id
 
 | param | -        | description            |
 | ----- | -------- | ---------------------- |
-| id    | required | A Tooltip ID to lookup |
+| `id`    | required | A Tooltip ID to lookup |
 
 ```
 {

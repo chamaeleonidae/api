@@ -32,6 +32,7 @@ The Chameleon User Profiles API allows you to:
 | `percent` | number | Randomly assigned but stable, used for A/B testing |
 | `last_seen_at` | timestamp | When the user was las active on a page where Chameleon is installed |
 | `last_seen_session_count` | number | Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes |
+| `delivery_ids` | array | Ordered list of [Delivery](apis/deliveries.md?id=schema) model IDs |
 | `company` | object | The expandable [Company](apis/companies.md?id=schema) (only if associated)  |
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
@@ -63,9 +64,9 @@ GET|POST https://api.trychameleon.com/v3/analyze/profile # with parameters
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| id    | optional | The Chameleon ID of the User Profile                         |
-| uid   | optional | The User Profile identifier (typically the Database ID from your backend) |
-| email | optional | If you have sent an email address this will be available for single-user lookup |
+| `id`    | optional | The Chameleon ID of the User Profile                         |
+| `uid`   | optional | The User Profile identifier (typically the Database ID from your backend) |
+| `email` | optional | If you have sent an email address this will be available for single-user lookup |
 
 Only one of these parameters is required. Users matched are uniquely identified based on these keys (no two users have the same `uid` or `email`)
 
@@ -133,8 +134,8 @@ DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| id    | optional | A Chameleon User Profile ID to lookup                        |
-| uid   | optional | The User Profile Identifier (typically the Database ID from your backend) |
+| `id`    | optional | A Chameleon User Profile ID to lookup                        |
+| `uid`   | optional | The User Profile Identifier (typically the Database ID from your backend) |
 
 #### HTTP Response
 

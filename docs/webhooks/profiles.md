@@ -23,9 +23,9 @@ POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles
 
 | param      | -        | description                                                  |
 | ---------- | -------- | ------------------------------------------------------------ |
-| id         | optional | The Chameleon ID of the User Profile                         |
-| uid        | optional | The User Profile Identifier (typically the Database ID from your backend) |
-| company_id | optional | The Chameleon Company ID that this user is a member of       |
+| `id`         | optional | The Chameleon ID of the User Profile                         |
+| `uid`        | optional | The User Profile Identifier (typically the Database ID from your backend) |
+| `company_id` | optional | The Chameleon Company ID that this user is a member of       |
 | *others    | optional | All other properties will be stored on the Profile           |
 
 ```json

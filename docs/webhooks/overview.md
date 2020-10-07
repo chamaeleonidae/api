@@ -42,7 +42,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 
 ## Data out of Chameleon [Coming soon] :id=outgoing-webhooks
 
-> **Interested in the Outgoing Webhooks BETA program?? [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
+> **Interested in the Outgoing Webhooks BETA program?? [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks+beta)**
 
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](?id=verification) of any webhook requests before processing any included data.
 
@@ -62,7 +62,7 @@ When receiving a webhook from Chameleon you should:
 
 | Topic | Included models | Description |
 | --- | --- |--- |
-| `ping` |  | Sent as a simple check to make sure the endpoint is working |
+| `ping` | Account | Sent as a simple check to make sure the endpoint is working |
 | `survey.finished` | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md) | Sent when the Microsurvey is finished (all steps completed; including text comment if configured) |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
@@ -104,7 +104,7 @@ expected = OpenSSL::HMAC.hexdigest('SHA256', secret, request.raw_post)
 
 verified = received.size == expected.size &&
   ActiveSupport::SecurityUtils.fixed_length_secure_compare(received, expected) &&
-  Time.zone.parse(params[:sent_at]) > 7.minutes.ago
+  Time.zone.parse(params[:sent_at]) > 5.minutes.ago
 ```
 
 **Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit**

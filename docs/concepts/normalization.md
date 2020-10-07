@@ -34,7 +34,7 @@ All of these examples will be stored internally as `imported_leads` and be calle
 All of the data sent to Chameleon is cleaned before storage in the Database.
 We translate JSON and/or String inputs into *real data* for the purpose of storage.
 
-### Timestamps and Dates
+### Timestamps and Dates :id=timestamps
 
 We try to recognize as many types of dates as possible to provide rich filtering based on date ranges.
 
@@ -45,6 +45,7 @@ We try to recognize as many types of dates as possible to provide rich filtering
 - `1881974806` => `Tue, 21 Aug 2029 02:46:46 UTC +00:00`
 - `"1881974806"` => `Tue, 21 Aug 2029 02:46:46 UTC +00:00`
 - `"$now"` => The current server time
+- `"+30d"` => 30 days from the current server time
 
 ### Integers and floating point numbers
 

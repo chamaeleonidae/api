@@ -18,9 +18,9 @@ POST to https://api.trychameleon.com/v3/observe/hooks/:account_secret/events
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| id    | optional | The Chameleon ID of the User Profile                         |
-| uid   | optional | The User Profile Identifier (typically the Database ID from your backend) |
-| name  | required | The name of the Event ("Imported Data" or "Completed Task")  |
+| `id`    | optional | The Chameleon ID of the User Profile                         |
+| `uid`   | optional | The User Profile Identifier (typically the Database ID from your backend) |
+| `name`  | required | The name of the Event ("Imported Data" or "Completed Task")  |
 
 ```json
 {

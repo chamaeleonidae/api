@@ -163,11 +163,11 @@ GET|POST https://api.trychameleon.com/v3/analyze/profiles (plural)
 
 | param      | -        | description                                                  |
 | ---------- | -------- | ------------------------------------------------------------ |
-| segment_id | optional | The Chameleon Segment ID from the [List of Segments](apis/segments.md) |
-| filters    | optional | The array of [Segmentation filter expressions](concepts/filters.md) |
-| expand         | optional | Object that specifies relationships to include/exclude. Supported keys are `profile` and `company`      |
-| expand.profile | optional | use values of `all`, `min` to control the properties present in the `profile`. Defaults to `all` |
-| expand.company | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
+| `segment_id` | optional | The Chameleon Segment ID from the [List of Segments](apis/segments.md) |
+| `filters`    | optional | The array of [Segmentation filter expressions](concepts/filters.md) |
+| `expand`         | optional | Object that specifies relationships to include/exclude. Supported keys are `profile` and `company`      |
+| `expand.profile` | optional | use values of `all`, `min` to control the properties present in the `profile`. Defaults to `all` |
+| `expand.company` | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
 
 #### Using the `expand` parameter
 

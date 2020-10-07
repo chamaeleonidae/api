@@ -5,7 +5,10 @@
 ---
 
 
-To maximize throughput, Chameleon sets very high limits on the number of total requests and the amount of concurrency we support.At this time, we only enforce rate limiting for [User Profile Searching](apis/profiles-search.md) with `max_concurrent` or in situations where the API is being used abusively.
+To maximize throughput, Chameleon sets very high limits on the number of total requests and the amount of concurrency we support. At this time, we only enforce rate limiting for
+
+- [User Profile Searching](apis/profiles-search.md) with `max_concurrent=1` or in situations where the API is being used abusively.
+- [Creating a Delivery](apis/deliveries.md) with `max_concurrent=1` per User Profile to handle the enforcement of the maximum [Pending Deliveries](apis/deliveries.md?id=limits).
 
 There are two possible strategies for rate limiting:
 

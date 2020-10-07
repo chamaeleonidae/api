@@ -62,7 +62,7 @@ Alternatively, from your list of Launchers in the Chameleon sidebar, you can use
 `chmln.show`  can accept a second argument which is an object containing optional parameters. For example:
 
 ```
-chmln.show('5c2fe686593b2f00049fa27c', {open: true});
+chmln.show('5c2fe686593b2f00049fa27c', { open: true });
 ```
 
 This call would show the Launcher 'my Launcher' (if it isn't already shown), and then open the Launcher such that the list of Tours is visible. You can use this to open a Launcher that is already showing.

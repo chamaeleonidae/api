@@ -40,10 +40,10 @@ GET https://api.trychameleon.com/v3/edit/segments
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
-| limit  | optional | Defaults to `50` with a maximum of `500`                     |
-| before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
-| before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
-| after  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
 
 With a timestamp
@@ -117,7 +117,7 @@ GET https://api.trychameleon.com/v3/edit/segments/:id
 
 | param | - | description |
 |---|---|---|
-| id | required | A Segment ID to lookup
+| `id |` required | A Segment ID to lookup
 
 #### HTTP Response
 
@@ -160,8 +160,8 @@ GET https://api.trychameleon.com/v3/edit/segments/:id/:kind
 
 | param | - | description |
 |---|---|---|
-| id | required | A Segment ID to lookup
-| kind | required | One of `tour`, `survey` or `launcher`
+| `id` | required | A Segment ID to lookup
+| `kind` | required | One of `tour`, `survey` or `launcher`
 
 #### HTTP Response
 

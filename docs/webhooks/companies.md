@@ -27,8 +27,8 @@ POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies
 
 | param   | -        | description                                                  |
 | ------- | -------- | ------------------------------------------------------------ |
-| id      | optional | The Chameleon ID of the Company                              |
-| uid     | optional | The Company Identifier (typically the Database ID from your backend) |
+| `id`      | optional | The Chameleon ID of the Company                              |
+| `uid`     | optional | The Company Identifier (typically the Database ID from your backend) |
 | *others | optional | All other properties will be stored on the Company           |
 
 ```json

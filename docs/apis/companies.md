@@ -42,12 +42,12 @@ GET|POST https://api.trychameleon.com/v3/analyze/companies
 
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
-| limit  | optional | Defaults to `50` with a maximum of `500`                     |
-| before | optional | Used when paginating, use directly from the `cursor` object from the previous response |
-| before | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
-| after  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
-| expand         | optional | Object that specifies relationships to include/exclude. Supported keys are `company`      |
-| expand.company | optional | use values of `all`, `min` to control the properties present in the `company`. Defaults to `all` |
+| `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| `expand`         | optional | Object that specifies relationships to include/exclude. Supported keys are `company`      |
+| `expand.company` | optional | use values of `all`, `min` to control the properties present in the `company`. Defaults to `all` |
 
 #### Using the `expand` parameter
 
@@ -106,8 +106,8 @@ GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| id    | optional | The Chameleon ID of the Company                         |
-| uid   | optional | The Company identifier (typically the Database ID from your backend) |
+| `id`    | optional | The Chameleon ID of the Company                         |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
 
 
 ```json
