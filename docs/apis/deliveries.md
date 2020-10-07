@@ -92,15 +92,15 @@ GET https://api.trychameleon.com/v3/edit/deliveries
       "model_kind": "survey",
       "model_id": "5f3c4232c712de665632a6d4",
       "uid": 34283,
-      "until": "+14d",
+      "until": "2029-04-07T12:18:00Z",
       ...
     },
     {
       "model_kind": "tour",
       "model_id": "5f3c4232c712de665632a6d5",
       "uid": 542213,
-      "from": "2029-02-03",
-      "until": "+45d",
+      "from": "2029-02-03T12:18:00Z",
+      "until": "2029-04-07T12:18:00Z",
       ...
     },
     ...
@@ -140,14 +140,13 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 
 ```json
 {
-  "delivery": {
-    "model_kind": "tour",
-    "model_id": "5f3c4232c712de665632a6d5",
-    "uid": 542213,
-    "from": "2029-02-03",
-    "until": "+45d",
-    ...
-  }
+  "model_kind": "tour",
+  "model_id": "5f3c4232c712de665632a6d5",
+  "uid": 542213,
+  "from": "2029-02-03",
+  "until": "+45d",
+  ...
+}
 ```
 
 
