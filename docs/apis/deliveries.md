@@ -4,8 +4,6 @@
 
 Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options. While this is generally true there are a few different conditions that must be met for the trigger to occur:
 
-> **Once a delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
-
 Reason the trigger may not occur
  - The user never loads any page
  - The `from` time has not be reached
@@ -18,14 +16,7 @@ Reason the trigger may not occur
  - `skip_url_match=false` and the user never loads the matching URL
 
 
-### Internal notes (for observe)
-
-- use `group_kind`: api_edit
-- use `group_id`: delivery ID
-
-
-
-## Schema id=:schema
+## Schema :id=schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -48,7 +39,7 @@ Reason the trigger may not occur
 | `group_kind` | string | The triggering system/api: One of `link`, `api_js`, `launcher`, `experiment`, `campaign`, or `api_edit` |
 
 
-## Errors
+### Errors
 
  - When the Experience is not live (not currently published) (`409`)
  - When the user has not been seen by Chameleon (`422`)
@@ -65,14 +56,24 @@ Reason the trigger may not occur
 | `429` | Only one Delivery at a time can be created per User Profile |
 
 
-## Limitations :id=limits
+### Limitations :id=limits
+
+> **Once a delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
 Pending Deliveries (yet untriggered) are limited to 3 per User Profile. This limit can be changed in certain circumstances by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
 If a User Profile already has 3 pending Deliveries when a new Delivery is created, the request will fail with a HTTP 409 error code.
 The good news is that you can instruct the API prioritize this one as the `first` or the `last` position in the queue: Use `delivery_ids_position=first`.
 
 
+------
+
 ## List all Deliveries :id=deliveries-index
+
+#### HTTP Request
+
+```
+GET https://api.trychameleon.com/v3/edit/deliveries
+```
 
 | param              | -        | description    |
 | ------------------ | -------- | -------------- |
@@ -83,11 +84,6 @@ The good news is that you can instruct the API prioritize this one as the `first
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-#### HTTP Request
-
-```
-GET https://api.trychameleon.com/v3/edit/deliveries
-```
 
 ```json
 {
