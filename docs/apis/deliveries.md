@@ -58,7 +58,7 @@ Reason the trigger may not occur
 
 ### Limitations :id=limits
 
-> **Once a delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
+> **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
 Pending Deliveries (yet untriggered) are limited to 3 per User Profile. This limit can be changed in certain circumstances by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
 If a User Profile already has 3 pending Deliveries when a new Delivery is created, the request will fail with a HTTP 409 error code.
@@ -152,7 +152,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 
 ## Update a Delivery :id=deliveries-update
 
-> **Once a delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
+> **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
 #### HTTP Request
 
@@ -168,9 +168,9 @@ PATCH https://api.trychameleon.com/v3/edit/deliveries/:id
 
 ## Remove a Delivery :id=deliveries-destroy
 
-Cancel a delivery that has yet to happen
+Cancel a Delivery that has yet to happen
 
-> **Once a delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
+> **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
 #### HTTP Request
 
