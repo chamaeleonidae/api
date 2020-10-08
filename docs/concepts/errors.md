@@ -4,7 +4,7 @@
 
 ---
 
-## HTTP Status 403
+## Status Code 403 :id=code-403
 Account token is not valid or has been revoked
 
 ```json
@@ -14,11 +14,11 @@ Account token is not valid or has been revoked
 }
 ```
 
-## HTTP Status 404
+## Status Code 404 :id=code-404
 
 Endpoint or Resource not found
 
-404's happen fo a couple of reasons:
+404's happen for a couple of reasons:
 
  - The URL was not pasted correctly from these docs. URLs have an environment specifier directly after the version, make sure to include this
  - A resource/collection you tried to access is not found for this Secret token
@@ -30,11 +30,40 @@ Endpoint or Resource not found
 }
 ```
 
-## HTTP Status 429
+## Status Code 409 :id=code-409
+
+Conflicting state of the Resource
+
+ - The Tour is not live when trying to create a Delivery
+ - The specified update is not compatible with the current state of the Model
+ - The Delivery has already been triggered when the `until` time is updated
+
+```json
+{
+  "code": 409,
+  "messages": ["Conflict: Please check the preconditions in the API docs https://developers.trychameleon.com"]
+}
+```
+
+## Status Code 422 :id=code-422
+
+The request parameters cannot be processed as-is
+
+ - The parameter that is specifies a timestamp cannot be parsed/interpreted as a timestamp
+ - The identifier is missing when looking up a User Profile
+
+```json
+{
+  "code": 422,
+  "messages": ["Unprocessable: Please check the request parameters with the API docs https://developers.trychameleon.com"]
+}
+```
+
+## Status Code 429 :id=code-429
 
 You have made too many concurrent or bucketed requests and exceeded your Rate limit.
 
-See also [Rate limiting](rate-limiting.md)
+See also [Rate limiting](concepts/rate-limiting.md)
 
 - Headers
 
@@ -52,7 +81,7 @@ X-Ratelimit-Wait: 114
 }
 ```
 
-## HTTP Status 500
+## Status Code 500 :id=code-500
 
 Server error
 
@@ -65,7 +94,7 @@ An Internal server error occurred (one that we otherwise had not planned on rece
 }
 ```
 
-## HTTP Status 503
+## Status Code 503 :id=code-503
 
 Server not available or backend didn't respond in time -- possibly not a JSON response depending on the origin of the 503
 
@@ -78,7 +107,7 @@ Unexpected maintenance, API downtime or the inability to shed enough load with [
 }
 ```
 
-## HTTP Status 504
+## Status Code 504 :id=code-504
 
 The Server contacted or proxied your request to a different Service which took too long to respond
 
