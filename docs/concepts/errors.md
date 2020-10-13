@@ -69,6 +69,7 @@ See also [Rate limiting](concepts/rate-limiting.md)
 
 ```
 X-Ratelimit-Wait: 114
+X-Ratelimit-Limit: 2
 ```
 
 - Body

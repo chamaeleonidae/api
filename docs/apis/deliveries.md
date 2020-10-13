@@ -4,17 +4,6 @@
 
 Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options. While this is generally true there are a few different conditions that must be met for the trigger to occur:
 
-Reason the trigger may not occur
- - The user never loads any page
- - The `from` time has not be reached
- - The `until` time has passed
- - The Experience is not live
- - `use_segmentation=true` and the Audience does not currently match
- - `once=false` and the user has seen the Experience before
- - `redirect=false` and the user never loads the matching URL
- - `skip_triggers=false` and the user never clicks/hovers on the configured Step triggers
- - `skip_url_match=false` and the user never loads the matching URL
-
 
 ## Schema :id=schema
 
@@ -42,6 +31,7 @@ Reason the trigger may not occur
 ### Errors
 
  - When the Experience is not live (not currently published) (`409`)
+ - When User Profile has too many pending Deliveries (`409`)
  - When the user has not been seen by Chameleon (`422`)
  - When the supplied dates (`from` and `until`) are out of order (`422`)
  - When the supplied dates (`from` and `until`) are not in compatible formats (`422`)
@@ -52,6 +42,7 @@ Reason the trigger may not occur
 | `404` | A related model cannot be found (Tour, Survey or Profile) |
 | `409` | The experience is not live, please publish and retry |
 | `409` | The Experience has already been triggered (it can no longer be subsequently changed) |
+| `409` | Too many outstanding deliveries for this User Profile |
 | `422` | The dates cannot be honored in their given values |
 | `429` | Only one Delivery at a time can be created per User Profile |
 
@@ -60,10 +51,10 @@ Reason the trigger may not occur
 
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
-Pending Deliveries (yet untriggered) are limited to 3 per User Profile. This limit can be changed in certain circumstances by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
-If a User Profile already has 3 pending Deliveries when a new Delivery is created, the request will fail with a HTTP 409 error code.
-The good news is that you can instruct the API prioritize this one as the `first` or the `last` position in the queue: Use `delivery_ids_position=first`.
+Pending Deliveries (yet untriggered with a `null` value for the `at` property) are limited to 4 total per User Profile. This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
+A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in the list to add this new Delivery. Use values of `first`, `last` or an integer array index.
 
+If an error occurs for a "limit reached", simply [list the Deliveries by User Profile](?id=deliveries-index) to determine which ones to remove.
 
 ------
 
@@ -134,7 +125,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `redirect`         | optional | Default `false`. Boolean value whether or not to redirect to the "page the Experience starts on". This redirect loads the "Tour link" that can be copied from "Additional sharing options". |
 | `skip_triggers`    | optional | Default `false`. Boolean value whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. |
 | `skip_url_match`   | optional | Default `false`. Boolean value whether or not to bypass the first step URL match to "force" it to show right away. |
-| `delivery_ids_position` | optional | Defaults to `first`. The value of `last` or a specific integer index to insert at are accepted. |
+| `delivery_ids_position` | optional | Defaults to `first`. The value of `last` or a _specific integer array index_ to insert at are accepted. |
 
 > Required: One of `profile_id`, `uid` or `email`
 
@@ -181,4 +172,22 @@ DELETE https://api.trychameleon.com/v3/edit/deliveries/:id
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
 | `id`    | optional | The Chameleon ID of the Delivery                         |
+
+
+
+---------
+
+
+## Troubleshooting
+
+Reason the trigger may not occur
+ - The user never loads any page
+ - The `from` time has not be reached
+ - The `until` time has passed
+ - The Experience is not live
+ - `use_segmentation=true` and the Audience does not currently match
+ - `once=false` and the user has seen the Experience before
+ - `redirect=false` and the user never loads the matching URL
+ - `skip_triggers=false` and the user never clicks/hovers on the configured Step triggers
+ - `skip_url_match=false` and the user never loads the matching URL
 
