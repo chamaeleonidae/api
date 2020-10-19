@@ -54,7 +54,7 @@ Deliveries are used to directly trigger an Experience to one or to many users. O
 Pending Deliveries (yet untriggered with a `null` value for the `at` property) are limited to 4 total per User Profile. This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
 A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in the list to add this new Delivery. Use values of `first`, `last` or an integer array index.
 
-If an error occurs for a "limit reached", simply [list the Deliveries by User Profile](?id=deliveries-index) to determine which ones to remove.
+If an error occurs for a "limit reached", simply [list the Deliveries by User Profile](apis/deliveries.md?id=deliveries-index) to determine which ones to remove.
 
 ------
 
