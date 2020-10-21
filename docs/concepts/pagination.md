@@ -14,3 +14,25 @@ Unless noted otherwise, any endpoint where you **list models** (e.g. list Segmen
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
 By default, all models are returned with the **most recently created first** (aka descending order). The `before` and `after` parameters apply to that ordering.
+
+
+#### Examples
+
+Up to 74 Results created within the last 25 hours
+
+```ruby
+{
+  "after": 25.hours.ago.iso8601,
+  "limit": 74
+}
+```
+
+
+Results created within the last 25 hours but not within the last hour
+
+```ruby
+{
+  "before": 1.hour.ago.iso8601,
+  "after": 25.hours.ago.iso8601
+}
+```
