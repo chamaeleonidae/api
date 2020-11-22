@@ -45,7 +45,7 @@ With the Chameleon API for Launchers, you can:
 | `position_type` | string | Position type: One of `relative_to_screen` or `snap_to_element` |
 | `trigger` | string | Trigger: One of `click` or `hover` |
 | `trigger_type` | string | Trigger type: One of `custom_icon`, `element`, `icon_lightbulb`, `icon_question`, `icon_checklist`, `icon_signpost`, `icon_bell`, or `text` |
-| `items` | array | An array of items that define the Launcher menu contents (see full schema below) |
+| `items` | array<LauncherItem> | An array of items that define the Launcher menu contents (see full schema below) |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.displayed_count` | number | Number of times the Launcher widget (icon) was shown to end-users |
 | `stats.last_displayed_at` | timestamp | Most recent time the Launcher widget (icon) was shown to end-users |

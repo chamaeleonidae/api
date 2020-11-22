@@ -19,7 +19,7 @@
   - [Listen to Chameleon events](js/listen.md)
 
 - Webhooks
-  - [Overview BETA](webhooks/overview.md)
+  - [Overview](webhooks/overview.md)
   - [User Profiles](webhooks/profiles.md)
   - [Events](webhooks/events.md)
   - [Companies](webhooks/companies.md)

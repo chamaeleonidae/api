@@ -40,11 +40,9 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 
 ------------
 
-## Data out of Chameleon [Coming soon] :id=outgoing-webhooks
+## Data out of Chameleon :id=outgoing-webhooks
 
-> **Interested in the Outgoing Webhooks BETA program?? [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks+beta)**
-
-A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](?id=verification) of any webhook requests before processing any included data.
+A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](webhooks/overview.md?id=verification) of any webhook requests before processing any included data.
 
 When sending a webhook to your backend Chameleon will:
  - Send a `POST` request to your `https` [configured endpoints](https://app.trychameleon.com/settings/webhooks).
@@ -60,10 +58,14 @@ When receiving a webhook from Chameleon you should:
 
 #### Webhook topics :id=topics
 
-| Topic | Included models | Description |
-| --- | --- |--- |
-| `ping` | Account | Sent as a simple check to make sure the endpoint is working |
-| `survey.finished` | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md) | Sent when the Microsurvey is finished (all steps completed; including text comment if configured) |
+| Topic | Example Payload | Included models | Description |
+| --- | --- | --- |--- |
+| `ping` | [example](webhooks/overview.md?id=example-ping) | Account | Sent as a simple check to make sure the endpoint is working |
+| `response.finished` | [example](webhooks/overview.md?id=example-response-finished) | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md) | Sent when the Microsurvey is finished (all steps completed; including text comment if configured) |
+| `tour.started` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is started with the first Step |
+| `tour.completed` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is completed with the Step the user completed |
+| `tour.exited` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
+| `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/button.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
 
@@ -72,8 +74,8 @@ When receiving a webhook from Chameleon you should:
 | Property | Type | Description |
 | --- | --- | --- |
 | `id` | ID | The Chameleon ID |
-| `sent_at` | timestamp | The current server time when this webhook was sent (used in [verification](?id=verification)) |
-| `kind` | enum | The [topic identifier](?id=topics) |
+| `sent_at` | timestamp | The current server time when this webhook was sent (used in [verification](webhooks/overview.md?id=verification)) |
+| `kind` | enum | The [topic identifier](webhooks/overview.md?id=topics) |
 | `data` | object | Contains the webhook payload data. This can be any models included by singular or plural name |
 
 #### Request headers :id=headers
@@ -91,9 +93,9 @@ When receiving a webhook from Chameleon you should:
 
 The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/webhooks) and the request body. To prevent replay attacks, reject the message if it is older than a few minutes (in the examples below 5 minutes is used)
 
-#### Examples
+#### Verification Examples
 
-###### Rails
+###### Rails :id=rails
  ```ruby
 # Assumes this code runs in a Controller to access the `request` object
 # Could easily be run in a background task or elsewhere by passing the `X-Chameleon-Signature` and `request.raw_post` exactly as-is
@@ -108,3 +110,163 @@ verified = received.size == expected.size &&
 ```
 
 **Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit**
+
+
+#### Payload Examples
+
+
+##### `ping` :id=example-ping
+
+Typically process Verification for this topic but ignore this. It's simply part of how Chameleon determines active/inactive/performance of webhook endpoints. 
+
+```json
+{
+  "id": "5fb70dcbc39330000325a817",
+  "kind": "ping",
+  "sent_at": "2029-12-11T00:28:59.650Z",
+  "data": {
+    "account": {
+      "id": "58918bc07de121000432e9c0",
+      "domain": "acme.co",
+      "name": "Acme Corp"
+    }
+  }
+}
+```
+
+##### `response.finished` :id=example-response-finished
+
+```json
+{
+  "id": "5fb70dcbc39330000325a81a",
+  "kind": "response.finished",
+  "sent_at": "2029-12-11T00:28:59.651Z",
+  "data": {
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jon@example.com",
+      "uid": "92340834",
+      "name": "Jon E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "survey": {
+      "id": "5fb7936edee1f70011bfc4c9",
+      "name": "2029-11 Role question",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      ...
+      "steps": [
+        {
+          "id": "5fb7936d566535d75a87507c",
+          "created_at": "2020-11-20T09:59:09.000Z",
+          "updated_at": "2020-11-20T11:58:33.503Z",
+          "body": "Are you unhappy with your current role?",
+          "dropdown_items": [
+          ]
+        },
+        {
+          "id": "5fb7936d566535d75a87507e",
+          "created_at": "2020-11-20T09:59:09.000Z",
+          "updated_at": "2020-11-20T11:59:00.087Z",
+          "body": "Thanks so much for your feedback! 🙏",
+          "preset": "thank_you"
+        }
+      ],
+      "user": {
+        "id": "5490e42d6535370002000000",
+        "created_at": "2014-12-17T02:02:21.000Z",
+        "updated_at": "2020-11-20T11:59:12.160Z",
+        "email": "pulkit@trychameleon.com",
+        "name": "Pulkit Agrawal"
+      }
+    },
+    "response": {
+      "id": "5fb7afb5ea19724169374269",
+      "created_at": "2020-11-20T11:59:49.000Z",
+      "updated_at": "2020-11-20T11:59:49.993Z",
+      "survey_id": "5fb7936edee1f70011bfc4c9",
+      "profile_id": "5f884e1e03d9f4000ebcbb59",
+      "href": "https://camouflage-v4.surge.sh/index.html#pulkit-2730",
+      "button_text": "Submit",
+      "button_order": 0,
+      "finished_at": "2020-11-20T11:59:49.618Z"
+    }
+  }
+}
+```
+##### `tour.started`, `tour.exited`, `tour.completed` :id=example-tour-all
+
+```json
+{
+  "id": "5fb70dcbc39330000325a818",
+  "kind": "tour.started",
+  "sent_at": "2029-12-11T00:28:59.652Z",
+  "data": {
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jon@example.com",
+      "uid": "92340834",
+      "name": "Jon E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "tour": {
+      "id": "5fb6e4ab8af58a00073f0d98",
+      "name": "Usage upsell banner - A",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      ...
+    },
+    "step": {
+      "id": "5fb6e4ab8af58a00073f0d99",
+       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
+       ...
+    }
+  },
+}
+```
+
+
+
+##### `tour.button.clicked` :id=example-tour-button-clicked
+
+```json
+{
+  "id": "5fb70dcbc39330000325a819",
+  "kind": "tour.button.clicked",
+  "sent_at": "2029-12-11T00:28:59.653Z",
+  "data": {
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jon@example.com",
+      "uid": "92340834",
+      "name": "Jon E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "tour": {
+      "id": "5fb6e4ab8af58a00073f0d98",
+      "name": "Usage upsell banner - A",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      ...
+    },
+    "step": {
+      "id": "5fb6e4ab8af58a00073f0d99",
+       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
+       ...
+    },
+    "button": {
+      "id": "5fb6e4ab8af58a00073f0d9a",
+       "text": "Check pricing",
+       "tour_action": "next",
+       "position": "bottom_right",
+       ...
+    },
+  },
+}
+```

@@ -24,6 +24,7 @@ Using Chameleon's API for microsurvey responses, you can:
 | `button_order` | number | The 0-indexed index of the button |
 | `button_id` | ID | The Chameleon ID of the button |
 | `input_text` | string | Text comment left by the user (if configured) |
+| `dropdown_items` | string | For a dropdown Microsurvey, the selected options from the dropdown |
 | `finished_at` | timestamp | When the last step of Microsurvey response was completed |
 | `profile` | object | An expandable [Profile](apis/profiles.md) model |
 | `profile.company` | none | An expandable [Company](apis/companies.md) model embedded in the profile |

@@ -2,7 +2,7 @@
 
 > **Interested in the Deliveries BETA program?? [Ping us here](mailto:hello@trychameleon.com?subject=API+Deliveries+beta)**
 
-Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options. While this is generally true there are a few different conditions that must be met for the trigger to occur:
+Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options.
 
 
 ## Schema :id=schema
@@ -161,7 +161,7 @@ PATCH https://api.trychameleon.com/v3/edit/deliveries/:id
 
 Cancel a Delivery that has yet to happen
 
-> **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
+> **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be deleted.**
 
 #### HTTP Request
 
@@ -180,7 +180,10 @@ DELETE https://api.trychameleon.com/v3/edit/deliveries/:id
 
 ## Troubleshooting
 
-Reason the trigger may not occur
+Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options.
+
+While this is generally true there are a few different conditions that must be met for the trigger to occur:
+
  - The user never loads any page
  - The `from` time has not be reached
  - The `until` time has passed
