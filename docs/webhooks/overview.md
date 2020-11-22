@@ -45,7 +45,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](webhooks/overview.md?id=verification) of any webhook requests before processing any included data.
 
 When sending a webhook to your backend Chameleon will:
- - Send a `POST` request to your `https` [configured endpoints](https://app.trychameleon.com/settings/webhooks).
+ - Send a `POST` request to your `https` [configured endpoints](https://app.trychameleon.com/settings/integrations/webhooks).
  - Attempt delivery right away from `aws us-east`, use a request timeout of 7 seconds and include a `User-Agent` header specific to the [API version](concepts/authentication.md?id=version) the webhook is being sent from.
  - Generate a SHA256-HMAC signature of the request body and include the signature in the `X-Chameleon-Signature` header
  - In case of non-200 status code, will retry a total of 9 times over 43 hours (giving you a chance to fix errors without losing track of these webhooks)
@@ -91,7 +91,7 @@ When receiving a webhook from Chameleon you should:
 
 ## Verifying the Webhook :id=verification
 
-The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/webhooks) and the request body. To prevent replay attacks, reject the message if it is older than a few minutes (in the examples below 5 minutes is used)
+The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/integrations/webhooks) and the request body. To prevent replay attacks, reject the message if it is older than a few minutes (in the examples below 5 minutes is used)
 
 #### Verification Examples
 
@@ -109,7 +109,7 @@ verified = received.size == expected.size &&
   Time.zone.parse(params[:sent_at]) > 5.minutes.ago
 ```
 
-**Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit**
+**Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit via our Docs Bounty program!**
 
 
 #### Payload Examples
