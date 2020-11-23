@@ -13,10 +13,7 @@ Sending Event data to Chameleon can be valuable for:
 
 ## Tracking user action data
 
-If you have implemented Chameleon directly via the JavaScript snippet (and have not used Segment.com) then you may wish to supplement your user attribute data with user action data. This will be powerful for showing Tours in response to what users do. 
-
-
-
+If you have implemented Chameleon directly via the JavaScript snippet (and have not used Segment.com) then you may wish to supplement your user attribute data with user action data. This will be powerful for showing Tours in response to what users do.
 To use the **JavaScript API**, using our `chmln.track` method:
 
 ```

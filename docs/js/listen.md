@@ -43,7 +43,7 @@ This might be relevant in the following instances:
 // Tour / Survey events only
 chmln.on('tour:event', function(eventName, options) {
   $http.post(internal_event_logging_url, {
-    name: eventName, 
+    name: eventName,
     properties: options
   });
 });

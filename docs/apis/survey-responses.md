@@ -1,14 +1,14 @@
 # Microsurvey Responses
 
-**A microsurvey response is a single object with all of the information about the microsurvey interactions: the buttons clicked on the first step, the text input entered in the follow-up step, and the time that the microsurvey was finished.**
+**A Microsurvey response is a single object with all of the information about the microsurvey interactions: the buttons clicked on the first step, the text input entered in the follow-up step, and the time that the microsurvey was finished.**
 
 ------
 
-Using Chameleon's API for microsurvey responses, you can:
+Using Chameleon's API for Microsurvey responses, you can:
 
-- List microsurvey responses.
-- Delete a microsurvey response.
-  
+- List Microsurvey responses.
+- Delete a Microsurvey response.
+
 
 ## Schema :id=schema
 
@@ -112,7 +112,7 @@ Notes:
 
 ## Delete a Microsurvey Response :id=responses-destroy
 
-Deleting a Microsurvey response also clears the associated metrics and summaries 
+Deleting a Microsurvey response also clears the associated metrics and summaries
 
 #### HTTP Request
 

@@ -8,7 +8,7 @@
   - [Filter expressions](concepts/filters.md)
   - [Normalization](concepts/normalization.md)
   - [Listing Models](concepts/any-model.md)
-  
+
 - Javascript API
   - [Overview](js/overview.md)
   - [Identify Users](js/profiles.md)
@@ -38,4 +38,4 @@
   - [Tooltips](apis/tooltips.md)
   - [Domains](apis/urls.md)
   - [Deliveries BETA](apis/deliveries.md)
- 
+

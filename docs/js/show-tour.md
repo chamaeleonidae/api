@@ -45,7 +45,7 @@ Show **now** for users in the segment who have noe seen this Tour before
 chmln.show('ID', { use_segmentation: true, once: true });
 ```
 
-Allow this Tour to be **triggered** normally (assuming this tour is triggered when the user clicks on a specific element etc.)
+Allow this Tour to be **triggered** normally (assuming this Tour is triggered when the user clicks on a specific element etc.)
 
 ```javascript
 chmln.show('ID', { skip_triggers: false });

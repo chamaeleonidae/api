@@ -19,7 +19,6 @@ With the Chameleon API for Tooltips, you can:
 
 - Retrieve a single Tooltip based on the `id`.
 
-  
 
 ## Schema :id=schema
 

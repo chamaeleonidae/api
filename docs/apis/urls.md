@@ -6,7 +6,6 @@
 
 - **HTTP requests to our Internal APIS (to edit any Experiences or content) will fail.**
 
-  
 
 *If you want to know more about managing domains and subdomains in Chameleon, feel free to visit our [product documentation](https://help.trychameleon.com/en/articles/1318033-managing-domains-and-subdomains).*
 
@@ -28,7 +27,6 @@ With the Chameleon API for Domains, you can:
 - Retrieve all domains that correspond to the specified parameters.
 - Retrieve a specific domain based on its `id`.
 
-  
 
 ## Schema :id=schema
 

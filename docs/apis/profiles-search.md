@@ -1,6 +1,6 @@
 # Searching and Counting User Profiles
 
-**User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon.** 
+**User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon.**
 
 *If you want to know more about User Profiles, visit the [User Profiles section](apis/profiles.md).*
 
@@ -14,7 +14,7 @@ Searching User Profiles through the Chameleon API allows you to:
  - Search for users or get the Count of Users by any of the properties you have sent to us.
  - Search for users by any of the interactions they had with Chameleon (answered a Microsurvey etc.).
 
-   
+
 
 > *Note: [Rate Limiting](concepts/rate-limiting.md) applies according to the table below.*
 
@@ -146,7 +146,7 @@ Each example below is used as the value for the `filters` key in the JSON reques
   {
     "prop": "invited_users_count",
     "op": "gte",
-    "value": 3 
+    "value": 3
   }
 ]
 ```

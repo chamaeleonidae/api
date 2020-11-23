@@ -65,6 +65,7 @@ When receiving a webhook from Chameleon you should:
 | `tour.started` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is started with the first Step |
 | `tour.completed` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is completed with the Step the user completed |
 | `tour.exited` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
+| `tour.snoozed` | [example](webhooks/overview.md?id=example-tour-snooze) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited on Step configured to snooze (re-display the step at a later time). |
 | `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/button.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
@@ -89,11 +90,11 @@ When receiving a webhook from Chameleon you should:
 | `Accept` | `application/json` | Signifying that the response should be JSON (or nothing) |
 
 
-## Verifying the Webhook :id=verification
+### Verifying the Webhook :id=verification
 
 The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/integrations/webhooks) and the request body. To prevent replay attacks, reject the message if it is older than a few minutes (in the examples below 5 minutes is used)
 
-#### Verification Examples
+### Verification Examples
 
 ###### Rails :id=rails
  ```ruby
@@ -112,12 +113,12 @@ verified = received.size == expected.size &&
 **Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit via our Docs Bounty program!**
 
 
-#### Payload Examples
+### Payload Examples
 
 
-##### `ping` :id=example-ping
+##### Example: `ping` :id=example-ping
 
-Typically process Verification for this topic but ignore this. It's simply part of how Chameleon determines active/inactive/performance of webhook endpoints. 
+Typically do process Verification for this topic but nothing really to be done when topic is received. It's simply part of how Chameleon determines active/inactive/performance of webhook endpoints.
 
 ```json
 {
@@ -134,7 +135,9 @@ Typically process Verification for this topic but ignore this. It's simply part 
 }
 ```
 
-##### `response.finished` :id=example-response-finished
+##### Example: `response.finished` :id=example-response-finished
+
+Every Microsruvey that is finished will send a webhook to this topic.
 
 ```json
 {
@@ -144,12 +147,22 @@ Typically process Verification for this topic but ignore this. It's simply part 
   "data": {
     "profile": {
       "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jon@example.com",
+      "email": "jane@example.com",
       "uid": "92340834",
-      "name": "Jon E",
+      "name": "Jane E",
       "last_seen_at": "2029-12-11T00:21:59.109Z",
       "last_seen_session_count": 83,
       ...
+    },
+    "response": {
+      "id": "5fb7afb5ea19724169374269",
+      "survey_id": "5fb7936edee1f70011bfc4c9",
+      "profile_id": "5f884e1e03d9f4000ebcbb59",
+      "href": "https://app.acme.co/setup/tough-thing-to-do",
+      "button_text": "Very Easy",
+      "button_order": 0,
+      "input_text": "I was able to figure it out quickly.",
+      "finished_at": "2029-12-11T00:28:59.641Z"
     },
     "survey": {
       "id": "5fb7936edee1f70011bfc4c9",
@@ -160,43 +173,31 @@ Typically process Verification for this topic but ignore this. It's simply part 
       "steps": [
         {
           "id": "5fb7936d566535d75a87507c",
-          "created_at": "2020-11-20T09:59:09.000Z",
-          "updated_at": "2020-11-20T11:58:33.503Z",
-          "body": "Are you unhappy with your current role?",
+          "body": "How was that?",
+          "preset": "survey_five",
           "dropdown_items": [
           ]
         },
         {
           "id": "5fb7936d566535d75a87507e",
-          "created_at": "2020-11-20T09:59:09.000Z",
-          "updated_at": "2020-11-20T11:59:00.087Z",
           "body": "Thanks so much for your feedback! 🙏",
           "preset": "thank_you"
         }
       ],
       "user": {
-        "id": "5490e42d6535370002000000",
-        "created_at": "2014-12-17T02:02:21.000Z",
-        "updated_at": "2020-11-20T11:59:12.160Z",
-        "email": "pulkit@trychameleon.com",
-        "name": "Pulkit Agrawal"
+        "id": "5490e42d65353700020030fa",
+        "email": "jim@acme.co",
+        "name": "Jim B"
       }
-    },
-    "response": {
-      "id": "5fb7afb5ea19724169374269",
-      "created_at": "2020-11-20T11:59:49.000Z",
-      "updated_at": "2020-11-20T11:59:49.993Z",
-      "survey_id": "5fb7936edee1f70011bfc4c9",
-      "profile_id": "5f884e1e03d9f4000ebcbb59",
-      "href": "https://camouflage-v4.surge.sh/index.html#pulkit-2730",
-      "button_text": "Submit",
-      "button_order": 0,
-      "finished_at": "2020-11-20T11:59:49.618Z"
     }
   }
 }
 ```
-##### `tour.started`, `tour.exited`, `tour.completed` :id=example-tour-all
+
+
+##### Example: `tour.started`, `tour.completed`, `tour.exited` :id=example-tour-all
+
+A Tour is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Tours by default show once to any one User but can, depending on their settings, show multiple times.
 
 ```json
 {
@@ -206,7 +207,53 @@ Typically process Verification for this topic but ignore this. It's simply part 
   "data": {
     "profile": {
       "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jon@example.com",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jon E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "tour": {
+      "id": "5fb6e4ab8af58a00073f0d98",
+      "name": "Usage upsell banner - A",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      ...
+    },
+    "step": {
+      "id": "5fb6e4ab8af58a00073f0d99",
+       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
+       ...
+    },
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6"
+    }
+  }
+}
+```
+
+##### Example: `tour.snoozed` :id=example-tour-snooze
+
+When a Tour is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
+
+> **Look for `data.action` to be an object with the information on when this snooze ends, how many hours, and how many snoozes this totals.**
+
+```json
+{
+  "id": "5fb70dcbc39330000325a818",
+  "kind": "tour.started",
+  "sent_at": "2029-12-11T00:28:59.652Z",
+  "data": {
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "deferred_until": "2029-12-14T00:28:58.622Z",
+      "deferred_hours": 72,
+      "deferred_count": 2
+    },
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
       "uid": "92340834",
       "name": "Jon E",
       "last_seen_at": "2029-12-11T00:21:59.109Z",
@@ -231,7 +278,9 @@ Typically process Verification for this topic but ignore this. It's simply part 
 
 
 
-##### `tour.button.clicked` :id=example-tour-button-clicked
+##### Example: `tour.button.clicked` :id=example-tour-button-clicked
+
+Every Button that is clicked in a Tour will send a webhook to this topic. It includes the Step and the Button configuration.
 
 ```json
 {
@@ -241,7 +290,7 @@ Typically process Verification for this topic but ignore this. It's simply part 
   "data": {
     "profile": {
       "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jon@example.com",
+      "email": "jane@example.com",
       "uid": "92340834",
       "name": "Jon E",
       "last_seen_at": "2029-12-11T00:21:59.109Z",
@@ -267,6 +316,9 @@ Typically process Verification for this topic but ignore this. It's simply part 
        "position": "bottom_right",
        ...
     },
-  },
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6"
+    }
+  }
 }
 ```

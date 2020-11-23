@@ -1,7 +1,6 @@
 # Microsurveys
 
-**Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.** 
-
+**Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.**
 *To know more about Surveys, you can visit our [product documentation](https://help.trychameleon.com/en/collections/1752073-surveys).*
 
 ------
@@ -10,8 +9,8 @@
 
 With the Chameleon Microsurveys API, you can:
 
-- List all microsurveys that follow your indicated parameters.
-- Retrieve a single microsurvey using its `id`.
+- List all Microsurveys that follow your indicated parameters.
+- Retrieve a single Microsurvey using its `id`.
 
 
 
@@ -27,7 +26,7 @@ With the Chameleon Microsurveys API, you can:
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
-| `last_dropdown_items` | array<string> | For a dropdown Microsurvey all of the `dropdown_items` that have been selected by any User |
+| `last_dropdown_items` | array<string> | For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
 | `stats.last_started_at` | timestamp | Most recent time any user saw this |

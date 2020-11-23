@@ -26,7 +26,7 @@ Currently, our REST API supports the following endpoints:
 
 Chameleon's REST API is made to be adaptable to your own custom use cases. Nevertheless, there are some cases where you might want to use it:
 
-- Use the **[Microsurveys Endpoint](apis/surveys.md)** to download microsurvey response data periodically.
+- Use the **[Microsurveys Endpoint](apis/surveys.md)** to download Microsurvey response data periodically.
 - Get a list of all the user data being sent to Chameleon and manipulate it (delete, update, etc.) through the **[User Profiles Endpoint](apis/profiles.md)**.
 - Use the **[Tours Endpoint](apis/tours.md)** to have an alert when an experience isn't completed in a specific amount of time.
 
