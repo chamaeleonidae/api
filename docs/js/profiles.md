@@ -177,20 +177,19 @@ Chameleon will interpret a property as a timestamp for a few reasons:
 1. If the timestamp is [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601), Chameleon will **always** assume the value is a timestamp.
 2. If the timestamp is a Unix Timestamp that falls between 1973 and 2033 and the name is either 'created', or ends in '_at' or '_time'. 
 
-Chameleon will interpret any of these properties as a timestamps: `{started: \"2016-09-05T15:45:39+00:00\", ended: \"2016-09-05T15:45:39Z\", created: 1472985601, started_at: 1095292800, ended_at: 1095352800}`.
+Chameleon will interpret any of these properties as a timestamps: `{started: "2016-09-05T15:45:39+00:00", ended: "2016-09-05T15:45:39Z", created: 1472985601, started_at: 1095292800, ended_at: 1095352800}`.
 
 
 
 ## Default properties
 
-From the JavaScript code snippet, we collect a set of default properties that cannot be overridden, they are `browser_x`, `browser_n` and `browser_tz`. In addition our servers add `browser_l` , `last_seen_session_count` , `last_seen_at` , and `last_last_seen_at` which cannot be permanently overridden.
+From the JavaScript code snippet, we collect a set of default properties that cannot be overridden, they are `browser_x`, `browser_n` and `browser_tz`. In addition, our servers add `browser_l` , `last_seen_session_count` , `last_seen_at` , and `last_last_seen_at` which cannot be permanently overridden.
 
 
 
 ## Reserved Keywords
 
 Chameleon has some reserved keywords that are not passable in identify. They include: `id`, `user_id`, `userId`, `account_id` , `accountId` , `profile_id`, `profileId` , `created_at`, `createdAt` , `updated_at`, `updatedAt` , `options`, `at` , `now` , `disabled`, `chameleon_admin` and `percent` .
-
 
 
 ## Limits and Errors
