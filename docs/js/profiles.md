@@ -58,8 +58,6 @@ chmln.identify(USER.ID_IN_DB, {     // Unique ID in your database (e.g. 23443 or
 });
 ```
 
-
-
 **What is necessary for a UID?**
 
 A UID simply needs to be a unique string that identifies the current user, and it needs to be consistent. Unique meaning no user will share one with another user, and consistent meaning it won't change between servers, logins, or browsers. Consistent also means you'll always have access to this attribute to send to Chameleon.
@@ -98,22 +96,26 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 
 ```
   // Add the snippet here with account id (i.e. '<%= ENV['CHAMELEON_ACCOUNT_TOKEN'] %>')
-  // Assuming you have exposed `helper_method :current_user` in your `ApplicationController`
-  <% if current_user.present? %>
-      chmln.identify({
-          uid: '<%= current_user.id %>',
-          created: '<%= current_user.created_at.iso8601 %>',
-          email: '<%= current_user.email %>',
-          plan: '<%= current_user.account.plan_name %>',
-          spend: '<%= current_user.account.plan_cost %>'
-      });
+  // Assuming you have exposed `helper_method :current_user?` in your `ApplicationController`
+  
+  <% if current_user? %>
+    chmln.identify({
+      uid: '<%= current_user.id %>',
+      created: '<%= current_user.created_at.iso8601 %>',
+      email: '<%= current_user.email %>',
+      plan: '<%= current_user.account.plan_name %>',
+      spend: '<%= current_user.account.plan_cost %>'
+    });
   <% end %>
 ```
 
 **Javascript:**
 
-```// Add the snippet here with account id (i.e. config.chameleonAccountId)
-// Assuming you preload your page with a current user(function() {
+```
+// Add the snippet here with account id (i.e. config.chameleonAccountId)
+// Assuming you preload your page with a current user
+
+(function() {
   if(currentUser.id) {
     chmln.identify({
       uid: currentUser.id,
@@ -130,30 +132,35 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 
 ```JavaScript
 // Add the snippet here with account id (i.e. config.chameleonAccountId)
-// Assuming you call `currentUserLoaded` after fetching the user(function() {
+// Assuming you call `currentUserLoaded` after fetching the user
+
+(function() {
   var currentUserLoaded = function(currentUser) {
-    chmln.identify({
-      uid: currentUser.id,
+    chmln.identify(currentUser.id, {
       created: currentUser.createdAt,
       email: currentUser.email,
       plan: currentUser.planName,
       spend: currentUser.planCost
     });
-  };  var xhr = $.get('/user.json');
+  };
+
+  var xhr = $.get('/user.json');
   xhr.done(function(data) {
-    // Setup other aspects of the environment    currentUserLoaded(data.user);
+    // Setup other aspects of the environment
+    
+    currentUserLoaded(data.user);
   });
 })();
 ```
 
 **PHP:**
 
-```JavaScript
+```php
   // Add the snippet here with account id (i.e. <?php echo $GLOBALS['chameleonAccountId'] ?>)
   // Assuming your page has loaded the current user as the object $current_user
+  
   <?php if (var_dump((bool) $current_user->present)): ?>
-    chmln.identify({
-      uid: '<?php echo $current_user->id ?>',
+    chmln.identify('<?php echo $current_user->id ?>', {
       created: '<?php echo $current_user->created_at ?>',
       email: '<?php echo $current_user->email ?>',
       plan: '<?php echo $current_user->account->plan_name ?>',
@@ -163,9 +170,22 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 ```
 
 
-## Disabling experiences for specific users
+## Clearing / disabling the Chameleon install :id=clear
 
-By default, all users that match the target audience will see a Chameleon Experience when they first visit the page where that Experience automatically begins. Users will see this Experience until they complete or exit it, and then not again. 
+Use this function to de-identify the user and stop Chameleon from showing (or trying to show) any other experiences during
+
+- When the user is logged out of a single page app that does not perform a full-page refresh
+- When your application enters a "mode" where automatic delivery of Chameleon experiences should no longer happen (i.e. in full-screen mode)
+
+```JavaScript
+chmln.clear();
+```
+
+
+## Disabling experiences for specific users :id=disable
+
+By default, all users that match the target audience will see a Chameleon Experience when they first visit the page where that Experience automatically begins.
+Users will see this Experience until they complete or exit it, and then not again. 
 
 However you can **prevent certain users from seeing any Experiences, by adding a property to their user profile**:  `disabled: true`.
 
