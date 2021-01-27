@@ -28,6 +28,7 @@ With the Chameleon API for Tours, you can:
 | `id` | ID | The Chameleon ID |
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
+| `archived_at` | timestamp | The time when this was archived |
 | `name` | string | The name given by an administrator of Chameleon |
 | `style` | string | The delivery method of this Tour: One of `auto` or `manual` |
 | `position` | number | The order that these appear in lists (starting from 0) |
