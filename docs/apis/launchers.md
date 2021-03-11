@@ -36,7 +36,10 @@ With the Chameleon API for Launchers, you can:
 | `published_at` | timestamp | The time this was most recently published |
 | `list_type` | string | If this is a checklist or a normal list: One of `default` or `checklist` |
 | `search_placeholder` | string | Search placeholder |
-| `quantifier_url` | string | This must match the current page URL |
+| `quantifier_url` | string | This must match the current page URL _[deprecated]_ |
+| `quantifier_urls` | array | List of URL matching conditions that must match the current page URL |
+| `quantifier_urls.url` | none | The specific URL used in this matching condition |
+| `quantifier_urls.match_type` | none | The type of matching used. One of: `simple`, `exact`, `regex`, `inverse_simple`, or `inverse_exact` |
 | `trigger_text` | string | Trigger text |
 | `blocked_domains` | string | Domains that, if matched, will make this now show |
 | `empty_state_content` | string | Markdown content to show when all items in the Launcher are completed/hidden |
