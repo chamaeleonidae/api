@@ -50,6 +50,8 @@ Not all combinations of kinds and operators will work, see the other subsections
 
 ## Examples
 
+Other examples can be found on the [searching profiles](apis/profiles-search.md?id=examples) page.
+
 #### User whose "role is admin"
 
 ```json
@@ -89,4 +91,7 @@ Subtract X days from the current time and look for `last_seen_at` values that ar
   "value":"7"
 }
 ```
+
+> ### Other examples can be found on the [searching profiles](apis/profiles-search.md?id=examples) page.
+
 
