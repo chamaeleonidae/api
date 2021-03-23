@@ -7,7 +7,6 @@
 ------
 
 
-
 With the Chameleon API for Segments, you can:
 
 - Retrieve a list of segments according to the specified parameters.
@@ -26,6 +25,8 @@ With the Chameleon API for Segments, you can:
 | `name` | string | The name given by an administrator of Chameleon |
 | `items` | array<SegmentFilter> | An array of items that each define a [Segmentation Filter expression](concepts/filters.md) |
 
+
+> For a full list of your User / Company Properties see the [Properties API](apis/properties.md)
 
 
 ## Listing Segments :id=segments-index

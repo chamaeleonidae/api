@@ -2,6 +2,8 @@
 
 **Companies represent your *accounts*: real customers who were identified to Chameleon. They can store complex (semi-arbitrary) properties.**
 
+> For a full list of your User / Company Properties see the [Properties API](apis/properties.md)
+
 ---
 
 ## Schema :id=schema

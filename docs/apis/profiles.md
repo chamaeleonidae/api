@@ -2,6 +2,8 @@
 
 **User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.**
 
+> For a full list of your User / Company Properties see the [Properties API](apis/properties.md)
+
 ---
 
 The Chameleon User Profiles API allows you to:

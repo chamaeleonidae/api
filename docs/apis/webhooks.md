@@ -1,8 +1,10 @@
 # Webhooks
 
-**Manage your webhook subscriptions via is API.**
+**This doc is all about how to manage your webhook subscriptions via API.**
 
-> For information about the Webhook that Chameleon sends, see the [Webhooks page](webhooks/overview.md)
+> For information about the Webhooks that Chameleon sends to configured endpoints, see the [Webhooks page](webhooks/overview.md)
+
+> See the [configured Webhooks](https://app.trychameleon.com/settings/integrations/webhooks) in your dashboard.
 
 
 ## Schema :id=schema
