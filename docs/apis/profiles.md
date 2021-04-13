@@ -167,9 +167,9 @@ At the end of the process no record of this user exists in our database. Additio
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/observe/profiles/:id/forever
+DELETE https://api.trychameleon.com/v3/edit/profiles/:id/forget
 # OR
-DELETE https://api.trychameleon.com/v3/observe/profiles/forever?uid=:uid
+DELETE https://api.trychameleon.com/v3/edit/profiles/forget?uid=:uid
 ```
 
 | param | -        | description                                                  |
