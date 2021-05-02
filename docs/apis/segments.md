@@ -24,6 +24,7 @@ With the Chameleon API for Segments, you can:
 | `updated_at` | timestamp | The last time any property was updated |
 | `name` | string | The name given by an administrator of Chameleon |
 | `items` | array<SegmentFilter> | An array of items that each define a [Segmentation Filter expression](concepts/filters.md) |
+| `items_op` | enum | If each filter item is joined with logical `AND` or `OR`. One of `and` or `or` |
 
 
 > For a full list of your User / Company Properties see the [Properties API](apis/properties.md)
