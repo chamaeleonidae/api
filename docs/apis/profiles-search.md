@@ -134,16 +134,18 @@ Each example below is used as the value for the `filters` key in the JSON reques
 
 
 
-#### 6. Admins who are responsible for 3 or more user invites on their account
+#### 6. Admins `AND` are responsible for 3 or more user invites
 
 ```json
 [
   {
+    "kind": "property",
     "prop": "role",
     "op": "eq",
     "value": "admin"
   },
   {
+    "kind": "property",
     "prop": "invited_users_count",
     "op": "gte",
     "value": 3
@@ -151,7 +153,7 @@ Each example below is used as the value for the `filters` key in the JSON reques
 ]
 ```
 
-#### Full example using `filters_op=or`
+#### Full example using `filters_op=or`: Admins `OR` are responsible for 3 or more user invites
 Query for users where either role is admin OR invited 3 or more users
 
 ```json
@@ -159,14 +161,86 @@ Query for users where either role is admin OR invited 3 or more users
   "filters_op": "or",
   "filters": [
     {
+      "kind": "property",
       "prop": "role",
       "op": "eq",
       "value": "admin"
     },
     {
+      "kind": "property",
       "prop": "invited_users_count",
       "op": "gte",
       "value": 3
+    }
+  ]
+}
+```
+
+
+#### Full example using `filters_op=or` and filter Groups
+Query for users where either Admins AND are in a Non-North-American timezone
+
+```json
+{
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "role",
+      "op": "eq",
+      "value": "admin"
+    },
+    {
+      "kind": "group",
+      "filters_op": "or",
+      "filters": [
+        {
+          "kind": "property",
+          "prop": "browser_tz",
+          "op": "gt",
+          "value": -4
+        },
+        {
+          "kind": "property",
+          "prop": "browser_tz",
+          "op": "lt",
+          "value": -8
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+#### Full example using `filters_op=or` and filter Groups
+Query for users where either Admins AND are either com the Acme account or have an Acme email address.
+
+```json
+{
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "role",
+      "op": "eq",
+      "value": "admin"
+    },
+    {
+      "kind": "group",
+      "filters_op": "or",
+      "filters": [
+        {
+          "kind": "property",
+          "prop": "company.name",
+          "op": "eq",
+          "value": "Acme Inc."
+        },
+        {
+          "kind": "property",
+          "prop": "email",
+          "op": "in",
+          "value": "@acme.co"
+        }
+      ]
     }
   ]
 }
