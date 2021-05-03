@@ -134,22 +134,118 @@ Each example below is used as the value for the `filters` key in the JSON reques
 
 
 
-#### 6. Admins who are responsible for 3 or more user invites on their account
+#### 6. Admins `AND` are responsible for 3 or more user invites
 
 ```json
 [
   {
+    "kind": "property",
     "prop": "role",
     "op": "eq",
     "value": "admin"
   },
   {
+    "kind": "property",
     "prop": "invited_users_count",
     "op": "gte",
     "value": 3
   }
 ]
 ```
+
+#### Full example using `filters_op=or`: Admins `OR` are responsible for 3 or more user invites
+Query for users where either role is admin OR invited 3 or more users
+
+```json
+{
+  "filters_op": "or",
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "role",
+      "op": "eq",
+      "value": "admin"
+    },
+    {
+      "kind": "property",
+      "prop": "invited_users_count",
+      "op": "gte",
+      "value": 3
+    }
+  ]
+}
+```
+
+
+#### Full example using `filters_op=or` and filter Groups
+Query for users where either Admins AND are in a Non-North-American timezone
+
+```json
+{
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "role",
+      "op": "eq",
+      "value": "admin"
+    },
+    {
+      "kind": "group",
+      "filters_op": "or",
+      "filters": [
+        {
+          "kind": "property",
+          "prop": "browser_tz",
+          "op": "gt",
+          "value": -4
+        },
+        {
+          "kind": "property",
+          "prop": "browser_tz",
+          "op": "lt",
+          "value": -8
+        }
+      ]
+    }
+  ]
+}
+```
+
+
+#### Full example using `filters_op=or` and filter Groups
+Query for users where either Admins AND are either com the Acme account or have an Acme email address.
+
+```json
+{
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "role",
+      "op": "eq",
+      "value": "admin"
+    },
+    {
+      "kind": "group",
+      "filters_op": "or",
+      "filters": [
+        {
+          "kind": "property",
+          "prop": "company.name",
+          "op": "eq",
+          "value": "Acme Inc."
+        },
+        {
+          "kind": "property",
+          "prop": "email",
+          "op": "in",
+          "value": "@acme.co"
+        }
+      ]
+    }
+  ]
+}
+```
+
 
 
 
@@ -165,6 +261,7 @@ GET|POST https://api.trychameleon.com/v3/analyze/profiles (plural)
 | ---------- | -------- | ------------------------------------------------------------ |
 | `segment_id` | optional | The Chameleon Segment ID from the [List of Segments](apis/segments.md) |
 | `filters`    | optional | The array of [Segmentation filter expressions](concepts/filters.md) |
+| `filters_op` | optional | The operator to apply between each filter. Use either `or` or `and` (default)  |
 | `expand`         | optional | Object that specifies relationships to include/exclude. Supported keys are `profile` and `company`      |
 | `expand.profile` | optional | use values of `all`, `min` to control the properties present in the `profile`. Defaults to `all` |
 | `expand.company` | optional | use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min` |
@@ -192,7 +289,7 @@ Notes:
 
 #### Example: Segmentation filter expressions
 
-[See examples above](api/profiles-search.md?id=examples)
+[See examples above](apis/profiles-search.md?id=examples)
 
 
 

@@ -92,6 +92,29 @@ Subtract X days from the current time and look for `last_seen_at` values that ar
 }
 ```
 
+#### A filter that represents a Group of filters
+
+```json
+{
+  "kind": "group",
+  "filters_op": "or",
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "role",
+      "op": "eq",
+      "value": "admin"
+    },
+    {
+      "kind": "property",
+      "prop": "invited_users_count",
+      "op": "gt",
+      "value": "4"
+    }
+  ]
+}
+```
+
 > ### Other examples can be found on the [searching profiles](apis/profiles-search.md?id=examples) page.
 
 
