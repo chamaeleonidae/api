@@ -5,7 +5,6 @@
 ------
 
 
-
 Currently, our REST API supports the following endpoints:
 
 | Model + details                                              | List URL                 | Show URL                     |
@@ -14,6 +13,8 @@ Currently, our REST API supports the following endpoints:
 | [Tours](apis/tours.md)    | `GET /v3/edit/tours`     | `GET /v3/edit/tours/:id`     |
 | [Tour Interactions](apis/tour-interactions.md) | `GET /v3/analyze/interactions` | `GET /v3/analyze/interactions/:id` |
 | [Microsurveys](apis/surveys.md) | `GET /v3/edit/surveys`   | `GET /v3/edit/surveys/:id`   |
+| [Microsurvey Responses](apis/survey-responses.md) | `GET /v3/analyze/responses`   | -   |
+| [Experience Deliveries](apis/deliveries.md) | `GET /v3/edit/deliveries`   | `GET /v3/edit/delivery/:id`   |
 | [Launchers](apis/launchers.md) | `GET /v3/edit/launchers` | `GET /v3/edit/launchers/:id` |
 | [Tooltips](apis/tooltips.md) | `GET /v3/edit/tooltips`  | `GET /v3/edit/tooltips/:id`  |
 | [Domains](apis/urls.md)   | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |

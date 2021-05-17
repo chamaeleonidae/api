@@ -1,9 +1,15 @@
 # Deliveries (Coming soon)
 
-> **Interested in the Deliveries BETA program?? [Ping us here](mailto:hello@trychameleon.com?subject=API+Deliveries+beta)**
+Deliveries are used to directly trigger an Experience to one specific User.
 
-Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options.
+- In the simple case, on the next page-load, the linked Experience will be triggered with the given options.
+- In the more complex case, a time window (`from` / `until`) can be applied.
+- In the even more complex case filters such as `redirect` or `use_segmentation` can fine-tune the triggering.
 
+An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences.
+Additionally, and Experience _may not_ show due to the conditions added to the Delivery itself. For example, when a Delivery uses
+segmentation (`use_segmentation`) and the segmentation does not match the User at the time of the page load, the Experience
+will not show and the Delivery is not attempted again. 
 
 ## Schema :id=schema
 
@@ -42,8 +48,8 @@ Deliveries are used to directly trigger an Experience to one or to many users. O
 | `404` | A related model cannot be found (Tour, Survey or Profile) |
 | `409` | The experience is not live, please publish and retry |
 | `409` | The Experience has already been triggered (it can no longer be subsequently changed) |
-| `409` | Too many outstanding deliveries for this User Profile |
-| `422` | The dates cannot be honored in their given values |
+| `409` | Too many outstanding deliveries for this User Profile, use `delivery_ids_at_limit` with value of `drop` |
+| `422` | The dates cannot be used in their given values (use `iso8601` or similar format) |
 | `429` | Only one Delivery at a time can be created per User Profile |
 
 
@@ -51,10 +57,13 @@ Deliveries are used to directly trigger an Experience to one or to many users. O
 
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
-Pending Deliveries (yet untriggered with a `null` value for the `at` property) are limited to 4 total per User Profile. This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
-A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in the list to add this new Delivery. Use values of `first`, `last` or an integer array index.
+Pending Deliveries (yet untriggered with a `null` value for the `at` property) are limited to 3 total per User Profile.
+This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
+A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in
+the list to add this new Delivery. Use values of `first`, `last` or an integer array index. To 
 
-If an error occurs for a "limit reached", simply [list the Deliveries by User Profile](apis/deliveries.md?id=deliveries-index) to determine which ones to remove.
+If an error occurs for a "limit reached", either specify `delivery_ids_at_limit` with value of `drop` or
+first [list the Deliveries by User Profile](apis/deliveries.md?id=deliveries-index) to determine which ones to remove.
 
 ------
 
@@ -114,9 +123,9 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | ------------------ | -------- | -------------- |
 | `model_kind`       | required | The kind of Experience this Delivery will trigger either `tour` or `survey` |
 | `model_id`         | required | The Chameleon ID of Experience this Delivery will trigger |
-| `profile_id`       | optional | The Chameleon ID of User Profile to target |
-| `uid`              | optional | The User Profile Identifier (typically the Database ID from your backend) |
-| `email`            | optional | The email address of User Profile to target |
+| `profile_id`       | optional* | The Chameleon ID of User Profile to target |
+| `uid`              | optional* | The User Profile Identifier (typically the Database ID from your backend -- same value passed to `chmln.identify`) |
+| `email`            | optional* | The email address of User Profile to target |
 | `from`             | optional | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
 | `until`            | optional | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
 | `until`            | optional | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
@@ -125,7 +134,8 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `redirect`         | optional | Default `false`. Boolean value whether or not to redirect to the "page the Experience starts on". This redirect loads the "Tour link" that can be copied from "Additional sharing options". |
 | `skip_triggers`    | optional | Default `false`. Boolean value whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. |
 | `skip_url_match`   | optional | Default `false`. Boolean value whether or not to bypass the first step URL match to "force" it to show right away. |
-| `delivery_ids_position` | optional | Defaults to `first`. The value of `last` or a _specific integer array index_ to insert at are accepted. |
+| `delivery_ids_position` | optional | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
+| `delivery_ids_at_limit` | optional | Defaults to `error`. The value of `drop` is used to "pop" a delivery id off the end of the `delivery_ids` array after adding the current one. Note: when at the limit of pending deliveries, using `delivery_ids_position=last` + `delivery_ids_at_limit=drop` will cause an error. |
 
 > Required: One of `profile_id`, `uid` or `email`
 
