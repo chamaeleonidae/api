@@ -154,6 +154,7 @@ Each example below is used as the value for the `filters` key in the JSON reques
 ```
 
 #### Full example using `filters_op=or`: Admins `OR` are responsible for 3 or more user invites
+
 Query for users where either role is admin OR invited 3 or more users
 
 ```json
@@ -175,6 +176,7 @@ Query for users where either role is admin OR invited 3 or more users
   ]
 }
 ```
+
 
 
 #### Full example using `filters_op=or` and filter Groups
@@ -245,8 +247,6 @@ Query for users where either Admins AND are either com the Acme account or have 
   ]
 }
 ```
-
-
 
 
 ## Searching Users :id=profiles-index
