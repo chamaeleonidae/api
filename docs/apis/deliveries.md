@@ -1,4 +1,4 @@
-# Deliveries (Coming soon)
+# Deliveries
 
 Deliveries are used to directly trigger an Experience to one specific User.
 
@@ -21,6 +21,7 @@ will not show and the Delivery is not attempted again.
 | `model_id` | ID | The Chameleon ID of Experience this Delivery will trigger. |
 | `model_kind` | string | The kind of Experience: One of `tour` or `survey` |
 | `profile_id` | ID | The Chameleon ID of the [User Profile](apis/profiles.md?id=schema) |
+| `idempotency_key` | string | A key that is used to enforce server-side "at most once delivery" for the given `profile_id`. [Learn more ↓](apis/deliveries.md?id=idempotency) |
 | `from` | timestamp | The timestamp before which this Delivery will not run. |
 | `until` | timestamp | The timestamp after which this Delivery is no longer valid. |
 | `use_segmentation` | boolean | Whether or not to first apply the Audience (Segmentation) to determine if the Experience show display to the user. |
@@ -57,13 +58,48 @@ will not show and the Delivery is not attempted again.
 
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
-Pending Deliveries (yet untriggered with a `null` value for the `at` property) are limited to 3 total per User Profile.
+**Pending Deliveries** (yet untriggered; with a `null` value for the `at` property) are limited to 3 total per User Profile.
 This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
 A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in
 the list to add this new Delivery. Use values of `first`, `last` or an integer array index. To 
 
 If an error occurs for a "limit reached", either specify `delivery_ids_at_limit` with value of `drop` or
 first [list the Deliveries by User Profile](apis/deliveries.md?id=deliveries-index) to determine which ones to remove.
+
+
+**Time based limits**: When using `from` and `until` the deliveries will be added to the list of pending deliveries and made
+available to the client-side JavaScript but will remain undelivered until the `from` time is reached
+or after the `until` time is been passed.
+
+
+**Managing Delivery lifecycle**: When delivering for multiple use cases or when using different versions of `from` and `until` are used
+you may need to implicitly manage the "current set of deliveries for a user". This can be done **_directly_** with the API for [Removing a Delivery ↓](apis/deliveries.md?id=deliveries-destroy)
+OR **_indirectly_** with `delivery_ids_at_limit` and `delivery_ids_position`.
+
+
+### Idempotency :id=idempotency
+
+An idempotency key is appended to the `profile_id` thus scoping it to the specific user in question.
+
+It is used to only generate a single delivery when the delivering criteria might otherwise be met **multiple times**. This is different than
+the `once` parameter because the `idempotency_key` operates at the moment when the Delivery is being created, where the `once` is
+used when attempting the Delivery on the client-side and only shows the Experience if it has **not been seen before**.
+
+In terms of use cases:
+
+- Create a Delivery when an Event is triggered (but only deliver the Experience once).
+- Create a Delivery when an account needs to be upgraded to a new plan (but only deliver the Experience once).
+- Create a Delivery when an account crosses a specific billing threshold (but only deliver the Experience once).
+- Create a Delivery when you want feedback on a very specific action they took (but only delivery any of this type of feedback once).
+
+
+###### Picking a good `idempotency_key`:
+
+In many the use cases above simply repeat the `model_id` as the
+`idempotency_key`. In other cases you may want to deliver one of many an in-product Microsurveys but only want the
+"first one" to be shown to your end-user pick a "campaign specific" idempotency key
+such as `"data-import-feedback-2029"` to only ask for one Microsurvey response for the campaign you're running to
+get feedback on your hypothetical "data import flow".
 
 ------
 
@@ -126,6 +162,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `profile_id`       | optional* | The Chameleon ID of User Profile to target |
 | `uid`              | optional* | The User Profile Identifier (typically the Database ID from your backend -- same value passed to `chmln.identify`) |
 | `email`            | optional* | The email address of User Profile to target |
+| `idempotency_key`  | optional | The key used to enforce server-side "at most once delivery" for the given user profile. |
 | `from`             | optional | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
 | `until`            | optional | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
 | `until`            | optional | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
