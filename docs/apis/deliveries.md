@@ -127,14 +127,14 @@ GET https://api.trychameleon.com/v3/edit/deliveries
     {
       "model_kind": "survey",
       "model_id": "5f3c4232c712de665632a6d4",
-      "uid": 34283,
+      "profile_id": "5f3c4232c712de665632a6d6",
       "until": "2029-04-07T12:18:00Z",
       ...
     },
     {
       "model_kind": "tour",
       "model_id": "5f3c4232c712de665632a6d5",
-      "uid": 542213,
+      "profile_id": "5f3c4232c712de665632a6d7",
       "from": "2029-02-03T12:18:00Z",
       "until": "2029-04-07T12:18:00Z",
       ...
@@ -184,6 +184,27 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
   "from": "2029-02-03",
   "until": "+45d",
   ...
+}
+```
+
+#### HTTP Response
+
+| Status code        | -        | description    |
+| ------------------ | -------- | -------------- |
+| `201` | - | Delivery was created |
+| `200` | - | idempotent Delivery already occurred |
+
+
+```json
+{
+  "delivery": {
+    "model_kind": "tour",
+    "model_id": "5f3c4232c712de665632a6d5",
+    "profile_id": "5f3c4232c712de665632a6d7",
+    "from": "2029-02-03T00:00:00Z",
+    "until": "2029-04-20T00:00:00Z",
+    ...
+  }
 }
 ```
 
