@@ -22,6 +22,7 @@ will not show and the Delivery is not attempted again.
 | `model_kind` | string | The kind of Experience: One of `tour` or `survey` |
 | `profile_id` | ID | The Chameleon ID of the [User Profile](apis/profiles.md?id=schema) |
 | `idempotency_key` | string | A key that is used to enforce server-side "at most once delivery" for the given `profile_id`. [Learn more ↓](apis/deliveries.md?id=idempotency) |
+| `options` | mixed | Any content to be used in the Experience, accessible via merge tag. |
 | `from` | timestamp | The timestamp before which this Delivery will not run. |
 | `until` | timestamp | The timestamp after which this Delivery is no longer valid. |
 | `use_segmentation` | boolean | Whether or not to first apply the Audience (Segmentation) to determine if the Experience show display to the user. |
@@ -163,6 +164,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `uid`              | optional* | The User Profile Identifier (typically the Database ID from your backend -- same value passed to `chmln.identify`) |
 | `email`            | optional* | The email address of User Profile to target |
 | `idempotency_key`  | optional | The key used to enforce server-side "at most once delivery" for the given user profile. |
+| `options`          | optional | Any keys/values to be used in personalizing the Experience content (i.e. body text, button CTA url) |
 | `from`             | optional | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
 | `until`            | optional | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
 | `until`            | optional | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
@@ -208,6 +210,24 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 }
 ```
 
+###### Request with data (in `options`) intended for **merge tags** in the Experience
+
+```json
+{
+  "model_kind": "tour",
+  "model_id": "5f3c4232c712de665632a6d5",
+  "profile_id": "5f3c4232c712de665632a6d7",
+  "options": {
+    "title": "Upcoming changes to billing",
+    "body": "Book a demo with your Account manager, Jessica to see our upcoming changes in action",
+    "button1": {
+      "text": "Book Demo",
+      "url": "https://calendly.com/your-product/15min"
+    },
+    ...
+  }
+}
+```
 
 ## Update a Delivery :id=deliveries-update
 
