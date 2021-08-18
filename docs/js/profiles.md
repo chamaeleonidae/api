@@ -8,15 +8,15 @@
 
 Syncing user and company data to Chameleon account can be helpful for: 
 
-- Targeting users with Tours based on who they are.
-- Personalizing content within Tours (merge tags in content).
+- [Targeting users](apis/segments.md) with Tours based on who they are.
+- [Personalizing content](concepts/personalizing.md) within Experiences (merge tags in content).
 - Better URL matching (merge tags in URLs).
-
 
 
 ## Identifying user :id=profile
 
-**Users need to be identified with a unique ID** (`UID`) to enable them to see Tours. We also strongly recommend sending `email` to maintain a user's identity across Chameleon and any integrations you enable. 
+**Users need to be identified with a unique ID** (`UID`) to enable them to see Tours. This can be your database ID or another stable user identifier.
+We also recommend also sending `email` to maintain a user's identity across Chameleon and any integrations you enable.
 
 Use the `chmln.identify` method, calling this as soon as the user is identifiable on page load. 
 
@@ -60,7 +60,8 @@ chmln.identify(USER.ID_IN_DB, {     // Unique ID in your database (e.g. 23443 or
 
 **What is necessary for a UID?**
 
-A UID simply needs to be a unique string that identifies the current user, and it needs to be consistent. Unique meaning no user will share one with another user, and consistent meaning it won't change between servers, logins, or browsers. Consistent also means you'll always have access to this attribute to send to Chameleon.
+A UID simply needs to be a stable, unique string that identifies the current user.
+No user will share a UID one with another user, and stable meaning it won't change between servers, logins, or browsers.
 
 
 ## Identifying companies/accounts :id=company
@@ -78,13 +79,13 @@ chmln.identify(USER.ID_IN_DB, {
 
 ## Seeing existing user properties
 
-To view the user properties associated with the ***current user\***, you can use the following command within the JS console:
+To view the user properties associated with the **current user**, you can use the following command within the JS console:
 
 ```
 chmln.data.profile.attributes
 ```
 
-To see ***all*** the user properties currently being sent, you can run some code in your local browser. Open the JavaScript console, under Developer Tools and paste the following code and hit Enter:
+To see **all** the user properties currently being sent, you can run some code in your local browser. Open the JavaScript console, under Developer Tools and paste the following code and hit Enter:
 
 ```
 chmln.data.segment_properties.where({kind: 'profile', source: 'chmln'}).map(function(p) { return p.get('prop') })
@@ -172,7 +173,7 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 
 ## Clearing / disabling the Chameleon install :id=clear
 
-Use this function to de-identify the user and stop Chameleon from showing (or trying to show) any other experiences during
+Use this function to de-identify the user and stop Chameleon from operating on the page (including showing no more experiences).
 
 - When the user is logged out of a single page app that does not perform a full-page refresh
 - When your application enters a "mode" where automatic delivery of Chameleon experiences should no longer happen (i.e. in full-screen mode)
@@ -197,8 +198,18 @@ Chameleon will interpret a property as a timestamp for a few reasons:
 1. If the timestamp is [ISO 8601 standard](https://en.wikipedia.org/wiki/ISO_8601), Chameleon will **always** assume the value is a timestamp.
 2. If the timestamp is a Unix Timestamp that falls between 1973 and 2033 and the name is either 'created', or ends in '_at' or '_time'. 
 
-Chameleon will interpret any of these properties as a timestamps: `{started: "2016-09-05T15:45:39+00:00", ended: "2016-09-05T15:45:39Z", created: 1472985601, started_at: 1095292800, ended_at: 1095352800}`.
+Chameleon will interpret any of these properties as a timestamps:
 
+```json
+{
+  "started": "2026-09-05T15:45:39+00:00",
+  "ended": "2026-09-05T15:45:39Z",
+  "a_date": "2216-09-05",
+  "created": 1472985601,
+  "started_at": 1095292800,
+  "ended_at": 1095352800
+}
+```
 
 
 ## Default properties
@@ -214,4 +225,8 @@ Chameleon has some reserved keywords that are not passable in identify. They inc
 
 ## Limits and Errors
 
-The value for each user property and each Array member is limited to 768 byte. Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.trychameleon.com/data/properties/profile) or for [company data](https://app.trychameleon.com/data/properties/company).
+- Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
+- See the full page on [Limits](concepts/normalization.md?id=limits) for more information.
+- Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.trychameleon.com/data/properties/profile) or for [company data](https://app.trychameleon.com/data/properties/company).
+
+

@@ -1,6 +1,6 @@
 # Normalization
 
-**Data in Chameleon is normalized for storage, to eliminate redundancy and data inconsistency, and to ensure proper querying and analysis.**
+**Data in Chameleon is [normalized](concepts/normalization.md) for storage, to eliminate redundancy and data inconsistency, and to ensure proper querying and analysis.**
 
 ---
 
