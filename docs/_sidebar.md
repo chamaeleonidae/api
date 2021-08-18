@@ -33,11 +33,11 @@
   - [Microsurvey Responses](apis/survey-responses.md)
   - [Tours](apis/tours.md)
   - [Tour interactions](apis/tour-interactions.md)
+  - [Experience Deliveries](apis/deliveries.md)
   - [Segments (audiences)](apis/segments.md)
   - [Properties](apis/properties.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
   - [Domains](apis/urls.md)
   - [Webhooks](apis/webhooks.md)
-  - [Deliveries BETA](apis/deliveries.md)
 
