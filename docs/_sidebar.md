@@ -8,6 +8,7 @@
   - [Filter expressions](concepts/filters.md)
   - [Normalization](concepts/normalization.md)
   - [Listing Models](concepts/any-model.md)
+  - [Personalization](concepts/personalizating.md)
 
 - Javascript API
   - [Overview](js/overview.md)

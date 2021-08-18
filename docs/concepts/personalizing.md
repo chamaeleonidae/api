@@ -11,6 +11,7 @@
 | `pluralize` | [examples ↓](?id=examples-plural) | Given a specific number and a word produces a phrase with the correct tense |
 | `time_difference_in_words` | [examples ↓](?id=examples-time-diff) | Given a specific date/time produces a time offset |
 | `delivery` | [examples ↓](?id=examples-delivery) | Personalize with content explicitly sent via a [Delivery](apis/deliveries.md) |
+| `html` | [examples ↓](?id=examples-html) | Output html based on given options |
 
 
 
@@ -105,7 +106,7 @@ window.chameleonContent = {
 ```
 
 
-### Book a demo with the User's account manager | `global` helper
+#### Book a demo with the User's account manager | `global` helper
 
 ```text
 # title
@@ -150,7 +151,7 @@ A Delivery is a REST API for directly **triggering an experience** for a **speci
 ```
 
 
-### Book a demo with the User's account manager | `delivery` helper
+#### Book a demo with the User's account manager | `delivery` helper
 
 ```text
 {{delivery "salutation"}} {{first_name}}, we have a new product launching next month, can we show it off to you?
@@ -164,3 +165,18 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 # as the "Additional action" field for the Primary call to action button
 {{delivery "account_manager.calendly"}}
 ```
+
+```text
+# as the "Additional action" field for the Primary call to action button
+{{delivery "account_manager.calendly"}}
+```
+
+
+
+#### Show a custom link | `html` helper :id=examples-
+
+```text
+{{html 'Read' tagName='a' href='/read-more' target='read-more-tab' data-read-more='link' style='color: red'}}
+# <a href="/read-more" target="read-more-tab" data-read-more="link style="color: red">Read</a>
+```
+
