@@ -25,11 +25,11 @@ will not show and the Delivery is not attempted again.
 | `options` | mixed | Any content to be used in the Experience, accessible via merge tag. |
 | `from` | timestamp | The timestamp before which this Delivery will not run. |
 | `until` | timestamp | The timestamp after which this Delivery is no longer valid. |
-| `use_segmentation` | boolean | Whether or not to first apply the Audience (Segmentation) to determine if the Experience show display to the user. |
-| `once` | boolean | Whether or not to check if the user has seen this Experience before |
-| `redirect` | boolean | Whether or not to redirect to the "page the Experience starts on". |
-| `skip_triggers` | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. |
-| `skip_url_match` | boolean | Whether or not to bypass the first step URL match to "force" it to show right away. |
+| `use_segmentation` | boolean | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
+| `once` | boolean | Whether or not to check if the user has seen this Experience before. (default `false`) |
+| `redirect` | boolean | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
+| `skip_triggers` | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
+| `skip_url_match` | boolean | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
 | `at` | timestamp | The timestamp of when this Delivery was triggered for the User. |
 | `at_href` | string | The page URL of where this Delivery was triggered for the User. |
 | `interaction_id` | ID | The Chameleon ID of [Interaction](apis/tour-interactions.md) this Delivery triggered. |
@@ -168,11 +168,11 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `from`             | optional | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
 | `until`            | optional | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
 | `until`            | optional | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
-| `use_segmentation` | optional | Default `false`. Boolean value whether or not to first apply the Audience (Segmentation) to determine if the Experience show display to the user. |
-| `once`             | optional | Default `false`. Boolean value whether or not to check if the user has seen this Experience before, `false` means for the Tour to display. |
-| `redirect`         | optional | Default `false`. Boolean value whether or not to redirect to the "page the Experience starts on". This redirect loads the "Tour link" that can be copied from "Additional sharing options". |
-| `skip_triggers`    | optional | Default `false`. Boolean value whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. |
-| `skip_url_match`   | optional | Default `false`. Boolean value whether or not to bypass the first step URL match to "force" it to show right away. |
+| `use_segmentation` | optional | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
+| `once`             | optional | Whether or not to check if the user has seen this Experience before. (default `false`) |
+| `redirect`         | optional | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
+| `skip_triggers`    | optional | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
+| `skip_url_match`   | optional | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
 | `delivery_ids_position` | optional | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
 | `delivery_ids_at_limit` | optional | Defaults to `error`. The value of `drop` is used to "pop" a delivery id off the end of the `delivery_ids` array after adding the current one. Note: when at the limit of pending deliveries, using `delivery_ids_position=last` + `delivery_ids_at_limit=drop` will cause an error. |
 
