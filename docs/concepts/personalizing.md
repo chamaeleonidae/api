@@ -6,12 +6,12 @@
 
 | Helper name | - | description |
 |---|---|---|
-| `property` | [examples ↓](?id=examples-property) | The default used when a unquoted string is found at the beginning |
-| `global` | [examples ↓](?id=examples-global) | Pull a value from the window object, useful for extra-advanced conditional formatting |
-| `pluralize` | [examples ↓](?id=examples-plural) | Given a specific number and a word produces a phrase with the correct tense |
-| `time_difference_in_words` | [examples ↓](?id=examples-time-diff) | Given a specific date/time produces a time offset |
-| `delivery` | [examples ↓](?id=examples-delivery) | Personalize with content explicitly sent via a [Delivery](apis/deliveries.md) |
-| `html` | [examples ↓](?id=examples-html) | Output html based on given options |
+| `property` | [examples ↓](concepts/personalizing?id=examples-property) | The default used when a unquoted string is found at the beginning |
+| `global` | [examples ↓](concepts/personalizing?id=examples-global) | Pull a value from the window object, useful for extra-advanced conditional formatting |
+| `pluralize` | [examples ↓](concepts/personalizing?id=examples-plural) | Given a specific number and a word produces a phrase with the correct tense |
+| `time_difference_in_words` | [examples ↓](concepts/personalizing?id=examples-time-diff) | Given a specific date/time produces a time offset |
+| `delivery` | [examples ↓](concepts/personalizing?id=examples-delivery) | Personalize with content explicitly sent via a [Delivery](apis/deliveries.md) |
+| `html` | [examples ↓](concepts/personalizing?id=examples-html) | Output html based on given options |
 
 
 
