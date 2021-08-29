@@ -65,7 +65,7 @@ GET https://api.trychameleon.com/v3/edit/tours
 
 #### HTTP Response
 
-```
+```json
 {
   "tours": [
     {
@@ -111,7 +111,7 @@ GET https://api.trychameleon.com/v3/edit/tours/:id
 | ----- | -------- | ------------------- |
 | `id`    | required | A Tour ID to lookup |
 
-```
+```json
 {
   "tour": {
     "id": "5f3c4232c712de665632a2a1",

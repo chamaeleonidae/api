@@ -119,7 +119,7 @@ GET https://api.trychameleon.com/v3/edit/segments/:id
 
 | param | - | description |
 |---|---|---|
-| `id |` required | A Segment ID to lookup
+| `id` | required | A Segment ID to lookup
 
 #### HTTP Response
 

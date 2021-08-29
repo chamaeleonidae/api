@@ -32,4 +32,4 @@ Chameleon's REST API is made to be adaptable to your own custom use cases. Never
 - Use the **[Tours Endpoint](apis/tours.md)** to have an alert when an experience isn't completed in a specific amount of time.
 
 
-> If there is any use case where you'd like to use our API but you're not sure how, feel free to [contact us](mailto:hello@trychameleon.com?subject=API+Use+Case).
+> If there is any use case where you'd like to use our API but you're not sure how, feel free to [contact us](https://app.trychameleon.com/help).

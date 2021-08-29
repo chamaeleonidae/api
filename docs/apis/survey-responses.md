@@ -66,7 +66,7 @@ Notes:
 
 #### HTTP Response
 
-```
+```json
 {
   "responses": [
     {
@@ -124,7 +124,7 @@ DELETE https://api.trychameleon.com/v3/edit/responses/:id
 | ----- | -------- | ----------------------- |
 | `id`    | required | A Response ID to remove |
 
-```
+```json
 {
   "response": {
     "id": "5f3c4232c712de665632a2a1",

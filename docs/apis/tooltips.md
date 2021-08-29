@@ -51,7 +51,7 @@ GET https://api.trychameleon.com/v3/edit/tooltips
 
 #### HTTP Response
 
-```
+```json
 {
   "tooltips": [
     {
@@ -91,7 +91,7 @@ GET https://api.trychameleon.com/v3/edit/tooltips/:id
 | ----- | -------- | ---------------------- |
 | `id`    | required | A Tooltip ID to lookup |
 
-```
+```json
 {
   "tooltip": {
     "id": "5f3c4232c712de665632a2a1",

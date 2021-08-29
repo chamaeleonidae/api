@@ -62,7 +62,7 @@ Notes:
 
 #### HTTP Response
 
-```
+```json
 {
   "interactions": [
     {

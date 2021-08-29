@@ -1,14 +1,15 @@
 # Normalization
 
-**Data in Chameleon is [normalized](concepts/normalization.md) for storage, to eliminate redundancy and data inconsistency, and to ensure proper querying and analysis.**
+**Data in Chameleon is [normalized](concepts/normalization.md) for storage, to eliminate redundancy and data inconsistency and to ensure proper querying and analysis.**
 
 ---
 
 
-## Properties and Events
+## Properties, Events and Tags :id=all
 
-- **User Property** names are normalized to their lower cased and underscored versions.
+- **User Property** names are normalized to their lower-cased and underscored versions.
 - **Event Names** are normalized in the same way.
+- **Tag Names** are normalized in the same way.
 - This is done to provide the consistent application of API inputs and Segmentation outputs without runtime translations.
 
 ### User/Company Properties :id=properties
@@ -28,6 +29,14 @@ All of these examples will be stored internally as `imported_leads` and be calle
 - `Imported Leads` => `imported_leads`
 - `ImportedLeads` => `imported_leads`
 - `Imported leads` => `imported_leads`
+
+### Tag Names :id=tags
+
+All of these examples will be stored internally as `feature_announcements` and be called "Feature Announcements" in the UI.
+
+- `Feature announcements` => `feature_announcements`
+- `Feature Announcements!` => `feature_announcements`
+- `feature-announcements` => `feature_announcements`
 
 ## Data and Data types
 
