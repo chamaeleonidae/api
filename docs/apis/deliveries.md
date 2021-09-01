@@ -60,7 +60,7 @@ will not show and the Delivery is not attempted again.
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
 **Pending Deliveries** (yet untriggered; with a `null` value for the `at` property) are limited to 3 total per User Profile.
-This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
+This limit can be changed in certain circumstances on our Growth plan by [Contacting us](https://app.trychameleon.com/help).
 A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in
 the list to add this new Delivery. Use values of `first`, `last` or an integer array index. To 
 

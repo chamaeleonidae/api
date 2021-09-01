@@ -68,7 +68,7 @@ When receiving a webhook from Chameleon you should:
 | `tour.snoozed` | [example](webhooks/overview.md?id=example-tour-snooze) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited on Step configured to snooze (re-display the step at a later time). |
 | `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
 
-> **Looking for a different topic? We're excited to chat about your use case! [Ping us here](mailto:hello@trychameleon.com?subject=API+Webhooks)**
+> **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.trychameleon.com/help)**
 
 #### Schema (request body) :id=schema
 

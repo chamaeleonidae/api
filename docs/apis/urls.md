@@ -168,7 +168,7 @@ GET https://api.trychameleon.com/v3/edit/urls/:id
 
 | param | -        | description                           |
 | ----- | -------- | ------------------------------------- |
-| `id`    | required | The Chameleon ID of the Url to update |
+| `id`    | required | The Chameleon ID of the Url to show |
 
 #### HTTP Response
 

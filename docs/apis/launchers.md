@@ -34,6 +34,7 @@ With the Chameleon API for Launchers, you can:
 | `preset` | string | The preconfigured type: One of `icon`, `element`, `icon_checklist`, `updates`, or `faqs` |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
+| `tag_ids` | Array<ID> | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 | `list_type` | string | If this is a checklist or a normal list: One of `default` or `checklist` |
 | `search_placeholder` | string | Search placeholder |
 | `quantifier_url` | string | This must match the current page URL _[deprecated]_ |

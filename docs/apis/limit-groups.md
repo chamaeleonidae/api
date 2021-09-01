@@ -5,7 +5,7 @@
 An example of this are your "How do you find this Feature?" Microsurveys. You may want only want to show one per week to limit fatigue.
 Your Limit Group would have `rate_limit_size=1` and `rate_limit-kind=7d` then include all of the Microsurveys.
 
-> Rate Limit Groups can purposefully overlap and work together to form a cohesive Rate Limiting strategy, to learn more or to run your strategy by the Team, feel free to [contact us](https://app.trychameleon.com/help).
+> Rate Limit Groups can purposefully overlap and work together to form a cohesive Rate Limiting strategy, to learn more or to run your strategy by the Team, feel free to [Contact us](https://app.trychameleon.com/help).
 
 -------
 
@@ -36,11 +36,11 @@ With the Chameleon API for Rate Limit Groups, you can:
 | `updated_at` | timestamp | The last time any property was updated |
 | `name` | string | The name given by an administrator of Chameleon |
 | `description` | string | The display description |
-| `kind` | string | The type of Rate Limit Group this represents: One of `all`, `tour`, `survey`, `tags`, or `ids` |
+| `kind` | string | The type of Rate Limit Group this represents: One of `all`, `tour`, `survey`, `tags`, or `campaigns` |
 | `rate_limit_size` | number | The total number of experiences for the period of time specified by `rate_limit_kind` |
 | `rate_limit_kind` | string | The period of time to apply to this Rate Limit Group: One of `1h`, `2h`, `4h`, `1d`, `7d`, `30d`, `91d`, `182d` or `365d` |
 | `tag_ids` | array | The [Tags](apis/tags.md) associated with this Rate Limit Group (only present when `kind=tags`) |
-| `campaign_ids` | array | The [Tours](apis/tours.md) + [Microsurveys](apis/surveys.md) associated with this Rate Limit Group (only present when `kind=ids`) |
+| `campaign_ids` | array | The [Tours](apis/tours.md) + [Microsurveys](apis/surveys.md) associated with this Rate Limit Group (only present when `kind=campaigns`) |
 
 
 ##### Kinds of Rate Limit Groups
@@ -53,8 +53,7 @@ A Rate Limit Group creates a **dynamic** or **static** group of Experiences over
 | `tour` | dynamic | All published [Tours](apis/tours.md) |
 | `survey` | dynamic | All published [Microsurveys](apis/surveys.md) |
 | `tags` | dynamic | All published [Tours](apis/tours.md) + [Microsurveys](apis/surveys.md) with **_any_** of the specified [Tags](apis/tags.md) in the `tag_ids` list |
-| `ids` | static | All published [Tours](apis/tours.md) + [Microsurveys](apis/surveys.md) **_explicitly_** in the `campaign_ids` list |
-
+| `campaigns` | static | All published [Tours](apis/tours.md) + [Microsurveys](apis/surveys.md) **_explicitly_** in the `campaign_ids` list |
 
 
 
@@ -96,7 +95,7 @@ GET https://api.trychameleon.com/v3/edit/limit_groups
     {
       "id": "5f3c4232c712de665632a6e2",
       "name": "Product upsell opportunities (2 per month)",
-      "kind": "ids",
+      "kind": "campaigns",
       "campaign_ids": [
         "5f3c4232c712de665632a6d5",
         "5f3c4232c712de665632a2a3"
@@ -158,9 +157,9 @@ GET https://api.trychameleon.com/v3/edit/limit_groups/:id/experiences
 | `id` | required | A Limit Group ID to lookup
 
 
-#### HTTP Response (Example with `kind=ids`)
+#### HTTP Response (Example with `kind=campaigns`)
 
-Note: this example Limit Group is based on `kind=ids` which means the Chameleon administrator **_explicitly picked these Experiences_** from a dropdown menu in the application.  
+Note: this example Limit Group is based on `kind=campaigns` which means the Chameleon administrator **_explicitly picked these Experiences_** from a dropdown menu in the application.  
 
 Keys returned: `limit_group`, `tours` and `surveys`
 
@@ -169,7 +168,7 @@ Keys returned: `limit_group`, `tours` and `surveys`
   "limit_group": {
     "id": "5f3c4232c712de665632a6d9",
     "name": "How is X Feature? (1 per week)",
-    "kind": "ids",
+    "kind": "campaigns",
     "campaign_ids": [
       "5f3c4232c712de665632a6d5",
       "5f3c4232c712de665632a2a3",

@@ -37,7 +37,7 @@
   - [Tours](apis/tours.md)
   - [Tour interactions](apis/tour-interactions.md)
   - [Experience Deliveries](apis/deliveries.md)
-  - [Experience Rate-Limit Groups](apis/limit-groups.md)
+  - [Experience Rate Limit Groups](apis/limit-groups.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
   - [Domains](apis/urls.md)
