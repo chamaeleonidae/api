@@ -18,7 +18,7 @@ The currently supported models are:
 | [Domains](apis/urls.md) | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |
 | [Experience Deliveries](apis/deliveries.md) | `GET /v3/edit/deliveries`      | `GET /v3/edit/deliveries/:id`      |
 | [Tags](apis/tags.md) | `GET /v3/edit/tags`      | `GET /v3/edit/tags/:id`      |
-| [Rate Limit Groups](apis/limit-groups.md) | `GET /v3/edit/limit_groups`      | `GET /v3/edit/limit_groups/:id`      |
+| [BETA - Rate Limit Groups](apis/limit-groups.md) | `GET /v3/edit/limit_groups`      | `GET /v3/edit/limit_groups/:id`      |
 
 
 

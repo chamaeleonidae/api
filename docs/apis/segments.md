@@ -152,7 +152,7 @@ GET https://api.trychameleon.com/v3/edit/segments/:id
 
 ## Listing Related Experiences :id=segment-experiences-index
 
-A Segment can be configured to be attached to many Chameleon Experiences, including Microsurveys, Tours and Launchers and Rate Limit Groups. This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
+A Segment can be configured to be attached to many Chameleon Experiences, including [Microsurveys](apis/surveys.md), [Tours](apis/tours.md) and [Launchers](apis/launchers.md) and [Rate Limit Groups](apis/limit-groups.md). This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
 
 #### HTTP Request
 
