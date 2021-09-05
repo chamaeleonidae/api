@@ -7,7 +7,7 @@ Deliveries are used to directly trigger an Experience to one specific User.
 - In the even more complex case filters such as `redirect` or `use_segmentation` can fine-tune the triggering.
 
 An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences.
-Additionally, and Experience _may not_ show due to the conditions added to the Delivery itself. For example, when a Delivery uses
+Additionally, an Experience _may not_ show due to the conditions added to the Delivery itself. For example, when a Delivery uses
 segmentation (`use_segmentation`) and the segmentation does not match the User at the time of the page load, the Experience
 will not show and the Delivery is not attempted again. 
 
@@ -25,7 +25,7 @@ will not show and the Delivery is not attempted again.
 | `options` | mixed | Any content to be used in the Experience, accessible via merge tag. |
 | `from` | timestamp | The timestamp before which this Delivery will not run. |
 | `until` | timestamp | The timestamp after which this Delivery is no longer valid. |
-| `use_segmentation` | boolean | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
+| `use_segmentation` | boolean | Whether or not to first apply the Segment to determine if the Experience will show to the user. (default `false`) |
 | `once` | boolean | Whether or not to check if the user has seen this Experience before. (default `false`) |
 | `redirect` | boolean | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
 | `skip_triggers` | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
@@ -62,7 +62,7 @@ will not show and the Delivery is not attempted again.
 **Pending Deliveries** (yet untriggered; with a `null` value for the `at` property) are limited to 3 total per User Profile.
 This limit can be changed in certain circumstances on our Growth plan by [contacting us](mailto:hello@trychameleon.com?subject=API+Delivery+limits).
 A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in
-the list to add this new Delivery. Use values of `first`, `last` or an integer array index. To 
+the list to add this new Delivery. Use values of `first`, `last` or an integer array of indexes. 
 
 If an error occurs for a "limit reached", either specify `delivery_ids_at_limit` with value of `drop` or
 first [list the Deliveries by User Profile](apis/deliveries.md?id=deliveries-index) to determine which ones to remove.
@@ -73,8 +73,7 @@ available to the client-side JavaScript but will remain undelivered until the `f
 or after the `until` time is been passed.
 
 
-**Managing Delivery lifecycle**: When delivering for multiple use cases or when using different versions of `from` and `until` are used
-you may need to implicitly manage the "current set of deliveries for a user". This can be done **_directly_** with the API for [Removing a Delivery ↓](apis/deliveries.md?id=deliveries-destroy)
+**Managing Delivery lifecycle**: When delivering for multiple use cases or when using different versions of `from` and `until` you may need to implicitly manage the "current set of deliveries for a user". This can be done **_directly_** with the API for [Removing a Delivery ↓](apis/deliveries.md?id=deliveries-destroy)
 OR **_indirectly_** with `delivery_ids_at_limit` and `delivery_ids_position`.
 
 
@@ -97,8 +96,8 @@ In terms of use cases:
 ###### Picking a good `idempotency_key`:
 
 In many the use cases above simply repeat the `model_id` as the
-`idempotency_key`. In other cases you may want to deliver one of many an in-product Microsurveys but only want the
-"first one" to be shown to your end-user pick a "campaign specific" idempotency key
+`idempotency_key`. In other cases you may want to deliver one of many in-product Microsurveys, but if you want the
+"first one" to be shown to your end-user you must pick a "campaign specific" idempotency key
 such as `"data-import-feedback-2029"` to only ask for one Microsurvey response for the campaign you're running to
 get feedback on your hypothetical "data import flow".
 
@@ -112,14 +111,14 @@ get feedback on your hypothetical "data import flow".
 GET https://api.trychameleon.com/v3/edit/deliveries
 ```
 
-| param              | -        | description    |
-| ------------------ | -------- | -------------- |
-| `model_id`         | optional | The Chameleon ID of Experience to filter to |
-| `profile_id`       | optional | The Chameleon ID of User Profile to filter to |
-| `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
-| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
-| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
-| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| param              | -        | type        | description    |
+| ------------------ | -------- | ----------- | -------------- |
+| `model_id`         | optional | ID | The Chameleon ID of Experience to filter to |
+| `profile_id`       | optional | ID | The Chameleon ID of User Profile to filter to |
+| `limit`  | optional | integer | Defaults to `50` with a maximum of `500`                     |
+| `before` | optional | `...` | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | timestamp | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `after`  | optional | timestamp | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
 
 ```json
@@ -156,25 +155,25 @@ POST https://api.trychameleon.com/v3/edit/deliveries
 
 Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.md?id=options)
 
-| param              | -        | description    |
-| ------------------ | -------- | -------------- |
-| `model_kind`       | required | The kind of Experience this Delivery will trigger either `tour` or `survey` |
-| `model_id`         | required | The Chameleon ID of Experience this Delivery will trigger |
-| `profile_id`       | optional* | The Chameleon ID of User Profile to target |
-| `uid`              | optional* | The User Profile Identifier (typically the Database ID from your backend -- same value passed to `chmln.identify`) |
-| `email`            | optional* | The email address of User Profile to target |
-| `idempotency_key`  | optional | The key used to enforce server-side "at most once delivery" for the given user profile. |
-| `options`          | optional | Any keys/values to be used in personalizing the Experience content (i.e. body text, button CTA url) |
-| `from`             | optional | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
-| `until`            | optional | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
-| `until`            | optional | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
-| `use_segmentation` | optional | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
-| `once`             | optional | Whether or not to check if the user has seen this Experience before. (default `false`) |
-| `redirect`         | optional | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
-| `skip_triggers`    | optional | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
-| `skip_url_match`   | optional | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
-| `delivery_ids_position` | optional | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
-| `delivery_ids_at_limit` | optional | Defaults to `error`. The value of `drop` is used to "pop" a delivery id off the end of the `delivery_ids` array after adding the current one. Note: when at the limit of pending deliveries, using `delivery_ids_position=last` + `delivery_ids_at_limit=drop` will cause an error. |
+| param              | -        | type        | description    |
+| ------------------ | -------- | ----------- | -------------- |
+| `model_kind`       | required | string | The kind of Experience this Delivery will trigger either `tour` or `survey` |
+| `model_id`         | required | ID | The Chameleon ID of Experience this Delivery will trigger |
+| `profile_id`       | optional* | ID | The Chameleon ID of User Profile to target |
+| `uid`              | optional* | string | The User Profile Identifier (typically the Database ID from your backend -- same value passed to `chmln.identify`) |
+| `email`            | optional* | string | The email address of User Profile to target |
+| `idempotency_key`  | optional | string | The key used to enforce server-side "at most once delivery" for the given user profile. |
+| `options`          | optional | object | Any keys/values to be used in personalizing the Experience content (i.e. body text, button CTA url) |
+| `from`             | optional | timestamp | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
+| `until`            | optional | timestamp | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
+| `until`            | optional | string | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
+| `use_segmentation` | optional | boolean | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
+| `once`             | optional | boolean | Whether or not to check if the user has seen this Experience before. (default `false`) |
+| `redirect`         | optional | boolean | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
+| `skip_triggers`    | optional | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
+| `skip_url_match`   | optional | boolean | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
+| `delivery_ids_position` | optional | one of 'first', 'last', array of integers | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
+| `delivery_ids_at_limit` | optional | one of 'error', 'drop' | Defaults to `error`. The value of `drop` is used to "pop" a delivery id off the end of the `delivery_ids` array after adding the current one. Note: when at the limit of pending deliveries, using `delivery_ids_position=last` + `delivery_ids_at_limit=drop` will cause an error. |
 
 > Required: One of `profile_id`, `uid` or `email`
 
