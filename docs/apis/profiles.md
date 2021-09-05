@@ -82,7 +82,7 @@ When using a **GET** request with parameters:
 
 When using a **POST** request send one of these properties:
 
-```
+```json
 {
   "id": "5f3c4232c712de665632a6d5",
   "uid": 18821,
@@ -94,7 +94,7 @@ When using a **POST** request send one of these properties:
 
 #### HTTP Response
 
-```
+```json
 {
   "profile": {
     "id": "5f3c4232c712de665632a6d5",
@@ -141,7 +141,7 @@ DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
 
 #### HTTP Response
 
-```
+```json
 {
   "profile": {
     "id": "5f3c4232c712de665632a6d5",
@@ -183,7 +183,7 @@ DELETE https://api.trychameleon.com/v3/edit/profiles/forget?uid=:uid
 
 The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
 
-```
+```json
 {
   "profile": {
     "id": "5f3c4232c712de665632a6d5",

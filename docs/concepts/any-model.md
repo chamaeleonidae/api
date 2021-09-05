@@ -16,6 +16,9 @@ The currently supported models are:
 | [Launchers](apis/launchers.md) | `GET /v3/edit/launchers` | `GET /v3/edit/launchers/:id` |
 | [Tooltips](apis/tooltips.md) | `GET /v3/edit/tooltips`  | `GET /v3/edit/tooltips/:id`  |
 | [Domains](apis/urls.md) | `GET /v3/edit/urls`      | `GET /v3/edit/urls/:id`      |
+| [Experience Deliveries](apis/deliveries.md) | `GET /v3/edit/deliveries`      | `GET /v3/edit/deliveries/:id`      |
+| [Tags](apis/tags.md) | `GET /v3/edit/tags`      | `GET /v3/edit/tags/:id`      |
+| [Rate Limit Groups](apis/limit-groups.md) | `GET /v3/edit/limit_groups`      | `GET /v3/edit/limit_groups/:id`      |
 
 
 
@@ -59,5 +62,5 @@ When retrieving a single item, its designation will be singular (`launchers` bec
 ```
 
 
-> **Are we missing a model you need and care about?** [Contact us](mailto:hello@trychameleon.com?subject=API+Listing+any+Model) to request a different one.
+> **Are we missing a model you need and care about?** [Contact us](https://app.trychameleon.com/help) to request a different one.
 

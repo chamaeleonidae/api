@@ -30,6 +30,7 @@ With the Chameleon API for Tooltips, you can:
 | `name` | string | The name given by an administrator of Chameleon |
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `published_at` | timestamp | The time this was most recently published |
+| `tag_ids` | Array<ID> | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 
 
 ## List Tooltips :id=tooltips-index
@@ -51,7 +52,7 @@ GET https://api.trychameleon.com/v3/edit/tooltips
 
 #### HTTP Response
 
-```
+```json
 {
   "tooltips": [
     {
@@ -91,7 +92,7 @@ GET https://api.trychameleon.com/v3/edit/tooltips/:id
 | ----- | -------- | ---------------------- |
 | `id`    | required | A Tooltip ID to lookup |
 
-```
+```json
 {
   "tooltip": {
     "id": "5f3c4232c712de665632a2a1",

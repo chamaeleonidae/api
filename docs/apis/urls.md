@@ -61,7 +61,7 @@ POST https://api.trychameleon.com/v3/edit/urls
 
 #### HTTP Response
 
-```
+```json
 {
   "url": {
      "id": "5c4950c34733cc0004d5bfd7",
@@ -91,7 +91,7 @@ PUT|PATCH https://api.trychameleon.com/v3/edit/urls/:id
 
 #### HTTP Response
 
-```
+```json
 {
   "url": {
      "id": "5c4950c34733cc0004d5bfd7",
@@ -123,7 +123,7 @@ GET https://api.trychameleon.com/v3/edit/urls
 
 #### HTTP Response
 
-```
+```json
 {
   "urls": [
      {
@@ -168,11 +168,11 @@ GET https://api.trychameleon.com/v3/edit/urls/:id
 
 | param | -        | description                           |
 | ----- | -------- | ------------------------------------- |
-| `id`    | required | The Chameleon ID of the Url to update |
+| `id`    | required | The Chameleon ID of the Url to show |
 
 #### HTTP Response
 
-```
+```json
 {
   "url": {
      "id": "5c4950c34733cc0004d5bfd7",
