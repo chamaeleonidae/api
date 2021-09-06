@@ -60,7 +60,12 @@ will not show and the Delivery is not attempted again.
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
 **Pending Deliveries** (yet untriggered; with a `null` value for the `at` property) are limited to 3 total per User Profile.
-This limit can be changed in certain circumstances on our Growth plan by [Contacting us](https://app.trychameleon.com/help).
+This limit can be changed:
+
+- Globally to enable certain Use cases (if you're on our Growth plan, [Contact us](https://app.trychameleon.com/help)).
+- Per request, to limit to any number smaller than your global limit (defaults to `3`).
+
+
 A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in
 the list to add this new Delivery. Use values of `first`, `last` or an integer array of indexes. 
 
@@ -74,8 +79,7 @@ or after the `until` time is been passed.
 
 
 **Managing Delivery lifecycle**: When delivering for multiple use cases or when using different versions of `from` and `until` you may need to implicitly manage the "current set of deliveries for a user". This can be done **_directly_** with the API for [Removing a Delivery ↓](apis/deliveries.md?id=deliveries-destroy)
-OR **_indirectly_** with `delivery_ids_at_limit` and `delivery_ids_position`.
-
+OR **_indirectly_** with `delivery_ids_limit`, `delivery_ids_at_limit` and `delivery_ids_position`. Use `delivery_ids_limit=1` and `delivery_ids_at_limit=drop` to only keep **this Delivery** in the list.
 
 ### Idempotency :id=idempotency
 
@@ -172,7 +176,8 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `redirect`         | optional | boolean | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
 | `skip_triggers`    | optional | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
 | `skip_url_match`   | optional | boolean | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
-| `delivery_ids_position` | optional | one of 'first', 'last', array of integers | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
+| `delivery_ids_limit` | optional | integer | Used to control the number of items that end up in the array of delivery_ids. Defaults to `3`. |
+| `delivery_ids_position` | optional | one of 'first', 'last', integer | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
 | `delivery_ids_at_limit` | optional | one of 'error', 'drop' | Defaults to `error`. The value of `drop` is used to "pop" a delivery id off the end of the `delivery_ids` array after adding the current one. Note: when at the limit of pending deliveries, using `delivery_ids_position=last` + `delivery_ids_at_limit=drop` will cause an error. |
 
 > Required: One of `profile_id`, `uid` or `email`
@@ -181,7 +186,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 {
   "model_kind": "tour",
   "model_id": "5f3c4232c712de665632a6d5",
-  "uid": 542213,
+  "uid": "542213",
   "from": "2029-02-03",
   "until": "+45d",
   ...

@@ -156,7 +156,8 @@ GET https://api.trychameleon.com/v3/edit/limit_groups/:id/experiences
 
 | param | - | description |
 |---|---|---|
-| `id` | required | A Limit Group ID to lookup
+| `id` | required | A Limit Group ID to lookup |
+| `filter` | optional | Use `all` or `published_at` to include or exclude experiences that are currently not published. Defaults to `published_at` |
 
 
 #### HTTP Response (Example with `kind=campaigns`)
