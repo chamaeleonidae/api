@@ -2,14 +2,14 @@
 
 Deliveries are used to directly trigger an Experience to one specific User.
 
-- In the simple case, on the next page-load, the linked Experience will be triggered with the given options.
-- In the more complex case, a time window (`from` / `until`) can be applied.
-- In the even more complex case filters such as `redirect` or `use_segmentation` can fine-tune the triggering.
+- In a simple case, the linked Experience will be triggered with the given options.
+- A time window (`from` / `until`) can be applied to only deliver after/before/in the specified time window.
+- Filters such as `once` and `use_segmentation` can fine-tune the triggering.
 
-An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences.
-Additionally, an Experience _may not_ show due to the conditions added to the Delivery itself. For example, when a Delivery uses
-segmentation (`use_segmentation`) and the segmentation does not match the User at the time of the page load, the Experience
-will not show and the Delivery is not attempted again. 
+> An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences
+> but an Experience _may not_ show due to the conditions added to the Delivery itself.
+> For example, when a Delivery uses segmentation (`use_segmentation`) and the segmentation does not match the
+> User at the time of the delivery, the Experience will not show and the Delivery is not attempted again.
 
 ## Schema :id=schema
 
@@ -27,7 +27,6 @@ will not show and the Delivery is not attempted again.
 | `until` | timestamp | The timestamp after which this Delivery is no longer valid. |
 | `use_segmentation` | boolean | Whether or not to first apply the Segment to determine if the Experience will show to the user. (default `false`) |
 | `once` | boolean | Whether or not to check if the user has seen this Experience before. (default `false`) |
-| `redirect` | boolean | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
 | `skip_triggers` | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
 | `skip_url_match` | boolean | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
 | `at` | timestamp | The timestamp of when this Delivery was triggered for the User. |
@@ -52,6 +51,7 @@ will not show and the Delivery is not attempted again.
 | `409` | The Experience has already been triggered (it can no longer be subsequently changed) |
 | `409` | Too many outstanding deliveries for this User Profile, use `delivery_ids_at_limit` with value of `drop` |
 | `422` | The dates cannot be used in their given values (use `iso8601` or similar format) |
+| `422` | The `delivery_ids_limit` is too small or too large |
 | `429` | Only one Delivery at a time can be created per User Profile |
 
 
@@ -83,18 +83,19 @@ OR **_indirectly_** with `delivery_ids_limit`, `delivery_ids_at_limit` and `deli
 
 ### Idempotency :id=idempotency
 
-An idempotency key is appended to the `profile_id` thus scoping it to the specific user in question.
+An idempotency key is used to generate a **single delivery** when the delivering criteria might otherwise be met **multiple times**.
+This is different than the `once` parameter because the `idempotency_key` operates at the moment when the Delivery is being created,
+where the `once` is used when attempting the Delivery on the client-side.
 
-It is used to only generate a single delivery when the delivering criteria might otherwise be met **multiple times**. This is different than
-the `once` parameter because the `idempotency_key` operates at the moment when the Delivery is being created, where the `once` is
-used when attempting the Delivery on the client-side and only shows the Experience if it has **not been seen before**.
+- `idempotency_key` only creates a delivery if the idempotency key has **never been used** before.
+- `once` only shows the Experience if it has **not been seen before**.
 
 In terms of use cases:
 
 - Create a Delivery when an Event is triggered (but only deliver the Experience once).
 - Create a Delivery when an account needs to be upgraded to a new plan (but only deliver the Experience once).
 - Create a Delivery when an account crosses a specific billing threshold (but only deliver the Experience once).
-- Create a Delivery when you want feedback on a very specific action they took (but only delivery any of this type of feedback once).
+- Create a Delivery when you want feedback on a very specific action they took (but only deliver this type of feedback once).
 
 
 ###### Picking a good `idempotency_key`:
@@ -120,7 +121,7 @@ GET https://api.trychameleon.com/v3/edit/deliveries
 | `model_id`         | optional | ID | The Chameleon ID of Experience to filter to |
 | `profile_id`       | optional | ID | The Chameleon ID of User Profile to filter to |
 | `limit`  | optional | integer | Defaults to `50` with a maximum of `500`                     |
-| `before` | optional | `...` | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | ID | Used when paginating, use directly from the `cursor` object from the previous response |
 | `before` | optional | timestamp | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | timestamp | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
@@ -173,7 +174,6 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 | `until`            | optional | string | The [time interval](concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
 | `use_segmentation` | optional | boolean | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
 | `once`             | optional | boolean | Whether or not to check if the user has seen this Experience before. (default `false`) |
-| `redirect`         | optional | boolean | Whether or not to redirect to the redirect url defined for this Experience. (default `false`) |
 | `skip_triggers`    | optional | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
 | `skip_url_match`   | optional | boolean | Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`) |
 | `delivery_ids_limit` | optional | integer | Used to control the number of items that end up in the array of delivery_ids. Defaults to `3`. |
@@ -282,7 +282,6 @@ While this is generally true there are a few different conditions that must be m
  - The Experience is not live
  - `use_segmentation=true` and the Audience does not currently match
  - `once=false` and the user has seen the Experience before
- - `redirect=false` and the user never loads the matching URL
  - `skip_triggers=false` and the user never clicks/hovers on the configured Step triggers
  - `skip_url_match=false` and the user never loads the matching URL
 
