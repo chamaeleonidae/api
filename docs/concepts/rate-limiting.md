@@ -5,7 +5,7 @@
 ---
 
 
-To maximize your experience, Chameleon sets very high limits on the number of total requests and the amount of concurrency we support. At this time enforce rate limiting as such:
+To maximize your Experience, Chameleon sets very high limits on the number of total requests and the amount of concurrency we support. At this time enforce rate limiting as such:
 
 - Global across all endpoints.
 - [User Profile Searching](apis/profiles-search.md) with `max_concurrent=1` or in situations where the API is being used abusively.

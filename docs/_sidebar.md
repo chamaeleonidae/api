@@ -38,6 +38,7 @@
   - [Tour interactions](apis/tour-interactions.md)
   - [Experience Deliveries](apis/deliveries.md)
   - [BETA - Experience Rate Limit Groups](apis/limit-groups.md)
+  - [BETA - Experience Alert Groups](apis/alert-groups.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
   - [Domains](apis/urls.md)

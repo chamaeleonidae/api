@@ -1,6 +1,6 @@
 # Send Events via JS API
 
-**Track custom Events into Chameleon from you client-side JavaScript.** Looking for the [REST API](awebhooks/events.md)?
+**Track custom Events into Chameleon from you client-side JavaScript.** Looking for the [REST API](webhooks/events.md)?
 
 ---
 

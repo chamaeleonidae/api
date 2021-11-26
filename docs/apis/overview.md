@@ -34,7 +34,7 @@ Chameleon's REST API is made to be adaptable to your own custom use cases. Never
 - Register a **[Webhook](apis/webhooks.md)** to receive realtime notifications of **[Microsurvey Responses](apis/survey-responses.md)**.
 - Use the **[Microsurveys Endpoint](apis/surveys.md)** to download **[Microsurvey Response](apis/survey-responses.md)** data periodically.
 - Get a list of all the User data being sent to Chameleon and manipulate it (delete, update, etc.) through the **[User Profiles Endpoint](apis/profiles.md)**.
-- Use the **[Tours Endpoint](apis/tours.md)** to have an alert when an experience isn't completed in a specific amount of time.
+- Use the **[Tours Endpoint](apis/tours.md)** to have an alert when an Experience isn't completed in a specific amount of time.
 - Monitor the Experiences assigned to your **[BETA - Rate Limit Groups](apis/limit-groups.md)**.
 
 

@@ -4,7 +4,7 @@
 
 Tags are:
 
-- Used to Search and Filter experiences in the [Chameleon Dashboard](https://app.trychameleon.com).
+- Used to Search and Filter Experiences in the [Chameleon Dashboard](https://app.trychameleon.com).
 - Used to define [Rate Limit Groups](apis/limit-groups.md) of Experiences that are limited to a particular rate limit (i.e. 2 per week, 3 per month etc.).
 - [Normalized](concepts/normalization.md?id=tags) with the typical rules.
 

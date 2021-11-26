@@ -52,7 +52,7 @@ POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles
 
 ## Disabling all Chameleon Experiences
 
-To disable all Chameleon experiences you can add the `disabled: true` boolean value for the use via the [JavaScript API](js/profiles.md) or via [REST API](apis/profiles.md)
+To disable all Chameleon Experiences you can add the `disabled: true` boolean value for the use via the [JavaScript API](js/profiles.md) or via [REST API](apis/profiles.md)
 
 
 ## Limits

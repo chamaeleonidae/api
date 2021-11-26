@@ -173,17 +173,17 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 
 ## Clearing / disabling the Chameleon install :id=clear
 
-Use this function to de-identify the user and stop Chameleon from operating on the page (including showing no more experiences).
+Use this function to de-identify the user and stop Chameleon from operating on the page (including showing no more Experiences).
 
 - When the user is logged out of a single page app that does not perform a full-page refresh
-- When your application enters a "mode" where automatic delivery of Chameleon experiences should no longer happen (i.e. in full-screen mode)
+- When your application enters a "mode" where automatic delivery of Chameleon Experiences should no longer happen (i.e. in full-screen mode)
 
 ```JavaScript
 chmln.clear();
 ```
 
 
-## Disabling experiences for specific users :id=disable
+## Disabling Experiences for specific users :id=disable
 
 By default, all users that match the target audience will see a Chameleon Experience when they first visit the page where that Experience automatically begins.
 Users will see this Experience until they complete or exit it, and then not again. 

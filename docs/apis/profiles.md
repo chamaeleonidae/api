@@ -161,7 +161,7 @@ DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
 
 The ability to delete a User Permanently is part of our effort to allow your users to opt-out of continued data storage by Chameleon and its partners.
 The key actions taken directly after deleting a User, is to remove Associated data before then removing the User profile data.
-Associated data includes records of Chameleon experiences, Events logged and any other internal metrics associated with actions the user has taken.
+Associated data includes records of Chameleon Experiences, Events logged and any other internal metrics associated with actions the user has taken.
 At the end of the process no record of this user exists in our database. Additionally, any data stored in backups relating to user profile data in our database has a retention of 3 months.
 
 #### HTTP Request

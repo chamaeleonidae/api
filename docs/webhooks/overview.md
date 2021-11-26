@@ -67,6 +67,7 @@ When receiving a webhook from Chameleon you should:
 | `tour.exited` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
 | `tour.snoozed` | [example](webhooks/overview.md?id=example-tour-snooze) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited on Step configured to snooze (re-display the step at a later time). |
 | `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
+| `alert.triggered` | [example](webhooks/overview.md?id=example-alert-triggered) | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md) | Sent when an Alert is triggered by a violation of the alerting conditions |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.trychameleon.com/help)**
 
@@ -92,7 +93,8 @@ When receiving a webhook from Chameleon you should:
 
 ### Verifying the Webhook :id=verification
 
-The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/integrations/webhooks) and the request body. To prevent replay attacks, reject the message if it is older than a few minutes (in the examples below 5 minutes is used)
+The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/integrations/webhooks) and the request body.
+As a second step, reject the message if it was sent outside of a few minutes (in the examples below 5 minutes is used; to prevent replay attacks)
 
 ### Verification Examples
 
@@ -105,9 +107,9 @@ secret = ENV['CHAMELEON_VERIFICATION_SECRET']
 received = request.headers['X-Chameleon-Signature']
 expected = OpenSSL::HMAC.hexdigest('SHA256', secret, request.raw_post)
 
-verified = received.size == expected.size &&
-  ActiveSupport::SecurityUtils.fixed_length_secure_compare(received, expected) &&
-  Time.zone.parse(params[:sent_at]) > 5.minutes.ago
+verified = ActiveSupport::SecurityUtils.secure_compare(received, expected) &&
+  (sent_at = Time.zone.parse(params[:sent_at])) &&
+  (sent_at > 5.minutes.ago && sent_at < 5.minutes.from_now)
 ```
 
 **Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit via our Docs Bounty program!**
@@ -322,3 +324,70 @@ Every Button that is clicked in a Tour will send a webhook to this topic. It inc
   }
 }
 ```
+
+
+##### Example: `alert.triggered` :id=example-alert-triggered
+
+When Experiences are in violation of the Alert conditions.
+The primary use case for this is to notify the person in charge of the Experience when X days have passed without activity (on something that is otherwise expected to have activity).
+
+> [Experiences](concepts/experiences.md) are either `kind=tour` for a [Tour](apis/tours.md) or `kind=survey` for a [Microsurvey](apis/surveys.md)
+
+```json
+{
+  "id": "6fd85a88e7daf3000e3eb4f7",
+  "kind": "alert.triggered",
+  "sent_at": "2029-12-12T01:28:59.654Z",
+  "data": {
+    "alert_group": {
+      "id": "6de85a88e7daf3000e3eb4f6",
+      "name": "Tour + Microsurvey 5-day dropoff",
+      "summary": "Checks for Experiences that are not Seen in the past 5 days.",
+      "interval": 5,
+      "kind": "all",
+      "style": "unseen",
+      "created_user": {
+        "id": "63165266260fe8000781b161",
+        "email": "jon@example.com",
+        ...
+      },
+      "urls": {
+        "dashboard": "https://app.trychameleon.com/alerts/6de85a88e7daf3000e3eb4f6"
+      },
+      ...
+    },
+    "experiences": [
+      {
+        "id": "6fd85a88e7daf3000e3eb4f8",
+        "name": "Usage upsell banner - A",
+        "kind": "tour",
+        "segment_id": "6d885a88e7daf3000e3eb4f9",
+        "published_at": "2029-11-06T00:12:59.002Z",
+        ...
+      },
+      {
+        "id": "6fd85a88e7daf3000e3eb4e8",
+        "name": "Usage upsell banner - C",
+        "kind": "tour",
+        "segment_id": "6d885a88e7daf3000e3eb4f8",
+        "published_at": "2029-11-11T00:12:59.002Z",
+        ...
+      },
+      {
+        "id": "6fd85a88e7daf3000e3eb4e8",
+        "name": "Request for research participants - 2029-11",
+        "kind": "survey",
+        "segment_id": "6d885a88e7daf3000e3eb4f8",
+        "published_at": "2029-11-01T00:12:59.002Z",
+        ...
+      }
+    ],
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "summary": "3 Experiences went 5 days without being Seen."
+    }
+  }
+}
+```
+
+

@@ -127,7 +127,7 @@ window.chameleonContent = {
 
 **More information about Deliveries can be found on the [Deliveries API reference](apis/deliveries.md).**
 
-A Delivery is a REST API for directly **triggering an experience** for a **specific User**.
+A Delivery is a REST API for directly **triggering an Experience** for a **specific User**.
 
 > With a Delivery you can include personalized content for that specific instance of that Delivery.
 > Note that the `delivery` helper documented here only works for the specific Experience that was triggered via Delivery.

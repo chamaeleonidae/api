@@ -47,7 +47,7 @@ Deliveries are used to directly trigger an Experience to one specific User.
 | Code  | description                                                  |
 | ----- | ------------------------------------------------------------ |
 | `404` | A related model cannot be found (Tour, Survey or Profile) |
-| `409` | The experience is not live, please publish and retry |
+| `409` | The Experience is not live, please publish and retry |
 | `409` | The Experience has already been triggered (it can no longer be subsequently changed) |
 | `409` | Too many outstanding deliveries for this User Profile, use `delivery_ids_at_limit` with value of `drop` |
 | `422` | The dates cannot be used in their given values (use `iso8601` or similar format) |
