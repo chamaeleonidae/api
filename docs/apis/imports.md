@@ -12,7 +12,7 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
 | `name` | string | The name given by an administrator of Chameleon |
-| `kind` | string | The kind of Import to be processed: One of `tag_all` or `update_all` |
+| `kind` | string | The kind of Import to be processed: One of `tag_csv` or `update_csv` |
 | `model_kind` | string | The target data collection to update: One of `profile` or `company` |
 | `on_model_missing` | string | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](apis/profiles.md) or [Company](apis/companies.md) has **not yet** been identified to Chameleon): One of `create` or `ignore` |
 | `head_columns` | array<Object> | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
@@ -36,10 +36,10 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 ### Limitations :id=limits
 
 - Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no-longer be updated.
-- Imports must be less than 50MB [1]
-- Imports must be less 50 columns [1]
+- Imports must be less than 50MB (200MB on the Growth plan) [1]
+- Imports must be less 20 columns (100 on the Growth plan) [1]
 
-> ** [1] Imports can be any size with a Growth plan. [Contact us](https://app.trychameleon.com/help) to change this limit.**
+> ** [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.trychameleon.com/help) to talk about your use case.**
 
 
 ------
@@ -58,7 +58,7 @@ GET https://api.trychameleon.com/v3/edit/imports
   "imports": [
     {
       "id": "5f3c4232c712de665632a6d9",
-      "kind": "tag_all",
+      "kind": "tag_csv",
       "name": "Feedback Request: Post-BETA1",
       "model_kind": "profile",
       "properties": [
@@ -98,7 +98,7 @@ POST https://api.trychameleon.com/v3/edit/imports
 | param               | -        | type        | description    |
 | ------------------- | -------- | ----------- | -------------- |
 | `name`              | optional | string      | The name given to this Import, defaults to `<Your name>'s Import - <DATE>` |
-| `kind`              | optional | string      | The kind of Import to be processed: One of `tag_all` or `update_all`. Defaults to `tag_all` |
+| `kind`              | optional | string      | The kind of Import to be processed: One of `tag_csv` or `update_csv`. Defaults to `tag_csv` |
 | `model_kind`        | optional | string      | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
 | `on_model_missing`  | optional | string      | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `skip` or `add`. Defaults to `skip` |
 | `properties`        | required | array<Property> | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. |
@@ -107,6 +107,7 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `file`              | required | File        | The CSV file to be imported |
 | `import_at`         | optional | timestamp   | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
 
+> Both `properties` and `file` are required before `import_at` can be set
 
 ##### Errors (for both `create` and `update`)
 
@@ -120,12 +121,13 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `409` | The `on_model_missing` is `create` and the `uid` property is not mapped in properties. |
 | `409` | Once an Import has been started it cannot be updated |
 | `422` | The `kind`, `model_kind`, or `on_model_missing` have unrecognized values |
-| `422` | The `properties` contains a `name` that os not found as a header in teh CSV |
+| `422` | The `properties` contains a `name` that was not found as a header in the CSV |
+| `422` | The `import_at` was sent before both `properties` and `file` was set |
 | `422` | The file is larger than the current limits [limits ↑](apis/imports.md?id=limits) allow |
 | `422` | The file has more columns than the current limits [limits ↑](apis/imports.md?id=limits) allow |
 
 
-##### Using `kind=tag_all` to tag User Profiles via a User ID :id=examples-profiles-tag-all
+##### Using `kind=tag_csv` to tag User Profiles via a User ID :id=examples-profiles-tag-all
 
 > This will be the same User ID you send to Chameleon when calling `chmln.identify` => [Identifying Users](js/profiles.md).
 
@@ -141,7 +143,7 @@ Request:
 
 ```json
 {
-  "kind": "tag_all",
+  "kind": "tag_csv",
   "name": "Feedback Request: Post-BETA1",
   "model_kind": "profile",
   "properties": [
@@ -170,7 +172,7 @@ Response:
 }
 ```
 
-##### Using `kind=tag_all` to tag User Profiles with Email
+##### Using `kind=tag_csv` to tag User Profiles with Email
 
 With a CSV `file` like this, specify the header of `Email address` as mapping to the Chameleon User Profile field of `email`.
 
@@ -186,7 +188,7 @@ Request:
 
 ```json
 {
-  "kind": "tag_all",
+  "kind": "tag_csv",
   "name": "Feedback Request: Post-BETA2",
   "on_model_missing": "ignore",
   "properties": [
@@ -216,7 +218,7 @@ Response:
 ```
 
 
-##### Using `kind=tag_all` to tag Companies via a Company ID :id=examples-companies-tag-all
+##### Using `kind=tag_csv` to tag Companies via a Company ID :id=examples-companies-tag-all
 
 > This will be the same Company ID you send to Chameleon when calling `chmln.identify` => [Identifying Company](js/profiles.md?id=company).
 
@@ -232,7 +234,7 @@ Request:
 
 ```json
 {
-  "kind": "tag_all",
+  "kind": "tag_csv",
   "name": "Company Feedback Request: Post-BETA1",
   "model_kind": "company",
   "properties": [
@@ -261,7 +263,7 @@ Response:
 }
 ```
 
-##### Using `kind=update_all` to update User Profile data :id=examples-profiles-update-all
+##### Using `kind=update_csv` to update User Profile data :id=examples-profiles-update-all
 
 With a CSV `file` like this, use `properties` to specify the headers as mapped to the `prop` field of Chameleon [Property](apis/properties.md).
 
@@ -275,7 +277,7 @@ Request:
 
 ```json
 {
-  "kind": "tag_all",
+  "kind": "tag_csv",
   "name": "Feedback Request: Post-BETA1",
   "model_kind": "profile",
   "properties": [
@@ -327,7 +329,7 @@ Response:
 {
   "import": {
     "id": "5f3c4232c712de665632a6d9",
-    "kind": "tag_all",
+    "kind": "tag_csv",
     "name": "Feedback Request: Post-BETA1",
     "model_kind": "profile",
     "properties": [
@@ -364,7 +366,7 @@ GET https://api.trychameleon.com/v3/edit/imports/:id
 {
   "import": {
     "id": "5f3c4232c712de665632a6d9",
-    "kind": "tag_all",
+    "kind": "tag_csv",
     "name": "Feedback Request: Post-BETA1",
     "model_kind": "profile",
     "properties": [...],
