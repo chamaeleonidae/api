@@ -245,7 +245,7 @@ PATCH https://api.trychameleon.com/v3/edit/deliveries/:id
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| `id`    | optional | The Chameleon ID of the Delivery                         |
+| `id`    | required | The Chameleon ID of the Delivery                         |
 | *others | optional | Any other params from [Create a Delivery](apis/deliveries.md?id=deliveries-create)                         |
 
 
@@ -263,8 +263,7 @@ DELETE https://api.trychameleon.com/v3/edit/deliveries/:id
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| `id`    | optional | The Chameleon ID of the Delivery                         |
-
+| `id`  | required | The Chameleon ID of the Delivery                             |
 
 
 ---------
