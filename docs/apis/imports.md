@@ -26,7 +26,7 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 | `stats.last_row` | number | The row number of the most recent processed row (used for mid-import progress bar) |
 | `stats.last_import_state` | string | The current state of the import: One of `started`, `completed`, `retrying`, or `error` |
 | `stats.last_import_error` | string | A representation of the error the last import encountered |
-| `stats.last_imported_at` | timestamp | The last time this import was run |
+| `stats.last_import_at` | timestamp | The last time this import was run |
 | `stats.last_import_elapsed` | number | The total time (in seconds) that the import took. |
 | `stats.created_count` | number | The number of records created by this Import |
 | `stats.updated_count` | number | The number of records updated by this Import |
@@ -35,10 +35,10 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 
 ### Limitations :id=limits
 
-- Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no-longer be updated.
 - Imports must be less than 50MB (200MB on the Growth plan) [1]
 - Imports must be less 20 columns (100 on the Growth plan) [1]
-
+- Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no-longer be updated.
+- Only one Import will be run concurrently (though many can be triggered at the same time)
 > ** [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.trychameleon.com/help) to talk about your use case.**
 
 
@@ -100,7 +100,7 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `name`              | optional | string      | The name given to this Import, defaults to `<Your name>'s Import - <DATE>` |
 | `kind`              | optional | string      | The kind of Import to be processed: One of `tag_csv` or `update_csv`. Defaults to `tag_csv` |
 | `model_kind`        | optional | string      | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
-| `on_model_missing`  | optional | string      | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `skip` or `add`. Defaults to `skip` |
+| `on_model_missing`  | optional | string      | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `create` or `ignore`. Defaults to `create` |
 | `properties`        | required | array<Property> | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. |
 | `properties.$.name` | required | string      | The column header of this property in the CSV file |
 | `properties.$.prop` | required | string      | The `prop` value of the [Property](apis/properties.md) to store on the model |
@@ -118,13 +118,15 @@ POST https://api.trychameleon.com/v3/edit/imports
 
 | Code  | description                                                  |
 | ----- | ------------------------------------------------------------ |
-| `409` | The `on_model_missing` is `create` and the `uid` property is not mapped in properties. |
 | `409` | Once an Import has been started it cannot be updated |
 | `422` | The `kind`, `model_kind`, or `on_model_missing` have unrecognized values |
 | `422` | The `properties` contains a `name` that was not found as a header in the CSV |
+| `422` | The `on_model_missing` is `create` and the `uid` property is not mapped in properties. |
 | `422` | The `import_at` was sent before both `properties` and `file` was set |
 | `422` | The file is larger than the current limits [limits ↑](apis/imports.md?id=limits) allow |
 | `422` | The file has more columns than the current limits [limits ↑](apis/imports.md?id=limits) allow |
+| `422` | The `kind=tag_csv` + `model_kind=profile` and `properties` does not map to a `uid` or `email`  |
+| `422` | The `kind=tag_csv` + `model_kind=company` and `properties` does not map to a `uid`  |
 
 
 ##### Using `kind=tag_csv` to tag User Profiles via a User ID :id=examples-profiles-tag-all
