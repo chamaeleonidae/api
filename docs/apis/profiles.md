@@ -34,7 +34,7 @@ The Chameleon User Profiles API allows you to:
 | `percent` | number | Randomly assigned but stable, used for A/B testing |
 | `last_seen_at` | timestamp | When the user was las active on a page where Chameleon is installed |
 | `last_seen_session_count` | number | Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes |
-| `delivery_ids` | array&lang;ID&rang; | Ordered list of [Delivery](apis/deliveries.md?id=schema) model IDs |
+| `delivery_ids` | array&lt;ID&gt; | Ordered list of [Delivery](apis/deliveries.md?id=schema) model IDs |
 | `company` | object | The expandable [Company](apis/companies.md?id=schema) (only if associated)  |
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 

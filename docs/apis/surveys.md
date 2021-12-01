@@ -25,9 +25,9 @@ With the Chameleon Microsurveys API, you can:
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
-| `tag_ids` | array&lang;ID&rang; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
+| `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
-| `last_dropdown_items` | array&lang;String&rang; | For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User |
+| `last_dropdown_items` | array&lt;String&gt; | For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
 | `stats.last_started_at` | timestamp | Most recent time any user saw this |

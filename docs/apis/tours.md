@@ -37,7 +37,7 @@ With the Chameleon API for Tours, you can:
 | `experiment_range` | string | The range of `Profile#percent` that will be included in the experiment |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
-| `tag_ids` | array&lang;ID&rang; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
+| `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |

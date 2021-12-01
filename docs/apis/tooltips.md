@@ -30,7 +30,7 @@ With the Chameleon API for Tooltips, you can:
 | `name` | string | The name given by an administrator of Chameleon |
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `published_at` | timestamp | The time this was most recently published |
-| `tag_ids` | array&lang;ID&rang; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
+| `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 
 
 ## List Tooltips :id=tooltips-index

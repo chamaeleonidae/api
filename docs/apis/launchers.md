@@ -34,7 +34,7 @@ With the Chameleon API for Launchers, you can:
 | `preset` | string | The preconfigured type: One of `icon`, `element`, `icon_checklist`, `updates`, or `faqs` |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
-| `tag_ids` | array&lang;ID&rang; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
+| `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 | `list_type` | string | If this is a checklist or a normal list: One of `default` or `checklist` |
 | `search_placeholder` | string | Search placeholder |
 | `quantifier_url` | string | This must match the current page URL _[deprecated]_ |
@@ -49,7 +49,7 @@ With the Chameleon API for Launchers, you can:
 | `position_type` | string | Position type: One of `relative_to_screen` or `snap_to_element` |
 | `trigger` | string | Trigger: One of `click` or `hover` |
 | `trigger_type` | string | Trigger type: One of `custom_icon`, `element`, `icon_lightbulb`, `icon_question`, `icon_checklist`, `icon_signpost`, `icon_bell`, or `text` |
-| `items` | array&lang;LauncherItem&rang; | An array of items that define the Launcher menu contents (see full schema below) |
+| `items` | array&lt;LauncherItem&gt; | An array of items that define the Launcher menu contents (see full schema below) |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.displayed_count` | number | Number of times the Launcher widget (icon) was shown to end-users |
 | `stats.last_displayed_at` | timestamp | Most recent time the Launcher widget (icon) was shown to end-users |
