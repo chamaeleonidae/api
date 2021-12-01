@@ -18,10 +18,10 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 | `model_kind` | string | The target data collection to update: One of `profile` or `company` |
 | `on_model_missing` | string | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](apis/profiles.md) or [Company](apis/companies.md) has **not yet** been identified to Chameleon): One of `create` or `ignore` |
 | `head_columns` | array<Object> | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
-| `import_at` | timestamp | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
+| `import_at` | timestamp | The "trigger" to start the importing process (for convenience, use the string `$now`). At this point, the CSV upload is completed, all `properties` are confirmed, and the Import starts |
 | `properties` | array<Property> | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. [example ↓](apis/imports.md?id=examples-profiles-tag-all) |
 | `properties.$.name` | string | The column header of this property in the CSV file |
-| `properties.$.prop` | string | The `prop` value of the [Property](apis/properties.md) to store on the model |
+| `properties.$.prop` | string | The `prop` value of the [Property](apis/properties.md) to store on the model. New properties are created dynamically for missing `prop` values. |
 | `stats` | object | The details of the data itself and of the last run of this Import |
 | `stats.data_size` | number | The number of bytes contained in the uploaded file |
 | `stats.rows_count` | number | The number of rows in the file |
@@ -41,6 +41,7 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 - Imports must be less 20 columns (100 on the Growth plan) [1]
 - Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no-longer be updated.
 - Only one Import will be run concurrently (though many can be triggered at the same time)
+
 > ** [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.trychameleon.com/help) to talk about your use case.**
 
 
@@ -109,7 +110,7 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `file`              | required | File        | The CSV file to be imported |
 | `import_at`         | optional | timestamp   | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
 
-> Both `properties` and `file` are required before `import_at` can be set
+> Both valid `properties` and `file` are required before `import_at` can be set
 
 ##### Errors (for both `create` and `update`)
 
@@ -129,6 +130,11 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `422` | The file has more columns than the current limits [limits ↑](apis/imports.md?id=limits) allow |
 | `422` | The `kind=tag_csv` + `model_kind=profile` and `properties` does not map to a `uid` or `email`  |
 | `422` | The `kind=tag_csv` + `model_kind=company` and `properties` does not map to a `uid`  |
+
+
+##### Errors during Import
+
+- When an error occurs during the Import, the `last_import_state` will change to `retrying` or `error` `last_import_error` will have a value.
 
 
 ##### Using `kind=tag_csv` to tag User Profiles via a User ID :id=examples-profiles-tag-all
@@ -349,9 +355,9 @@ Response:
 
 ## Show an Import :id=imports-show
 
-Get information about the this Import which is typically used to track the Import's progress.
+Get information about the this Import which is typically used to track the Import's progress and to know when it finishes.
 Use `stats.rows_count` and `stats.last_row` to give a percentage complete.
-The Import is finished when `stats.last_import_state` is `completed`, at that point `stats.last_import_at` and `stats.last_import_elapsed` will now have a relevant value.
+The Import is finished when `stats.last_import_state` is `completed`, at that point all other `stats` keys will have a relevant values. (i.e. `stats.last_import_at` and `stats.last_import_elapsed`).
 
 #### HTTP Request
 
@@ -377,7 +383,10 @@ GET https://api.trychameleon.com/v3/edit/imports/:id
     "stats": {
       "rows_count": 142934,
       "last_row": 112000,
-      "last_import_at": null
+      "last_import_state": "started",
+      "last_import_at": null,
+      "created_count": 921,
+      "updated_count": 111079
     },
     ...
   }
@@ -387,7 +396,8 @@ GET https://api.trychameleon.com/v3/edit/imports/:id
 
 ## Update an Import :id=imports-update
 
-> The main reason to update an import is to "capture a workflow". This workflow is typical in UI but not typical of an API
+> The main reason to update an import is to "capture a workflow" or to separately upload the CSV file for convenience via `cURL`.
+> A workflow is typical of an Import UI but not typical of an API
 
 #### HTTP Request
 
