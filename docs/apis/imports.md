@@ -17,9 +17,9 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 | `kind` | string | The kind of Import to be processed: One of `tag_csv` or `update_csv` |
 | `model_kind` | string | The target data collection to update: One of `profile` or `company` |
 | `on_model_missing` | string | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](apis/profiles.md) or [Company](apis/companies.md) has **not yet** been identified to Chameleon): One of `create` or `ignore` |
-| `head_columns` | array<Object> | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
+| `head_columns` | array&lang;Object&rang; | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
 | `import_at` | timestamp | The "trigger" to start the importing process (for convenience, use the string `$now`). At this point, the CSV upload is completed, all `properties` are confirmed, and the Import starts |
-| `properties` | array<Property> | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. [example ↓](apis/imports.md?id=examples-profiles-tag-all) |
+| `properties` | array&lang;Property&rang; | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. [example ↓](apis/imports.md?id=examples-profiles-tag-all) |
 | `properties.$.name` | string | The column header of this property in the CSV file |
 | `properties.$.prop` | string | The `prop` value of the [Property](apis/properties.md) to store on the model. New properties are created dynamically for missing `prop` values. |
 | `stats` | object | The details of the data itself and of the last run of this Import |
@@ -104,7 +104,7 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `kind`              | optional | string      | The kind of Import to be processed: One of `tag_csv` or `update_csv`. Defaults to `tag_csv` |
 | `model_kind`        | optional | string      | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
 | `on_model_missing`  | optional | string      | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `create` or `ignore`. Defaults to `create` |
-| `properties`        | required | array<Property> | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. |
+| `properties`        | required | array&lang;Property&rang; | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. |
 | `properties.$.name` | required | string      | The column header of this property in the CSV file |
 | `properties.$.prop` | required | string      | The `prop` value of the [Property](apis/properties.md) to store on the model |
 | `file`              | required | File        | The CSV file to be imported |
