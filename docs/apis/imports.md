@@ -249,7 +249,7 @@ Request:
   "model_kind": "company",
   "properties": [
     {
-      "name": "User ID",
+      "name": "Company ID",
       "prop": "uid"
     }
   ],
