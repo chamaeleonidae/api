@@ -32,7 +32,7 @@ Deliveries are used to directly trigger an Experience to one specific User.
 | `at` | timestamp | The timestamp of when this Delivery was triggered for the User. |
 | `at_href` | string | The page URL of where this Delivery was triggered for the User. |
 | `interaction_id` | ID | The Chameleon ID of [Interaction](apis/tour-interactions.md) this Delivery triggered. |
-| `group_kind` | string | The triggering system/api: One of `link`, `api_js`, `launcher`, `experiment`, `campaign`, or `api_edit` |
+| `group_kind` | string | The triggering system/api: One of `link`, `api_js`, `launcher`, `experiment`, `campaign`, or `delivery` |
 
 
 ### Errors

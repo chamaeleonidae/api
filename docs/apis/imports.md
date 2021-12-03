@@ -3,8 +3,11 @@
 > **[Contact us](https://app.trychameleon.com/help) and reference this page to be added to the open BETA.**
 
 Imports are used to add data to Chameleon via CSV. Each row should correspond with one record in the Chameleon database (called a model below).
-You may import data into a [User Profiles](apis/profiles.md) or a [Company](apis/companies.md) with the `model_kind` property.
+You may Import data into a [User Profiles](apis/profiles.md) or a [Company](apis/companies.md) with the `model_kind` property.
+
 When using a CSV to create new records that are not yet in Chameleon, you must provide a mapping to the `uid` property, this is the same value you pass to `chmln.identify` via the [JS API](js/profiles.md).
+
+Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and add all of the matching models to the new Tag.
 
 ## Schema :id=schema
 
@@ -35,7 +38,7 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 
 ------
 
-### Limitations :id=limits
+## Limitations :id=limits
 
 - Imports must be less than 50MB (200MB on the Growth plan) [1]
 - Imports must be less 20 columns (100 on the Growth plan) [1]
@@ -91,6 +94,8 @@ GET https://api.trychameleon.com/v3/edit/imports
 
 
 ## Create an Import :id=imports-create
+
+- Check out the [cURL Examples](apis/imports.md?id=examples-all-curl) below to see this in action.
 
 #### HTTP Request
 
@@ -406,4 +411,147 @@ PATCH https://api.trychameleon.com/v3/edit/imports/:id
 ```
 
 **See options for [Creating an Import](apis/imports.md?id=imports-create)**
+
+
+
+
+--------
+
+
+
+## cURL Examples :id=examples-all-curl
+
+To [Authenticate](concepts/authentication.md), replace `ACCOUNT_SECRET` below with your secret token. This can be generated on your [dashboard](https://app.trychameleon.com/integrations/tokens).
+
+
+<details>
+<summary>Tagging User Profiles by <b>UID</b></summary>
+
+- `kind=tag_csv` + `model_kind=profile` means Tag Users Profiles by CSV.
+- Using `on_model_missing=create` means that any User Profile that is not found by UID will be added to Chameleon and Tagged with the Import `name`.
+
+With a CSV like this (`feedback-request-post-BETA1.csv`):
+
+```text
+User ID
+c4235f3
+2de2c71
+632665
+```
+
+First, Create the import, naming it and mapping the `User ID` CSV header to the `uid` Chameleon property:
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Feedback Request: Post-BETA1", "model_kind": "profile", "kind": "tag_csv", "on_model_missing": "create", "properties": [{"name":"User ID","prop":"uid"}] }' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the import with `import_at=now`
+
+- Use the `import.id` from the last request in place of IMPORT_ID:
+
+```bash
+curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -F file=@feedback-request-post-BETA1.csv \
+  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
+
+
+<details>
+<summary>Tagging User Profiles by <b>Email</b></summary>
+
+- `kind=tag_csv` + `model_kind=profile` means Tag Users Profiles by CSV.
+- Using `on_model_missing=create` means that any User Profile that is not found by UID will be added to Chameleon and Tagged with the Import `name`.
+
+With a CSV like this (`feedback-request-post-BETA1.csv`):
+
+```text
+Email address
+jill@example.co
+jess@product.io
+jamie@example.com
+```
+
+First, Create the import, naming it and mapping the `Email address` CSV header to the `email` Chameleon property:
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Feedback Request: Post-BETA1", "model_kind": "profile", "kind": "tag_csv", "on_model_missing": "create", "properties": [{"name":"Email address","prop":"email"}] }' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the import with `import_at=now`
+
+- Use the `import.id` from the last request in place of IMPORT_ID:
+
+```bash
+curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -F file=@feedback-request-post-BETA1.csv \
+  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
+
+
+<details>
+<summary>Tagging Companies by <b>UID</b></summary>
+
+- `kind=tag_csv` + `model_kind=company` means Tag Companies by CSV.
+- Using `on_model_missing=create` means that any Companies that are not found by UID will be added to Chameleon and Tagged with the Import `name`.
+
+With a CSV like this (`feedback-request-accounts-post-BETA1.csv`):
+
+```text
+Company ID
+5f3c423
+2c712de
+665632
+```
+
+First, Create the import, naming it and mapping the `Company ID` CSV header to the `uid` Chameleon property:
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Feedback Request Accounts: Post-BETA1", "model_kind": "company", "kind": "tag_csv", "on_model_missing": "create", "properties": [{"name":"Company ID","prop":"uid"}] }' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Then Upload the CSV called `feedback-request-accounts-post-BETA1.csv` and trigger the import with `import_at=now`
+
+- Use the `import.id` from the last request in place of IMPORT_ID:
+
+```bash
+curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -F file=@feedback-request-accounts-post-BETA1.csv \
+  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
+
+
+
 
