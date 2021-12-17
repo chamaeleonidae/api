@@ -5,15 +5,15 @@
 **Rate Limit Groups are used for Microsurveys and Tours to make sure no more than X Experiences per Y time period are shown to a user.**
 
 An example of this are your "How do you find this Feature?" Microsurveys. You may want only want to show one per week to limit fatigue.
-Your Limit Group would have `rate_limit_size=1` and `rate_limit-kind=7d` then include all of the Microsurveys.
+Your Limit Group would have `rate_limit_size=1` and `rate_limit_kind=7d` then include all of the Microsurveys.
 
 > Rate Limit Groups can purposefully overlap and work together to form a cohesive Rate Limiting strategy, to learn more or to run your strategy by the Team, feel free to [Contact us](https://app.trychameleon.com/help).
 
 -------
 
-Certain Experiences are exempt from a Rate Limit Group policy:
+At certain moments an experience can be exempt from a Rate Limit Group policy. These cases are all considered to be manually delivered:
 
-- Explicitly [toggling them off](https://app.trychameleon.com/rate-limiting)
+- Explicitly [toggling them off](https://app.trychameleon.com/rate-limiting) to rate-unlimit it.
 - When [manually delivered](https://help.trychameleon.com/en/articles/3406346-choosing-a-delivery-method) via Short Link
 - via [JavaScript API](js/show-tour.md)
 - via [Deliveries API](apis/deliveries.md)

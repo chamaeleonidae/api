@@ -42,10 +42,11 @@ Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and 
 
 - Imports must be less than 50MB (200MB on the Growth plan) [1]
 - Imports must be less 20 columns (100 on the Growth plan) [1]
-- Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no-longer be updated.
+- Only 10 Imports total can be created (100 on the Growth plan) [1]
+- Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no longer be updated.
 - Only one Import will be run concurrently (though many can be triggered at the same time)
 
-> ** [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.trychameleon.com/help) to talk about your use case.**
+> [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.trychameleon.com/help) to talk about your use case.
 
 
 ------
