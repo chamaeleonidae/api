@@ -11,30 +11,31 @@ Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and 
 
 ## Schema :id=schema
 
-| Property | Type | Description |
-| --- | --- | --- |
-| `id` | ID | The Chameleon ID |
-| `created_at` | timestamp | When this happened or when this was added to the Database |
-| `updated_at` | timestamp | The last time any property was updated |
-| `name` | string | The name given by an administrator of Chameleon |
-| `kind` | string | The kind of Import to be processed: One of `tag_csv` or `update_csv` |
-| `model_kind` | string | The target data collection to update: One of `profile` or `company` |
-| `on_model_missing` | string | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](apis/profiles.md) or [Company](apis/companies.md) has **not yet** been identified to Chameleon): One of `create` or `ignore` |
-| `head_columns` | array&lt;Object&gt; | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
-| `import_at` | timestamp | The "trigger" to start the importing process (for convenience, use the string `$now`). At this point, the CSV upload is completed, all `properties` are confirmed, and the Import starts |
-| `properties` | array&lt;Property&gt; | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. [example ↓](apis/imports.md?id=examples-profiles-tag-all) |
-| `properties.$.name` | string | The column header of this property in the CSV file |
-| `properties.$.prop` | string | The `prop` value of the [Property](apis/properties.md) to store on the model. New properties are created dynamically for missing `prop` values. |
-| `stats` | object | The details of the data itself and of the last run of this Import |
-| `stats.data_size` | number | The number of bytes contained in the uploaded file |
-| `stats.rows_count` | number | The number of rows in the file |
-| `stats.last_row` | number | The row number of the most recent processed row (used for mid-import progress bar) |
-| `stats.last_import_state` | string | The current state of the import: One of `started`, `completed`, `retrying`, or `error` |
-| `stats.last_import_error` | string | A representation of the error the last import encountered |
-| `stats.last_import_at` | timestamp | The last time this import was run |
-| `stats.last_import_elapsed` | number | The total time (in seconds) that the import took. |
-| `stats.created_count` | number | The number of records created by this Import |
-| `stats.updated_count` | number | The number of records updated by this Import |
+| Property                    | Type                  | Description |
+|-----------------------------|-----------------------| --- |
+| `id`                        | ID                    | The Chameleon ID |
+| `created_at`                | timestamp             | When this happened or when this was added to the Database |
+| `updated_at`                | timestamp             | The last time any property was updated |
+| `name`                      | string                | The name given by an administrator of Chameleon |
+| `kind`                      | string                | The kind of Import to be processed: One of `tag_csv` or `update_csv` |
+| `model_kind`                | string                | The target data collection to update: One of `profile` or `company` |
+| `tag_import_id`             | ID                    | To add members to a previous Import, specify this as the ID of a previous Import |
+| `on_model_missing`          | string                | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](apis/profiles.md) or [Company](apis/companies.md) has **not yet** been identified to Chameleon): One of `create` or `ignore` |
+| `head_columns`              | array&lt;Object&gt;   | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
+| `import_at`                 | timestamp             | The "trigger" to start the importing process (for convenience, use the string `$now`). At this point, the CSV upload is completed, all `properties` are confirmed, and the Import starts |
+| `properties`                | array&lt;Property&gt; | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. [example ↓](apis/imports.md?id=examples-profiles-tag-all) |
+| `properties.$.name`         | string                | The column header of this property in the CSV file |
+| `properties.$.prop`         | string                | The `prop` value of the [Property](apis/properties.md) to store on the model. New properties are created dynamically for missing `prop` values. |
+| `stats`                     | object                | The details of the data itself and of the last run of this Import |
+| `stats.data_size`           | number                | The number of bytes contained in the uploaded file |
+| `stats.rows_count`          | number                | The number of rows in the file |
+| `stats.last_row`            | number                | The row number of the most recent processed row (used for mid-import progress bar) |
+| `stats.last_import_state`   | string                | The current state of the import: One of `started`, `completed`, `retrying`, or `error` |
+| `stats.last_import_error`   | string                | A representation of the error the last import encountered |
+| `stats.last_import_at`      | timestamp             | The last time this import was run |
+| `stats.last_import_elapsed` | number                | The total time (in seconds) that the import took. |
+| `stats.created_count`       | number                | The number of records created by this Import |
+| `stats.updated_count`       | number                | The number of records updated by this Import |
 
 ------
 
@@ -104,17 +105,18 @@ GET https://api.trychameleon.com/v3/edit/imports
 POST https://api.trychameleon.com/v3/edit/imports
 ```
 
-| param               | -        | type        | description    |
-| ------------------- | -------- | ----------- | -------------- |
-| `name`              | optional | string      | The name given to this Import, defaults to `<Your name>'s Import - <DATE>` |
-| `kind`              | optional | string      | The kind of Import to be processed: One of `tag_csv` or `update_csv`. Defaults to `tag_csv` |
-| `model_kind`        | optional | string      | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
-| `on_model_missing`  | optional | string      | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `create` or `ignore`. Defaults to `create` |
+| param               | -        | type                  | description    |
+| ------------------- |----------|-----------------------| -------------- |
+| `name`              | optional | string                | The name given to this Import, defaults to `<Your name>'s Import - <DATE>` |
+| `kind`              | optional | string                | The kind of Import to be processed: One of `tag_csv` or `update_csv`. Defaults to `tag_csv` |
+| `model_kind`        | optional | string                | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
+| `tag_import_id`     | optional | ID                    | To add members to a previous Import, specify this as the ID of a previous Import |
+| `on_model_missing`  | optional | string                | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `create` or `ignore`. Defaults to `create` |
 | `properties`        | required | array&lt;Property&gt; | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. |
-| `properties.$.name` | required | string      | The column header of this property in the CSV file |
-| `properties.$.prop` | required | string      | The `prop` value of the [Property](apis/properties.md) to store on the model |
-| `file`              | required | File        | The CSV file to be imported |
-| `import_at`         | optional | timestamp   | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
+| `properties.$.name` | required | string                | The column header of this property in the CSV file |
+| `properties.$.prop` | required | string                | The `prop` value of the [Property](apis/properties.md) to store on the model |
+| `file`              | required | File                  | The CSV file to be imported |
+| `import_at`         | optional | timestamp             | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
 
 > Both valid `properties` and `file` are required before `import_at` can be set
 
@@ -123,24 +125,27 @@ POST https://api.trychameleon.com/v3/edit/imports
 - When the Import has already been started (when `import_at` has a value).
 - When the `on_model_missing` is `create` and the `uid` property is not mapped in properties.
 - When any of the supplied `properties` are not found as Headers in the uploaded file.
+- When the `tag_import_id` refers to an import that has not been finished
 
 
-| Code  | description                                                  |
-| ----- | ------------------------------------------------------------ |
-| `409` | Once an Import has been started it cannot be updated |
-| `422` | The `kind`, `model_kind`, or `on_model_missing` have unrecognized values |
-| `422` | The `properties` contains a `name` that was not found as a header in the CSV |
-| `422` | The `on_model_missing` is `create` and the `uid` property is not mapped in properties. |
-| `422` | The `import_at` was sent before both `properties` and `file` was set |
-| `422` | The file is larger than the current limits [limits ↑](apis/imports.md?id=limits) allow |
-| `422` | The file has more columns than the current limits [limits ↑](apis/imports.md?id=limits) allow |
-| `422` | The `kind=tag_csv` + `model_kind=profile` and `properties` does not map to a `uid` or `email`  |
-| `422` | The `kind=tag_csv` + `model_kind=company` and `properties` does not map to a `uid`  |
+| Code  | description                                                                                                            |
+|-------|------------------------------------------------------------------------------------------------------------------------|
+| `409` | Once an Import has been started it cannot be updated                                                                   |
+| `409` | The number of Imports limit has been reached, see [limits ↑](apis/imports.md?id=limits) for details                    |
+| `422` | The `kind`, `model_kind`, or `on_model_missing` have unrecognized values                                               |
+| `422` | The `properties` contains a `name` that was not found as a header in the CSV                                           |
+| `422` | The `on_model_missing` is `create` and the `uid` property is not mapped in properties.                                 |
+| `422` | The `import_at` was sent before both `properties` and `file` was set                                                   |
+| `422` | The file is larger than the current limits [limits ↑](apis/imports.md?id=limits) allow                                 |
+| `422` | The file has more columns than the current limits [limits ↑](apis/imports.md?id=limits) allow                          |
+| `422` | The `kind=tag_csv` + `model_kind=profile` and `properties` does not map to a `uid` or `email`                          |
+| `422` | The `kind=tag_csv` + `model_kind=company` and `properties` does not map to a `uid`                                     |
+| `422` | The `tag_import_id` refers to an import that has not been finished (when `stats.last_import_state` is not `completed`) |
 
 
 ##### Errors during Import
 
-- When an error occurs during the Import, the `last_import_state` will change to `retrying` or `error` `last_import_error` will have a value.
+- When an error occurs during the Import, the `stats.last_import_state` will change to `retrying` or `error` and `stats.last_import_error` will have a value.
 
 
 ##### Using `kind=tag_csv` to tag User Profiles via a User ID :id=examples-profiles-tag-all
@@ -554,5 +559,16 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 </details>
 
 
+
+
+
+
+
+
+
+
+
+
+----------
 
 
