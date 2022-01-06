@@ -1,6 +1,4 @@
-# Imports [BETA]
-
-> **[Contact us](https://app.trychameleon.com/help) and reference this page to be added to the open BETA.**
+# Data Imports
 
 Imports are used to add data to Chameleon via CSV. Each row should correspond with one record in the Chameleon database (called a model below).
 You may Import data into a [User Profiles](apis/profiles.md) or a [Company](apis/companies.md) with the `model_kind` property.

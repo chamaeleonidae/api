@@ -1,6 +1,4 @@
-# Alert Groups [BETA]
-
-> **[Contact us](https://app.trychameleon.com/help) and reference this page to be added to the open BETA.**
+# Alert Groups
 
 **Alert Groups are used for Tours and Microsurveys to notify any relevant Team members when an Experience is in violation of the alert conditions.**
 

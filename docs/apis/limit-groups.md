@@ -1,6 +1,4 @@
-# Rate Limit Groups [BETA]
-
-> **[Contact us](https://app.trychameleon.com/help) and reference this page to be added to the open BETA.**
+# Rate Limit Groups
 
 **Rate Limit Groups are used for Microsurveys and Tours to make sure no more than X Experiences per Y time period are shown to a user.**
 
