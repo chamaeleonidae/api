@@ -33,11 +33,13 @@ Currently, our REST API supports the following endpoints:
 
 Chameleon's REST API is made to be adaptable to your own custom use cases. Nevertheless, there are some cases where you might want to use it:
 
+- **[Import data](apis/imports.md)** (via CSV) on a one-time or recurring basis.
 - Register a **[Webhook](apis/webhooks.md)** to receive realtime notifications of **[Microsurvey Responses](apis/survey-responses.md)**.
 - Use the **[Microsurveys Endpoint](apis/surveys.md)** to download **[Microsurvey Response](apis/survey-responses.md)** data periodically.
 - Get a list of all the User data being sent to Chameleon and manipulate it (delete, update, etc.) through the **[User Profiles Endpoint](apis/profiles.md)**.
-- Use the **[Tours Endpoint](apis/tours.md)** to have an alert when an Experience isn't completed in a specific amount of time.
+- Use an **[Alert Group](apis/alert-groups.md)** to alert when Experiences aren't completed in a specific amount of time.
 - Monitor the Experiences assigned to your **[Rate Limit Groups](apis/limit-groups.md)**.
+- Trigger an Experience via REST API that will run on next page load via **[Experience Deliveries](apis/deliveries.md)**.
 
 
 > If there is any use case where you'd like to use our API but you're not sure how, feel free to [Contact us](https://app.trychameleon.com/help).

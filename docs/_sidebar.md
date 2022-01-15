@@ -9,6 +9,7 @@
   - [Normalization](concepts/normalization.md)
   - [Listing Models](concepts/any-model.md)
   - [Personalization](concepts/personalizing.md)
+  - [Internationalization](apis/translation.md)
 
 - Javascript API
   - [Overview](js/overview.md)
