@@ -33,6 +33,7 @@
   - [Companies](apis/companies.md)
   - [Segments (audiences)](apis/segments.md)
   - [Properties](apis/properties.md)
+  - [Internationalization](apis/translation.md)
   - [Microsurveys](apis/surveys.md)
   - [Microsurvey Responses](apis/survey-responses.md)
   - [Tours](apis/tours.md)
@@ -43,6 +44,6 @@
   - [Data Imports](apis/imports.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
-  - [Domains](apis/urls.md)
+  - [Domains / Environments](apis/urls.md)
   - [Webhooks](apis/webhooks.md)
 
