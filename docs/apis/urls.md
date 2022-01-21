@@ -233,12 +233,6 @@ GET https://api.trychameleon.com/v3/edit/urls/:id
   }
 }
 ```
---------
-
-
-# TODO add endpoint for adding and substracing domains from an environment? allow batched?
-
-
 
 ---------------
 
