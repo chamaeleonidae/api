@@ -8,6 +8,9 @@
 
 *If you want to know more about managing domains and subdomains in Chameleon, please visit our [product documentation](https://help.trychameleon.com/en/articles/1318033-managing-domains-and-subdomains).*
 
+
+**[Jump to Environments](apis/urls.md?id=url-groups)**
+
 ------
 
 ## Domains (Urls)
@@ -110,6 +113,48 @@ PUT|PATCH https://api.trychameleon.com/v3/edit/urls/:id
 
 
 
+## Bulk a Url :id=urls-bulk-update
+
+#### HTTP Request
+
+```
+POST https://api.trychameleon.com/v3/edit/urls/batch
+```
+
+| param          | -        | description                                                                       |
+|----------------| -------- |-----------------------------------------------------------------------------------|
+| `ids`          | required | An array of Chameleon IDs of the Urls to update                                   |
+| `enabled`      | optional | The authorization state to change to.                                             |
+| `archived_at`  | optional | To archive set to a timestamp, to unarchive set to `null`                         |
+| `url_group_id` | optional | The Environment ([Url Group](apis/urls.md?id=url-groups)) to assign these Urls to |
+
+#### HTTP Response
+
+All of the Urls given in the request `ids` are updated with the value given by `enabled`, `archived_at`, or `url_group_id`. They are sent back even if they were already in the resulting bulk-update state.
+
+```json
+{
+  "urls": [
+    {
+      "id": "5c4950c34733cc0004d5bfd7",
+      "host": "test2.example.com",
+      "domain": "example.com",
+      "enabled": "on",
+      ...
+    },
+    {
+      "id": "5c4950c34733cc0004d5bfd8",
+      "host": "test4.example.com",
+      "domain": "example.com",
+      "enabled": "on",
+      ...
+    }
+  ]
+}
+```
+
+
+
 ## Listing all Urls :id=urls-index
 
 #### HTTP Request
@@ -199,6 +244,8 @@ GET https://api.trychameleon.com/v3/edit/urls/:id
 
 ## Environments (Url Groups) :id=url-groups
 
+> Environments are in BETA at the moment ([Contact us](https://app.trychameleon.com/help) to join).
+
 An Environment is a group of Domains. The purpose of an Environment is to:
 
 1. Split data out into groups; the groups are used in the Chameleon Dashboard to display your Experience data by environment.
@@ -221,8 +268,7 @@ An Environment is a group of Domains. The purpose of an Environment is to:
 | `name`                   | string    | The name given by an administrator of Chameleon                                  |
 | `description`            | string    | The display description                                                          |
 | `short_name`             | string    | Up to 3 characters abbreviating the name (i.e. PR for Production)                |
-| `style_short_name_color` | string    | A easily recognizable color; a 3 or 6 char hex code excluding the `#`.           |
-| `urls_count`             | integer   | The number of Urls associated with this [Url Group](apis/urls.md?id=url-groups). |
+| `style_short_name_color` | string    | A easily recognizable color; an uppercase 6 char hex code excluding the `#`.     |
 
 
 ## Create a Url Group :id=url-groups-create
@@ -233,12 +279,12 @@ An Environment is a group of Domains. The purpose of an Environment is to:
 POST https://api.trychameleon.com/v3/edit/url_groups
 ```
 
-| param                  | -        | description                                                                                      |
-|------------------------| -------- |--------------------------------------------------------------------------------------------------|
-| `name`                   | required | The name of this Environment                                                                     |
-| `description`            | optional | A description to display along with the Environment `name`                                       |
+| param                  | -        | description                                                                                     |
+|------------------------| -------- |-------------------------------------------------------------------------------------------------|
+| `name`                   | required | The name of this Environment                                                                    |
+| `description`            | optional | A description to display along with the Environment `name`                                      |
 | `short_name`             | optional | 1-3 character 'short code' that should be the short version of the name (PR for Production etc.) |
-| `style_short_name_color` | optional | A 3 or 6 character hex code color to identify the Environment                                    |
+| `style_short_name_color` | optional | A 6 character hex code color to identify the Environment                                    |
 
 #### HTTP Response
 
@@ -249,7 +295,7 @@ POST https://api.trychameleon.com/v3/edit/url_groups
      "name": "Test QA #1",
      "description": "Pre-production for our QA team",
      "short_name": "Q1",
-     "style_short_name_color": "e7ad5a",
+     "style_short_name_color": "E7AD5A",
      ...
   }
 }
@@ -265,13 +311,14 @@ PUT|PATCH https://api.trychameleon.com/v3/edit/url_groups/:id
 ```
 
 
-| param                  | -        | description                                                                                      |
-|------------------------|----------|--------------------------------------------------------------------------------------------------|
-| `name`                   | optional | The name of this Environment                                                                     |
-| `description`            | optional | A description to display along with the Environment `name`                                       |
+| param                    | -        | description                                                                                     |
+|--------------------------|----------|-------------------------------------------------------------------------------------------------|
+| `id`                     | required | The Url Group ID.                                                                   |
+| `name`                   | optional | The name of this Environment                                                                    |
+| `description`            | optional | A description to display along with the Environment `name`                                      |
 | `short_name`             | optional | 1-3 character 'short code' that should be the short version of the name (PR for Production etc.) |
-| `style_short_name_color` | optional | A 3 or 6 character hex code color to identify the Environment                                    |
-| `archived_at`            | optional | To archive set to a timestamp, to unarchive set to `null`                                          |
+| `style_short_name_color` | optional | A 6 character hex code color to identify the Environment                                   |
+| `archived_at`            | optional | To archive set to a timestamp, to unarchive set to `null`                                       |
 
 
 #### HTTP Response
@@ -321,7 +368,7 @@ GET https://api.trychameleon.com/v3/edit/url_groups
       "name": "Test QA #1",
       "description": "Pre-production for our QA team",
       "short_name": "Q1",
-      "style_short_name_color": "e7ad5a",
+      "style_short_name_color": "E7AD5A",
       ...
     },
     {
@@ -329,7 +376,7 @@ GET https://api.trychameleon.com/v3/edit/url_groups
       "name": "Staging",
       "description": null,
       "short_name": "ST",
-      "style_short_name_color": "6d95c0",
+      "style_short_name_color": "6D95C0",
       ...
     },
      {
@@ -337,7 +384,7 @@ GET https://api.trychameleon.com/v3/edit/url_groups
        "name": "Production",
        "description": "Live for customers",
        "short_name": "PR",
-       "style_short_name_color": "8fc06d",
+       "style_short_name_color": "8FC06D",
        ...
     },
     ...
@@ -372,7 +419,7 @@ GET https://api.trychameleon.com/v3/edit/url_groups/:id
     "name": "Staging",
     "description": null,
     "short_name": "ST",
-    "style_short_name_color": "6d95c0",
+    "style_short_name_color": "6D95C0",
     ...
   }
 }
