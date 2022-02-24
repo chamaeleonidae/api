@@ -1,14 +1,14 @@
-# Internationalization / Translation [BETA]
+# Localization / Internationalization [BETA]
 
-**The content of Chameleon Experiences can be Internationalized into a reasonable number of languages**
+**The content of Chameleon Experiences can be Localized / Internationalized into a reasonable number of languages**
 
-> Translations are in BETA at the moment ([Contact us](https://app.trychameleon.com/help) to join) and available as an add-on to our Grown / Enterprise plans.
+> Localization is in BETA at the moment ([Contact us](https://app.trychameleon.com/help) to join) and available as an add-on to our Grown / Enterprise plans.
 >
 > The main [Help page](https://help.trychameleon.com/en/articles/5868890) on this topic may be more helpful for a typical workflow.
 
 1. [Download](apis/translation.md?id=i18ns-show) or from the [various lists of Experiences](https://app.trychameleon.com).
 2. Translate
-3. [Upload](apis/translation.md?id=i18ns-create) or from the [Translations page](https://app.trychameleon.com/settings/translations).
+3. [Upload](apis/translation.md?id=i18ns-create) or from the [Localization page](https://app.trychameleon.com/settings/translations).
 4. Set Experiences live
 
 ----
