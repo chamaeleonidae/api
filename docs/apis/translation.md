@@ -6,9 +6,9 @@
 >
 > The main [Help page](https://help.trychameleon.com/en/articles/5868890) on this topic may be more helpful for a typical workflow.
 
-1. [Download](apis/translation.md?id=i18ns-show)
-2. Translation
-3. [Download](apis/translation.md?id=i18ns-create)
+1. [Download](apis/translation.md?id=i18ns-show) or from the [various lists of Experiences](https://app.trychameleon.com).
+2. Translate
+3. [Upload](apis/translation.md?id=i18ns-create) or from the [Translations page](https://app.trychameleon.com/settings/translations).
 4. Set Experiences live
 
 ----
