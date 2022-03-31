@@ -41,7 +41,8 @@ Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and 
 
 - Imports must be less than 50MB (200MB on the Growth plan) [1]
 - Imports must be less 20 columns (100 on the Growth plan) [1]
-- Only 10 Imports total can be created (100 on the Growth plan) [1]
+- Only 20 Imports total can be created (50 on the Growth plan) [1]
+ - Imports "Tags" can be reused with `tag_import_id`, reused imports do not count against this limit.
 - Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no longer be updated.
 - Only one Import will be run concurrently (though many can be triggered at the same time)
 
