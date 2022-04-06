@@ -305,14 +305,15 @@ PUT|PATCH https://api.trychameleon.com/v3/edit/url_groups/:id
 ```
 
 
-| param                    | -        | description                                                                                     |
-|--------------------------|----------|-------------------------------------------------------------------------------------------------|
-| `id`                     | required | The Url Group ID.                                                                   |
-| `name`                   | optional | The name of this Environment                                                                    |
-| `description`            | optional | A description to display along with the Environment `name`                                      |
-| `short_name`             | optional | 1-3 character 'short code' that should be the short version of the name (PR for Production etc.) |
-| `style_short_name_color` | optional | A 6 character hex code color to identify the Environment                                   |
-| `archived_at`            | optional | To archive set to a timestamp, to unarchive set to `null`                                       |
+| param                    | -        | description                                                                                                                                            |
+|--------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`                     | required | The Url Group ID.                                                                                                                                      |
+| `name`                   | optional | The name of this Environment                                                                                                                           |
+| `description`            | optional | A description to display along with the Environment `name`                                                                                             |
+| `short_name`             | optional | 1-3 character 'short code' that should be the short version of the name (PR for Production etc.)                                                       |
+| `style_short_name_color` | optional | A 6 character hex code color to identify the Environment                                                                                               |
+| `archived_at`            | optional | To archive set to a timestamp, to unarchive set to `null`                                                                                              |
+| `urls_action_on_archive` | optional | Use values of `ignore` or `archive`. When archiving with `archived_at`, the Domains of this environment will either be archived as well or left as-is. |
 
 
 #### HTTP Response
