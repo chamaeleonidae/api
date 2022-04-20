@@ -47,4 +47,4 @@ By default, Events are grouped by their case insensitive and normalized name val
 - "ImporteD leads" => `imported_leads`
 - "imported-leads" => `imported_leads`
 
-To know more about how Events are normalized, visit the [Normalization](http://concepts/normalization.md?id=events) page.
+To know more about how Events are normalized, visit the [Normalization](concepts/normalization.md?id=events) page.
