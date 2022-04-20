@@ -17,6 +17,7 @@
   - [Send Events](js/events.md)
   - [Show a Tour / Survey](js/show-tour.md)
   - [Show a Launcher](js/show-launcher.md)
+  - [Control the Search bar](apis/search.md?id=search-js-api)
   - [Review a checklist status](js/launcher-checklist.md)
   - [Listen to Chameleon events](js/listen.md)
 
