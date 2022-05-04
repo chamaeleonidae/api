@@ -61,7 +61,7 @@ POST https://api.trychameleon.com/v3/edit/urls
 | param         | -        | description                                                  |
 |---------------| -------- | ------------------------------------------------------------ |
 | `host`        | required | The fully qualified domain of this Url (i.e. app.example.com) |
-| `enabled`     | optional | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain` |
+| `enabled`     | required | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain` |
 | `unlisted`    | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.trychameleon.com/settings/domains) in the dashboard |
 | `archived_at` | optional | To archive set to a timestamp, to unarchive set to `null`                                          |
 
