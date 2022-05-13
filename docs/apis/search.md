@@ -2,7 +2,7 @@
 
 **Add a Search bar to your product that allows your Users to search your Product, Help center, and any custom content.**
 
-> **You have content within your product even if you don't think of it that way, any database records that your Users would want to find is a piece of content, akin to a Google search result. Send this content to Chameleon and we will surface it to your Users in the Chameleon search bar. The content can be scoped to a specific [Company](apis/company.md), be recommended when the Search bar is opened and can perform any action from clicking an item.**.
+> **You have content within your product, even if you don't think of it that way. Any database records that your Users would want to find is a piece of content, akin to a Google search result. Send this content to Chameleon and we will surface it to your Users in the Chameleon search bar. The content can be scoped to a specific [Company](apis/company.md), be recommended when the Search bar is opened and can perform any action from clicking an item.**.
 
 ------
 
@@ -19,7 +19,7 @@ See the specific APIs for more information on how to use Search your product.
 3. Add the top-level navigation within your product; First download this CSV [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example) then [Import](apis/search.md?id=schema-search-imports) it.
 4. [Optional] Add specific content from your database
 5. Publish your Search bar
-6. Visit your product where Chameleon is installed and hit `CMD` + `k` (or how you configured `key_meta` and `key_uid`).
+6. Visit your product where Chameleon is installed and hit `CMD` + `k` for MacOs or 'Ctrl" + 'k' for Windows and Linux  (or how you configured `key_meta` and `key_uid`).
 7. Test a few search terms!
 
 -----
@@ -259,7 +259,7 @@ Publish by setting `published_at` to the current time. This makes your Search ba
 
 ## `SearchItem` Schema :id=schema-search-items
 
-A search item is a discrete unit of searchable content akin to a Google search result. You have content within your product even if you don't think of it that way, any database records that your Users would want to find is a piece of content. Sent us this content to surface it to your Users in the Chameleon search bar
+A search item is a discrete unit of searchable content akin to a Google search result. You have content within your product, even if you don't think of it that way. Any database records that your Users would want to find is a piece of content. Send us this content to surface it to your Users in the Chameleon search bar
 
 > `SearchItem`s are associated with `actions`: [SearchActions](apis/search.md?id=schema-search-actions), and `title_labels` / `description_labels`: [SearchLabels](apis/search.md?id=schema-search-labels)
 
@@ -566,7 +566,7 @@ chmln.on('cmd:search', (opts: SearchOpts, ctx: Context) => {
     - If you need to add custom "Search" logic use this event to pass back the right items, two options:
       - directly return an array<SearchItem>
       - return a Promise that will resolve with the first argument being an array<SearchItem>.
-    - Best used when you already use Algolia or have a custo msearch endpoint internally
+    - Best used when you already use Algolia or have a custom search endpoint internally
 
   Called when:
     - The User has entered in a query; when a user enters text and pauses
