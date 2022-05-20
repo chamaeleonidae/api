@@ -1,6 +1,6 @@
 # Overview
 
-**Chameleon supports a robust data pipeline including receiving data from may different sources and sending Chameleon Experience data out to you connected destinations.**
+**Chameleon supports a robust data pipeline including receiving data from may different sources and sending Chameleon Experience data out to your connected destinations.**
 
 ---
 
@@ -40,6 +40,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 
 ------------
 
+
 ## Data out of Chameleon :id=outgoing-webhooks
 
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](webhooks/overview.md?id=verification) of any webhook requests before processing any included data.
@@ -51,23 +52,30 @@ When sending a webhook to your backend Chameleon will:
  - In case of non-200 status code, will retry a total of 9 times over 43 hours (giving you a chance to fix errors without losing track of these webhooks)
 
 When receiving a webhook from Chameleon you should:
- - Verify the Webhook request signature or responding a status `400` if the signature does not match
- - Drop the request if the webhook is too old (to prevent replay attacks). If the timestamp too old, respond with a status `400`
+ - Only accept requests from [Chameleon IP Addresses](concepts/authentication.md?id=ip-addresses)
+ - [Verify](webhooks/overview.md?id=verification) the Webhook request signature; respond with a status `400` if the signature does not match
+ - Drop the request if the webhook is too old (to prevent replay attacks); respond with a status `400`
  - Respond quickly with a `200` status code (or any `2xx` status code)
  - Optional: Request any related data with the [other APIs](apis/overview.md)
 
+
 #### Webhook topics :id=topics
 
-| Topic | Example Payload | Included models | Description |
-| --- | --- | --- |--- |
-| `ping` | [example](webhooks/overview.md?id=example-ping) | Account | Sent as a simple check to make sure the endpoint is working |
-| `response.finished` | [example](webhooks/overview.md?id=example-response-finished) | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md) | Sent when the Microsurvey is finished (all steps completed; including text comment if configured) |
-| `tour.started` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is started with the first Step |
-| `tour.completed` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is completed with the Step the user completed |
-| `tour.exited` | [example](webhooks/overview.md?id=example-tour-all) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
-| `tour.snoozed` | [example](webhooks/overview.md?id=example-tour-snooze) | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited on Step configured to snooze (re-display the step at a later time). |
-| `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited |
-| `alert.triggered` | [example](webhooks/overview.md?id=example-alert-triggered) | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md) | Sent when an Alert is triggered by a violation of the alerting conditions |
+| Topic                 | Example Payload                                                | Included models                                                                                           | Description                                                                                       |
+|-----------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `ping`                | [example](webhooks/overview.md?id=example-ping)                | Account                                                                                                   | Sent as a simple check to make sure the endpoint is working                                       |
+| `response.finished`   | [example](webhooks/overview.md?id=example-response-finished)   | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md)    | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured) |
+| `tour.started`        | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is started; includes the first Step in the payload                             |
+| `tour.completed`      | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is completed; includes the Step the user completed                             |
+| `tour.exited`         | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is exited; includes the Step the user exited                                   |
+| `tour.snoozed`        | [example](webhooks/overview.md?id=example-tour-snooze)         | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
+| `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited                                        |
+| `alert.triggered`     | [example](webhooks/overview.md?id=example-alert-triggered)     | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md)                               | Sent when an Alert is triggered by a violation of the alerting conditions                         |
+| `survey.started`      | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Microsurvey is started with the first Step                                          |
+| `survey.completed`    | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                          | Sent when the Microsurvey is completed with the Step the user completed                           |
+| `survey.exited`       | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                          | Sent when the Microsurvey is exited with the Step the user exited                                 |
+| `survey.snoozed`      | [example](webhooks/overview.md?id=example-survey-snooze)       | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
+| `tour.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited                                        |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.trychameleon.com/help)**
 
@@ -139,7 +147,7 @@ Typically do process Verification for this topic but nothing really to be done w
 
 ##### Example: `response.finished` :id=example-response-finished
 
-Every Microsruvey that is finished will send a webhook to this topic.
+Every Microsurvey that is finished will send a webhook to this topic.
 
 ```json
 {
@@ -211,7 +219,7 @@ A Tour is started, runs through a sequence of 1 or more Steps and finishes by be
       "id": "5f885a88e7daf3000e3eb4f6",
       "email": "jane@example.com",
       "uid": "92340834",
-      "name": "Jon E",
+      "name": "Jane E",
       "last_seen_at": "2029-12-11T00:21:59.109Z",
       "last_seen_session_count": 83,
       ...
@@ -244,7 +252,7 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 ```json
 {
   "id": "5fb70dcbc39330000325a818",
-  "kind": "tour.started",
+  "kind": "tour.snoozed",
   "sent_at": "2029-12-11T00:28:59.652Z",
   "data": {
     "action": {
@@ -257,7 +265,7 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
       "id": "5f885a88e7daf3000e3eb4f6",
       "email": "jane@example.com",
       "uid": "92340834",
-      "name": "Jon E",
+      "name": "Jane E",
       "last_seen_at": "2029-12-11T00:21:59.109Z",
       "last_seen_session_count": 83,
       ...
@@ -280,9 +288,9 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 
 
 
-##### Example: `tour.button.clicked` :id=example-tour-button-clicked
+##### Example: `tour.button.clicked` + `survey.button.clicked` :id=example-tour-button-clicked
 
-Every Button that is clicked in a Tour will send a webhook to this topic. It includes the Step and the Button configuration.
+Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
 
 ```json
 {
@@ -294,7 +302,7 @@ Every Button that is clicked in a Tour will send a webhook to this topic. It inc
       "id": "5f885a88e7daf3000e3eb4f6",
       "email": "jane@example.com",
       "uid": "92340834",
-      "name": "Jon E",
+      "name": "Jane E",
       "last_seen_at": "2029-12-11T00:21:59.109Z",
       "last_seen_session_count": 83,
       ...
@@ -391,3 +399,126 @@ The primary use case for this is to notify the person in charge of the Experienc
 ```
 
 
+##### Example: `survey.started`, `survey.completed`, `survey.exited` :id=example-survey-all
+
+
+These three topics are considered lifecycle events and occur when the user is presented with or interacts with a Chameleon
+Microsurvey. The `response.finished` Webhook is only sent when we consider the user **done** with the Microsurvey and will
+no longer interact with it. A [Microsurvey Response](apis/survey-responses.md) is generated when the Survey Step + associated
+Response Step are finished; it sends a `response.finished` Webhook.
+
+A Microsurvey is started on the _Survey_ Step and either `completed` or `exited` when the first step is "actioned". It then automatically
+branches through a sequence of optional _Response_ Steps and finishes with an optional _Thank You_ Step.
+
+> The Steps corresponding to a _Response_ Step have `preset=response`; The _Thank You_ Steps have  `preset=thank_you`
+
+ 
+```json
+{
+  "id": "5fb70dcbc39330000325a818",
+  "kind": "survey.completed",
+  "sent_at": "2029-12-11T00:28:59.652Z",
+  "data": {
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "survey": {
+      "id": "5fb7936edee1f70011bfc4c9",
+      "name": "2029-11 Role question",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      "steps": [
+        {
+          "id": "5fb7936d566535d75a87507c",
+          "body": "How was that?",
+          "preset": "survey_five",
+          ...
+        },
+        {
+          "id": "5fb7936d566535d75a87507d",
+          "body": "Why specifically did you struggle?",
+          "preset": "response",
+          ...
+        }
+        ...
+      ],
+      ...
+    },
+    "step": {
+      "id": "5fb7936d566535d75a87507c",
+      "body": "How was that?",
+      "preset": "survey_five",
+       ...
+    },
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6"
+    }
+  }
+}
+```
+
+
+##### Example: `survey.snoozed` :id=example-survey-snooze
+
+When a Microsurvey is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
+
+> **Look for `data.action` to be an object with the information on when this snooze ends, how many hours, and how many snoozes this totals.**
+
+```json
+{
+  "id": "5fb70dcbc39330000325a818",
+  "kind": "survey.snoozed",
+  "sent_at": "2029-12-11T00:28:59.652Z",
+  "data": {
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "deferred_until": "2029-11-15T00:02:19.002Z",
+      "deferred_hours": 48,
+      "deferred_count": 2
+    },
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "survey": {
+      "id": "5fb7936edee1f70011bfc4c9",
+      "name": "2029-11 Role question",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      "steps": [
+        {
+          "id": "5fb7936d566535d75a87507c",
+          "body": "How was that?",
+          "preset": "survey_five",
+          ...
+        },
+        {
+          "id": "5fb7936d566535d75a87507d",
+          "body": "Why specifically did you struggle?",
+          "preset": "response",
+          ...
+        }
+        ...
+      ],
+      ...
+    },
+    "step": {
+      "id": "5fb7936d566535d75a87507d",
+      "body": "Why specifically did you struggle?",
+      "preset": "response",
+      ...
+    }
+  }
+}
+```
