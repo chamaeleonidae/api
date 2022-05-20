@@ -17,9 +17,9 @@ See the specific APIs for more information on how to use Search your product.
 1. Create a [Search bar](apis/search.md?id=schema), configure it with `placeholder` etc.
 2. Add your Help center as a [`SearchGroup`](apis/search.md?id=schema-search-group).
 3. Add the top-level navigation within your product; First download this CSV [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example) then [Import](apis/search.md?id=schema-search-imports) it.
-4. [Optional] Add specific content from your database
-5. Publish your Search bar
-6. Visit your product where Chameleon is installed and hit `CMD` + `k` for MacOs or 'Ctrl" + 'k' for Windows and Linux  (or how you configured `key_meta` and `key_uid`).
+4. [Optional] Add specific content from your database by creating a [SearchItem](apis/search.md?id=schema-search-items) per database record you want to be searchable.
+5. Publish your Search bar by setting the `published_at` timestamp on the `Search`.
+6. Visit your product where Chameleon is installed and hit `CMD` + `k` (or how you configured `key_meta` and `key_uid`).
 7. Test a few search terms!
 
 -----
@@ -270,7 +270,8 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `created_at`         | timestamp                 | When this happened or when this was added to the Database                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `updated_at`         | timestamp                 | The last time any property was updated                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `uid`                | string                    | The external ID (from in your database) of the search content                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `company_uid`        | string                    | The external ID (from in your database) for which company has access to this `SearchItem`. Only members of this company will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `company_uid`        | string                    | The external ID (from in your database) of the [Company](apis/companies.md?id=schema) that has access to this `SearchItem`. This property is not sent back but is included here for clarity in how to use this API.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `company_id`         | string                    | The Chameleon ID of the [Company](apis/companies.md?id=schema) that has access to this `SearchItem`. Only members of this company will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `title`              | string                    | The display title                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `description`        | string                    | The display description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `suggested_at`       | timestamp                 | Only `SearchItem`s with a timestamp here will show up in the "Suggested" / "Recommended" items reach results group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -370,7 +371,7 @@ GET https://api.trychameleon.com/v3/edit/search_items
 
 ## Create / Update your `SearchItem`s :id=search-items-create
 
-Use any of the properties available in the [schema](apis/search.md?id=schema-search-items)
+Use any of the properties available in the [schema](apis/search.md?id=schema-search-items) with the addition of `company_uid`. To associate this `SearchItem` with a [Company](apis/companies.md), send the same UID you will send to `chmln.identify` for this Company.
 
 You must always send a `uid` field as the unique identifier for a piece of content. When content relates to a specific database item, include the database ID of that record in the `uid`
 
@@ -382,13 +383,14 @@ POST https://api.trychameleon.com/v3/edit/search_items
 
 ###### Examples
 
-Add a specific key action within your product, navigate to the onboarding page
+Add a specific key action within your product for the Company in your DB with ID=14203, navigate to the onboarding page
 
 ```json
 {
   "uid": "data-onboarding",
   "title": "Data onboarding",
   "description": "The first step in making the switch is to import your first round of data.",
+  "company_uid": "14203",
   "actions": [
     {
       "kind": "navigate",
@@ -547,7 +549,7 @@ chmln.on('app:navigate', (opts: NavigateOpts) => {
 
   Frameworks:
     - React info here => https://www.npmjs.com/package/@chamaeleonidae/chmln
-    - Add more frameworks with a PR to this file and receive a $25 gift card
+    - Add more frameworks with a PR to this file and receive a $50 gift card
 
   opts.to is the url configured in the SearchAction configured with `kind=navigate`
 
@@ -636,6 +638,33 @@ chmln.on('cmd:items:suggestions', (opts: BlankOpts, ctx: Context) => {
   */
 });
 
+chmln.on('cmd:search:items', (opts: SearchItemsOpts, ctx: Context) => {
+  /*
+   Optional:
+     - This is purely informational but can be used for custom tracking etc.
+
+   Called when:
+     - The Search query finished with 1 or more search results
+
+   opts.query is the search term queried for
+   opts.items an array<SearchItem> of all search results for this query
+
+  */
+});
+
+chmln.on('cmd:search:items:zero', (opts: SearchOpts, ctx: Context) => {
+  /*
+   Optional:
+     - This is purely informational but can be used for custom tracking etc.
+
+   Called when:
+     - The Search query finished with 0 search results
+
+   opts.query is the search term queried for
+
+  */
+});
+
 chmln.on('cmd:item:action', (opts: ActionOpts, ctx: Context) => {
   /*
   Optional:
@@ -684,21 +713,26 @@ type BlankOpts = {
 };
 
 type SearchOpts = {
-  query: string
+  query: string,
+};
+
+type SearchItemsOpts = {
+  query: string,
+  items: array<SearchItem>,
 };
 
 type RecentOpts = {
-  items: array<SearchItem>
+  items: array<SearchItem>,
 };
 
 // See SearchAction above for schema
 type ActionOpts = {
-  item: SearchItem,
+  item: <SearchItem>,
 };
 
 type ActionErrorOpts = {
-  item: SearchItem,
-  action: SearchAction,
+  item: <SearchItem>,
+  action: <SearchAction>,
 };
 
 type NavigateOpts = {
