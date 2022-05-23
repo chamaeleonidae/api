@@ -47,9 +47,6 @@ Allow Chameleon to "navigate" your **Single Page Application (SPA)** with `pushS
 chmln.on('app:navigate', (opts) => { return history.pushState(null, null, opts.to); });
 ```
 
-> This code is included in the npm package [@chamaeleonidae/chmln](https://www.npmjs.com/package/@chamaeleonidae/chmln) but is included in cases where you want to 
-
-
 
 Allow Chameleon to "navigate" your **React** router based SPA
 

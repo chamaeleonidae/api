@@ -514,7 +514,7 @@ Use `Content-Type: multipart/form-data` to create an Import in one request, incl
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/search_items
+POST https://api.trychameleon.com/v3/edit/search_imports
 ```
 
 ## Get a Search Import :id=search-imports-show
@@ -524,7 +524,7 @@ Useful to track the progress of this import
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/search_items/:id
+GET https://api.trychameleon.com/v3/edit/search_imports/:id
 ```
 
 
