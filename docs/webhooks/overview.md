@@ -1,6 +1,6 @@
 # Overview
 
-**Chameleon supports a robust data pipeline including receiving data from may different sources and sending Chameleon Experience data out to your connected destinations.**
+**Chameleon supports a robust data pipeline including receiving data from many different sources and sending Chameleon Experience data out to your connected destinations.**
 
 ---
 
