@@ -35,3 +35,19 @@ The current API version is `v3` and each API has an environment name included in
 - `https://api.trychameleon.com/v3/edit/segments` operates in the Edit environment.
 - `https://api.trychameleon.com/v3/observe/hooks/event` operates in the Observe environment.
 - `https://api.trychameleon.com/v3/analyze/profiles` operates in the Analyze environment.
+
+
+## IP Addresses :id=ip-addresses
+
+Chameleon will use a defined set of IP Addresses to send webhooks and any other traffic **from** Chameleon.
+Consider the list below to be static; any updates will be posted to our [Status Page](https://status.chameleon.io).
+
+```text
+34.206.31.185
+54.198.191.211
+54.211.111.28
+54.237.132.170
+```
+
+
+> Note: Traffic into Chameleon's services will not adhere to this list and will mostly resolve to [Fastly](https://www.fastly.com/).
