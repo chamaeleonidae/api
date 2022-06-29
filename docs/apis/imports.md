@@ -423,6 +423,22 @@ PATCH https://api.trychameleon.com/v3/edit/imports/:id
 --------
 
 
+## Download the uploaded data :id=imports-download
+
+Same endpoint as [show](apis/imports.md?id=imports-show), but adds a `.csv` on the end. The response body is the CSV data.
+the `Content-Disposition` will be in this format => `attachment; filename="your original upload.csv"`
+
+#### HTTP Request
+
+```
+GET https://api.trychameleon.com/v3/edit/imports/:id.csv
+```
+
+| param | -        | description                                                  |
+| ----- | -------- | ------------------------------------------------------------ |
+| `id`    | required | The Chameleon ID of the Import                         |
+
+
 
 ## cURL Examples :id=examples-all-curl
 
