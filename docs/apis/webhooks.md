@@ -2,9 +2,9 @@
 
 **This doc is all about how to manage your webhook subscriptions via API.**
 
-> For information about the Webhooks that Chameleon sends to configured endpoints, see the [Webhooks page](webhooks/overview.md)
+> See the [Webhooks page](webhooks/overview.md) for information about the Webhooks that Chameleon sends to configured endpoints
 
-> See the [configured Webhooks](https://app.trychameleon.com/settings/integrations/webhooks) in your dashboard.
+> See the [configured Webhooks](https://app.chameleon.io/integrations/webhooks) in your dashboard.
 
 
 ## Schema :id=schema
@@ -26,7 +26,7 @@ Retrieve a complete (un-paginated) list of webhooks.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/webhooks
+GET https://api.chameleon.io/v3/edit/webhooks
 ```
 
 | param  | -        | description                                                  |
@@ -41,7 +41,7 @@ GET https://api.trychameleon.com/v3/edit/webhooks
   "webhooks": [
     {
       "id": "5f3c4232c712de665632a6d9",
-      "uid": "https://data.trychameleon.com/where?is=it",
+      "uid": "https://data.chameleon.io/where?is=it",
       "name": "Tour events to Data warehouse",
       "last_item_at": "2029-04-07T12:18:00Z",
       ...
@@ -65,7 +65,7 @@ Add a new Webhook endpoint (limited to 5 total)
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/webhooks
+POST https://api.chameleon.io/v3/edit/webhooks
 ```
 
 | param  | -        | description                                                  |
@@ -83,7 +83,7 @@ POST https://api.trychameleon.com/v3/edit/webhooks
 {
   "webhook": {
     "id": "5f3c4232c712de665632a6d9",
-    "uid": "https://data.trychameleon.com/where?is=it",
+    "uid": "https://data.chameleon.io/where?is=it",
     ...
   }
 }
@@ -97,7 +97,7 @@ Remove a Webhook
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/edit/webhooks/:id
+DELETE https://api.chameleon.io/v3/edit/webhooks/:id
 ```
 
 | param  | -        | description                                                  |

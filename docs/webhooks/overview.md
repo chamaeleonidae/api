@@ -23,15 +23,15 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 
 
 #### Integration partners
- - [Heap webhooks](https://help.trychameleon.com/en/articles/1349836-heap-integration-user-guide)
- - [Customer.io webhooks](https://help.trychameleon.com/en/articles/1349829-customer-io-integration-user-guide)
+ - [Heap webhooks](https://help.chameleon.io/en/articles/1349836-heap-integration-user-guide)
+ - [Customer.io webhooks](https://help.chameleon.io/en/articles/1349829-customer-io-integration-user-guide)
 
 
 #### Limits
 
 - Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
 - See the full page on [Limits](concepts/normalization.md?id=limits) for more information.
-- Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.trychameleon.com/data/properties/profile) or for [company data](https://app.trychameleon.com/data/properties/company).
+- Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.chameleon.io/data/properties/profile) or for [company data](https://app.chameleon.io/data/properties/company).
 
 #### Normalization
 
@@ -46,7 +46,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](webhooks/overview.md?id=verification) of any webhook requests before processing any included data.
 
 When sending a webhook to your backend Chameleon will:
- - Send a `POST` request to your `https` [configured endpoints](https://app.trychameleon.com/settings/integrations/webhooks).
+ - Send a `POST` request to your `https` [configured endpoints](https://app.chameleon.io/integrations/webhooks).
  - Attempt delivery right away from `aws us-east`, use a request timeout of 7 seconds and include a `User-Agent` header specific to the [API version](concepts/authentication.md?id=version) the webhook is being sent from.
  - Generate a SHA256-HMAC signature of the request body and include the signature in the `X-Chameleon-Signature` header
  - In case of non-200 status code, will retry a total of 9 times over 43 hours (giving you a chance to fix errors without losing track of these webhooks)
@@ -77,7 +77,7 @@ When receiving a webhook from Chameleon you should:
 | `survey.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited                                        |
 | `alert.triggered`       | [example](webhooks/overview.md?id=example-alert-triggered)     | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md)                               | Sent when an Alert is triggered by a violation of the alerting conditions                         |
 
-> **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.trychameleon.com/help)**
+> **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.chameleon.io/help)**
 
 #### Schema (request body) :id=schema
 
@@ -94,14 +94,14 @@ When receiving a webhook from Chameleon you should:
 | --- | --- |--- |
 | `X-Chameleon-Id` | `5f3c4232c712de665632a2a3` | The Chameleon ID of this webhook |
 | `X-Chameleon-Signature` | 5a17b.... | The SHA256-HMAC of the raw request body |
-| `User-Agent` | `Chameleon Webhooks/v3 (trychameleon.com; integral)` | The request is from the Chameleon v3 API (integral environment)|
+| `User-Agent` | `Chameleon Webhooks/v3 (chameleon.io; integral)` | The request is from the Chameleon v3 API (integral environment)|
 | `Content-Type` | `application/json` | Signifying that the request body is JSON |
 | `Accept` | `application/json` | Signifying that the response should be JSON (or nothing) |
 
 
 ### Verifying the Webhook :id=verification
 
-The signature is the SHA256-HMAC of your [Webhook Secret](https://app.trychameleon.com/settings/integrations/webhooks) and the request body.
+The signature is the SHA256-HMAC of your [Webhook Secret](https://app.chameleon.io/integrations/webhooks) and the request body.
 As a second step, reject the message if it was sent outside of a few minutes (in the examples below 5 minutes is used; to prevent replay attacks)
 
 ### Verification Examples
@@ -341,6 +341,9 @@ The primary use case for this is to notify the person in charge of the Experienc
 
 > [Experiences](concepts/experiences.md) are either `kind=tour` for a [Tour](apis/tours.md) or `kind=survey` for a [Microsurvey](apis/surveys.md)
 
+> For Tags and Environments see the `"tags"` and `"url_groups"` keys below and see [Experience](concepts/experiences.md) page.
+
+
 ```json
 {
   "id": "6fd85a88e7daf3000e3eb4f7",
@@ -360,7 +363,7 @@ The primary use case for this is to notify the person in charge of the Experienc
         ...
       },
       "urls": {
-        "dashboard": "https://app.trychameleon.com/alerts/6de85a88e7daf3000e3eb4f6"
+        "dashboard": "https://app.chameleon.io/alerts/6de85a88e7daf3000e3eb4f6"
       },
       ...
     },
@@ -379,6 +382,24 @@ The primary use case for this is to notify the person in charge of the Experienc
         "kind": "tour",
         "segment_id": "6d885a88e7daf3000e3eb4f8",
         "published_at": "2029-11-11T00:12:59.002Z",
+        "tags": [
+          {
+            "uid": "announcement",
+            "name": "Feature announcement",
+            ...
+          },
+          ...
+        ],
+        "url_groups": [
+          {
+            "id": "6f885a88e7daf3000e3e4b8f",
+            "name": "Production",
+            "urls": {
+              "dashboard": "https://app.chameleon.io/domains/6f885a88e7daf3000e3e4b8f"
+            },
+            ...
+          }
+        ],
         ...
       },
       {
