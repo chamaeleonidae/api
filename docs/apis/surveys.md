@@ -1,7 +1,7 @@
 # Microsurveys
 
 **Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.**
-*To know more about Surveys, you can visit our [product documentation](https://help.trychameleon.com/en/collections/1752073-surveys).*
+*To know more about Surveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/1752073-surveys).*
 
 ------
 
@@ -26,7 +26,7 @@ With the Chameleon Microsurveys API, you can:
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
-| `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
+| `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
 | `last_dropdown_items` | array&lt;String&gt; | For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
@@ -43,7 +43,7 @@ List all Microsurveys that follow your indicated parameters.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/surveys
+GET https://api.chameleon.io/v3/edit/surveys
 ```
 
 | param  | -        | description                                                  |
@@ -96,7 +96,7 @@ Retrieve a single Microsurvey.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/surveys/:id
+GET https://api.chameleon.io/v3/edit/surveys/:id
 ```
 
 

@@ -11,9 +11,9 @@
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/observe/hooks/events
+POST https://api.chameleon.io/v3/observe/hooks/events
 # OR
-POST to https://api.trychameleon.com/v3/observe/hooks/:account_secret/events
+POST to https://api.chameleon.io/v3/observe/hooks/:account_secret/events
 ```
 
 | param | -        | description                                                  |

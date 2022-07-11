@@ -39,7 +39,7 @@ List all Companies.
 #### HTTP Request
 
 ```
-GET|POST https://api.trychameleon.com/v3/analyze/companies
+GET|POST https://api.chameleon.io/v3/analyze/companies
 ```
 
 | param  | -        | description                                                  |
@@ -80,7 +80,7 @@ expand[profile]=min&expand[company]=skip
       "id": "5f3c4232c712de665632a2a1",
       "created_at": "2029-04-07T12:38:00Z",
       "uid": "2015",
-      "domain": "trychameleon.com",
+      "domain": "chameleon.io",
       "plan": "custom-12",
       "clv": 39102.17,
       ...
@@ -101,9 +101,9 @@ Retrieve a single Company.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/analyze/companies/:id
+GET https://api.chameleon.io/v3/analyze/companies/:id
 # OR
-GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
+GET https://api.chameleon.io/v3/analyze/company?uid=:uid
 ```
 
 | param | -        | description                                                  |

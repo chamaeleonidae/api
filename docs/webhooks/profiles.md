@@ -16,9 +16,9 @@ A User Profile that does not yet exist by `uid` will first be created and then u
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/observe/hooks/profiles
+POST https://api.chameleon.io/v3/observe/hooks/profiles
 # OR
-POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/profiles
+POST https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles
 ```
 
 | param      | -        | description                                                  |

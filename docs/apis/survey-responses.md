@@ -34,7 +34,7 @@ Using Chameleon's API for Microsurvey responses, you can:
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/analyze/responses
+GET https://api.chameleon.io/v3/analyze/responses
 ```
 
 | param          | -        | description                                                  |
@@ -117,7 +117,7 @@ Deleting a Microsurvey response also clears the associated metrics and summaries
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/edit/responses/:id
+DELETE https://api.chameleon.io/v3/edit/responses/:id
 ```
 
 | param | -        | description             |

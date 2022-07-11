@@ -2,7 +2,7 @@
 
 **Use this JS API method to show a Tour using custom criteria**
 
-*To learn more about the Chameleon Tours product, please visit [this section from our Help Center](https://help.trychameleon.com/en/collections/74747-tours).*
+*To learn more about the Chameleon Tours product, please visit [this section from our Help Center](https://help.chameleon.io/en/collections/74747-tours).*
 
 ---
 

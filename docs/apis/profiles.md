@@ -59,9 +59,9 @@ See the [User Profiles Webhook](webhooks/profiles.md) for sending User data to C
 #### HTTP Request
 
 ```
-GET|POST https://api.trychameleon.com/v3/analyze/profiles/:id
+GET|POST https://api.chameleon.io/v3/analyze/profiles/:id
 # OR
-GET|POST https://api.trychameleon.com/v3/analyze/profile # with parameters
+GET|POST https://api.chameleon.io/v3/analyze/profile # with parameters
 ```
 
 | param | -        | description                                                  |
@@ -122,16 +122,16 @@ Clearing a profile consists of:
 - A new `percent` is assigned and `last_cleared_at` is updated to `"$now"`.
 - A few other internal cleanup items.
 
-It is also possible to clear a user profile through the [Chameleon Dashboard](https://app.trychameleon.com/testing) but is limited to profiles associated with the currently logged-in Chameleon Admin. To clear any profile on your account use this API.
+It is also possible to clear a user profile through the [Chameleon Dashboard](https://app.chameleon.io/testing) but is limited to profiles associated with the currently logged-in Chameleon Admin. To clear any profile on your account use this API.
 
 
 
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/observe/profiles/:id
+DELETE https://api.chameleon.io/v3/observe/profiles/:id
 # OR
-DELETE https://api.trychameleon.com/v3/observe/profiles?uid=:uid
+DELETE https://api.chameleon.io/v3/observe/profiles?uid=:uid
 ```
 
 | param | -        | description                                                  |
@@ -167,9 +167,9 @@ At the end of the process no record of this user exists in our database. Additio
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/edit/profiles/:id/forget
+DELETE https://api.chameleon.io/v3/edit/profiles/:id/forget
 # OR
-DELETE https://api.trychameleon.com/v3/edit/profiles/forget?uid=:uid
+DELETE https://api.chameleon.io/v3/edit/profiles/forget?uid=:uid
 ```
 
 | param | -        | description                                                  |

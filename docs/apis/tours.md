@@ -8,7 +8,7 @@
 - **Element must be clicked on or hovered over - optional**
 - **etc.**
 
-*To know more about Tours, you can visit our [product documentation](https://help.trychameleon.com/en/collections/74747-tours).*
+*To know more about Tours, you can visit our [product documentation](https://help.chameleon.io/en/collections/74747-tours).*
 
 ------
 
@@ -33,12 +33,12 @@ With the Chameleon API for Tours, you can:
 | `style` | string | The delivery method of this Tour: One of `auto` or `manual` |
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `tour_link_url` | string | When `style=manual` this URL is loaded to start the Tour |
-| `experiment_at` | timestamp | When [Experimentation](https://help.trychameleon.com/en/articles/1069709-a-b-testing-chameleon-tours) was turned on. |
+| `experiment_at` | timestamp | When [Experimentation](https://help.chameleon.io/en/articles/1069709-a-b-testing-chameleon-tours) was turned on. |
 | `experiment_range` | string | The range of `Profile#percent` that will be included in the experiment |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
-| `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.trychameleon.com/en/articles/3513345-rate-limiting-experiences) |
+| `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
 | `stats.last_started_at` | timestamp | Most recent time any user saw this |
@@ -54,7 +54,7 @@ List all the  Tours that follow the specified parameters.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/tours
+GET https://api.chameleon.io/v3/edit/tours
 ```
 
 | param  | -        | description                                                  |
@@ -105,7 +105,7 @@ Retrieve a single  Tour.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/tours/:id
+GET https://api.chameleon.io/v3/edit/tours/:id
 ```
 
 | param | -        | description         |

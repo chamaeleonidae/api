@@ -30,7 +30,7 @@ With the Chameleon API, you can list Tour Interactions that follow the specified
 #### HTTP Request
 
 ```
-GET  https://api.trychameleon.com/v3/analyze/interactions
+GET  https://api.chameleon.io/v3/analyze/interactions
 ```
 
 | param          | -        | description                                                  |

@@ -36,7 +36,7 @@
   function http() {
     return {
       request: function(method, subdomain, path, options) {
-        const url = 'https://'+subdomain+'.trychameleon.com/'+path.replace(/^\//, '');
+        const url = 'https://'+subdomain+'.chameleon.io/'+path.replace(/^\//, '');
         const ajax = {
           method: method,
           credentials: 'include',

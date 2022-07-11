@@ -71,5 +71,5 @@ When retrieving a single item, its designation will be singular (`launchers` bec
 ```
 
 
-> **Are we missing a model you need and care about?** [Contact us](https://app.trychameleon.com/help) to request a different one.
+> **Are we missing a model you need and care about?** [Contact us](https://app.chameleon.io/help) to request a different one.
 

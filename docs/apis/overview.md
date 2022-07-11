@@ -4,6 +4,7 @@
 
 ------
 
+> Use `https://api.chameleon.io` or `https://api.trychameleon.com` for all requests to the Chameleon API (either will work but use `chameleon.io` for new projects.)
 
 Currently, our REST API supports the following endpoints:
 
@@ -42,4 +43,4 @@ Chameleon's REST API is made to be adaptable to your own custom use cases. Never
 - Trigger an Experience via REST API that will run on next page load via **[Experience Deliveries](apis/deliveries.md)**.
 
 
-> If there is any use case where you'd like to use our API but you're not sure how, feel free to [Contact us](https://app.trychameleon.com/help).
+> If there is any use case where you'd like to use our API but you're not sure how, feel free to [Contact us](https://app.chameleon.io/help).

@@ -1,6 +1,6 @@
 # Errors
 
-**The Chameleon API is robust with 99.99% uptime and extensive monitoring. In case you are facing any error, you can check our [Status Page](https://status.trychameleon.com) or make use of the following error reference to have more information.**
+**The Chameleon API is robust with 99.99% uptime and extensive monitoring. In case you are facing any error, you can check our [Status Page](https://status.chameleon.io) or make use of the following error reference to have more information.**
 
 ---
 
@@ -26,7 +26,7 @@ Endpoint or Resource not found
 ```json
 {
   "code": 404,
-  "messages": ["Endpoint not found: Please recheck with the API docs https://developers.trychameleon.com"]
+  "messages": ["Endpoint not found: Please recheck with the API docs https://developers.chameleon.io"]
 }
 ```
 
@@ -41,7 +41,7 @@ Conflicting state of the Resource
 ```json
 {
   "code": 409,
-  "messages": ["Conflict: Please check the preconditions in the API docs https://developers.trychameleon.com"]
+  "messages": ["Conflict: Please check the preconditions in the API docs https://developers.chameleon.io"]
 }
 ```
 
@@ -55,7 +55,7 @@ The request parameters cannot be processed as-is
 ```json
 {
   "code": 422,
-  "messages": ["Unprocessable: Please check the request parameters with the API docs https://developers.trychameleon.com"]
+  "messages": ["Unprocessable: Please check the request parameters with the API docs https://developers.chameleon.io"]
 }
 ```
 
@@ -77,7 +77,7 @@ X-Ratelimit-Limit: 2
 ```json
 {
   "code": 429,
-  "messages": ["Rate Limited: Please refer to the API docs https://developers.trychameleon.com/#/concepts/rate-limiting for more information"],
+  "messages": ["Rate Limited: Please refer to the API docs https://developers.chameleon.io/#/concepts/rate-limiting for more information"],
   "wait": 14
 }
 ```
