@@ -384,8 +384,12 @@ The primary use case for this is to notify the person in charge of the Experienc
         "published_at": "2029-11-11T00:12:59.002Z",
         "tags": [
           {
+            "id": "6a885a880e3e4b8fe7daf300",
             "uid": "announcement",
             "name": "Feature announcement",
+            "urls": {
+              "dashboard": "https://app.chameleon.io/data/tags/6a885a880e3e4b8fe7daf300"
+            },
             ...
           },
           ...
