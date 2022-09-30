@@ -100,6 +100,9 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 {{time_local created}} # the default
 # 3/4/2027, 4:02:00 AM
 
+{{time_local created dateStyle="long" timeStyle="long"}} # nicer looking format
+# March 4, 2027 at 4:02:00 AM PST
+
 {{time_local created year="numeric" weekday="long" month="short" day="numeric"}} # nicer looking format
 # Thursday, Mar 4, 2027
 
