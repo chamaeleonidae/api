@@ -15,12 +15,11 @@
 | `html`                     | [examples ↓](concepts/personalizing.md?id=examples-html)       | Output html based on given options                                                    |
 
 
-
 ## Examples :id=examples
 
 Current reference time is `2029-04-04T12:00:00Z`
 
-##### Example user data
+##### Example user data :id=example-user-data
 
 ```json
 {
@@ -94,7 +93,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 - The second argument is any `options` that are passed to the `time_local` helper. The examples below are non-exhaustive and you can use any/all of the `options` found in the [`toLocaleString` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) or [options reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options)
 
 
-> For the examples below, the user is in Pacific time
+##### Examples where the user is in Pacific time with browser language `en-US`
 
 ```text
 {{time_local created}} # the default
@@ -123,7 +122,20 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 
 {{time_local created timeZone=time_z timeZoneName="long"}} # long Brussels
 # 3/4/2027, 1:02:00 PM Central European Standard Time
+```
 
+##### Examples where the user is in Spain with browser language `es-ES`
+
+```text
+{{time_local created timeZone=time_z timeZoneName="long"}}
+# 3/4/2027, 1:02:00
+```
+
+##### Examples where the user is in France with browser language `fr`
+
+```text
+{{time_local created timeZone=time_z timeZoneName="long"}}
+# 3/4/2027, 1:02:00 heure d’été d’Europe centrale
 ```
 
 
@@ -175,7 +187,6 @@ window.chameleonContent = {
 # as the "Additional action" field for the Primary call to action button
 {{global "chameleonContent.more_help_demo_offering.account_manager_calendly"}}
 ```
-
 
 ## Examples using `delivery` helper :id=examples-delivery
 
@@ -234,3 +245,47 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 # <a href="/read-more" target="read-more-tab" data-read-more="link style="color: red">Read</a>
 ```
 
+
+## Custom helpers :id=custom-helpers
+
+- Your developers can define the implementation for a custom helper to fit you merge tag needs. A merge tag helper is simply a function that takes arguments (args) and options (opts) and outputs a string.
+- A merge tag follows the typical "mustache syntax" like the other examples above `{{helper_name ["arg1", "arg2", ...] [option1="value1" option2="value2"]}}`
+- To define a new merge tag pass the name and callback function to `chmln.lib.personalize.Mustache.addHelper`
+- Please [Contact us](https://app.trychameleon.com/help) if you need any help or inspiration
+
+This is a fully working example 🎉
+
+```javascript
+chmln.on('after:account', () => {
+  chmln.lib.personalize.Mustache.addHelper('hello', (args, opts) => {
+    // [1] args=['Alice'] opts={}
+    // [2] args=['Alice'] opts={ prefix: '👋' }
+    // [3] args=['foo'] opts={ prefix: '👋' }
+    // [3] args=['Product manager'] opts={ postfix: '!!' }
+
+    const name = args[0];
+
+    return `${opts.prefix || 'Hey'} ${name}${opts.postfix || ''}`;
+  });
+});
+```
+
+Now, to use the merge tag (based on the [example data ↑](concepts/personalizing.md?id=example-user-data))
+
+```text
+
+{{hello first_name}} # [1]
+# Hey Alice
+
+{{hello first_name prefix="👋"}} # [2]
+# 👋 Alice
+
+{{hello 'foo' prefix="👋"}} # [3]
+# 👋 foo   *Caution: using a quoted argument means a literal string is passed*
+
+{{hello role postfix="!!"}} # [4]
+# Hey Product manager!!
+
+{{hello 'role' postfix="!!"}}
+# Hey role!!   *Caution: using a quoted argument means a literal string is passed*
+```
