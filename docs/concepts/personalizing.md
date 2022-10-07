@@ -259,7 +259,7 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 
 
 
-#### Show a custom link | `html` helper :id=examples-
+#### Show a custom link | `html` helper :id=examples-html
 
 ```text
 {{html 'Read' tagName='a' href='/read-more' target='read-more-tab' data-read-more='link' style='color: red'}}
