@@ -26,6 +26,7 @@ Current reference time is `2029-04-04T12:00:00Z`
   "first_name": "Alice",
   "role": "Product manager",
   "created": "2027-03-04T12:02:00Z",
+  "created_at": "2028-03-04T12:02:00Z",
   "time_z": "Europe/Brussels",
   "plan": {
     "name": "Growth",
@@ -86,56 +87,75 @@ Thanks for being a customer for {{time_difference_in_words created tense=''}}!
 
 Internally this helper generates a `Date` object and then calls `toLocaleString`.
 
-- The first argument is the locale of the identified user
-  1. If you use [Translations](https://help.chameleon.io/en/articles/5868890) then it will be the same locale you've configured or falling back
-  1. The browsers reported locale
+> Use for feature launches, maintenance windows, expiration dates for surveys/deals, etc.
+
+- The first argument to `toLocaleString` is the locale of the identified user
+  1. If you use [Translations](https://help.chameleon.io/en/articles/5868890) then it will be the same locale you've configured.
+  1. The browsers reported locale.
 
 - The second argument is any `options` that are passed to the `time_local` helper. The examples below are non-exhaustive and you can use any/all of the `options` found in the [`toLocaleString` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) or [options reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options)
 
 
-##### Examples where the user is in Pacific time with browser language `en-US`
+##### Examples using `created_at` from above, where the user is in Pacific time with browser language `en-US`
 
 ```text
-{{time_local created}} # the default
-# 3/4/2027, 4:02:00 AM
+{{time_local created_at}} # the default
+# 3/4/2028, 4:02:00 AM
 
-{{time_local created dateStyle="long" timeStyle="long"}} # nicer looking format
-# March 4, 2027 at 4:02:00 AM PST
+{{time_local created_at dateStyle="long" timeStyle="long"}} # nicer looking format
+# March 4, 2028 at 4:02:00 AM PST
 
-{{time_local created year="numeric" weekday="long" month="short" day="numeric"}} # nicer looking format
-# Thursday, Mar 4, 2027
+{{time_local created_at year="numeric" weekday="long" month="short" day="numeric"}} # without the time
+# Thursday, Mar 4, 2028
 
-{{time_local created year="numeric" weekday="long" month="short" day="numeric" hour="numeric" minute="numeric"}} # nicer looking format with hours
-# Thursday, Mar 4, 2027, 4:00 AM
+{{time_local created_at year="numeric" weekday="long" month="short" day="numeric" hour="numeric" minute="numeric"}} # nicer looking format with hours
+# Thursday, Mar 4, 2028, 4:00 AM
 
-{{time_local created timeZoneName="short"}} # for a user in Pacific time; show the timezone
-# 3/4/2027, 4:02:00 AM PST
+{{time_local created_at timeZoneName="short"}} # for a user in Pacific time; show the timezone
+# 3/4/2028, 4:02:00 AM PST
 
-{{time_local created timeZone="UTC"}} # lock to UTC
-# 3/4/2027, 12:02:00 PM
+{{time_local created_at timeZone="UTC"}} # lock to UTC
+# 3/4/2028, 12:02:00 PM
 
-{{time_local created timeZone=time_z}} # for a who has a `time_z` property for Brussels (time_z without quotes since it's a user property)
-# 3/4/2027, 1:02:00 PM
+{{time_local created_at timeZone=time_z}} # for a user who has a `time_z` property for Brussels (time_z without quotes since it's a user property)
+# 3/4/2028, 1:02:00 PM
 
-{{time_local created timeZone=time_z timeZoneName="short"}} # short Brussels
-# 3/4/2027, 1:02:00 PM GMT+1
+{{time_local created_at timeZone=time_z timeZoneName="short"}} # short Brussels
+# 3/4/2028, 1:02:00 PM GMT+1
 
-{{time_local created timeZone=time_z timeZoneName="long"}} # long Brussels
-# 3/4/2027, 1:02:00 PM Central European Standard Time
+{{time_local created_at timeZone=time_z timeZoneName="long"}} # long Brussels
+# 3/4/2028, 1:02:00 PM Central European Standard Time
+```
+
+
+##### Examples using a fixed string date value, where the user is in Pacific time with browser language `en-US`
+
+```text
+{{time_local '2026-05-01'}} # Release date (assumed midnight UTC)
+4/30/2026, 5:00:00 PM
+
+{{time_local '2026-05-01T00:00:00Z'}} # Release time in UTC
+4/30/2026, 5:00:00 PM
+
+{{time_local '2026-05-01T11:00:00 -08:00'}} # anchor to a 11am release time in Pacific time
+5/1/2026, 11:00:00 AM
+
+{{time_local '2026-05-01' year="numeric" weekday="long" month="short" day="numeric"}}
+# Thursday, Apr 30, 2026
 ```
 
 ##### Examples where the user is in Spain with browser language `es-ES`
 
 ```text
-{{time_local created timeZone=time_z timeZoneName="long"}}
-# 3/4/2027, 1:02:00
+{{time_local created_at timeZone=time_z timeZoneName="long"}}
+# 3/4/2028, 1:02:00
 ```
 
 ##### Examples where the user is in France with browser language `fr`
 
 ```text
-{{time_local created timeZone=time_z timeZoneName="long"}}
-# 3/4/2027, 1:02:00 heure d’été d’Europe centrale
+{{time_local created_at timeZone=time_z timeZoneName="long"}}
+# 3/4/2028, 1:02:00 heure d’été d’Europe centrale
 ```
 
 
@@ -147,10 +167,10 @@ The tense word can be singular **or** plural when it's passed in.
 You've used {{pluralize credits.used "credit"}} and have {{pluralize credits.remaining "credit"}} left.
 # You've used 19 credits and have 1 credit left.
 
-Your next bill is for ${{pluralize plan.spend "dollar"}}.
+Your next bill is for ${{pluralize plan.spend "dollar"}}. # given singular => plural 👍
 # Your next bill is for $734 dollars.
 
-Your next bill is ${{pluralize plan.spend "dollars"}}.
+Your next bill is ${{pluralize plan.spend "dollars"}}. # given plural => plural 👍
 # Your next bill is $734 dollars.
 ```
 
@@ -187,6 +207,7 @@ window.chameleonContent = {
 # as the "Additional action" field for the Primary call to action button
 {{global "chameleonContent.more_help_demo_offering.account_manager_calendly"}}
 ```
+
 
 ## Examples using `delivery` helper :id=examples-delivery
 
