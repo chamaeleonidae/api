@@ -304,6 +304,7 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `typeform_url`     | string    | When using `kind="typeform"` the Typeform share URL to load                                                                                                                        |
 | `zendesk_message`  | string    | When using `kind="zendesk"` the message text to send via Chat                                                                                                                      |
 | `calendly_url`     | string    | When using `kind="calendly"` the specific scheduling URL to schedule with                                                                                                          |
+| `hubspot_url`     | string    | When using `kind="hubspot"` the specific scheduling URL to schedule with                                                                                                            |
 
 
 
