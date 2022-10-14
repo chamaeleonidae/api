@@ -149,6 +149,9 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 ```text
 {{time_local created_at timeZone=time_z timeZoneName="long"}}
 # 3/4/2028, 1:02:00
+
+{{time_local '2026-05-01' year="numeric" weekday="long" month="short" day="numeric"}}
+# jueves, 30 de abr de 2026
 ```
 
 ##### Examples where the user is in France with browser language `fr`
@@ -156,6 +159,9 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 ```text
 {{time_local created_at timeZone=time_z timeZoneName="long"}}
 # 3/4/2028, 1:02:00 heure d’été d’Europe centrale
+
+{{time_local '2026-05-01' year="numeric" weekday="long" month="short" day="numeric"}}
+# jeudi 30 avr. 2026
 ```
 
 
