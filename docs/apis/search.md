@@ -1,8 +1,8 @@
-# Search bar
+# HelpBar
 
 **Add a Search bar to your product that allows your Users to search your Product, Help center, and any custom content.**
 
-> **You have content within your product, even if you don't think of it that way. Any database records that your Users would want to find is a piece of content, akin to a Google search result. Send this content to Chameleon and we will surface it to your Users in the Chameleon search bar. The content can be scoped to a specific [Company](apis/company.md), be recommended when the Search bar is opened and can perform any action from clicking an item.**.
+> **You have content within your product, even if you don't think of it that way. Any database records that your Users would want to find is a piece of content, akin to a Google search result. Send this content to Chameleon and we will surface it to your Users in the Chameleon search bar. The content can be scoped to a specific [Company](apis/company.md), be recommended when the HelpBar is opened and can perform any action from clicking an item.**.
 
 ------
 
@@ -14,17 +14,17 @@ See the specific APIs for more information on how to use Search your product.
 
 #### To get Search up and running, complete these items:
 
-1. Create a [Search bar](apis/search.md?id=schema), configure it with `placeholder` etc.
+1. Create a [HelpBar](apis/search.md?id=schema), configure it with `placeholder` etc.
 2. Add your Help center as a [`SearchGroup`](apis/search.md?id=schema-search-group).
 3. Add the top-level navigation within your product; First download this CSV [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example) then [Import](apis/search.md?id=schema-search-imports) it.
 4. [Optional] Add specific content from your database by creating a [SearchItem](apis/search.md?id=schema-search-items) per database record you want to be searchable.
-5. Publish your Search bar by setting the `published_at` timestamp on the `Search`.
+5. Publish your HelpBar by setting the `published_at` timestamp on the `Search`.
 6. Visit your product where Chameleon is installed and hit `CMD` + `k` (or how you configured `key_meta` and `key_uid`).
 7. Test a few search terms!
 
 -----
 
-## Search REST API :id=search-rest-api
+## HelpBar REST API :id=search-rest-api
 
 With the Chameleon REST API for Search, you can:
 
@@ -45,8 +45,8 @@ With the Chameleon REST API for Search, you can:
 | `created_at`        | timestamp                     | When this happened or when this was added to the Database                                                             |
 | `updated_at`        | timestamp                     | The last time any property was updated                                                                                |
 | `placeholder`       | string                        | The text used as the search input placeholder                                                                         |
-| `key_meta`          | boolean                       | For the keyboard shortcut activation, is the CMD / CTRL key required to activate the Search bar                       |
-| `key_uid`           | string                        | For the keyboard shortcut activation, the letter to be used in combination with `key_meta` to activate the Search bar |
+| `key_meta`          | boolean                       | For the keyboard shortcut activation, is the CMD / CTRL key required to activate the HelpBar                          |
+| `key_uid`           | string                        | For the keyboard shortcut activation, the letter to be used in combination with `key_meta` to activate the HelpBar    |
 | `title_recent`      | string                        | The label given to the group of "Recent items"                                                                        |
 | `title_suggestions` | string                        | The label given to the group of "Suggested items"                                                                     |
 | `title_results`     | string                        | The label given to the group of "Custom Search Result items"                                                          |
@@ -91,7 +91,7 @@ With the Chameleon REST API for Search, you can:
 
 
 
-## List all Searches :id=searches-index
+## List all HelpBars :id=searches-index
 
 There is only one per account.
 
@@ -119,7 +119,7 @@ GET https://api.trychameleon.com/v3/edit/searches
 ```
 
 
-## Create / Update your Search bar :id=searches-create
+## Create / Update your HelpBar :id=searches-create
 
 There is only one per account so an update uses the same endpoint as create. Use any of the properties available in the [schema](apis/search.md?id=schema)
 
@@ -193,9 +193,9 @@ Add a theme for filled-red labels, and one for filled green labels.
 }
 ```
 
-> After you configure your Search bar must publish it! (Or when make changes you make changes down the line)
+> After you configure/update your HelpBar must publish it!
 
-Publish by setting `published_at` to the current time. This makes your Search bar available to your Users
+Publish by setting `published_at` to the current time. This makes your HelpBar available to your Users
 
 ```json
 {
@@ -280,7 +280,7 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `icon.uid`           | string                    | When using `kind="uid"`, a specific Chameleon supplied svg-based icon [2]. One of: `academic_cap`, `badge_check`, `beaker`, `bell`, `book_open`, `bulb`, `cake`, `calculator`, `calendar`, `chart_bar`, `chart_pie`, `chat_messages`, `chat_dots`, `chip`, `clipboard`, `clock`, `cloud_download`, `cloud`, `code`, `cog`, `color_swatch`, `connection`, `database`, `document_add`, `document_report`, `download`, `film`, `finger_print`, `fire`, `flag`, `folder`, `gift`, `globe`, `home`, `identification`, `key`, `leon`, `library`, `lightning_bolt`, `link`, `location_marker`, `map`, `microsurvey`, `music_note`, `paper_airplane`, `paper_clip`, `photograph`, `pop_out`, `presentation_chart`, `puzzle`, `qr_code`, `question_mark_circle`, `refresh`, `scale`, `search`, `segments`, `server`, `shield_check`, `sparkles`, `speakerphone`, `star`, `sun`, `support`, `table`, `tag`, `target`, `ticket`, `hammer`, `tooltip`, `signpost`, `truck`, `user_circle`, `user`, `users`, `variable`, `boards`, `grid`, `grid_add`, `list`, `warning`, `zoom_in`, `zoom_out`, `thumbs_up`, `thumbs_down`, `cube`, `company`, `click`, `hash`, or `toggle` |
 | `icon.image_url`     | string                    | When using `kind="image"`, the url to an appropriate icon for this `SearchGroup`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `icon.image_alt`     | string                    | When using `kind="image"`, the alt text for the icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `actions`            | array&lt;SearchAction&gt; | An array of the [`SearchAction`](apis/search.md?id=schema-search-actions) that run when this `SearchItem` is clicked/selected in the Search bar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `actions`            | array&lt;SearchAction&gt; | An array of the [`SearchAction`](apis/search.md?id=schema-search-actions) that run when this `SearchItem` is clicked/selected in the HelpBar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `title_labels`       | array&lt;SearchLabel&gt;  | An array of the [`SearchLabel`](apis/search.md?id=schema-search-labels) items displayed in the title of this `SearchItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `description_labels` | array&lt;SearchLabel&gt;  | An array of the [`SearchLabel`](apis/search.md?id=schema-search-labels) items displayed under the description of this `SearchItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
@@ -489,7 +489,7 @@ DELETE https://api.trychameleon.com/v3/edit/search_items
 
 ## Download the Search Import CSV template :id=search-imports-template
 
-Start here when adding your product's navigation to the Chameleon Search bar
+Start here when adding your product's navigation to the Chameleon HelpBar
 
 #### HTTP Request
 
@@ -499,7 +499,7 @@ GET https://api.trychameleon.com/v3/edit/search_imports/template
 
 ## Download the Search Import CSV example :id=search-imports-example
 
-Use this example to see what is possible when adding your product's navigation to the Chameleon Search bar
+Use this example to see what is possible when adding your product's navigation to the Chameleon HelpBar
 
 #### HTTP Request
 
@@ -534,7 +534,7 @@ GET https://api.trychameleon.com/v3/edit/search_imports/:id
 
 ## Search JavaScript API :id=search-js-api
 
-At a high level, Chameleon uses the `chmln` object on the page via `chmln.on` to allow you to control the Search bar experience. **All of these event listeners are optional**.
+At a high level, Chameleon uses the `chmln` object on the page via `chmln.on` to allow you to control the HelpBar experience. **All of these event listeners are optional**.
 
 See the [Type definitions below ↓](apis/search.md?id=search-js-types)
 
@@ -562,7 +562,7 @@ chmln.on('app:navigate', (opts: NavigateOpts) => {
 
 ```javascript
 
-chmln.on('cmd:search', (opts: SearchOpts, ctx: Context) => {
+chmln.on('helpbar:search', (opts: SearchOpts, ctx: Context) => {
   /*
   Optional:
     - Chameleon will handle search for you
@@ -583,38 +583,38 @@ chmln.on('cmd:search', (opts: SearchOpts, ctx: Context) => {
    */
 });
 
-chmln.on('cmd:opened', (opts: BlankOpts, ctx: Context) => {
+chmln.on('helpbar:opened', (opts: BlankOpts, ctx: Context) => {
   /*
   Optional:
     - This is purely informational but can be used for custom tracking etc.
 
   Called when:
-    - The Search bar is triggerd (opened by the User)
+    - The HelpBar is triggerd (opened by the User)
 
   ctx.source will tell you how it was opened
 
   */
 });
 
-chmln.on('cmd:closed', (opts: BlankOpts, ctx: Context) => {
+chmln.on('helpbar:closed', (opts: BlankOpts, ctx: Context) => {
   /*
   Optional:
     - This is purely informational but can be used for custom tracking etc.
 
   Called when:
-    - The Search bar is closed by the User
+    - The HelpBar is closed by the User
 
   */
 });
 
-chmln.on('cmd:items:recent', (opts: RecentOpts, ctx: Context) => {
+chmln.on('helpbar:items:recent', (opts: RecentOpts, ctx: Context) => {
   /*
   Optional:
     - Chameleon will handle recent items for you
     - If you need to add custom "Recent items" logic use this event to pass back the right items
 
   Called when:
-    - the Search bar needs a list of the most recent actions taken
+    - the HelpBar needs a list of the most recent actions taken
 
   return Array or Promise of recent actions taken
   return null (or don't implement) to use the recent items as tracked by Chameleon
@@ -624,14 +624,14 @@ chmln.on('cmd:items:recent', (opts: RecentOpts, ctx: Context) => {
   */
 });
 
-chmln.on('cmd:items:suggestions', (opts: BlankOpts, ctx: Context) => {
+chmln.on('helpbar:items:suggestions', (opts: BlankOpts, ctx: Context) => {
   /*
   Optional:
     - Chameleon will handle suggestions for you
     - If you need to add custom "Suggestion items" logic use this event to pass back the right items
 
   Called when:
-    - the Search bar needs a list of the suggestions
+    - the HelpBar needs a list of the suggestions
 
   return Array or Promise of suggestions to display
   return null (or don't implement) to use the suggested items as added to Chameleon backend via SearchItem
@@ -639,7 +639,7 @@ chmln.on('cmd:items:suggestions', (opts: BlankOpts, ctx: Context) => {
   */
 });
 
-chmln.on('cmd:search:items', (opts: SearchItemsOpts, ctx: Context) => {
+chmln.on('helpbar:search:items', (opts: SearchItemsOpts, ctx: Context) => {
   /*
    Optional:
      - This is purely informational but can be used for custom tracking etc.
@@ -649,24 +649,12 @@ chmln.on('cmd:search:items', (opts: SearchItemsOpts, ctx: Context) => {
 
    opts.query is the search term queried for
    opts.items an array<SearchItem> of all search results for this query
+      - opts.items.length will equal 0 when no results were returned
 
   */
 });
 
-chmln.on('cmd:search:items:zero', (opts: SearchOpts, ctx: Context) => {
-  /*
-   Optional:
-     - This is purely informational but can be used for custom tracking etc.
-
-   Called when:
-     - The Search query finished with 0 search results
-
-   opts.query is the search term queried for
-
-  */
-});
-
-chmln.on('cmd:item:action', (opts: ActionOpts, ctx: Context) => {
+chmln.on('helpbar:item:action', (opts: ActionOpts, ctx: Context) => {
   /*
   Optional:
     - Chameleon performs the configured actions automatically in the order they are defined in.
@@ -681,7 +669,7 @@ chmln.on('cmd:item:action', (opts: ActionOpts, ctx: Context) => {
   */
 });
 
-chmln.on('cmd:item:action:error', (opts: ActionErrorOpts, ctx: Context) => {
+chmln.on('helpbar:item:action:error', (opts: ActionErrorOpts, ctx: Context) => {
   /*
   Optional:
     - Chameleon may encounter an error when triggering an action.

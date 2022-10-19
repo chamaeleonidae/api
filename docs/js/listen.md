@@ -28,14 +28,14 @@ An overview of the data Chameleon collects for analysis, by reading [this articl
 - `identify:request` - Triggered directly before the network request associated with identifying this User Profile. The callback signature (arguments) are `options, profile` with options having yet to be added to the profile object.
 - `identify:sync` - Triggered upon the completion of the network request associated with identifying this User Profile.
 
-- `cmd:navigate` - When the Search bar needs to navigate within the single-page app
-- `cmd:search` - When the Search bar is making a query; use to override the default behavior
-- `cmd:opened` - Know when the Search bar is opened
-- `cmd:closed` - Know when the Search bar is closed 
-- `cmd:item:action` - Know when a specific `SearchItem` is triggered
-- `cmd:item:action:error` - When a specific `SearchAction` encounters an error
-- `cmd:recent` - When the search bar needs a list of the most recently actioned `SearchItem`s; use to override the default behavior
-- `cmd:suggestions` - When the search bar needs a list of suggested `SearchItem`s; use to override the default behavior
+- `helpbar:navigate` - When the Search bar needs to navigate within the single-page app
+- `helpbar:search` - When the Search bar is making a query; use to override the default behavior
+- `helpbar:opened` - Know when the Search bar is opened
+- `helpbar:closed` - Know when the Search bar is closed 
+- `helpbar:item:action` - Know when a specific `SearchItem` is triggered
+- `helpbar:item:action:error` - When a specific `SearchAction` encounters an error
+- `helpbar:recent` - When the search bar needs a list of the most recently actioned `SearchItem`s; use to override the default behavior
+- `helpbar:suggestions` - When the search bar needs a list of suggested `SearchItem`s; use to override the default behavior
 
 
 > **Typical ordering as Chameleon boots**: `load`, `load:chmln`, `after:account`, `identify:request`, `identify:sync`, `after:profile`, `tour:event`, `chmln:event`
