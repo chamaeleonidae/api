@@ -759,7 +759,7 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 ```bash
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
-  -d '{"name": "Remove users not seen in a year", "model_kind": "profile", "kind": "tag_filters", "filters": [{"kind": "property","prop":"last_seen_at","op":"lt-d","value":"365"}], "import_at": "$now"}' \
+  -d '{"name": "Remove users not seen in a year", "model_kind": "profile", "kind": "delete_filters", "filters": [{"kind": "property","prop":"last_seen_at","op":"lt-d","value":"365"}], "import_at": "$now"}' \
   'https://api.trychameleon.com/edit/v3/imports'
 ```
 
