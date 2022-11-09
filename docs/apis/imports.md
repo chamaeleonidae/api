@@ -729,7 +729,7 @@ First, Create the import, naming it and mapping the `Email address` CSV header t
 ```bash
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
-  -d '{"name": "Feedback Request: Post-BETA1", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"Email address","prop":"email"}] }' \
+  -d '{"name": "Data deletion request 54Dw", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"Email address","prop":"email"}] }' \
   'https://api.trychameleon.com/edit/v3/imports'
 ```
 
