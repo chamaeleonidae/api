@@ -344,7 +344,7 @@ Response:
 }
 ```
 
-##### Using `kind=delete_csv` to tag User Profiles via a User ID :id=examples-profiles-delete-by-id
+##### Using `kind=delete_csv` to delete User Profiles via a User ID :id=examples-profiles-delete-by-id
 
 > This will be the same User ID you send to Chameleon when calling `chmln.identify` => [Identifying Users](js/profiles.md).
 
@@ -361,7 +361,7 @@ Request:
 ```json
 {
   "kind": "delete_csv",
-  "name": "Feedback Request: Post-BETA1",
+  "name": "Data deletion request 54Dw",
   "model_kind": "profile",
   "properties": [
     {
@@ -405,7 +405,7 @@ Request:
 ```json
 {
   "kind": "delete_csv",
-  "name": "Feedback Request: Post-BETA2",
+  "name": "Data deletion request 65fx",
   "on_model_missing": "ignore",
   "properties": [
     {
@@ -656,7 +656,7 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 ```bash
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
-  -d '{"name": "Gmail users", "model_kind": "profile", "kind": "tag_filters", "on_model_missing": "create", "filters": [{"kind": "property", "prop": "email", "op": "in", "value": "gmail.com"}], "import_at": "$now"}' \
+  -d '{"name": "Gmail users", "model_kind": "profile", "kind": "tag_filters", "filters": [{"kind": "property", "prop": "email", "op": "in", "value": "gmail.com"}], "import_at": "$now"}' \
   'https://api.trychameleon.com/edit/v3/imports'
 ```
 
@@ -673,7 +673,7 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 
 - `kind=delete_csv` + `model_kind=profile` means Delete Users Profiles by CSV.
 
-With a CSV like this (`feedback-request-post-BETA1.csv`):
+With a CSV like this (`data-deletion-request-54Dw.csv`):
 
 ```text
 User ID
@@ -687,17 +687,17 @@ First, Create the import, naming it and mapping the `User ID` CSV header to the 
 ```bash
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
-  -d '{"name": "Feedback Request: Post-BETA1", "model_kind": "profile", "kind": "delete_csv", "on_model_missing": "create", "properties": [{"name":"User ID","prop":"uid"}] }' \
+  -d '{"name": "Data deletion request 54Dw", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"User ID","prop":"uid"}] }' \
   'https://api.trychameleon.com/edit/v3/imports'
 ```
 
-Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the import with `import_at=now`
+Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the import with `import_at=now`
 
 - Use the `import.id` from the last request in place of IMPORT_ID:
 
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
-  -F file=@feedback-request-post-BETA1.csv \
+  -F file=@data-deletion-request-54Dw.csv \
   'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
 ```
 
@@ -715,7 +715,7 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 
 - `kind=delete_csv` + `model_kind=profile` means Delete Users Profiles by CSV.
 
-With a CSV like this (`feedback-request-post-BETA1.csv`):
+With a CSV like this (`data-deletion-request-54Dw.csv`):
 
 ```text
 Email address
@@ -733,13 +733,13 @@ curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   'https://api.trychameleon.com/edit/v3/imports'
 ```
 
-Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the import with `import_at=now`
+Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the import with `import_at=now`
 
 - Use the `import.id` from the last request in place of IMPORT_ID:
 
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
-  -F file=@feedback-request-post-BETA1.csv \
+  -F file=@data-deletion-request-54Dw.csv \
   'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
 ```
 
@@ -759,7 +759,7 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 ```bash
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
-  -d '{"name": "Remove users not seen in a year", "model_kind": "profile", "kind": "tag_filters", "on_model_missing": "create", "filters": [{"kind": "property","prop":"last_seen_at","op":"lt-d","value":"365"}], "import_at": "$now"}' \
+  -d '{"name": "Remove users not seen in a year", "model_kind": "profile", "kind": "tag_filters", "filters": [{"kind": "property","prop":"last_seen_at","op":"lt-d","value":"365"}], "import_at": "$now"}' \
   'https://api.trychameleon.com/edit/v3/imports'
 ```
 
