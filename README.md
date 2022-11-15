@@ -2,4 +2,10 @@
 
 A descriptions of the routing and endpoints available on the Chameleon API
 
-https://trello.com/c/pzunGaiO/1818-api-revamp
+The documentation can be viewed locally by running any webserver in the `docs` directory.
+
+For example, the following command will start a WEBrick server available on http://localhost:8000:
+
+```
+ruby -run -e httpd docs -p 8000
+```

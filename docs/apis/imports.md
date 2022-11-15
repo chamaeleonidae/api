@@ -5,7 +5,7 @@ You may Import data into a [User Profiles](apis/profiles.md) or a [Company](apis
 
 When using a CSV to create new records that are not yet in Chameleon, you must provide a mapping to the `uid` property, this is the same value you pass to `chmln.identify` via the [JS API](js/profiles.md).
 
-Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and add all of the matching models to the new Tag.
+Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new User Tag or a new Company Tag and add all of the matching models to the new Tag.
 
 ## Schema :id=schema
 
@@ -15,8 +15,8 @@ Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and 
 | `created_at`                | timestamp             | When this happened or when this was added to the Database |
 | `updated_at`                | timestamp             | The last time any property was updated |
 | `name`                      | string                | The name given by an administrator of Chameleon |
-| `kind`                      | string                | The kind of Import to be processed: One of `tag_csv` or `update_csv` |
-| `model_kind`                | string                | The target data collection to update: One of `profile` or `company` |
+| `kind`                      | string                | The kind of Import to be processed: One of `tag_csv`, `tag_filters`, `update_csv`, `delete_csv` or `delete_filters` |
+| `model_kind`                | string                | The target data collection to update: One of `profile` or `company`. Note that deleting companies is not currently supported. |
 | `tag_import_id`             | ID                    | To add members to a previous Import, specify this as the ID of a previous Import |
 | `on_model_missing`          | string                | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](apis/profiles.md) or [Company](apis/companies.md) has **not yet** been identified to Chameleon): One of `create` or `ignore` |
 | `head_columns`              | array&lt;Object&gt;   | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
@@ -24,6 +24,7 @@ Using `kind=tag_csv` will either create a new User Tag or a new Company Tag and 
 | `properties`                | array&lt;Property&gt; | The list of definitions of how to map CSV column headers to [Properties](apis/properties.md) on the model. [example ↓](apis/imports.md?id=examples-profiles-tag-all) |
 | `properties.$.name`         | string                | The column header of this property in the CSV file |
 | `properties.$.prop`         | string                | The `prop` value of the [Property](apis/properties.md) to store on the model. New properties are created dynamically for missing `prop` values. |
+| `filters`                   | array&lt;SegmentFilter&gt; | For filter-based imports, an array of items that each define a [Segmentation Filter expression](concepts/filters.md) |
 | `stats`                     | object                | The details of the data itself and of the last run of this Import |
 | `stats.data_size`           | number                | The number of bytes contained in the uploaded file |
 | `stats.rows_count`          | number                | The number of rows in the file |
@@ -107,7 +108,7 @@ POST https://api.trychameleon.com/v3/edit/imports
 | param               | -        | type                  | description    |
 | ------------------- |----------|-----------------------| -------------- |
 | `name`              | optional | string                | The name given to this Import, defaults to `<Your name>'s Import - <DATE>` |
-| `kind`              | optional | string                | The kind of Import to be processed: One of `tag_csv` or `update_csv`. Defaults to `tag_csv` |
+| `kind`              | optional | string                | The kind of Import to be processed: One of `tag_csv`, `tag_filters`, `update_csv`, `delete_csv` or `delete_filters`. Defaults to `tag_csv` |
 | `model_kind`        | optional | string                | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
 | `tag_import_id`     | optional | ID                    | To add members to a previous Import, specify this as the ID of a previous Import |
 | `on_model_missing`  | optional | string                | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `create` or `ignore`. Defaults to `create` |
@@ -115,9 +116,10 @@ POST https://api.trychameleon.com/v3/edit/imports
 | `properties.$.name` | required | string                | The column header of this property in the CSV file |
 | `properties.$.prop` | required | string                | The `prop` value of the [Property](apis/properties.md) to store on the model |
 | `file`              | required | File                  | The CSV file to be imported |
+| `filters`                   | array&lt;SegmentFilter&gt; | For filter-based imports, an array of items that each define a [Segmentation Filter expression](concepts/filters.md) |
 | `import_at`         | optional | timestamp             | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
 
-> Both valid `properties` and `file` are required before `import_at` can be set
+> For CSV-based import `kind`, both valid `properties` and `file` are required before `import_at` can be set.
 
 ##### Errors (for both `create` and `update`)
 
@@ -342,6 +344,95 @@ Response:
 }
 ```
 
+##### Using `kind=delete_csv` to delete User Profiles via a User ID :id=examples-profiles-delete-by-id
+
+> This will be the same User ID you send to Chameleon when calling `chmln.identify` => [Identifying Users](js/profiles.md).
+
+With a CSV `file` like this, specify the header of `User ID` as mapping to the Chameleon User Profile field of `uid`.
+
+```text
+User ID
+5a1fe53
+621f8e7
+```
+
+Request:
+
+```json
+{
+  "kind": "delete_csv",
+  "name": "Data deletion request 54Dw",
+  "model_kind": "profile",
+  "properties": [
+    {
+      "name": "User ID",
+      "prop": "uid"
+    }
+  ],
+  ...
+}
+```
+
+Response:
+
+```json
+{
+  "import": {
+    ...
+    "head_columns":[
+      {
+        "name": "User ID",
+        "values": ["5a1fe53", "621f8e7"]
+      }
+    ]
+  }
+}
+```
+
+##### Using `kind=delete_csv` to delete User Profiles with Email :id=examples-profiles-delete-by-email
+
+With a CSV `file` like this, specify the header of `Email address` as mapping to the Chameleon User Profile field of `email`.
+
+
+```text
+Email address
+jill@sample.com
+aaron@example.com
+```
+
+Request:
+
+```json
+{
+  "kind": "delete_csv",
+  "name": "Data deletion request 65fx",
+  "on_model_missing": "ignore",
+  "properties": [
+    {
+      "name": "Email address",
+      "prop": "email"
+    }
+  ],
+  ...
+}
+```
+
+Response:
+
+```json
+{
+  "import": {
+    ...
+    "head_columns": [
+      {
+        "name":"Email address",
+        "values": ["jill@sample.com", "aaron@example.com"]
+      }
+    ]
+  }
+}
+```
+
 
 #### HTTP Response
 
@@ -557,11 +648,128 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3
 
 </details>
 
+<details>
+<summary>Tagging User Profiles using Filters</summary>
+
+- `kind=tag_filters` + `model_kind=profile` means Tag Users Profiles matching the given Filters.
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Gmail users", "model_kind": "profile", "kind": "tag_filters", "filters": [{"kind": "property", "prop": "email", "op": "in", "value": "gmail.com"}], "import_at": "$now"}' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
+
+<details>
+<summary>Deleting User Profiles by <b>UID</b></summary>
+
+- `kind=delete_csv` + `model_kind=profile` means Delete Users Profiles by CSV.
+
+With a CSV like this (`data-deletion-request-54Dw.csv`):
+
+```text
+User ID
+c4235f3
+2de2c71
+632665
+```
+
+First, Create the import, naming it and mapping the `User ID` CSV header to the `uid` Chameleon property:
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Data deletion request 54Dw", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"User ID","prop":"uid"}] }' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the import with `import_at=now`
+
+- Use the `import.id` from the last request in place of IMPORT_ID:
+
+```bash
+curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -F file=@data-deletion-request-54Dw.csv \
+  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
 
 
+<details>
+<summary>Deleting User Profiles by <b>Email</b></summary>
 
+- `kind=delete_csv` + `model_kind=profile` means Delete Users Profiles by CSV.
 
+With a CSV like this (`data-deletion-request-54Dw.csv`):
 
+```text
+Email address
+jill@example.co
+jess@product.io
+jamie@example.com
+```
+
+First, Create the import, naming it and mapping the `Email address` CSV header to the `email` Chameleon property:
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Data deletion request 54Dw", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"Email address","prop":"email"}] }' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the import with `import_at=now`
+
+- Use the `import.id` from the last request in place of IMPORT_ID:
+
+```bash
+curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -F file=@data-deletion-request-54Dw.csv \
+  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
+
+<details>
+<summary>Deleting User Profiles using Filters</summary>
+
+- `kind=delete_filters` + `model_kind=profile` means Delete Users Profiles matching the given Filters.
+
+```bash
+curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Remove users not seen in a year", "model_kind": "profile", "kind": "delete_filters", "filters": [{"kind": "property","prop":"last_seen_at","op":"lt-d","value":"365"}], "import_at": "$now"}' \
+  'https://api.trychameleon.com/edit/v3/imports'
+```
+
+Optional: Check on the Import status:
+
+```bash
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+```
+
+</details>
 
 
 
