@@ -291,7 +291,7 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | Property           | Type      | Description                                                                                                                                                                        |
 |--------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `updated_at`       | timestamp | The last time any property was updated                                                                                                                                             |
-| `kind`             | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `typeform`, `calendly`, `intercom`, `zendesk`, `help_scout`, `hubspot`, `script`, or `function` |
+| `kind`             | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `typeform`, `calendly`, `intercom`, `zendesk`, `help_scout`, `hubspot`, `chili_piper`, `script`, or `function` |
 | `url`              | string    | When using `kind="url"` or `kind="navigate"` the new URL to load/use.                                                                                                              |
 | `url_blank`        | boolean   | When using `kind="url"` does the URL open in a new tab?                                                                                                                            |
 | `script`           | string    | When using `kind="script"` The specific JavaScript code snippet to run                                                                                                             |
@@ -305,7 +305,6 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `zendesk_message`  | string    | When using `kind="zendesk"` the message text to send via Chat                                                                                                                      |
 | `calendly_url`     | string    | When using `kind="calendly"` the specific scheduling URL to schedule with                                                                                                          |
 | `hubspot_url`     | string    | When using `kind="hubspot"` the specific scheduling URL to schedule with                                                                                                            |
-
 
 
 
