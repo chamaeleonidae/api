@@ -351,18 +351,18 @@ issues with this or have a use case that does not seem to be supported, please [
 
 Supported _condition_ operators:
 
-| Operator       | Description                                                                                              |
-|----------------|----------------------------------------------------------------------------------------------------------|
-| `==`           | Equality: the values should be the same                                                                  |
-| `!=`           | Inequality: the values should **not** be the same                                                        |
-| `>`, `>=`      | Greater than + Greater than or equal: The left side should be greater than the right                     |
-| `<`, `<=`      | Less than + Less than or equal: The left side should be less than the right                              |
-| `&&`           | AND conjunction: The left side AND right side need to be true for the expression to be true              |
-| `&#124;&#124;` | OR conjunction: The left side OR right side need to be true for the expression to be true                |
-| `( )`          | Grouping: use parenthesis to group expressions to capture complex cases.                                 |
-| `matches`      | Check if the left hand side                                                                              |
-| `includes`     | Check if an array on the left hand side contains the value from the right hand side (same as `contains`) |
-| `contains`     | Check if an array on the left hand side contains the value from the right hand side (same as `includes`) |
+| Operator                  | Description                                                                                              |
+|---------------------------|----------------------------------------------------------------------------------------------------------|
+| `==`                      | Equality: the values should be the same                                                                  |
+| `!=`                      | Inequality: the values should **not** be the same                                                        |
+| `>`, `>=`                 | Greater than + Greater than or equal: The left side should be greater than the right                     |
+| `<`, `<=`                 | Less than + Less than or equal: The left side should be less than the right                              |
+| `&&`                      | AND conjunction: The left side AND right side need to be true for the expression to be true              |
+| <code>&#124;&#124;</code> | OR conjunction: The left side OR right side need to be true for the expression to be true                |
+| `( )`                     | Grouping: use parenthesis to group expressions to capture complex cases.                                 |
+| `matches`                 | Check if the left hand side                                                                              |
+| `includes`                | Check if an array on the left hand side contains the value from the right hand side (same as `contains`) |
+| `contains`                | Check if an array on the left hand side contains the value from the right hand side (same as `includes`) |
 
 ##### Basic examples
 
