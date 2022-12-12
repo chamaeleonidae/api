@@ -10,7 +10,7 @@
 | `global`                   | [examples ↓](concepts/personalizing.md?id=examples-global)     | Pull a value from the window object, useful for extra-advanced conditional formatting |
 | `pluralize`                | [examples ↓](concepts/personalizing.md?id=examples-plural)     | Given a specific number and a word produces a phrase with the correct tense           |
 | `time_difference_in_words` | [examples ↓](concepts/personalizing.md?id=examples-time-diff)  | Given a specific date/time produces a time offset                                     |
-| `time_ago`                 | [examples ↓](concepts/personalizing.md?id=examples-time-ago)   | Given a specific date/time uses toLocalString() to generate a human readable string   |
+| `time_ago`                 | [examples ↓](concepts/personalizing.md?id=examples-time-ago)   | Calculates the offset from now in `seconds`,`minutes`,`hours`,`days`,`weeks`,`years`  |
 | `time_local`               | [examples ↓](concepts/personalizing.md?id=examples-time-local) | Given a specific date/time uses toLocalString() to generate a human readable string   |
 | `delivery`                 | [examples ↓](concepts/personalizing.md?id=examples-delivery)   | Personalize with content explicitly sent via a [Delivery](apis/deliveries.md)         |
 | `html`                     | [examples ↓](concepts/personalizing.md?id=examples-html)       | Output html based on given options                                                    |
@@ -20,7 +20,7 @@
 
 ## Examples :id=examples
 
-Current reference time is `2029-04-04T12:00:00Z`
+Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpose of date-based examples below.
 
 ##### Example user data :id=example-user-data
 
@@ -137,7 +137,7 @@ Created {{time_ago created}} milliseconds ago.
 
 **As part of an `if` block** | [more examples ↓](concepts/personalizing.md?id=examples-logic-if)
 
-```text
+```handlebars
 {{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
 To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
 {{else}}
@@ -342,7 +342,8 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 ### Use custom logic | `if` block helper :id=examples-logic-if
 
 When the _condition_ evaluates to truthy, the content in the `if` block is used, otherwise the `else` block is used.
-A condition is a JS-like combination of a "left hand side", and "operator" and a "right hand side".
+A condition is a JS-like combination of a "left hand side", and "operator" and a "right hand side". If you're having
+issues with this or have a use case that does not seem to be supported, please [Contact us](https://app.trychameleon.com/help). 
 
 - Start an `if` block, use `{{if <CONDITION>}}`
 - To end and `if` block use `{{/if}}`
@@ -365,7 +366,7 @@ Supported _condition_ operators:
 
 ##### Basic examples
 
-```text
+```handlebars
 # check for "truthy", "falsey", "equality", "inequality"
 {{if plan.name}}You have a plan{{/if}}
 {{if !plan.name}}You have no plan{{/if}}
@@ -400,13 +401,13 @@ You have {{if plan.features includes "unlimited_widgets"}}Unlimited{{else}}limit
 ```
 ##### An `if` block with a `else` block
 
-> The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used.
+> The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used).
 
-```text
+```handlebars
 {{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
-To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
+  To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
 {{else}}
-Check out these [additional resources](https://help.your-product.co/getting-started)
+  Check out these [additional resources](https://help.your-product.co/getting-started)
 {{/if}}
 
 # To get the most out of account, [book a review](https://calendly.com/acme-aria-j/30-min) with your Account manager, Aria Jones.
@@ -416,7 +417,7 @@ When the condition does not match, the content in the `else` case is used.
 
 > The data says spend is 734
 
-```text
+```handlebars
 {{if plan.spend > 1000}}
 To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
 {{else}}
@@ -428,7 +429,7 @@ Check out these [additional resources](https://help.your-product.co/getting-star
 
 An `elseif` can be used to capture a cascading set of conditions
 
-```text
+```handlebars
 {{if !plan.spend}}
 Start your free trial to use your widgets.
 {{elsif plan.spend < 2050}}
@@ -447,7 +448,7 @@ Request a member of the Acme team to widgetize some stuff for you.
 This example assumes you have a `currentUser` variable attached to `window`
 `window.currentUser = { id: '54s1', roles: { name: 'superadmin', items: ['invite_user', 'invite_admin'] } }`;
 
-```text
+```handlebars
 {{if {global 'currentUser.roles.level'} == 'admin'}}
 As an admin, you're in charge of your team's permissions
 {{elsif {global 'currentUser.roles.level'} == 'superadmin'}}
@@ -455,7 +456,7 @@ As the owner of your account, you're in charge of your team's admins
 {{/if}}
 ```
 
-```text
+```handlebars
 {{if {global 'currentUser.roles.level'} includes 'invite_user'}}
 Invite your teammates on the [Team page](/settings/team).
 {{elsif {global 'currentUser.roles.level'} includes 'invite_admin'}}
@@ -470,7 +471,7 @@ You can use any of the [Segmentation filter expressions](concepts/filters.md) an
 conditions on user properties can be handled with `filter`.
 
 
-```text
+```handlebars
 {{if plan.spend > 500}}Your monthly bill is greater than 500{{/if}}
 
 # as a filter
