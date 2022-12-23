@@ -116,22 +116,25 @@ The value of the option `in` defaults to `seconds` but can be any of `millisecon
 Created {{time_ago created}} seconds ago.
 # Created 65836680 seconds ago.
 
-Created {{time_ago created}} minutes ago.
+Created {{time_ago created in='seconds'}} seconds ago.
+# Created 65836680 seconds ago.
+
+Created {{time_ago created in='minutes'}} minutes ago.
 # Created 1097278 minutes ago.
 
-Created {{time_ago created}} hours ago.
+Created {{time_ago created in='hours'}} hours ago.
 # Created 18287 hours ago.
 
-Created {{time_ago created}} days ago.
+Created {{time_ago created in='days'}} days ago.
 # Created 761 days ago.
 
-Created {{time_ago created}} weeks ago.
+Created {{time_ago created in='weeks'}} weeks ago.
 # Created 108 weeks ago.
 
-Created {{time_ago created}} years ago.
+Created {{time_ago created in='years'}} years ago.
 # Created 2 years ago.
 
-Created {{time_ago created}} milliseconds ago.
+Created {{time_ago created in='milliseconds'}} milliseconds ago.
 # Created 65836680000 milliseconds ago.
 ```
 
