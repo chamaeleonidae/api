@@ -288,25 +288,34 @@ A search item is a discrete unit of searchable content akin to a Google search r
 
 ## `SearchAction` Schema :id=schema-search-actions
 
-| Property           | Type      | Description                                                                                                                                                                        |
-|--------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `updated_at`       | timestamp | The last time any property was updated                                                                                                                                             |
-| `kind`             | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `typeform`, `calendly`, `intercom`, `zendesk`, `help_scout`, `hubspot`, `chili_piper`, `script`, or `function` |
-| `url`              | string    | When using `kind="url"` or `kind="navigate"` the new URL to load/use.                                                                                                              |
-| `url_blank`        | boolean   | When using `kind="url"` does the URL open in a new tab?                                                                                                                            |
-| `script`           | string    | When using `kind="script"` The specific JavaScript code snippet to run                                                                                                             |
-| `tour_id`          | ID        | When using `kind="tour"` the Chameleon ID of the published Tour to start                                                                                                           |
-| `survey_id`        | ID        | When using `kind="script"` the Chameleon ID of the published Microsurvey to start                                                                                                  |
-| `event_name`       | string    | When using `kind="event"` the event name to track to your configured Integrations                                                                                                  |
-| `identify_key`     | string    | When using `kind="identify"` the property "key" to send to your configured Integrations                                                                                            |
-| `identify_value`   | string    | When using `kind="identify"` the property "value" to send to your configured Integrations                                                                                          |
-| `intercom_message` | string    | When using `kind="intercom"` the message text to prefill in the messenger                                                                                                          |
-| `typeform_url`     | string    | When using `kind="typeform"` the Typeform share URL to load                                                                                                                        |
-| `zendesk_message`  | string    | When using `kind="zendesk"` the message text to send via Chat                                                                                                                      |
-| `calendly_url`     | string    | When using `kind="calendly"` the specific scheduling URL to schedule with                                                                                                          |
-| `hubspot_url`     | string    | When using `kind="hubspot"` the specific scheduling URL to schedule with                                                                                                            |
+Base schema
 
+| Property           | Type      | Description                                                                                                                                                                                                 |
+|--------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `updated_at`       | timestamp | The last time any property was updated                                                                                                                                                                      |
+| `kind`             | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `typeform`, `calendly`, `intercom`, `zendesk`, `helpscout`, `hubspot`, `chili_piper`, `script`, or `function` |
+| `url`              | string    | When using `kind="url"` or `kind="navigate"` the new URL to load/use.                                                                                                                                       |
+| `url_blank`        | boolean   | When using `kind="url"` does the URL open in a new tab?                                                                                                                                                     |
+| `script`           | string    | When using `kind="script"` The specific JavaScript code snippet to run                                                                                                                                      |
+| `tour_id`          | ID        | When using `kind="tour"` the Chameleon ID of the published Tour to start                                                                                                                                    |
+| `survey_id`        | ID        | When using `kind="script"` the Chameleon ID of the published Microsurvey to start                                                                                                                           |
+| `event_name`       | string    | When using `kind="event"` the event name to track to your configured Integrations                                                                                                                           |
+| `identify_key`     | string    | When using `kind="identify"` the property "key" to send to your configured Integrations                                                                                                                     |
+| `identify_value`   | string    | When using `kind="identify"` the property "value" to send to your configured Integrations                                                                                                                   |
 
+Integration specific schema
+
+| Property                | Type   | Description                                                                                                                     |
+|-------------------------|--------|---------------------------------------------------------------------------------------------------------------------------------|
+| `intercom_message`      | string | When using `kind="intercom"` the message text to prefill in the messenger                                                       |
+| `typeform_url`          | string | When using `kind="typeform"` the Typeform share URL to load                                                                     |
+| `zendesk_message`       | string | When using `kind="zendesk"` the pre-filled message text to send via Chat                                                        |
+| `calendly_url`          | string | When using `kind="calendly"` the specific scheduling URL to schedule with                                                       |
+| `hubspot_url`           | string | When using `kind="hubspot"` the specific scheduling URL to schedule with                                                        |
+| `chili_piper_url`       | string | When using `kind="chili_piper"` the specific scheduling URL (or Router URL) to schedule with                                    |
+| `helpscout_kind`        | string | When using `kind="helpscout"` the kind of action to take; One of `open_chat`, `open_answers`, `open_help_center`, `search_term` |
+| `helpscout_article_url` | string | When using `kind="helpscout"` and `helpscout_kind="open_help_center"`, the specific article to open in the sidebar              |
+| `helpscout_query`       | string | When using `kind="helpscout"` and `helpscout_kind="search_term"`, the specific query to pre-fill in the sidebar                 |
 
 
 ## `SearchLabel` Schema :id=schema-search-labels
