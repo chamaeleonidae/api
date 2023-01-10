@@ -32,6 +32,38 @@
 See the [Companies Webhook](webhooks/companies.md) for sending User data to Chameleon
 
 
+## Retrieve a Company :id=companies-show
+
+Retrieve a single Company.
+
+#### HTTP Request
+
+```
+GET https://api.trychameleon.com/v3/analyze/companies/:id
+# OR
+GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
+```
+
+| param | -        | description                                                  |
+| ----- | -------- | ------------------------------------------------------------ |
+| `id`    | optional | The Chameleon ID of the Company                         |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
+
+
+```json
+{
+  "company": {
+    "id": "5f3c4232c712de665632a2a1",
+    "created_at": "2029-04-07T12:38:00Z",
+    "uid": "1868",
+    "domain": "example.com",
+    "plan": "custom-92",
+    "clv": 231902.42,
+    ...
+  }
+}
+```
+
 ## List Companies :id=companies-index
 
 List all Companies.
@@ -94,34 +126,96 @@ expand[profile]=min&expand[company]=skip
 }
 ```
 
-## Retrieve a Company :id=companies-show
 
-Retrieve a single Company.
+### Searching Companies :id=companies-search
+
+Searching Companies through the Chameleon API allows you to:
+
+- Search for a company by `id` and `uid`
+- Search for companies or get the Count of Companies by any of the properties you have sent to us
+
+Use [Segmentation Filter Expressions](concepts/filters.md) in the `filter` parameter to search for companies by any of the properties you have sent to us.
+
+> *Note: [Rate Limiting](concepts/rate-limiting.md) applies according to the table below.*
+
+| endpoint           | Maximum concurrent requests |
+|--------------------| --------------------------- |
+| `/companies`       | 2                           |
+| `/companies/count` | 1                           |
+
+
+#### Examples :id=companies-search-examples
+
+All of these examples are based directly on the full schema of [Segmentation Filter Expressions](concepts/filters.md).
+
+Each example below is showing the value for the `filters` key in the JSON request body:
+
+```json
+{
+  "filters": [
+    ...
+  ]
+}
+```
+
+##### Companies that are on specific plan
+
+Find all companies with that have a `plan` property with `silver` value:
+
+```json
+{
+  "filters": [
+    {
+      "kind": "property",
+      "property": "plan",
+      "prop": "eq",
+      "value": "silver"
+    }
+  ]
+}
+```
+
+#### Companies that have between 10 and 20 employees
+
+```json
+{
+  "filters": [
+    {
+      "kind": "group",
+      "filters_op": "and",
+      "filters": [
+        {
+          "kind": "property",
+          "prop": "employee_count",
+          "op": "gt",
+          "value": 10
+        },
+        {
+          "kind": "property",
+          "prop": "employee_count",
+          "op": "lt",
+          "value": 20
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Counting Companies :id=companies-count
 
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/analyze/companies/:id
-# OR
-GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
+GET|POST https://api.trychameleon.com/v3/analyze/companies/count
 ```
 
-| param | -        | description                                                  |
-| ----- | -------- | ------------------------------------------------------------ |
-| `id`    | optional | The Chameleon ID of the Company                         |
-| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
+**Use the same params / request body as [Searching Companies](apis/companies.md?id=companies-index)**
 
+#### HTTP Response
 
 ```json
 {
-  "company": {
-    "id": "5f3c4232c712de665632a2a1",
-    "created_at": "2029-04-07T12:38:00Z",
-    "uid": "1868",
-    "domain": "example.com",
-    "plan": "custom-92",
-    "clv": 231902.42,
-    ...
-  }
+  "count": 65121
 }
 ```
