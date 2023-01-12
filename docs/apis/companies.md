@@ -127,7 +127,7 @@ expand[profile]=min&expand[company]=skip
 ```
 
 
-### Searching Companies :id=companies-search
+### Search Companies :id=companies-search
 
 Searching Companies through the Chameleon API allows you to:
 
@@ -175,6 +175,14 @@ Find all companies with that have a `plan` property with `silver` value:
 }
 ```
 
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
+     https://api.trychameleon.com/v3/analyze/companies
+```
+
 #### Companies that have between 10 and 20 employees
 
 ```json
@@ -202,6 +210,14 @@ Find all companies with that have a `plan` property with `silver` value:
 }
 ```
 
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters":[{"kind":"group","filters_op":"and","filters":[{"kind":"property","prop":"employee_count","op":"gt","value":10},{"kind":"property","prop":"employee_count","op":"lt","value":20}]}]}' \
+     https://api.trychameleon.com/v3/analyze/companies
+```
+
 ## Counting Companies :id=companies-count
 
 #### HTTP Request
@@ -210,7 +226,7 @@ Find all companies with that have a `plan` property with `silver` value:
 GET|POST https://api.trychameleon.com/v3/analyze/companies/count
 ```
 
-**Use the same params / request body as [Searching Companies](apis/companies.md?id=companies-index)**
+**Use the same params / request body as [Search Companies](apis/companies.md?id=companies-index)**
 
 #### HTTP Response
 
@@ -218,4 +234,14 @@ GET|POST https://api.trychameleon.com/v3/analyze/companies/count
 {
   "count": 65121
 }
+```
+
+##### Example: counting companies matching given filters
+
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
+     https://api.trychameleon.com/v3/analyze/companies/count
 ```
