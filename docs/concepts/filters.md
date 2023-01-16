@@ -29,22 +29,24 @@ Not all combinations of keys and values will work, see the other subsections for
 
 > *Note: The table below should be read with the description prefixed with **The User property (is/has)...***
 
-| Operator | description                                                  |
-| -------- | ------------------------------------------------------------ |
-| `ex`     | Has any value (the key is present even null)                 |
-| `nx`     | Does not have any value (the key is missing)                 |
-| `eq`     | Equal to                                                     |
-| `ne`     | Not equal to                                                 |
-| `gt`     | Greater than (number, string or specific timestamp)          |
-| `lt`     | Less than                                                    |
+| Operator | description                                                                                                 |
+|----------|-------------------------------------------------------------------------------------------------------------|
+| `ex`     | Has any value (the key is present even null)                                                                |
+| `nx`     | Does not have any value (the key is missing)                                                                |
+| `eq`     | Equal to                                                                                                    |
+| `ne`     | Not equal to                                                                                                |
+| `gt`     | Greater than (number, string or specific timestamp)                                                         |
+| `lt`     | Less than                                                                                                   |
 | `gt-d`   | Greater than when the value is treated as a number of days in the past (timestamp is newer than X days ago) |
-| `lt-d`   | Less than when the value is treated as a number of days in the past (timestamp is older than X days ago) |
-| `in`     | Contains (i.e. one string is contained within another)       |
-| `nin`    | Not contains                                                 |
-| `in-v`   | *Included* in the list when value is treated as a CSV        |
-| `nin-v`  | *Excluded* from list when the value is treated as a CSV      |
-| `in-a`   | The property is an Array, is this value *Included* in the list |
-| `nin-a`  | The property is an Array, is this value *Excluded* from the list |
+| `lt-d`   | Less than when the value is treated as a number of days in the past (timestamp is older than X days ago)    |
+| `in`     | Contains (i.e. one string is contained within another)                                                      |
+| `in-i`   | Contains (case-insensitive)                                                                                 |
+| `nin`    | Not contains                                                                                                |
+| `nin-i`  | Not contains (case-insensitive)                                                                             | 
+| `in-v`   | *Included* in the list when value is treated as a CSV                                                       |
+| `nin-v`  | *Excluded* from list when the value is treated as a CSV                                                     |
+| `in-a`   | The property is an Array, is this value *Included* in the list                                              |
+| `nin-a`  | The property is an Array, is this value *Excluded* from the list                                            |
 
 Not all combinations of kinds and operators will work, see the other subsections for specific definitions and usage
 
@@ -116,5 +118,3 @@ Subtract X days from the current time and look for `last_seen_at` values that ar
 ```
 
 > ### Other examples can be found on the [searching profiles](apis/profiles-search.md?id=examples) page.
-
-
