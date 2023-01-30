@@ -9,6 +9,7 @@ Common use cases include:
 - Syncing the Experience interaction data (automatically collected by Chameleon) to your database/warehouse or any other tools, using the methods below.
 - Getting access to the A/B testing attribute (`percent`) when the Chameleon [User Profile](apis/profiles.md?id=schema) is loaded.
 - Logging Experience data to an integration that Chameleon does not yet have a native integration with
+- Knowing when the [Search bar](apis/search?id=search-js-api) is opened/closed or when data is needed.
 
 ----
 
@@ -27,10 +28,23 @@ An overview of the data Chameleon collects for analysis, by reading [this articl
 - `identify:request` - Triggered directly before the network request associated with identifying this User Profile. The callback signature (arguments) are `options, profile` with options having yet to be added to the profile object.
 - `identify:sync` - Triggered upon the completion of the network request associated with identifying this User Profile.
 
+- `helpbar:navigate` - When the Search bar needs to navigate within the single-page app
+- `helpbar:search` - When the Search bar is making a query; use to override the default behavior
+- `helpbar:opened` - Know when the Search bar is opened
+- `helpbar:closed` - Know when the Search bar is closed 
+- `helpbar:item:action` - Know when a specific `SearchItem` is triggered
+- `helpbar:item:action:error` - When a specific `SearchAction` encounters an error
+- `helpbar:recent` - When the search bar needs a list of the most recently actioned `SearchItem`s; use to override the default behavior
+- `helpbar:suggestions` - When the search bar needs a list of suggested `SearchItem`s; use to override the default behavior
 
-> **Typical ordering**: `load`, `load:chmln`, `after:account`, `identify:request`, `identify:sync`, `after:profile`, `tour:event`, `chmln:event`
+
+> **Typical ordering as Chameleon boots**: `load`, `load:chmln`, `after:account`, `identify:request`, `identify:sync`, `after:profile`, `tour:event`, `chmln:event`
 
 ## Examples
+
+#### Search bar
+
+The [JavaScript API for Search bar](apis/search?id=search-js-api) has many examples and use cases.
 
 #### Listen for Tour/Survey events -- send to custom integration
 
@@ -94,3 +108,5 @@ chmln.on('after:profile', function() {
 ```
 
 > *Note: You can easily adapt this based on where you'd like to send this data in your system.* 
+
+

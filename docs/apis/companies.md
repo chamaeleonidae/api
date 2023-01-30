@@ -8,7 +8,7 @@
 
 ## Schema :id=schema
 
-#### Fully-expanded company when listed directly or embedded with `expand` param specified properly
+#### Fully-expanded [Company](apis/companies.md) when listed directly or embedded with `expand` param specified properly
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
 
-#### Non-expanded company when embedded in another (i.e. Microsurvey response)
+#### Non-expanded [Company](apis/companies.md) when embedded in another (i.e. Microsurvey response)
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ GET https://api.chameleon.io/v3/analyze/company?uid=:uid
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| `id`    | optional | The Chameleon ID of the Company                         |
+| `id`    | optional | The Chameleon ID of the [Company](apis/companies.md)                         |
 | `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
 
 

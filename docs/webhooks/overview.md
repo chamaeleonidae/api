@@ -46,7 +46,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](webhooks/overview.md?id=verification) of any webhook requests before processing any included data.
 
 When sending a webhook to your backend Chameleon will:
- - Send a `POST` request to your `https` [configured endpoints](https://app.chameleon.io/settings/integrations/webhooks).
+ - Send a `POST` request to your `https` [configured endpoints](https://app.chameleon.io/integrations/webhooks).
  - Attempt delivery right away from `aws us-east`, use a request timeout of 7 seconds and include a `User-Agent` header specific to the [API version](concepts/authentication.md?id=version) the webhook is being sent from.
  - Generate a SHA256-HMAC signature of the request body and include the signature in the `X-Chameleon-Signature` header
  - In case of non-200 status code, will retry a total of 9 times over 43 hours (giving you a chance to fix errors without losing track of these webhooks)
@@ -101,7 +101,7 @@ When receiving a webhook from Chameleon you should:
 
 ### Verifying the Webhook :id=verification
 
-The signature is the SHA256-HMAC of your [Webhook Secret](https://app.chameleon.io/settings/integrations/webhooks) and the request body.
+The signature is the SHA256-HMAC of your [Webhook Secret](https://app.chameleon.io/integrations/webhooks) and the request body.
 As a second step, reject the message if it was sent outside of a few minutes (in the examples below 5 minutes is used; to prevent replay attacks)
 
 ### Verification Examples
@@ -341,6 +341,9 @@ The primary use case for this is to notify the person in charge of the Experienc
 
 > [Experiences](concepts/experiences.md) are either `kind=tour` for a [Tour](apis/tours.md) or `kind=survey` for a [Microsurvey](apis/surveys.md)
 
+> For Tags and Environments see the `"tags"` and `"url_groups"` keys below and see [Experience](concepts/experiences.md) page.
+
+
 ```json
 {
   "id": "6fd85a88e7daf3000e3eb4f7",
@@ -379,6 +382,28 @@ The primary use case for this is to notify the person in charge of the Experienc
         "kind": "tour",
         "segment_id": "6d885a88e7daf3000e3eb4f8",
         "published_at": "2029-11-11T00:12:59.002Z",
+        "tags": [
+          {
+            "id": "6a885a880e3e4b8fe7daf300",
+            "uid": "announcement",
+            "name": "Feature announcement",
+            "urls": {
+              "dashboard": "https://app.chameleon.io/data/tags/6a885a880e3e4b8fe7daf300"
+            },
+            ...
+          },
+          ...
+        ],
+        "url_groups": [
+          {
+            "id": "6f885a88e7daf3000e3e4b8f",
+            "name": "Production",
+            "urls": {
+              "dashboard": "https://app.chameleon.io/domains/6f885a88e7daf3000e3e4b8f"
+            },
+            ...
+          }
+        ],
         ...
       },
       {

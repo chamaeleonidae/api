@@ -60,15 +60,14 @@ See the [User Profiles Webhook](webhooks/profiles.md) for sending User data to C
 
 ```
 GET|POST https://api.chameleon.io/v3/analyze/profiles/:id
-# OR
-GET|POST https://api.chameleon.io/v3/analyze/profile # with parameters
+GET|POST https://api.chameleon.io/v3/analyze/profile # singular with parameters
 ```
 
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
 | `id`    | optional | The Chameleon ID of the User Profile                         |
 | `uid`   | optional | The User Profile identifier (typically the Database ID from your backend) |
-| `email` | optional | If you have sent an email address this will be available for single-user lookup |
+| `email` | optional | If you have sent an email address, this will be available for single-user lookup |
 
 Only one of these parameters is required. Users matched are uniquely identified based on these keys (no two users have the same `uid` or `email`)
 
@@ -176,7 +175,7 @@ DELETE https://api.chameleon.io/v3/edit/profiles/forget?uid=:uid
 | ----- | -------- | ------------------------------------------------------------ |
 | id    | optional | A Chameleon User Profile ID to remove                                  |
 | uid   | optional | The User Profile Identifier (typically the Database ID from your backend) |
-
+| `email` | optional | If you have sent an email address, this will be available for single-user lookup |
 
 
 #### HTTP Response
