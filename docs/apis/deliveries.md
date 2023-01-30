@@ -62,7 +62,7 @@ Deliveries are used to directly trigger an Experience to one specific User.
 **Pending Deliveries** (yet untriggered; with a `null` value for the `at` property) are limited to 3 total per User Profile.
 This limit can be changed:
 
-- Globally to enable certain Use cases (if you're on our Growth plan, [Contact us](https://app.trychameleon.com/help)).
+- Globally to enable certain Use cases (if you're on our Growth plan, [Contact us](https://app.chameleon.io/help)).
 - Per request, to limit to any number smaller than your global limit (defaults to `3`).
 
 
@@ -113,7 +113,7 @@ get feedback on your hypothetical "data import flow".
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/deliveries
+GET https://api.chameleon.io/v3/edit/deliveries
 ```
 
 | param              | -        | type        | description    |
@@ -155,7 +155,7 @@ GET https://api.trychameleon.com/v3/edit/deliveries
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/deliveries
+POST https://api.chameleon.io/v3/edit/deliveries
 ```
 
 Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.md?id=options)
@@ -240,7 +240,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](js/show-tour.m
 #### HTTP Request
 
 ```
-PATCH https://api.trychameleon.com/v3/edit/deliveries/:id
+PATCH https://api.chameleon.io/v3/edit/deliveries/:id
 ```
 
 | param | -        | description                                                  |
@@ -258,7 +258,7 @@ Cancel a Delivery that has yet to happen
 #### HTTP Request
 
 ```
-DELETE https://api.trychameleon.com/v3/edit/deliveries/:id
+DELETE https://api.chameleon.io/v3/edit/deliveries/:id
 ```
 
 | param | -        | description                                                  |

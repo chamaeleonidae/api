@@ -27,7 +27,7 @@ Retrieve a complete (un-paginated) list of properties for the given `kind` + `in
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/properties
+GET https://api.chameleon.io/v3/edit/properties
 ```
 
 | param  | -        | description                                                  |
@@ -84,7 +84,7 @@ Salesforce Company properties
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/properties
+POST https://api.chameleon.io/v3/edit/properties
 ```
 
 | param         | -        | type        | description                                                                              |
@@ -125,7 +125,7 @@ POST https://api.trychameleon.com/v3/edit/properties
 #### HTTP Request
 
 ```
-PUT|PATCH https://api.trychameleon.com/v3/edit/properties/:id
+PUT|PATCH https://api.chameleon.io/v3/edit/properties/:id
 ```
 
 | param         | type        | description                                                                              |

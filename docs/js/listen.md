@@ -13,12 +13,12 @@ Common use cases include:
 
 ----
 
-An overview of the data Chameleon collects for analysis, by reading [this article](https://help.trychameleon.com/en/articles/1226450-what-analytics-does-chameleon-provide).
+An overview of the data Chameleon collects for analysis, by reading [this article](https://help.chameleon.io/en/articles/1226450-what-analytics-does-chameleon-provide).
 
 
 ## List of supported events
 
-- `chmln:event` - All Survey, Tooltip, Tour, and Launcher events. For more information about which events Chameleon tracks, see [this doc](https://help.trychameleon.com/en/articles/1226450-what-analytics-does-chameleon-provide), or download a data schema [here](https://docs.google.com/spreadsheets/d/1qBiAojhSoUSEGLlwvzAhO5CxFLTNeutA_h2iV9gsvRk/copy).
+- `chmln:event` - All Survey, Tooltip, Tour, and Launcher events. For more information about which events Chameleon tracks, see [this doc](https://help.chameleon.io/en/articles/1226450-what-analytics-does-chameleon-provide), or download a data schema [here](https://docs.google.com/spreadsheets/d/1qBiAojhSoUSEGLlwvzAhO5CxFLTNeutA_h2iV9gsvRk/copy).
 - `tour:event`  - Only Survey and Tour events, including Started, Completed, Exited, Step Seen, Button Clicked, etc.
 
 - `after:account` - After the account data is present on the page.

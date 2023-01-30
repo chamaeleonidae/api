@@ -7,13 +7,13 @@
 ## Basics
 
 Every request uses the base URL of `api.trychameleon`, is authenticated with either the `X-Account-Secret` header or `account_secret` parameter and uses `https://`. Endpoints return singular/plural top-level resource names depending on the requested resource.
-Your secret token can be [generated here](https://app.trychameleon.com/settings/tokens). All tokens are account-specific and can only be downloaded once. Make sure you keep your secret token secure. Do not share it in public accessible areas, as it represents the right to access your data.
+Your secret token can be [generated here](https://app.chameleon.io/settings/tokens). All tokens are account-specific and can only be downloaded once. Make sure you keep your secret token secure. Do not share it in public accessible areas, as it represents the right to access your data.
 
 To check your Account Secret token simply make this request:
 
-- `curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.trychameleon.com`
-- `curl https://api.trychameleon.com?account_secret=ACCOUNT_SECRET`
-- `curl -X POST -d '{"account_secret":"ACCOUNT_SECRET"}' https://api.trychameleon.com`
+- `curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.chameleon.io`
+- `curl https://api.chameleon.io?account_secret=ACCOUNT_SECRET`
+- `curl -X POST -d '{"account_secret":"ACCOUNT_SECRET"}' https://api.chameleon.io`
 
 To receive:
 
@@ -32,9 +32,9 @@ To receive:
 
 The current API version is `v3` and each API has an environment name included in the URL. For example:
 
-- `https://api.trychameleon.com/v3/edit/segments` operates in the Edit environment.
-- `https://api.trychameleon.com/v3/observe/hooks/event` operates in the Observe environment.
-- `https://api.trychameleon.com/v3/analyze/profiles` operates in the Analyze environment.
+- `https://api.chameleon.io/v3/edit/segments` operates in the Edit environment.
+- `https://api.chameleon.io/v3/observe/hooks/event` operates in the Observe environment.
+- `https://api.chameleon.io/v3/analyze/profiles` operates in the Analyze environment.
 
 
 ## IP Addresses :id=ip-addresses

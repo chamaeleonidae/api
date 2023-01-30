@@ -47,7 +47,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 - Once an Import is marked as triggered (when `import_at` has a timestamp value) the Import can no longer be updated.
 - Only one Import will be run concurrently (though many can be triggered at the same time)
 
-> [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.trychameleon.com/help) to talk about your use case.
+> [1] Import limits can be increased on an Growth / Enterprise plan. [Contact us](https://app.chameleon.io/help) to talk about your use case.
 
 
 ------
@@ -57,7 +57,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/imports
+GET https://api.chameleon.io/v3/edit/imports
 ```
 
 
@@ -102,7 +102,7 @@ GET https://api.trychameleon.com/v3/edit/imports
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/imports
+POST https://api.chameleon.io/v3/edit/imports
 ```
 
 | param               | -        | type                  | description    |
@@ -463,7 +463,7 @@ The Import is finished when `stats.last_import_state` is `completed`, at that po
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/imports/:id
+GET https://api.chameleon.io/v3/edit/imports/:id
 ```
 
 | param | -        | description                                                  |
@@ -503,7 +503,7 @@ GET https://api.trychameleon.com/v3/edit/imports/:id
 #### HTTP Request
 
 ```
-PATCH https://api.trychameleon.com/v3/edit/imports/:id
+PATCH https://api.chameleon.io/v3/edit/imports/:id
 ```
 
 **See options for [Creating an Import](apis/imports.md?id=imports-create)**
@@ -533,7 +533,7 @@ GET https://api.trychameleon.com/v3/edit/imports/:id.csv
 
 ## cURL Examples :id=examples-all-curl
 
-To [Authenticate](concepts/authentication.md), replace `ACCOUNT_SECRET` below with your secret token. This can be generated on your [dashboard](https://app.trychameleon.com/integrations/tokens).
+To [Authenticate](concepts/authentication.md), replace `ACCOUNT_SECRET` below with your secret token. This can be generated on your [dashboard](https://app.chameleon.io/integrations/tokens).
 
 
 <details>
@@ -557,7 +557,7 @@ First, Create the import, naming it and mapping the `User ID` CSV header to the 
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Feedback Request: Post-BETA1", "model_kind": "profile", "kind": "tag_csv", "on_model_missing": "create", "properties": [{"name":"User ID","prop":"uid"}] }' \
-  'https://api.trychameleon.com/edit/v3/imports'
+  'https://api.chameleon.io/edit/v3/imports'
 ```
 
 Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the import with `import_at=now`
@@ -567,13 +567,13 @@ Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the imp
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -F file=@feedback-request-post-BETA1.csv \
-  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+  'https://api.chameleon.io/edit/v3/imports/IMPORT_ID?import_at=now'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/edit/v3/imports/IMPORT_ID'
 ```
 
 </details>
@@ -600,7 +600,7 @@ First, Create the import, naming it and mapping the `Email address` CSV header t
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Feedback Request: Post-BETA1", "model_kind": "profile", "kind": "tag_csv", "on_model_missing": "create", "properties": [{"name":"Email address","prop":"email"}] }' \
-  'https://api.trychameleon.com/edit/v3/imports'
+  'https://api.chameleon.io/edit/v3/imports'
 ```
 
 Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the import with `import_at=now`
@@ -610,13 +610,13 @@ Then Upload the CSV called `feedback-request-post-BETA1.csv` and trigger the imp
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -F file=@feedback-request-post-BETA1.csv \
-  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+  'https://api.chameleon.io/edit/v3/imports/IMPORT_ID?import_at=now'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/edit/v3/imports/IMPORT_ID'
 ```
 
 </details>
@@ -643,7 +643,7 @@ First, Create the import, naming it and mapping the `Company ID` CSV header to t
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Feedback Request Accounts: Post-BETA1", "model_kind": "company", "kind": "tag_csv", "on_model_missing": "create", "properties": [{"name":"Company ID","prop":"uid"}] }' \
-  'https://api.trychameleon.com/edit/v3/imports'
+  'https://api.chameleon.io/edit/v3/imports'
 ```
 
 Then Upload the CSV called `feedback-request-accounts-post-BETA1.csv` and trigger the import with `import_at=now`
@@ -653,13 +653,13 @@ Then Upload the CSV called `feedback-request-accounts-post-BETA1.csv` and trigge
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -F file=@feedback-request-accounts-post-BETA1.csv \
-  'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID?import_at=now'
+  'https://api.chameleon.io/edit/v3/imports/IMPORT_ID?import_at=now'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/edit/v3/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/edit/v3/imports/IMPORT_ID'
 ```
 
 </details>

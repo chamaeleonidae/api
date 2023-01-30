@@ -57,7 +57,7 @@ An account typically has 1-5 Alert Groups so this response should be relatively 
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/alert_groups
+GET https://api.chameleon.io/v3/edit/alert_groups
 ```
 
 
@@ -135,7 +135,7 @@ Retrieve a single Alert Group and **all** currently matching [Experiences](conce
 
 
 ```
-GET https://api.trychameleon.com/v3/edit/alert_groups/:id
+GET https://api.chameleon.io/v3/edit/alert_groups/:id
 ```
 
 #### HTTP Response

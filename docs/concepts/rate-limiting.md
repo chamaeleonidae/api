@@ -17,7 +17,7 @@ There are a few possible strategies for rate limiting:
 - The `max_concurrent` strategy is used to limit based on the **maximum concurrent requests.** When limiting with this strategy, we subtract and add from an N-sized bucket. We give an `X-RateLimit-Limit` header with N number of concurrent requests when that limit is reached. Please wait until at least one of the outstanding requests finishes. This strategy will queue for up to 4 seconds to allow other concurrent requests to complete. If no request completes during that initial 4 second wait, a 429 response will be sent.
 - The `bucket` strategy is used to limit based on the **total number of requests**. Using this strategy, the bucket window expires after N seconds. We give an `X-Ratelimit-Wait` header with N number of seconds. This is the number of seconds to pause for until requests can proceed without immediate rate limiting.
 
-> Contact us to speak about [Changing these limits](https://app.trychameleon.com/help).
+> Contact us to speak about [Changing these limits](https://app.chameleon.io/help).
 
 
 | Strategy       | Header              | Example value | description                                                  |
@@ -39,7 +39,7 @@ X-Ratelimit-Wait: 12
 ```json
 {
   "code": 429,
-  "messages": ["Rate Limited: Please refer to the API docs https://developers.trychameleon.com/#/concepts/rate-limiting for more information"],
+  "messages": ["Rate Limited: Please refer to the API docs https://developers.chameleon.io/#/concepts/rate-limiting for more information"],
   "wait": 12
 }
 ```
@@ -51,7 +51,7 @@ X-Ratelimit-Limit: 4
 ```json
 {
   "code": 429,
-  "messages": ["Rate Limited: Please refer to the API docs https://developers.trychameleon.com/#/concepts/rate-limiting for more information"],
+  "messages": ["Rate Limited: Please refer to the API docs https://developers.chameleon.io/#/concepts/rate-limiting for more information"],
   "limit": 4
 }
 ```
