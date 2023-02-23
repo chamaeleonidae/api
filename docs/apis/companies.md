@@ -250,7 +250,7 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
 ## Delete a Company :id=companies-delete
 
 When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it. 
-The associated profiles can also be removed by passing `cascade=true` with the request.
+The associated profiles can also be removed by passing `cascade=profiles` with the request.
 
 #### HTTP Request
 
@@ -276,12 +276,12 @@ The Deletion is an internal Chameleon record that can be referenced as proof of 
 ```
 
 ### Deleting a company and all profiles associated with it
-Deleting a company and all profiles associated with it can be done by passing `cascade=true`:
+Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
 
 ```
-DELETE https://api.trychameleon.com/v3/companies/:id?cascade=true
+DELETE https://api.trychameleon.com/v3/companies/:id?cascade=profiles
 # OR
-DELETE https://api.trychameleon.com/v3/company?uid=:uid&cascade=true
+DELETE https://api.trychameleon.com/v3/company?uid=:uid&cascade=profiles
 ```
 
 #### HTTP Response
