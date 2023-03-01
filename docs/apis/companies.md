@@ -257,9 +257,9 @@ The associated profiles can also be removed by passing `cascade=profiles` with t
 Either `id` or `uid` is required.
 
 ```
-DELETE https://api.trychameleon.com/v3/companies/:id
+DELETE https://api.trychameleon.com/v3/edit/companies/:id
 # OR
-DELETE https://api.trychameleon.com/v3/company?uid=:uid
+DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid
 ```
 
 #### HTTP Response
@@ -279,9 +279,9 @@ The Deletion is an internal Chameleon record that can be referenced as proof of 
 Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
 
 ```
-DELETE https://api.trychameleon.com/v3/companies/:id?cascade=profiles
+DELETE https://api.trychameleon.com/v3/edit/companies/:id?cascade=profiles
 # OR
-DELETE https://api.trychameleon.com/v3/company?uid=:uid&cascade=profiles
+DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid&cascade=profiles
 ```
 
 #### HTTP Response
