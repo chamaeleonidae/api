@@ -10,6 +10,12 @@
 
 ---
 
+Use the feed of changes to:
+
+- Export a paper trail to know which changes made the biggest impact.
+- Ensure that your most important Experiences stay static. Do this by listing all changes for a specific Experience and make sure the set of changes is empty
+- Audit an issue with the delivery of an Experience.
+
 ## Schema :id=schema
 
 
