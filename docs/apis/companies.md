@@ -245,3 +245,58 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
      https://api.trychameleon.com/v3/analyze/companies/count
 ```
+
+
+## Delete a Company :id=companies-delete
+
+When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it. 
+The associated profiles can also be removed by passing `cascade=profiles` with the request.
+
+#### HTTP Request
+
+Either `id` or `uid` is required.
+
+```
+DELETE https://api.trychameleon.com/v3/edit/companies/:id
+# OR
+DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid
+```
+
+#### HTTP Response
+
+The endpoint returns `id` of the Deletion record.
+The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
+   
+```json
+{
+  "deletion": {
+    "id": "5f3c4232c712de665632a6d5"
+  }
+}
+```
+
+### Deleting a company and all profiles associated with it
+Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
+
+```
+DELETE https://api.trychameleon.com/v3/edit/companies/:id?cascade=profiles
+# OR
+DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid&cascade=profiles
+```
+
+#### HTTP Response
+
+When cascade deletion is requested, the endpoint also returns deletion ids of all the profiles associated with the company under `deletions` key. 
+
+```json
+{
+  "deletion": {
+    "id": "5f3c4232c712de665632a6d5"
+  },
+  "deletions": [
+    { "id":  "5f3c4232c712de665632a6d6" },
+    { "id":  "5f3c4232c712de665632a6d7" },
+    { "id":  "5f3c4232c712de665632a6d8" }
+  ]
+}
+```
