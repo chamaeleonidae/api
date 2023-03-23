@@ -17,6 +17,7 @@
   - [Send Events](js/events.md)
   - [Show a Tour / Survey](js/show-tour.md)
   - [Show a Launcher](js/show-launcher.md)
+  - [Control the HelpBar](apis/search.md?id=search-js-api)
   - [Review a checklist status](js/launcher-checklist.md)
   - [Listen to Chameleon events](js/listen.md)
 
@@ -32,6 +33,7 @@
   - [Searching User Profiles](apis/profiles-search.md)
   - [Companies](apis/companies.md)
   - [Segments (audiences)](apis/segments.md)
+  - [HelpBar](apis/search.md)
   - [Properties](apis/properties.md)
   - [Internationalization](apis/translation.md)
   - [Microsurveys](apis/surveys.md)
@@ -44,6 +46,7 @@
   - [Data Imports](apis/imports.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
+  - [Changes](apis/changes.md)
   - [Domains / Environments](apis/urls.md)
   - [Webhooks](apis/webhooks.md)
 

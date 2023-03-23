@@ -6,7 +6,7 @@
 - **HTTP requests to our Internal APIs (to edit any Experiences or content) will fail.**
 
 
-*If you want to know more about managing domains and subdomains in Chameleon, please visit our [product documentation](https://help.trychameleon.com/en/articles/1318033-managing-domains-and-subdomains).*
+*If you want to know more about managing domains and subdomains in Chameleon, please visit our [product documentation](https://help.chameleon.io/en/articles/1318033-managing-domains-and-subdomains).*
 
 
 **[Jump to Environments](apis/urls.md?id=url-groups)**
@@ -55,14 +55,14 @@ With the Chameleon API for Domains, you can:
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/urls
+POST https://api.chameleon.io/v3/edit/urls
 ```
 
 | param         | -        | description                                                  |
 |---------------| -------- | ------------------------------------------------------------ |
 | `host`        | required | The fully qualified domain of this Url (i.e. app.example.com) |
 | `enabled`     | required | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain` |
-| `unlisted`    | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.trychameleon.com/settings/domains) in the dashboard |
+| `unlisted`    | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.chameleon.io/settings/domains) in the dashboard |
 | `archived_at` | optional | To archive set to a timestamp, to unarchive set to `null`                                          |
 
 #### HTTP Response
@@ -86,14 +86,14 @@ POST https://api.trychameleon.com/v3/edit/urls
 #### HTTP Request
 
 ```
-PUT|PATCH https://api.trychameleon.com/v3/edit/urls/:id
+PUT|PATCH https://api.chameleon.io/v3/edit/urls/:id
 ```
 
 | param          | -        | description                                                                                                                                                       |
 |----------------| -------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `id`           | required | The Chameleon ID of the Url to update                                                                                                                             |
 | `enabled`      | optional | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain`                                                            |
-| `unlisted`     | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.trychameleon.com/settings/domains) in the dashboard |
+| `unlisted`     | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.chameleon.io/settings/domains) in the dashboard |
 | `archived_at`  | optional | To archive set to a timestamp, to unarchive set to `null`                                                                                                         |
 | `url_group_id` | optional | The Environment ([Url Group](apis/urls.md?id=url-groups)) to assign this Url to                                                                                                                 |
 
@@ -118,7 +118,7 @@ PUT|PATCH https://api.trychameleon.com/v3/edit/urls/:id
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/urls/batch
+POST https://api.chameleon.io/v3/edit/urls/batch
 ```
 
 | param          | -        | description                                                                       |
@@ -160,7 +160,7 @@ All of the Urls given in the request `ids` are updated with the value given by `
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/urls
+GET https://api.chameleon.io/v3/edit/urls
 ```
 
 | param  | -        | description                                                  |
@@ -213,7 +213,7 @@ GET https://api.trychameleon.com/v3/edit/urls
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/urls/:id
+GET https://api.chameleon.io/v3/edit/urls/:id
 ```
 
 | param | -        | description                           |
@@ -238,12 +238,12 @@ GET https://api.trychameleon.com/v3/edit/urls/:id
 
 ## Environments (Url Groups) :id=url-groups
 
-> Environments are in BETA at the moment ([Contact us](https://app.trychameleon.com/help) to join).
+> Environments are in BETA at the moment ([Contact us](https://app.chameleon.io/help) to join).
 
 An Environment is a group of Domains. The purpose of an Environment is to:
 
 1. Split data out into groups; the groups are used in the Chameleon Dashboard to display your Experience data by environment.
-2. Allow Chameleon Admins a simple way to publish Experiences first to Staging/QA then to Production without needing to change the [Url Rules](https://help.trychameleon.com/en/articles/1183932). 
+2. Allow Chameleon Admins a simple way to publish Experiences first to Staging/QA then to Production without needing to change the [Url Rules](https://help.chameleon.io/en/articles/1183932). 
 3. Have greater visibility into what your end-users will be eligible for.
 
 
@@ -270,7 +270,7 @@ An Environment is a group of Domains. The purpose of an Environment is to:
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/edit/url_groups
+POST https://api.chameleon.io/v3/edit/url_groups
 ```
 
 | param                  | -        | description                                                                                     |
@@ -301,7 +301,7 @@ POST https://api.trychameleon.com/v3/edit/url_groups
 #### HTTP Request
 
 ```
-PUT|PATCH https://api.trychameleon.com/v3/edit/url_groups/:id
+PUT|PATCH https://api.chameleon.io/v3/edit/url_groups/:id
 ```
 
 
@@ -343,7 +343,7 @@ PUT|PATCH https://api.trychameleon.com/v3/edit/url_groups/:id
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/url_groups
+GET https://api.chameleon.io/v3/edit/url_groups
 ```
 
 | param  | -        | description                                                                                                                 |
@@ -398,7 +398,7 @@ GET https://api.trychameleon.com/v3/edit/url_groups
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/url_groups/:id
+GET https://api.chameleon.io/v3/edit/url_groups/:id
 ```
 
 | param  | -        | description                                                                            |

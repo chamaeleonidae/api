@@ -2,7 +2,7 @@
 
 #### Welcome!
 
-You can use this documentation alongside our [Product Documentation](https://help.trychameleon.com/) to do more with Chameleon.
+You can use this documentation alongside our [Product Documentation](https://help.chameleon.io/) to do more with Chameleon.
 
 
 **Our Chameleon API is subdivided essentially in three main portions:** a client-side [JavaScript API](/js/overview.md), a [REST API](/apis/overview.md) and [Webhooks](/webhooks/overview.md). With these, you can achieve more with our product and create custom integrations to fit your use cases.

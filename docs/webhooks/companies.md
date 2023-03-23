@@ -20,9 +20,9 @@ A Company that does not yet exist by `uid` will first be created and then update
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/observe/hooks/companies
+POST https://api.chameleon.io/v3/observe/hooks/companies
 # OR
-POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies
+POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies
 ```
 
 | param   | -        | description                                                  |
@@ -61,7 +61,7 @@ POST https://api.trychameleon.com/v3/observe/hooks/:account_secret/companies
 
 - Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
 - See the full page on [Limits](concepts/normalization.md?id=limits) for more information.
-- Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.trychameleon.com/data/properties/profile) or for [company data](https://app.trychameleon.com/data/properties/company).
+- Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.chameleon.io/data/properties/profile) or for [company data](https://app.chameleon.io/data/properties/company).
 
 
 ## Normalization

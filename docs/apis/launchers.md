@@ -8,7 +8,7 @@
 
 
 
-*To know more about Launchers, feel free to visit our [product documentation](https://help.trychameleon.com/en/collections/1587145-launchers).*
+*To know more about Launchers, feel free to visit our [product documentation](https://help.chameleon.io/en/collections/1587145-launchers).*
 
 ---
 
@@ -79,7 +79,7 @@ List all Launchers based on the specified set of parameters.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/launchers
+GET https://api.chameleon.io/v3/edit/launchers
 ```
 
 | param  | -        | description                                                  |
@@ -128,7 +128,7 @@ Retrieve a single Launcher.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/launchers/:id
+GET https://api.chameleon.io/v3/edit/launchers/:id
 ```
 
 | param | - | description |

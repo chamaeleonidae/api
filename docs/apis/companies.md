@@ -8,7 +8,7 @@
 
 ## Schema :id=schema
 
-#### Fully-expanded company when listed directly or embedded with `expand` param specified properly
+#### Fully-expanded [Company](apis/companies.md) when listed directly or embedded with `expand` param specified properly
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
 
-#### Non-expanded company when embedded in another (i.e. Microsurvey response)
+#### Non-expanded [Company](apis/companies.md) when embedded in another (i.e. Microsurvey response)
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -71,7 +71,7 @@ List all Companies.
 #### HTTP Request
 
 ```
-GET|POST https://api.trychameleon.com/v3/analyze/companies
+GET|POST https://api.chameleon.io/v3/analyze/companies
 ```
 
 | param  | -        | description                                                  |
@@ -112,7 +112,7 @@ expand[profile]=min&expand[company]=skip
       "id": "5f3c4232c712de665632a2a1",
       "created_at": "2029-04-07T12:38:00Z",
       "uid": "2015",
-      "domain": "trychameleon.com",
+      "domain": "chameleon.io",
       "plan": "custom-12",
       "clv": 39102.17,
       ...
@@ -251,6 +251,12 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
 
 When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it. 
 The associated profiles can also be removed by passing `cascade=profiles` with the request.
+
+| param.  | -        | description                                                          |
+| ------- | -------- | -------------------------------------------------------------------- |
+| `id`    | optional | The Chameleon ID of the [Company](apis/companies.md)                 |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
+
 
 #### HTTP Request
 

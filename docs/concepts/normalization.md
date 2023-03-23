@@ -86,7 +86,7 @@ We try to recognize as many types of dates as possible to provide rich filtering
 
 ## Limitations :id=limits
 
-- Data received which is bigger than 768 bytes (characters) will be truncated and an alert will be set on the [Data management](https://app.trychameleon.com/data/properties/profile) page.
+- Data received which is bigger than 768 bytes (characters) will be truncated and an alert will be set on the [Data management](https://app.chameleon.io/data/properties/profile) page.
 - Each Array member as well as each Hash value can reach this limit.
 - Nested object Hashes are acceptable as long as they are kept to 3 levels and aren't nested within array values.
 - Any data that cannot be parsed or stored as a native data type is stored as a string.

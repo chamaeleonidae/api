@@ -254,7 +254,7 @@ Query for users where either Admins AND are either com the Acme account or have 
 #### HTTP Request
 
 ```
-GET|POST https://api.trychameleon.com/v3/analyze/profiles (plural)
+GET|POST https://api.chameleon.io/v3/analyze/profiles (plural)
 ```
 
 | param      | -        | description                                                  |
@@ -327,7 +327,7 @@ Notes:
 #### HTTP Request
 
 ```
-GET|POST https://api.trychameleon.com/v3/analyze/profiles/count
+GET|POST https://api.chameleon.io/v3/analyze/profiles/count
 ```
 
 **Use the same params / request body as [Searching Users](apis/profiles-search.md?id=profiles-index)**

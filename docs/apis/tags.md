@@ -4,7 +4,7 @@
 
 Tags are:
 
-- Used to Search and Filter Experiences in the [Chameleon Dashboard](https://app.trychameleon.com).
+- Used to Search and Filter Experiences in the [Chameleon Dashboard](https://app.chameleon.io).
 - Used to define [Rate Limit Groups](apis/limit-groups.md) of Experiences that are limited to a particular rate limit (i.e. 2 per week, 3 per month etc.).
 - [Normalized](concepts/normalization.md?id=tags) with the typical rules.
 
@@ -32,7 +32,7 @@ Tags are:
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/tags
+GET https://api.chameleon.io/v3/edit/tags
 ```
 
 | param  | -        | description                                                  |
@@ -84,7 +84,7 @@ See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/tags/:id
+GET https://api.chameleon.io/v3/edit/tags/:id
 ```
 
 | param | -        | description                           |

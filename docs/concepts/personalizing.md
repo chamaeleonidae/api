@@ -10,14 +10,17 @@
 | `global`                   | [examples ↓](concepts/personalizing.md?id=examples-global)     | Pull a value from the window object, useful for extra-advanced conditional formatting |
 | `pluralize`                | [examples ↓](concepts/personalizing.md?id=examples-plural)     | Given a specific number and a word produces a phrase with the correct tense           |
 | `time_difference_in_words` | [examples ↓](concepts/personalizing.md?id=examples-time-diff)  | Given a specific date/time produces a time offset                                     |
+| `time_ago`                 | [examples ↓](concepts/personalizing.md?id=examples-time-ago)   | Calculates the offset from now in `seconds`,`minutes`,`hours`,`days`,`weeks`,`years`  |
 | `time_local`               | [examples ↓](concepts/personalizing.md?id=examples-time-local) | Given a specific date/time uses toLocalString() to generate a human readable string   |
 | `delivery`                 | [examples ↓](concepts/personalizing.md?id=examples-delivery)   | Personalize with content explicitly sent via a [Delivery](apis/deliveries.md)         |
 | `html`                     | [examples ↓](concepts/personalizing.md?id=examples-html)       | Output html based on given options                                                    |
+| `filter`                   | [examples ↓](concepts/personalizing.md?id=examples-filter)     | Use filter to evaluate [Segmentation filter expressions](concepts/filters.md)         |                                  |
+| `if` (content logic)       | [examples ↓](concepts/personalizing.md?id=examples-logic-if)   | Output html based on given options                                                    |
 
 
 ## Examples :id=examples
 
-Current reference time is `2029-04-04T12:00:00Z`
+Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpose of date-based examples below.
 
 ##### Example user data :id=example-user-data
 
@@ -31,12 +34,18 @@ Current reference time is `2029-04-04T12:00:00Z`
   "plan": {
     "name": "Growth",
     "spend": 734,
+    "started_on": "2029-01-02T09:13:00Z",
     "upgrade_on": "2029-04-08T13:31:00Z",
+    "features": ["unlimited_widgets", "coffee"],
     "upgrade_spend": 893
   },
   "credits": {
     "used": 19,
     "remaining": 1
+  },
+  "account_info": {
+    "csm_name": "Aria Jones",
+    "csm_calendly": "https://calendly.com/acme-aria-j/30-min"
   }
 }
 ```
@@ -60,6 +69,9 @@ Hey {{first_name fallback="there"}}!
 
 Hey {{name fallback="there"}}!
 # Hey there!
+
+Hey {{property 'name' fallback='there'}}!
+# Hey there!
 ```
 
 
@@ -67,6 +79,9 @@ Hey {{name fallback="there"}}!
 
 ```text
 You're subscribed to the {{plan.name}} plan.
+# You're subscribed to the Growth plan.
+
+You're subscribed to the {{property 'plan.name'}} plan.
 # You're subscribed to the Growth plan.
 ```
 
@@ -76,12 +91,65 @@ You're subscribed to the {{plan.name}} plan.
 You signed up {{time_difference_in_words created}}.
 # You signed up 2 years ago.
 
+You were first seen by Chameleon {{time_difference_in_words created_at}}.
+# You were first seen by Chameleon 1 year ago.
+
 You signed up {{time_difference_in_words created tense="in yonder past"}}.
 # You signed up 2 years in yonder past.
 
 Thanks for being a customer for {{time_difference_in_words created tense=''}}!
 # Thanks for being a customer for 2 years!
+
+Thanks for being a identified to Chameleon for {{time_difference_in_words created_at tense=''}}!
+# Thanks for being a identified to Chameleon for 1 year!
 ```
+
+### Calculate differences between dates | `time_ago` helper :id=examples-time-ago
+
+This calculation is best used as a nested helper in an `if` block | [examples ↓](concepts/personalizing.md?id=examples-logic-if)
+
+**This examples assumes that the current time is `2029-04-04T12:00:00Z`**
+
+The value of the option `in` defaults to `seconds` but can be any of `milliseconds`, `seconds`, `minutes`, `hours`, `days`, `weeks`, `years`
+
+```text
+Created {{time_ago created}} seconds ago.
+# Created 65836680 seconds ago.
+
+Created {{time_ago created in='seconds'}} seconds ago.
+# Created 65836680 seconds ago.
+
+Created {{time_ago created in='minutes'}} minutes ago.
+# Created 1097278 minutes ago.
+
+Created {{time_ago created in='hours'}} hours ago.
+# Created 18287 hours ago.
+
+Created {{time_ago created in='days'}} days ago.
+# Created 761 days ago.
+
+Created {{time_ago created in='weeks'}} weeks ago.
+# Created 108 weeks ago.
+
+Created {{time_ago created in='years'}} years ago.
+# Created 2 years ago.
+
+Created {{time_ago created in='milliseconds'}} milliseconds ago.
+# Created 65836680000 milliseconds ago.
+```
+
+**As part of an `if` block** | [more examples ↓](concepts/personalizing.md?id=examples-logic-if)
+
+```handlebars
+{{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
+To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
+{{else}}
+Check out these [additional resources](https://help.your-product.co/getting-started)
+{{/if}}
+
+# To get the most out of account, [book a review](https://calendly.com/acme-aria-j/30-min) with your Account manager, Aria Jones.
+```
+
 
 ### Display a timestamp/date in a presentable format | `time_local` helper :id=examples-time-local
 
@@ -265,11 +333,153 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 
 
 
-#### Show a custom link | `html` helper :id=examples-html
+### Show a custom link | `html` helper :id=examples-html
 
 ```text
 {{html 'Read' tagName='a' href='/read-more' target='read-more-tab' data-read-more='link' style='color: red'}}
 # <a href="/read-more" target="read-more-tab" data-read-more="link style="color: red">Read</a>
+```
+
+
+
+### Use custom logic | `if` block helper :id=examples-logic-if
+
+When the _condition_ evaluates to truthy, the content in the `if` block is used, otherwise the `else` block is used.
+A condition is a JS-like combination of a "left hand side", and "operator" and a "right hand side". If you're having
+issues with this or have a use case that does not seem to be supported, please [Contact us](https://app.trychameleon.com/help). 
+
+- Start an `if` block, use `{{if <CONDITION>}}`
+- To end and `if` block use `{{/if}}`
+- To add extra cases, use `{{elseif <CONDITION>}}`
+
+Supported _condition_ operators:
+
+| Operator                  | Description                                                                                              |
+|---------------------------|----------------------------------------------------------------------------------------------------------|
+| `==`                      | Equality: the values should be the same                                                                  |
+| `!=`                      | Inequality: the values should **not** be the same                                                        |
+| `>`, `>=`                 | Greater than + Greater than or equal: The left side should be greater than the right                     |
+| `<`, `<=`                 | Less than + Less than or equal: The left side should be less than the right                              |
+| `&&`                      | AND conjunction: The left side AND right side need to be true for the expression to be true              |
+| <code>&#124;&#124;</code> | OR conjunction: The left side OR right side need to be true for the expression to be true                |
+| `( )`                     | Grouping: use parenthesis to group expressions to capture complex cases.                                 |
+| `matches`                 | Check if the left hand side                                                                              |
+| `includes`                | Check if an array on the left hand side contains the value from the right hand side (same as `contains`) |
+| `contains`                | Check if an array on the left hand side contains the value from the right hand side (same as `includes`) |
+
+##### Basic examples
+
+```handlebars
+# check for "truthy", "falsey", "equality", "inequality"
+{{if plan.name}}You have a plan{{/if}}
+{{if !plan.name}}You have no plan{{/if}}
+{{if plan.name == 'gold'}}You have a Gold plan{{/if}}
+{{if plan.name != 'gold'}}You do not have a Gold plan{{/if}}
+
+# check the comparison of the left hand to the right hand side
+{{if plan.spend > 500}}You spend more than 500{{/if}}
+{{if plan.spend < 500}}You spend less than 500{{/if}}
+{{if plan.spend <= 500}}You spend less than or equal to 500{{/if}}
+{{if plan.spend >= 500}}You spend more than or equal to 500{{/if}}
+
+# Check if an array contains an item
+{{if plan.features includes "unlimited_widgets"}}You have Unlimited widgets{{/if}}
+You have {{if plan.features includes "unlimited_widgets"}}Unlimited{{else}}limited{{/if}} widgets.
+
+# does the left hand "Regex match" the right hand
+{{if plan matches "helium|neon|argon"}}You have a Noble gas plan{{/if}}
+{{if plan matches "gold|silver|copper"}}You have a Transition metal plan{{/if}}
+
+# Use && for AND, || for OR to create complex conditions
+{{if plan.spend <= 500 || plan.spend >= 1000}}You do not spend 501-999{{/if}}
+
+# group conditions to evaluate them in complicated ways
+{{if credits.remaining < 10 || (plan.spend < 500 && plan.upgrade_spend == plan.spend)}}
+  You should probably contact us for more credits
+{{/if}}
+
+{{if plan}}You have a plan{{/if}}
+
+
+```
+##### An `if` block with a `else` block
+
+> The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used).
+
+```handlebars
+{{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
+  To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
+{{else}}
+  Check out these [additional resources](https://help.your-product.co/getting-started)
+{{/if}}
+
+# To get the most out of account, [book a review](https://calendly.com/acme-aria-j/30-min) with your Account manager, Aria Jones.
+```
+
+When the condition does not match, the content in the `else` case is used.
+
+> The data says spend is 734
+
+```handlebars
+{{if plan.spend > 1000}}
+To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
+{{else}}
+Check out these [additional resources](https://help.your-product.co/getting-started)
+{{/if}}
+
+# Check out these [additional resources](https://help.your-product.co/getting-started)
+```
+
+An `elseif` can be used to capture a cascading set of conditions
+
+```handlebars
+{{if !plan.spend}}
+Start your free trial to use your widgets.
+{{elsif plan.spend < 2050}}
+Use the pre-built widget templates to work faster.
+{{elsif plan.spend < 500}}
+Start using your widget upgrades to widget
+{{elsif plan.spend < 250}}
+Upgrade to get more widgets.
+{{else}}
+Request a member of the Acme team to widgetize some stuff for you.
+{{/if}}
+```
+
+##### To use an embedded Helper within the `if` condition, use _single curly braces_
+
+This example assumes you have a `currentUser` variable attached to `window`
+`window.currentUser = { id: '54s1', roles: { name: 'superadmin', items: ['invite_user', 'invite_admin'] } }`;
+
+```handlebars
+{{if {global 'currentUser.roles.level'} == 'admin'}}
+As an admin, you're in charge of your team's permissions
+{{elsif {global 'currentUser.roles.level'} == 'superadmin'}}
+As the owner of your account, you're in charge of your team's admins
+{{/if}}
+```
+
+```handlebars
+{{if {global 'currentUser.roles.level'} includes 'invite_user'}}
+Invite your teammates on the [Team page](/settings/team).
+{{elsif {global 'currentUser.roles.level'} includes 'invite_admin'}}
+As the owner of your account, you're in charge of your [Team's admins](/settings/admins).
+{{/if}}
+```
+
+## Segmentation filter conditions | `filter` helper :id=examples-filter
+
+Sometimes you need to do something especially complicated that can't be captured with `==` or `&&`; enter the `filter` helper.
+You can use any of the [Segmentation filter expressions](concepts/filters.md) and many of the simple
+conditions on user properties can be handled with `filter`.
+
+
+```handlebars
+{{if plan.spend > 500}}Your monthly bill is greater than 500{{/if}}
+
+# as a filter
+{{if {filter prop='plan' op='gt' value='500'}}}Your monthly bill is greater than 500{{/if}}
+
 ```
 
 

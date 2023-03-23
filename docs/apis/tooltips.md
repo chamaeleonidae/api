@@ -7,7 +7,7 @@
 
 
 
-*To know more about Tooltips, feel free to visit our [product documentation](https://help.trychameleon.com/en/articles/2177293-how-to-add-a-tooltip)*.
+*To know more about Tooltips, feel free to visit our [product documentation](https://help.chameleon.io/en/articles/2177293-how-to-add-a-tooltip)*.
 
 ------
 
@@ -40,7 +40,7 @@ List all the Tooltips that follow a specified set of parameters.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/tooltips
+GET https://api.chameleon.io/v3/edit/tooltips
 ```
 
 | param  | -        | description                                                  |
@@ -85,7 +85,7 @@ Retrieve a single Tooltip
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/edit/tooltips/:id
+GET https://api.chameleon.io/v3/edit/tooltips/:id
 ```
 
 | param | -        | description            |

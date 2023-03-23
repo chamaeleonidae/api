@@ -11,9 +11,9 @@
 #### HTTP Request
 
 ```
-POST https://api.trychameleon.com/v3/observe/hooks/events
+POST https://api.chameleon.io/v3/observe/hooks/events
 # OR
-POST to https://api.trychameleon.com/v3/observe/hooks/:account_secret/events
+POST to https://api.chameleon.io/v3/observe/hooks/:account_secret/events
 ```
 
 | param | -        | description                                                  |
@@ -47,4 +47,4 @@ By default, Events are grouped by their case insensitive and normalized name val
 - "ImporteD leads" => `imported_leads`
 - "imported-leads" => `imported_leads`
 
-To know more about how Events are normalized, visit the [Normalization](http://concepts/normalization.md?id=events) page.
+To know more about how Events are normalized, visit the [Normalization](concepts/normalization.md?id=events) page.

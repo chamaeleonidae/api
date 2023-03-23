@@ -78,7 +78,7 @@ Operator if `in-v` means treat the value as a CSV `["admin","owner","superuser"]
 }
 ```
 
-#### User was was last seen more than 7 days ago
+#### User was last seen more than 7 days ago
 
 The postfix `-d` in `lt-d` instructs the value to be treated as a number of days.
 
