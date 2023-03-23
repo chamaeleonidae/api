@@ -34,8 +34,8 @@ An overview of the data Chameleon collects for analysis, by reading [this articl
 - `helpbar:closed` - Know when the Search bar is closed 
 - `helpbar:item:action` - Know when a specific `SearchItem` is triggered
 - `helpbar:item:action:error` - When a specific `SearchAction` encounters an error
-- `helpbar:recent` - When the search bar needs a list of the most recently actioned `SearchItem`s; use to override the default behavior
-- `helpbar:suggestions` - When the search bar needs a list of suggested `SearchItem`s; use to override the default behavior
+- `helpbar:recent` - When the HelpBar needs a list of the most recently actioned `SearchItem`s; use to override the default behavior
+- `helpbar:pinned` - When the HelpBar needs a list of pinned `SearchItem`s; use to override the default behavior
 
 
 > **Typical ordering as Chameleon boots**: `load`, `load:chmln`, `after:account`, `identify:request`, `identify:sync`, `after:profile`, `tour:event`, `chmln:event`
