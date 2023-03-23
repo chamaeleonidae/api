@@ -32,6 +32,38 @@
 See the [Companies Webhook](webhooks/companies.md) for sending User data to Chameleon
 
 
+## Retrieve a Company :id=companies-show
+
+Retrieve a single Company.
+
+#### HTTP Request
+
+```
+GET https://api.trychameleon.com/v3/analyze/companies/:id
+# OR
+GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
+```
+
+| param | -        | description                                                  |
+| ----- | -------- | ------------------------------------------------------------ |
+| `id`    | optional | The Chameleon ID of the Company                         |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
+
+
+```json
+{
+  "company": {
+    "id": "5f3c4232c712de665632a2a1",
+    "created_at": "2029-04-07T12:38:00Z",
+    "uid": "1868",
+    "domain": "example.com",
+    "plan": "custom-92",
+    "clv": 231902.42,
+    ...
+  }
+}
+```
+
 ## List Companies :id=companies-index
 
 List all Companies.
@@ -94,34 +126,183 @@ expand[profile]=min&expand[company]=skip
 }
 ```
 
-## Retrieve a Company :id=companies-show
 
-Retrieve a single Company.
+### Search Companies :id=companies-search
+
+Searching Companies through the Chameleon API allows you to:
+
+- Search for a company by `id` and `uid`
+- Search for companies or get the Count of Companies by any of the properties you have sent to us
+
+Use [Segmentation Filter Expressions](concepts/filters.md) in the `filter` parameter to search for companies by any of the properties you have sent to us.
+
+> *Note: [Rate Limiting](concepts/rate-limiting.md) applies according to the table below.*
+
+| endpoint           | Maximum concurrent requests |
+|--------------------| --------------------------- |
+| `/companies`       | 2                           |
+| `/companies/count` | 1                           |
+
+
+#### Examples :id=companies-search-examples
+
+All of these examples are based directly on the full schema of [Segmentation Filter Expressions](concepts/filters.md).
+
+Each example below is showing the value for the `filters` key in the JSON request body:
+
+```json
+{
+  "filters": [
+    ...
+  ]
+}
+```
+
+##### Companies that are on specific plan
+
+Find all companies with that have a `plan` property with `silver` value:
+
+```json
+{
+  "filters": [
+    {
+      "kind": "property",
+      "property": "plan",
+      "prop": "eq",
+      "value": "silver"
+    }
+  ]
+}
+```
+
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
+     https://api.trychameleon.com/v3/analyze/companies
+```
+
+#### Companies that have between 10 and 20 employees
+
+```json
+{
+  "filters": [
+    {
+      "kind": "group",
+      "filters_op": "and",
+      "filters": [
+        {
+          "kind": "property",
+          "prop": "employee_count",
+          "op": "gt",
+          "value": 10
+        },
+        {
+          "kind": "property",
+          "prop": "employee_count",
+          "op": "lt",
+          "value": 20
+        }
+      ]
+    }
+  ]
+}
+```
+
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters":[{"kind":"group","filters_op":"and","filters":[{"kind":"property","prop":"employee_count","op":"gt","value":10},{"kind":"property","prop":"employee_count","op":"lt","value":20}]}]}' \
+     https://api.trychameleon.com/v3/analyze/companies
+```
+
+## Counting Companies :id=companies-count
 
 #### HTTP Request
 
 ```
-GET https://api.chameleon.io/v3/analyze/companies/:id
-# OR
-GET https://api.chameleon.io/v3/analyze/company?uid=:uid
+GET|POST https://api.trychameleon.com/v3/analyze/companies/count
 ```
 
-| param | -        | description                                                  |
-| ----- | -------- | ------------------------------------------------------------ |
-| `id`    | optional | The Chameleon ID of the [Company](apis/companies.md)                         |
-| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
+**Use the same params / request body as [Search Companies](apis/companies.md?id=companies-index)**
 
+#### HTTP Response
 
 ```json
 {
-  "company": {
-    "id": "5f3c4232c712de665632a2a1",
-    "created_at": "2029-04-07T12:38:00Z",
-    "uid": "1868",
-    "domain": "example.com",
-    "plan": "custom-92",
-    "clv": 231902.42,
-    ...
+  "count": 65121
+}
+```
+
+##### Example: counting companies matching given filters
+
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
+     https://api.trychameleon.com/v3/analyze/companies/count
+```
+
+
+## Delete a Company :id=companies-delete
+
+When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it. 
+The associated profiles can also be removed by passing `cascade=profiles` with the request.
+
+| param.  | -        | description                                                          |
+| ------- | -------- | -------------------------------------------------------------------- |
+| `id`    | optional | The Chameleon ID of the [Company](apis/companies.md)                 |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
+
+
+#### HTTP Request
+
+Either `id` or `uid` is required.
+
+```
+DELETE https://api.trychameleon.com/v3/edit/companies/:id
+# OR
+DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid
+```
+
+#### HTTP Response
+
+The endpoint returns `id` of the Deletion record.
+The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
+   
+```json
+{
+  "deletion": {
+    "id": "5f3c4232c712de665632a6d5"
   }
+}
+```
+
+### Deleting a company and all profiles associated with it
+Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
+
+```
+DELETE https://api.trychameleon.com/v3/edit/companies/:id?cascade=profiles
+# OR
+DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid&cascade=profiles
+```
+
+#### HTTP Response
+
+When cascade deletion is requested, the endpoint also returns deletion ids of all the profiles associated with the company under `deletions` key. 
+
+```json
+{
+  "deletion": {
+    "id": "5f3c4232c712de665632a6d5"
+  },
+  "deletions": [
+    { "id":  "5f3c4232c712de665632a6d6" },
+    { "id":  "5f3c4232c712de665632a6d7" },
+    { "id":  "5f3c4232c712de665632a6d8" }
+  ]
 }
 ```
