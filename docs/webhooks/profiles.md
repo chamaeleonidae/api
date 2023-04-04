@@ -26,6 +26,7 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles
 | `id`         | optional | The Chameleon ID of the User Profile                         |
 | `uid`        | optional | The User Profile Identifier (typically the Database ID from your backend) |
 | `company_id` | optional | The Chameleon Company ID that this user is a member of       |
+| `company_uid` | optional | The external ID of the Company from your backend system |
 | *others    | optional | All other properties will be stored on the Profile           |
 
 ```json
@@ -39,6 +40,17 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles
    ...
 }
 ```
+
+The user with `uid=18821` is a member of the `uid=931` Company 
+
+```json
+{
+  "uid": 18821,
+  "role": "admin",
+  "company_uid": 931
+}
+```
+
 
 #### HTTP Response
 
