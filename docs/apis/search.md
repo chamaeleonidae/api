@@ -505,12 +505,12 @@ the item is clicked the actions will be run in order (configure `kind=navigate` 
 
 Base schema
 
-| Property        | Type      | Description                                                                                                                                                                                                 |
-|-----------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `updated_at`    | timestamp | The last time any property was updated                                                                                                                                                                      |
-| `kind`          | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `typeform`, `calendly`, `intercom`, `zendesk`, `helpscout`, `hubspot`, `chili_piper`, `script`, or `function` |
-| `helpbar_state` | string    | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                                                                                                     |
-| `*others`       | optional  | Any other integration specific configuration (more info below in the specific schemas)                                                                                                                      |
+| Property        | Type      | Description                                                                                                                                                                                                                                                                  |
+|-----------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `updated_at`    | timestamp | The last time any property was updated                                                                                                                                                                                                                                       |
+| `kind`          | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `script`, `function`, `airtable`, `calendly`, `chili_piper`, `figma`, `helpscout`, `hubspot_lists`, `intercom`, `link`, `livestorm`, `loom`, `pitch`, `typeform`, or `zendesk` |
+| `helpbar_state` | string    | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                                                                                                                                                                      |
+| `*others`       | optional  | Any other integration specific configuration (more info below in the specific schemas)                                                                                                                                                                                       |
 
 ### Integration specific schemas
 
