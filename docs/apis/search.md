@@ -576,10 +576,12 @@ Send user data to Chameleon and all of your [configured integrations](https://ap
 | `identify_key` | `string` | The specific key to set to your configured integrations  |
 | `identify_value` | `string` | The specific value to set to your configured integrations  |
 
+
 ```json
 {
-   "kind": "",
-   "": ""
+   "kind": "identify",
+   "identify_key": "opted_in_for_product_research",
+   "identify_value": "true"
 }
 ```
 
