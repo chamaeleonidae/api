@@ -276,40 +276,6 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `description_labels` | array     | An array of the [`SearchLabel`](apis/search.md?id=schema-search-labels) items displayed under the description of this `SearchItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 
-
-## `SearchAction` Schema :id=schema-search-actions
-
-Base schema
-
-| Property           | Type      | Description                                                                                                                                                                                                 |
-|--------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `updated_at`       | timestamp | The last time any property was updated                                                                                                                                                                      |
-| `kind`             | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `typeform`, `calendly`, `intercom`, `zendesk`, `helpscout`, `hubspot`, `chili_piper`, `script`, or `function` |
-| `url`              | string    | When using `kind="url"` or `kind="navigate"` the new URL to load/use.                                                                                                                                       |
-| `url_blank`        | boolean   | When using `kind="url"` does the URL open in a new tab?                                                                                                                                                     |
-| `script`           | string    | When using `kind="script"` The specific JavaScript code snippet to run                                                                                                                                      |
-| `tour_id`          | ID        | When using `kind="tour"` the Chameleon ID of the published Tour to start                                                                                                                                    |
-| `survey_id`        | ID        | When using `kind="script"` the Chameleon ID of the published Microsurvey to start                                                                                                                           |
-| `event_name`       | string    | When using `kind="event"` the event name to track to your configured Integrations                                                                                                                           |
-| `identify_key`     | string    | When using `kind="identify"` the property "key" to send to your configured Integrations                                                                                                                     |
-| `identify_value`   | string    | When using `kind="identify"` the property "value" to send to your configured Integrations                                                                                                                   |
-
-Integration specific schema
-
-| Property                | Type   | Description                                                                                                                     |
-|-------------------------|--------|---------------------------------------------------------------------------------------------------------------------------------|
-| `intercom_message`      | string | When using `kind="intercom"` the message text to prefill in the messenger                                                       |
-| `typeform_url`          | string | When using `kind="typeform"` the Typeform share URL to load                                                                     |
-| `zendesk_message`       | string | When using `kind="zendesk"` the pre-filled message text to send via Chat                                                        |
-| `calendly_url`          | string | When using `kind="calendly"` the specific scheduling URL to schedule with                                                       |
-| `hubspot_url`           | string | When using `kind="hubspot"` the specific scheduling URL to schedule with                                                        |
-| `chili_piper_url`       | string | When using `kind="chili_piper"` the specific scheduling URL (or Router URL) to schedule with                                    |
-| `helpscout_kind`        | string | When using `kind="helpscout"` the kind of action to take; One of `open_chat`, `open_answers`, `open_help_center`, `search_term` |
-| `helpscout_article_url` | string | When using `kind="helpscout"` and `helpscout_kind="open_help_center"`, the specific article to open in the sidebar              |
-| `helpscout_query`       | string | When using `kind="helpscout"` and `helpscout_kind="search_term"`, the specific query to pre-fill in the sidebar                 |
-
-
-
 ## `SearchLabel` Schema :id=schema-search-labels
 
 | Property    | Type   | Description                                                                                                                                                                                                                                                 |
@@ -528,6 +494,495 @@ Send the `uid` of a previously created `SearchItem`.
 
 ```
 DELETE https://api.trychameleon.com/v3/edit/search_items
+```
+
+
+## `SearchAction` Schema :id=schema-search-actions
+
+A search action is one item in a collection of actions attached to a [SearchItem](apis/search.md?id=schema-search-items)s. When
+the item is clicked the actions will be run in order (configure `kind=navigate` / `kind=url` last).
+
+
+Base schema
+
+| Property        | Type      | Description                                                                                                                                                                                                                                                                  |
+|-----------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `updated_at`    | timestamp | The last time any property was updated                                                                                                                                                                                                                                       |
+| `kind`          | string    | The kind of action to take: One of: `url`, `navigate`, `event`, `identify`, `tour`, `survey`, `script`, `function`, `airtable`, `calendly`, `chili_piper`, `figma`, `helpscout`, `hubspot_lists`, `intercom`, `link`, `livestorm`, `loom`, `pitch`, `typeform`, or `zendesk` |
+| `helpbar_state` | string    | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                                                                                                                                                                      |
+| `*others`       | optional  | Any other integration specific configuration (more info below in the specific schemas)                                                                                                                                                                                       |
+
+### Integration specific schemas
+
+
+## `SearchAction` with `kind=url` Schema :id=schema-search-action-url
+
+| Property | Type | Description                                                                                             |
+| --- | --- |---------------------------------------------------------------------------------------------------------|
+| `kind` | `string` | "url" (required)                                                                                        |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `url` | `string` | The URL to use/open. Can be a full URL including https, or can be relative to the current page etc.)    |
+| `url_blank` | `string` | If the URL opens in a new tab (defaults to `true`)                                                        |
+
+```json
+{
+   "kind": "url",
+   "url": "https://help.your-product.com/posts/339201-learn-more-about-it"
+}
+```
+
+## `SearchAction` with `kind=navigate` Schema :id=schema-search-action-navigate
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "navigate" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `url` | `string` | The URL to use/open. Can be a full URL including https, or can be relative to the current page etc.) |
+
+```json
+{
+   "kind": "navigate",
+   "url": "/cars/339201/edit"
+}
+```
+
+
+## `SearchAction` with `kind=event` Schema :id=schema-search-action-event
+
+Track an event to Chameleon and all of your [configured integrations](https://app.chameleon.io/integrations).
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "event" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `event_name` | `string` | The name of the Event to track to your configured integrations |
+
+```json
+{
+   "kind": "event",
+   "event_name": "Search action taken (custom)"
+}
+```
+
+
+## `SearchAction` with `kind=identify` Schema :id=schema-search-action-identify
+
+Send user data to Chameleon and all of your [configured integrations](https://app.chameleon.io/integrations).
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "identify" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `identify_key` | `string` | The specific key to set to your configured integrations  |
+| `identify_value` | `string` | The specific value to set to your configured integrations  |
+
+
+```json
+{
+   "kind": "identify",
+   "identify_key": "opted_in_for_product_research",
+   "identify_value": "true"
+}
+```
+
+
+## `SearchAction` with `kind=tour` Schema :id=schema-search-action-tour
+
+Show a Chameleon Tour immediately (calls `chmln.show` with the configured `tour_id`). Quickly access this ID in the URL on the [Chameleon dashboard](https://app.chameleon.io/tours).
+[JavaScript API reference](js/show-tour.md)
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "tour" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `tour_id` | `string` | The ID of the published Chameleon Tour to trigger |
+
+```json
+{
+   "kind": "tour",
+   "tour_id": "6f7dfada300116393481bbbb"
+}
+```
+
+
+
+## `SearchAction` with `kind=survey` Schema :id=schema-search-action-survey
+
+Show a Chameleon Microsurvey immediately (calls `chmln.show` with the configured `survey_id`). Quickly access this ID in the URL on the [Chameleon dashboard](https://app.chameleon.io/surveys).
+[JavaScript API reference](js/show-tour.md)
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "survey" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `survey_id` | `string` | The ID of the published Chameleon Microsurvey to trigger |
+
+```json
+{
+   "kind": "survey",
+   "survey_id": "6d7dfad00116393ba481bb3c"
+}
+```
+
+
+## `SearchAction` with `kind=script` Schema :id=schema-search-action-script
+
+Run customized JavaScript when this item is clicked in the HelpBar. Check variables, user data, or page
+state before performing different actions.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "script" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `script` | `string` | The JavaScript string to evaluate |
+
+
+```json
+{
+   "kind": "script",
+   "script": "const pageStateDone = /#state=finished/.test(window.location.href);\nif(pageStateDone) { showFinishedModal() } else { showTodoModal() }"
+}
+```
+
+
+## `SearchAction` with `kind=function` Schema :id=schema-search-action-function
+
+After you have exposed a function on the `window` object within your application, call it when this item is clicked.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "function" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `fn` | `string` | The name of a function to call (without arguments (i.e. customChameleonFn_032) |
+
+```json
+{
+   "kind": "function",
+   "fn": "showCustomModal_chameleonAction_19"
+}
+```
+
+
+## `SearchAction` with `kind=airtable` Schema :id=schema-search-action-airtable
+
+Show an Airtable form directly in your product.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "airtable" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+
+```json
+{
+   "kind": "airtable",
+   "href": "https://airtable.com/1AyOshrwxGUPn"
+}
+```
+
+
+## `SearchAction` with `kind=calendly` Schema :id=schema-search-action-calendly
+
+Show a Calendly scheduling modal directly in your product.
+
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "calendly" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+
+```json
+{
+   "kind": "calendly",
+   "href": "https://calendly.com/chameleon/demo"
+}
+```
+
+[Merge tags](concepts/personalizing.md) are available for the `href` field; add the right Calendly link as [User data](webhooks/profiles.md) and merge it in the action. (`csm` below refers to a customer success manager)
+
+```json
+{
+   "kind": "calendly",
+   "href": "{{calendly_csm_url}}"
+}
+```
+
+
+## `SearchAction` with `kind=chili_piper` Schema :id=schema-search-action-chili_piper
+
+Show a ChiliPiper scheduling modal directly in your product.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "chili_piper" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `selected` | `string` | The type of Experience to enable. One of: `router` or `href` |
+| `router` | `string` | The ChiliPiper Router name associated with this calendar |
+| `href` | `string` | The URL to use |
+
+For a scheduling link
+
+```json
+{
+   "kind": "chili_piper",
+   "selected": "href",
+   "href": "https://chameleon.na.chilipiper.com/book/queuey-queue"
+}
+```
+
+For a ChiliPiper router
+
+```json
+{
+   "kind": "chili_piper",
+   "selected": "router",
+   "router": "csm-router"
+}
+```
+
+[Merge tags](concepts/personalizing.md) are available for the `href` field; add the right Calendly link as [User data](webhooks/profiles.md) and merge it in the action. (`csm` below refers to a customer success manager)
+
+```json
+{
+   "kind": "chili_piper",
+   "selected": "href",
+   "href": "https://chameleon.na.chilipiper.com/book/{{chilipiper_csm_queue}}"
+}
+```
+
+## `SearchAction` with `kind=figma` Schema :id=schema-search-action-figma
+
+Show a Figma file or prototype directly in your product.
+
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "figma" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+
+```json
+{
+   "kind": "figma",
+   "href": "https://www.figma.com/file/QFEMdNRma0Y1WDcMRCw9Fz/Prototyping-in-Figma?node-id=0-1&t=YfflZMSK0tnWnCCu-0"
+}
+```
+
+
+## `SearchAction` with `kind=helpscout` Schema :id=schema-search-action-helpscout
+
+| Property | Type | Description                                                                                                             |
+| --- | --- |-------------------------------------------------------------------------------------------------------------------------|
+| `kind` | `string` | "helpscout" (required)                                                                                                  |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                 |
+| `helpscout_kind` | `string` | The type of HelpScout Experience to enable. One of: `open_chat`, `open_answers`, `search_term`, or `open_help_center`   |
+| `query` | `string` | The search term to use for this action                                                                                  |
+| `article_url` | `string` | The specific URL / Help article to load                                                                                 |
+| `article_mode` | `string` | Where to display this article. One of: `null`, `menu`, or `new_tab` (defaults to `null` and opens in a HelpScout modal) |
+
+Open the `Beacon` to the default state
+
+```json
+{
+   "kind": "helpscout",
+   "helpscout_kind": "open_chat"
+}
+```
+
+
+Open HelpScout modal in your product to a specific article.
+
+```json
+{
+   "kind": "helpscout",
+   "helpscout_kind": "open_help_center",
+   "article_url": "https://help.your-product.com/article/596-billing-and-plans-guide"
+}
+```
+
+Open the `Beacon` to a specific article.
+
+```json
+{
+   "kind": "helpscout",
+   "helpscout_kind": "open_help_center",
+   "article_url": "https://help.your-product.com/article/596-billing-and-plans-guide",
+   "article_mode": "menu"
+}
+```
+
+
+Open the `Beacon` to the answers tab
+
+```json
+{
+   "kind": "helpscout",
+   "helpscout_kind": "open_answers"
+}
+```
+
+Open the `Beacon` to a specific search query. Help users understand what is available in the help center
+
+```json
+{
+   "kind": "helpscout",
+   "helpscout_kind": "search_term",
+   "query": "Import data",
+}
+```
+
+
+## `SearchAction` with `kind=hubspot_lists` Schema :id=schema-search-action-hubspot_lists
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "hubspot_lists" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+
+```json
+{
+   "kind": "hubspot",
+   "href": "https://meetings.hubspot.com/chameleon-sales/11-chat-30-minutes"
+}
+```
+
+
+## `SearchAction` with `kind=intercom` Schema :id=schema-search-action-intercom
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "intercom" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `selected` | `string` | The type of Experience to enable. One of: `open_chat`, `search_term`, or `open_help_center` |
+| `message` | `string` | A pre-filled message to provide a hint of the proposed message to your team |
+| `search_term_article` | `string` | The search term to use for this action |
+| `specific_article` | `string` | The specific URL / Help article to load |
+| `article_mode` | `string` | Where to display this article |
+
+```json
+{
+   "kind": "intercom",
+   "selected": "open_chat"
+}
+```
+
+
+```json
+{
+   "kind": "intercom",
+   "selected": "open_help_center",
+   "specific_article": "https://help.chameleon.io/en/collections/3572193-chameleon-101"
+}
+```
+
+
+## `SearchAction` with `kind=livestorm` Schema :id=schema-search-action-livestorm
+
+Directly register a user for a webinar session; combine with a second action for `kind=url` that takes them to your "success" page.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "livestorm" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `session_uid` | `string` | The Livestorm Session ID copied from your Livestorm dashboard |
+| `utm_campaign` | `string` | The UTM Campaign parameter for this Livestorm Session registration |
+| `utm_source` | `string` | The UTM Source parameter for this Livestorm Session registration |
+| `utm_medium` | `string` | The UTM Medium parameter for this Livestorm Session registration |
+
+```json
+{
+   "kind": "livestorm",
+   "session_uid": "b820db33-3f2c-4159-a991-126fe03a7931",
+   "utm_source": "chameleon_helpbar"
+}
+```
+
+
+## `SearchAction` with `kind=loom` Schema :id=schema-search-action-loom
+
+Show a Loom video directly in your product.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "loom" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+
+```json
+{
+   "kind": "loom",
+   "href": "https://www.loom.com/share/827d72cda9ed4724b30ba663f9ca00d3"
+}
+```
+
+
+## `SearchAction` with `kind=pitch` Schema :id=schema-search-action-pitch
+
+Show a Pitch presentation directly in your product.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "pitch" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+
+```json
+{
+   "kind": "pitch",
+   "href": "https://pitch.com/public/23e42e85-8142-4401-814e-509b597f06b0"
+}
+```
+
+
+## `SearchAction` with `kind=typeform` Schema :id=schema-search-action-typeform
+
+Show a Typeform survey directly in your product.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "typeform" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use |
+| `mode` | `string` | The Typeform display mode for this survey. One of: `popup`, `drawer_left`, `drawer_right`, or `popover` |
+
+```json
+{
+   "kind": "typeform",
+   "href": "https://trychameleon.typeform.com/to/ahn7QkmE#source=developer_docs",
+   "mode": "popup"
+}
+```
+
+
+## `SearchAction` with `kind=zendesk` Schema :id=schema-search-action-zendesk
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `kind` | `string` | "zendesk" (required) |
+| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `selected` | `string` | The type of Experience to enable. One of: `open_chat`, `search_term`, or `open_help_center` |
+| `search_term_article` | `string` | The search term to use for this action |
+| `specific_article` | `string` | The specific URL / Help article to load |
+
+Open the `window.zE` chat window
+
+```json
+{
+   "kind": "zendesk",
+   "selected": "open_chat"
+}
+```
+
+Search your Zendesk help center for the given search term
+
+```json
+{
+   "kind": "zendesk",
+   "selected": "search_term",
+   "search_term_article": "Import data"
+}
 ```
 
 
