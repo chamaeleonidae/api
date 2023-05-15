@@ -167,8 +167,8 @@ Find all companies with that have a `plan` property with `silver` value:
   "filters": [
     {
       "kind": "property",
-      "property": "plan",
-      "prop": "eq",
+      "prop": "plan",
+      "op": "eq",
       "value": "silver"
     }
   ]
@@ -179,7 +179,7 @@ Find all companies with that have a `plan` property with `silver` value:
 curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      -H "Content-Type: application/json" \
      -X POST \
-     -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
+     -d '{"filters":[{"kind":"property","prop":"plan","op":"eq","value":"silver"}]}' \
      https://api.trychameleon.com/v3/analyze/companies
 ```
 
@@ -242,7 +242,7 @@ GET|POST https://api.trychameleon.com/v3/analyze/companies/count
 curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      -H "Content-Type: application/json" \
      -X POST \
-     -d '{"filters":[{"kind":"property","property":"plan","prop":"eq","value":"silver"}]}' \
+     -d '{"filters":[{"kind":"property","prop":"plan","op":"eq","value":"silver"}]}' \
      https://api.trychameleon.com/v3/analyze/companies/count
 ```
 
