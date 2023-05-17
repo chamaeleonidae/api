@@ -1213,7 +1213,7 @@ type NavigateOpts = {
 | `id`                        | ID        | The Chameleon ID                                                                                                                                                         |
 | `created_at`                | timestamp | When this happened or when this was added to the Database                                                                                                                |
 | `updated_at`                | timestamp | The last time any property was updated                                                                                                                                   |
-| `file`                      | File      | The file to import, please use the [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example) to make this easier.     |
+| `file`                      | File      | The file to import, please use the [template](https://chmln.co/helpbar-content-template) to make this easier.                                                            |
 | `filename`                  | string    | The name of the original file uploaded                                                                                                                                   |
 | `head_columns`              | array     | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
 | `stats`                     | object    | The details of the data itself and of the last run of this SearchImport                                                                                                  |
@@ -1228,30 +1228,9 @@ type NavigateOpts = {
 | `stats.deleted_count`       | number    | The number of records removed by this Import                                                                                                                             |
 
 
-## Download the Search Import CSV template :id=search-imports-template
-
-Start here when adding your product's navigation to the Chameleon HelpBar
-
-#### HTTP Request
-
-```
-GET https://api.trychameleon.com/v3/edit/search_imports/template
-```
-
-## Download the Search Import CSV example :id=search-imports-example
-
-Use this example to see what is possible when adding your product's navigation to the Chameleon HelpBar. Similar to the Template with with real example content
-
-#### HTTP Request
-
-```
-GET https://api.trychameleon.com/v3/edit/search_imports/example
-```
-
-
 ## Create a Search Import :id=search-imports-create
 
-Use `Content-Type: multipart/form-data` to create an Import in one request, include the `file` parameter with a CSV based on the [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example).
+Use `Content-Type: multipart/form-data` to create an Import in one request, include the `file` parameter with a CSV based on the [template](https://chmln.co/helpbar-content-template).
 
 #### HTTP Request
 
@@ -1261,7 +1240,7 @@ POST https://api.trychameleon.com/v3/edit/search_imports
 
 ## Get a Search Import :id=search-imports-show
 
-Useful to track the progress of this import
+Useful to track the progress of this import. Small imports (< 100 rows) will finish within approx 1 second.
 
 #### HTTP Request
 
