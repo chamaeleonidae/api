@@ -341,12 +341,21 @@ GET https://api.trychameleon.com/v3/edit/search_items
 
 Use any of the properties available in the [schema](apis/search.md?id=schema-search-items).
 
-You must always send a `uid` field as the unique identifier for a piece of content. When content relates to a specific database item, include the database ID of that record in the `uid`
+You must always send a `uid` field as the unique identifier for a piece of content (or the Chameleon ID in the url path).
+When content relates to a specific database item, include the database ID of that record in the `uid`
 
 #### HTTP Request
 
+With the parameter of `uid`:
+
 ```
 POST https://api.trychameleon.com/v3/edit/search_items
+```
+
+or if you have stored the SearchItem ID field from when you created it:
+
+```
+PATCH https://api.trychameleon.com/v3/edit/search_items/:id
 ```
 
 ###### Examples
@@ -485,6 +494,48 @@ It also includes a title label of `NEW` themed with an [example theme](apis/sear
 }
 ```
 
+## Batch Update your `SearchItem`s :id=search-items-batch-update
+
+```
+POST https://api.trychameleon.com/v3/edit/search_items/batch
+```
+
+| param     | -        | description                                                                                                  |
+|-----------|----------|--------------------------------------------------------------------------------------------------------------|
+| `ids`     | required | An array of `SearchItem` IDs to update                                                                       |
+| `*others` | optional | Use any of the properties available in the [single SearchItem update](apis/search.md?id=search-items-create) |
+
+
+To update the icon of many items:
+
+```json
+{
+   "ids": [
+     "6f3c42a6dd656232c712de63",
+     "6f4c42a6d92f2c712d656e65",
+     "6f5c42a6df232d656e2c7167"
+   ],
+   "icon": {
+      "kind": "uid",
+      "uid": "Puzzle"
+   }
+}
+```
+
+
+To update the [SearchGroup](apis/search.md?id=schema-search-group) of many items:
+
+```json
+{
+   "ids": [
+     "6f3c42a6dd656232c712de63",
+     "6f4c42a6d92f2c712d656e65",
+     "6f5c42a6df232d656e2c7167"
+   ],
+   "search_group_id": "5f3c4232c712de665632a6d9"
+}
+```
+
 
 ## Delete a `SearchItem`s :id=search-items-destroy
 
@@ -495,6 +546,27 @@ Send the `uid` of a previously created `SearchItem`.
 
 ```
 DELETE https://api.trychameleon.com/v3/edit/search_items
+```
+
+
+## Bulk Delete a `SearchItem`s :id=search-items-bulk-destroy
+
+Send the `ids` of a previously created `SearchItem`.
+
+
+#### HTTP Request
+
+```
+DELETE https://api.trychameleon.com/v3/edit/search_items/batch
+```
+
+```json
+{
+   "ids": [
+     "6f3c42a6dd656232c712de63",
+     "6f5c42a6df232d656e2c7167"
+   ]
+}
 ```
 
 
