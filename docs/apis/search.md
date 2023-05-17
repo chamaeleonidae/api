@@ -341,12 +341,14 @@ GET https://api.trychameleon.com/v3/edit/search_items
 
 Use any of the properties available in the [schema](apis/search.md?id=schema-search-items).
 
-You must always send a `uid` field as the unique identifier for a piece of content (or the Chameleon ID in the url path).
+You must either send a `uid` field (as the unique identifier for a piece of content) OR the Chameleon ID in the url path.
+Using the POST-based endpoint below and sending the required `uid` acts as a "create or update" (upsert).
+
 When content relates to a specific database item, include the database ID of that record in the `uid`
 
 #### HTTP Request
 
-With the parameter of `uid`:
+With the parameter of `uid`; this endpoint will "create or update" (upsert) your content:
 
 ```
 POST https://api.trychameleon.com/v3/edit/search_items
@@ -360,7 +362,7 @@ PATCH https://api.trychameleon.com/v3/edit/search_items/:id
 
 ###### Examples
 
-Add a specific key action within your product for the Company in your DB with ID=14203, navigate to the onboarding page
+Add a specific important action within your product for the Company in your DB with ID=14203, navigate to the onboarding page
 
 ```json
 {
