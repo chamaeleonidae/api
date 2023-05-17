@@ -301,12 +301,13 @@ use the `cursor` to list as many as you need.
 GET https://api.trychameleon.com/v3/edit/search_items
 ```
 
-| param    | -        | description                                                                                                                 |
-|----------|----------|-----------------------------------------------------------------------------------------------------------------------------|
-| `limit`  | optional | Defaults to `50` with a maximum of `500`                                                                                    |
-| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response                                      |
-| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time     |
-| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| param              | -        | description                                                                                                                                     |
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `limit`            | optional | Defaults to `50` with a maximum of `500`                                                                                                        |
+| `before`           | optional | Used when paginating, use directly from the `cursor` object from the previous response                                                          |
+| `before`           | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time                         |
+| `after`            | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time                     |
+| `search_import_id` | optional | Fetch only the `SearchItem`s that were created (or updated most recently) by the given [SearchImport](apis/search.md?id=schema-search-imports). |
 
 
 #### HTTP Response
@@ -1216,7 +1217,7 @@ type NavigateOpts = {
 | `file`                      | File      | The file to import, please use the [template](https://chmln.co/helpbar-content-template) to make this easier.                                                            |
 | `filename`                  | string    | The name of the original file uploaded                                                                                                                                   |
 | `head_columns`              | array     | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
-| `stats`                     | object    | The details of the data itself and of the last run of this SearchImport                                                                                                  |
+| `stats`                     | object    | The details of the data itself and of the last run of this [SearchImport](apis/search.md?id=schema-search-imports).                                                      |
 | `stats.rows_count`          | number    | The number of rows in the file                                                                                                                                           |
 | `stats.last_row`            | number    | The row number of the most recent processed row (used for mid-import progress bar)                                                                                       |
 | `stats.last_import_state`   | string    | The current state of the import                                                                                                                                          |
