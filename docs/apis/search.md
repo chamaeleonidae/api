@@ -260,17 +260,17 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `uid`                | string    | The external ID of the search content                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `title`              | string    | The display title                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `description`        | string    | The display description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `pinned_at`          | timestamp | Only `SearchItem`s with a timestamp here will show up in the "Pinned" / "Recommended" items reach results group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `search_group_id`    | string    | The [SearchGroup](apis/search.md?id=schema-search-groups) that this SearchItem will display in.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `profile_ids`        | none      | The ID of the [User Profile](apis/profiles.md) that has access to this `SearchItem`. Only members these specific [User Profiles](apis/profiles.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `company_ids`        | none      | The ID of the [Company](apis/companies.md) that has access to this `SearchItem`. Only members of this [Company](apis/companies.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `segment_ids`        | none      | The ID of the [Segment](apis/segments.md) that has access to this `SearchItem`. Only current members of this [Segment](apis/segment.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `company_uids`       | none      | The external ID (from in your database) for which Company has access to this `SearchItem`. Only members of this [Company](apis/companies.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `profile_uids`       | none      | The external ID of the [User Profile](apis/profiles.md) that has access to this `SearchItem`. Only members these specific [User Profiles](apis/profiles.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `icon.kind`          | none      | The "kind" of icon being used, one of `uid` or `image`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `icon.uid`           | none      | When using `kind="uid"`, a specific Chameleon supplied svg-based icon [2]. One of: `academic_cap`, `badge_check`, `beaker`, `bell`, `book_open`, `bulb`, `cake`, `calculator`, `calendar`, `chart_bar`, `chart_pie`, `chat_messages`, `chat_dots`, `chip`, `clipboard`, `clock`, `cloud_download`, `cloud`, `code`, `cog`, `color_swatch`, `connection`, `database`, `document_add`, `document_report`, `download`, `film`, `finger_print`, `fire`, `flag`, `folder`, `gift`, `globe`, `home`, `identification`, `key`, `leon`, `library`, `lightning_bolt`, `link`, `location_marker`, `map`, `microsurvey`, `music_note`, `paper_airplane`, `paper_clip`, `photograph`, `pop_out`, `presentation_chart`, `puzzle`, `qr_code`, `question_mark_circle`, `refresh`, `scale`, `search`, `segments`, `server`, `shield_check`, `sparkles`, `speakerphone`, `star`, `sun`, `support`, `table`, `tag`, `target`, `ticket`, `hammer`, `tooltip`, `signpost`, `truck`, `user_circle`, `user`, `users`, `variable`, `boards`, `grid`, `grid_add`, `list`, `warning`, `zoom_in`, `zoom_out`, `thumbs_up`, `thumbs_down`, `cube`, `company`, `click`, `hash`, or `toggle` |
-| `icon.image_url`     | none      | When using `kind="image"`, the url to an appropriate icon for this [SearchGroup](apis/search.md?id=schema-search-groups)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `icon.image_alt`     | none      | When using `kind="image"`, the alt text for the icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `pinned_at`          | timestamp | Only `SearchItem`s with a timestamp here will show up in the "Pinned" / "Recommended" items search results group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `search_group_id`    | string    | The [SearchGroup](apis/search.md?id=schema-search-groups) that this `SearchItem` will display in.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `profile_ids`        | array     | The IDs of the [User Profile](apis/profiles.md) that has access to this `SearchItem`. Only members these specific [User Profiles](apis/profiles.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `company_ids`        | array     | The IDs of the [Company](apis/companies.md) that has access to this `SearchItem`. Only members of this [Company](apis/companies.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `segment_ids`        | array     | The IDs of the [Segment](apis/segments.md) that has access to this `SearchItem`. Only current members of this [Segment](apis/segment.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `company_uids`       | array     | The external ID (from in your database) for which Company has access to this `SearchItem`. Only members of this [Company](apis/companies.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `profile_uids`       | array     | The external ID of the [User Profile](apis/profiles.md) that has access to this `SearchItem`. Only members these specific [User Profiles](apis/profiles.md) will be displayed this `SearchItem` as a search result                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `icon.kind`          | string    | The "kind" of icon being used, one of `uid` or `image`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `icon.uid`           | string    | When using `kind="uid"`, a specific Chameleon supplied svg-based icon [2]. One of: `academic_cap`, `badge_check`, `beaker`, `bell`, `book_open`, `bulb`, `cake`, `calculator`, `calendar`, `chart_bar`, `chart_pie`, `chat_messages`, `chat_dots`, `chip`, `clipboard`, `clock`, `cloud_download`, `cloud`, `code`, `cog`, `color_swatch`, `connection`, `database`, `document_add`, `document_report`, `download`, `film`, `finger_print`, `fire`, `flag`, `folder`, `gift`, `globe`, `home`, `identification`, `key`, `leon`, `library`, `lightning_bolt`, `link`, `location_marker`, `map`, `microsurvey`, `music_note`, `paper_airplane`, `paper_clip`, `photograph`, `pop_out`, `presentation_chart`, `puzzle`, `qr_code`, `question_mark_circle`, `refresh`, `scale`, `search`, `segments`, `server`, `shield_check`, `sparkles`, `speakerphone`, `star`, `sun`, `support`, `table`, `tag`, `target`, `ticket`, `hammer`, `tooltip`, `signpost`, `truck`, `user_circle`, `user`, `users`, `variable`, `boards`, `grid`, `grid_add`, `list`, `warning`, `zoom_in`, `zoom_out`, `thumbs_up`, `thumbs_down`, `cube`, `company`, `click`, `hash`, or `toggle` |
+| `icon.image_url`     | sting     | When using `kind="image"`, the url to an appropriate icon for this [SearchGroup](apis/search.md?id=schema-search-groups)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `icon.image_alt`     | string    | When using `kind="image"`, the alt text for the icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `actions`            | array     | An array of the [`SearchAction`](apis/search.md?id=schema-search-actions) that run when this `SearchItem` is clicked/selected in the HelpBar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `title_labels`       | array     | An array of the [`SearchLabel`](apis/search.md?id=schema-search-labels) items displayed in the title of this `SearchItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `description_labels` | array     | An array of the [`SearchLabel`](apis/search.md?id=schema-search-labels) items displayed under the description of this `SearchItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -301,12 +301,13 @@ use the `cursor` to list as many as you need.
 GET https://api.trychameleon.com/v3/edit/search_items
 ```
 
-| param    | -        | description                                                                                                                 |
-|----------|----------|-----------------------------------------------------------------------------------------------------------------------------|
-| `limit`  | optional | Defaults to `50` with a maximum of `500`                                                                                    |
-| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response                                      |
-| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time     |
-| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| param              | -        | description                                                                                                                                     |
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `limit`            | optional | Defaults to `50` with a maximum of `500`                                                                                                        |
+| `before`           | optional | Used when paginating, use directly from the `cursor` object from the previous response                                                          |
+| `before`           | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time                         |
+| `after`            | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time                     |
+| `search_import_id` | optional | Fetch only the `SearchItem`s that were created (or updated most recently) by the given [SearchImport](apis/search.md?id=schema-search-imports). |
 
 
 #### HTTP Response
@@ -340,17 +341,28 @@ GET https://api.trychameleon.com/v3/edit/search_items
 
 Use any of the properties available in the [schema](apis/search.md?id=schema-search-items).
 
-You must always send a `uid` field as the unique identifier for a piece of content. When content relates to a specific database item, include the database ID of that record in the `uid`
+You must either send a `uid` field (as the unique identifier for a piece of content) OR the Chameleon ID in the url path.
+Using the POST-based endpoint below and sending the required `uid` acts as a "create or update" (upsert).
+
+When content relates to a specific database item, include the database ID of that record in the `uid`
 
 #### HTTP Request
+
+With the parameter of `uid`; this endpoint will "create or update" (upsert) your content:
 
 ```
 POST https://api.trychameleon.com/v3/edit/search_items
 ```
 
+or if you have stored the SearchItem ID field from when you created it:
+
+```
+PATCH https://api.trychameleon.com/v3/edit/search_items/:id
+```
+
 ###### Examples
 
-Add a specific key action within your product for the Company in your DB with ID=14203, navigate to the onboarding page
+Add a specific important action within your product for the Company in your DB with ID=14203, navigate to the onboarding page
 
 ```json
 {
@@ -484,6 +496,48 @@ It also includes a title label of `NEW` themed with an [example theme](apis/sear
 }
 ```
 
+## Batch Update your `SearchItem`s :id=search-items-batch-update
+
+```
+POST https://api.trychameleon.com/v3/edit/search_items/batch
+```
+
+| param     | -        | description                                                                                                  |
+|-----------|----------|--------------------------------------------------------------------------------------------------------------|
+| `ids`     | required | An array of `SearchItem` IDs to update                                                                       |
+| `*others` | optional | Use any of the properties available in the [single SearchItem update](apis/search.md?id=search-items-create) |
+
+
+To update the icon of many items:
+
+```json
+{
+   "ids": [
+     "6f3c42a6dd656232c712de63",
+     "6f4c42a6d92f2c712d656e65",
+     "6f5c42a6df232d656e2c7167"
+   ],
+   "icon": {
+      "kind": "uid",
+      "uid": "Puzzle"
+   }
+}
+```
+
+
+To update the [SearchGroup](apis/search.md?id=schema-search-group) of many items:
+
+```json
+{
+   "ids": [
+     "6f3c42a6dd656232c712de63",
+     "6f4c42a6d92f2c712d656e65",
+     "6f5c42a6df232d656e2c7167"
+   ],
+   "search_group_id": "5f3c4232c712de665632a6d9"
+}
+```
+
 
 ## Delete a `SearchItem`s :id=search-items-destroy
 
@@ -494,6 +548,27 @@ Send the `uid` of a previously created `SearchItem`.
 
 ```
 DELETE https://api.trychameleon.com/v3/edit/search_items
+```
+
+
+## Bulk Delete a `SearchItem`s :id=search-items-bulk-destroy
+
+Send the `ids` of a previously created `SearchItem`.
+
+
+#### HTTP Request
+
+```
+DELETE https://api.trychameleon.com/v3/edit/search_items/batch
+```
+
+```json
+{
+   "ids": [
+     "6f3c42a6dd656232c712de63",
+     "6f5c42a6df232d656e2c7167"
+   ]
+}
 ```
 
 
@@ -1199,8 +1274,8 @@ type NavigateOpts = {
    1. An Free/Startup account is limited to 10 in use across all `SearchGroup`s and in aggregate across all `SearchGroup`s.
    2. A Growth/Enterprise account is limited to 30 in use across all `SearchGroup`s and in aggregate across all `SearchGroup`s.
 3. Each HelpBar can have many groups (`SearchGroup`) and each can be targeted to one or many `Segment`s.
-   1. An Free/Startup account is limited to 5 `SearchGroup`s.
-   2. A Growth/Enterprise account is limited to 15 `SearchGroup`s.
+   1. An Free/Startup account is limited to 20 `SearchGroup`s.
+   2. A Growth/Enterprise account is limited to 100 `SearchGroup`s.
 
 
 
@@ -1213,10 +1288,11 @@ type NavigateOpts = {
 | `id`                        | ID        | The Chameleon ID                                                                                                                                                         |
 | `created_at`                | timestamp | When this happened or when this was added to the Database                                                                                                                |
 | `updated_at`                | timestamp | The last time any property was updated                                                                                                                                   |
-| `file`                      | File      | The file to import, please use the [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example) to make this easier.     |
+| `file`                      | File      | The file to import, please use the [template](https://chmln.co/helpbar-content-template) to make this easier.                                                            |
 | `filename`                  | string    | The name of the original file uploaded                                                                                                                                   |
+| `search_group_id`           | string    | The [SearchGroup](apis/search.md?id=schema-search-groups) that all of the resulting `SearchItem`s will display in.  (and/or this can be customized per row with "HelpBar Group ID" column) |
 | `head_columns`              | array     | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
-| `stats`                     | object    | The details of the data itself and of the last run of this SearchImport                                                                                                  |
+| `stats`                     | object    | The details of the data itself and of the last run of this [SearchImport](apis/search.md?id=schema-search-imports).                                                      |
 | `stats.rows_count`          | number    | The number of rows in the file                                                                                                                                           |
 | `stats.last_row`            | number    | The row number of the most recent processed row (used for mid-import progress bar)                                                                                       |
 | `stats.last_import_state`   | string    | The current state of the import                                                                                                                                          |
@@ -1228,30 +1304,9 @@ type NavigateOpts = {
 | `stats.deleted_count`       | number    | The number of records removed by this Import                                                                                                                             |
 
 
-## Download the Search Import CSV template :id=search-imports-template
-
-Start here when adding your product's navigation to the Chameleon HelpBar
-
-#### HTTP Request
-
-```
-GET https://api.trychameleon.com/v3/edit/search_imports/template
-```
-
-## Download the Search Import CSV example :id=search-imports-example
-
-Use this example to see what is possible when adding your product's navigation to the Chameleon HelpBar. Similar to the Template with with real example content
-
-#### HTTP Request
-
-```
-GET https://api.trychameleon.com/v3/edit/search_imports/example
-```
-
-
 ## Create a Search Import :id=search-imports-create
 
-Use `Content-Type: multipart/form-data` to create an Import in one request, include the `file` parameter with a CSV based on the [template](apis/search.md?id=search-imports-template) or [example](apis/search.md?id=search-imports-example).
+Use `Content-Type: multipart/form-data` to create an Import in one request, include the `file` parameter with a CSV based on the [template](https://chmln.co/helpbar-content-template).
 
 #### HTTP Request
 
@@ -1261,7 +1316,7 @@ POST https://api.trychameleon.com/v3/edit/search_imports
 
 ## Get a Search Import :id=search-imports-show
 
-Useful to track the progress of this import
+Useful to track the progress of this import. Small imports (< 100 rows) will finish within approx 1 second.
 
 #### HTTP Request
 
