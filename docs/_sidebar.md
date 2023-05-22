@@ -21,6 +21,10 @@
   - [Review a checklist status](js/launcher-checklist.md)
   - [Listen to Chameleon events](js/listen.md)
 
+- Guides
+  - [Installing correctly](guides/js/installing-correctly.md)
+  - [HelpBar User-generated content](guides/helpbar/user-generated-content.md)
+
 - Webhooks
   - [Overview](webhooks/overview.md)
   - [User Profiles](webhooks/profiles.md)
