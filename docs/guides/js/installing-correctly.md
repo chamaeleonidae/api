@@ -9,7 +9,8 @@ Chameleon is designed to mirror this in its design of [User Profiles](apis/profi
 
 ## The entrypoint JavaScript :id=on-page-script
 
-The sets up the Chameleon object called `chmln` on the page and adds relevant hooks for loading the rest of Chameleon
+The sets up the Chameleon object called `chmln` on the page and adds relevant hooks for loading the rest of Chameleon.
+Add this script first and then follow it up with the call to `chmln.identify`.
 
 ```javascript
 !function(d,w){var t="...
@@ -49,7 +50,7 @@ chmln.identify(user.id, { uid_hash: user.chameleon_uid_hash, company: { uid: acc
 Imagine that you want to send your Users to the billing page. With this script you can setup a Navigate type of HelpBar [SearchItem](apis/search.md?id=schema-search-items) for the Billing page and link to `/settings/billing`.
 When this item is clicked you will receive a callback to `app:navigate` with opts set to `{ to: "/settings/billing" }`
 
-##### React :id=on-app-navigate-js
+#### React :id=on-app-navigate-js
 
 ```javascript
 chmln.on('app:navigate', (opts) => {
@@ -59,7 +60,7 @@ chmln.on('app:navigate', (opts) => {
 });
 ```
 
-##### React :id=on-app-navigate-react
+#### React :id=on-app-navigate-react
 
 ```jsx
 import { useMemo } from 'react';

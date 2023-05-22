@@ -13,7 +13,7 @@ When a User has access to a Dashboard they will see it in their list of Dashboar
 - A Dashboard can be published/shared to all Users of the Account
 - A Dashboard can be published/shared specific Users
 
-### Sample Data in the Dashy database :id=example-data
+## Sample Data in the Dashy database :id=example-data
 
 ###### Users
 | ID     | Account ID | Name      | [Notes]                         |
@@ -37,7 +37,7 @@ When a User has access to a Dashboard they will see it in their list of Dashboar
 | `498` | `f2d3a`    | `139`   | **Alice** | FY29 Financial reports      |         |
 
 
-### Lifecycle of content (CRUD) :id=lifecycle-crud
+## Lifecycle of content (CRUD) :id=lifecycle-crud
 
 - Create: Add content to HelpBar [example ↓](guides/helpbar/user-generated-content.md?id=examples-crud-create-basic)
 - Read: skip because the content doesn't change
@@ -45,7 +45,7 @@ When a User has access to a Dashboard they will see it in their list of Dashboar
 - Delete: Remove content from HelpBar [example ↓](guides/helpbar/user-generated-content.md?id=examples-crud-delete-basic)
 
 
-#### Create: Add this content to HelpBar :id=examples-crud-create-basic
+### Create: Add this content to HelpBar :id=examples-crud-create-basic
 
 1. **Jane** creates a Dashboard called **Q3 Northstar metrics** it's visible only to **Jane**.
 2. **John** creates a Dashboard called **Website/Ads metrics 2029-03** it's visible only to **John** AND **Jane** but not to new Users who join **Jexar** (since it's visible explicitly to Users `134` and `137`).
@@ -78,7 +78,7 @@ When **Jane**  hits `CMD+k` in your product and searches via HelpBar for "metric
 When **John**  hits `CMD+k` in your product and searches via HelpBar for "metrics" it will display 1 result, "Website/Ads metrics 2029-03".
 When **Alice** hits `CMD+k` in your product and searches via HelpBar for "metrics" it will display 1 result, "Website/Ads metrics 2029-03".
 
-#### Update: Conditionally update with important changes :id=examples-crud-update-basic
+### Update: Conditionally update with important changes :id=examples-crud-update-basic
 
 When **Jane** updates the title and adds a note about how to use this Dashboard. Note: this content will retain its other state such as actions, visibility etc.
 
@@ -99,7 +99,7 @@ curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: applicatio
 
 Now if **Jane** OR **John** hit `CMD+k` in your product and search via HelpBar for "metrics" they will both have one result, "Q3 Northstar metrics - final". 
 
-#### Delete: Remove content from HelpBar :id=examples-crud-delete-basic
+### Delete: Remove content from HelpBar :id=examples-crud-delete-basic
 
 Now that Q3 was a smashing success, **Jane** deletes the Q3 Dashboard
 
