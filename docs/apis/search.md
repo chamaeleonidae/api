@@ -84,6 +84,17 @@ With the Chameleon REST API for Search, you can:
 | `url_options.title`         | none      | The title of the page loaded for URL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `url_options.results_count` | none      | The number of public search results for this URL (0-10)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
+## `SearchPage` Schema :id=schema-search-page
+
+| Property          | Type      | Description                                                          |
+|-------------------|-----------|----------------------------------------------------------------------|
+| `id`              | ID        | The Chameleon ID                                                     |
+| `created_at`      | timestamp | When this happened or when this was added to the Database            |
+| `updated_at`      | timestamp | The last time any property was updated                               |
+| `name`            | string    | The name given by an administrator of Chameleon                      |
+| `position`        | number    | The order that these appear in lists (starting from 0)               |
+| `url_match_all`   | boolean   | Url match all                                                        |
+| `quantifier_urls` | array     | List of URL matching conditions that must match the current page URL |
 
 
 ## `SearchLabelTheme` Schema :id=schema-search-label-themes
