@@ -61,21 +61,25 @@ When receiving a webhook from Chameleon you should:
 
 #### Webhook topics :id=topics
 
-| Topic                   | Example Payload                                                | Included models                                                                                           | Description                                                                                       |
-|-------------------------|----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| `ping`                  | [example](webhooks/overview.md?id=example-ping)                | Account                                                                                                   | Sent as a simple check to make sure the endpoint is working                                       |
-| `response.finished`     | [example](webhooks/overview.md?id=example-response-finished)   | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md)    | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured) |
-| `tour.started`          | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is started; includes the first Step in the payload                             |
-| `tour.completed`        | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is completed; includes the Step the user completed                             |
-| `tour.exited`           | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is exited; includes the Step the user exited                                   |
-| `tour.snoozed`          | [example](webhooks/overview.md?id=example-tour-snooze)         | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
-| `tour.button.clicked`   | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited                                        |
-| `survey.started`        | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Microsurvey is started with the first Step                                          |
-| `survey.completed`      | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                          | Sent when the Microsurvey is completed with the Step the user completed                           |
-| `survey.exited`         | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                          | Sent when the Microsurvey is exited with the Step the user exited                                 |
-| `survey.snoozed`        | [example](webhooks/overview.md?id=example-survey-snooze)       | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
-| `survey.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited                                        |
-| `alert.triggered`       | [example](webhooks/overview.md?id=example-alert-triggered)     | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md)                               | Sent when an Alert is triggered by a violation of the alerting conditions                         |
+| Topic                   | Example Payload                                                | Included models                                                                                                     | Description                                                                                       |
+|-------------------------|----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `ping`                  | [example](webhooks/overview.md?id=example-ping)                | Account                                                                                                             | Sent as a simple check to make sure the endpoint is working                                       |
+| `response.finished`     | [example](webhooks/overview.md?id=example-response-finished)   | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md)              | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured) |
+| `helpbar.answer`        | [example](webhooks/overview.md?id=example-helpbar-answer)      | Action, [User Profile](apis/profiles.md)                                                                            | Sent when a Search query generates an AI Answer in HelpBar                                        |
+| `helpbar.search`        | [example](webhooks/overview.md?id=example-helpbar-search)      | Action, [User Profile](apis/profiles.md)                                                                            | Sent when a Search query displays its results in the HelpBar                                      |
+| `helpbar.item.action`   | [example](webhooks/overview.md?id=example-helpbar-item-action) | Action, [User Profile](apis/profiles.md)                                                                            | Sent when an item in the HelpBar is clicked/actioned                                              |
+| `helpbar.item.error`    | [example](webhooks/overview.md?id=example-helpbar-item-error)  | Action, [User Profile](apis/profiles.md)                                                                            | Sent when an action from an item in the HelpBar throws an error when running                      |
+| `tour.started`          | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Tour is started; includes the first Step in the payload                             |
+| `tour.completed`        | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Tour is completed; includes the Step the user completed                             |
+| `tour.exited`           | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Tour is exited; includes the Step the user exited                                   |
+| `tour.snoozed`          | [example](webhooks/overview.md?id=example-tour-snooze)         | Action, [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                              | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
+| `tour.button.clicked`   | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md)           | Sent when the Tour is exited with the Step the user exited                                        |
+| `survey.started`        | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Microsurvey is started with the first Step                                          |
+| `survey.completed`      | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Microsurvey is completed with the Step the user completed                           |
+| `survey.exited`         | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Microsurvey is exited with the Step the user exited                                 |
+| `survey.snoozed`        | [example](webhooks/overview.md?id=example-survey-snooze)       | Action, [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                     | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
+| `survey.button.clicked` | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md)  | Sent when the Tour is exited with the Step the user exited                                        |
+| `alert.triggered`       | [example](webhooks/overview.md?id=example-alert-triggered)     | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md)                                         | Sent when an Alert is triggered by a violation of the alerting conditions                         |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.chameleon.io/help)**
 
@@ -199,6 +203,162 @@ Every Microsurvey that is finished will send a webhook to this topic.
         "email": "jim@acme.co",
         "name": "Jim B"
       }
+    }
+  }
+}
+```
+
+##### Example: `helpbar.answer` :id=example-helpbar-answer
+
+This is the most important HelpBar webhook; it can directly inform your roadmap for additional updated/documentation.
+
+- Chameleon AI Answering operates best when:
+ - A headline (h2/h3) in the Help center article is relevant to the question being asked
+ - Multiple inputs corroborate from different angles
+- Seeing a `results_count` less than 3 is an important metric to track
+- Use `references` to know where to make improvements
+
+
+```json
+{
+  "id": "5eb7c393300000dcb381a25a",
+  "kind": "helpbar.answer",
+  "sent_at": "2029-12-11T00:28:59.651Z",
+  "data": {
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "query": "What is a widget?",
+      "answer": "A widget is the generic name for the work product of a production run. One might use this term to describe something generic as an example in place of an unimportant specific item.",
+      "results_count": 7,
+      "references": ["https://help.your-product.com/hc/articles/925844-widgets-galore", "https://help.your-product.com/hc/articles/559284-widgets-n-more"],
+      "url": "https://app.your-product.com/widgets/start"
+    },
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    }
+  }
+}
+```
+
+
+##### Example: `helpbar.search` :id=example-helpbar-search
+
+When a User searches for `"data importing"` only 0 results were found. This indicates a gap in your Help center.
+
+```json
+{
+  "id": "5eb7c393300000dcb381a25a",
+  "kind": "helpbar.search",
+  "sent_at": "2029-12-11T00:29:59.651Z",
+  "data": {
+    "action": {
+      "id": "5f885a88e7daf3000e3eb4f7",
+      "query": "data importing",
+      "results_count": 2,
+      "url": "https://app.your-product.com/widgets/import"
+    },
+    "profile": {
+      "id": "5f885a88f30e7da00e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 85,
+      ...
+    }
+  }
+}
+```
+
+When a User searches for `"widget categories"` only 7 results were found.
+
+```json
+{
+  "id": "5eb7c393300000dcb381a25a",
+  "kind": "helpbar.search",
+  "sent_at": "2029-12-11T00:28:30.651Z",
+  "data": {
+    "action": {
+      "id": "5f885a8af30008e7de3eb4f9",
+      "query": "widget categories",
+      "results_count": 7,
+      "url": "https://app.your-product.com/widgets/import"
+    },
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 93,
+      ...
+    }
+  }
+}
+```
+
+
+##### Example: `helpbar.item.action` :id=example-helpbar-item-action
+
+When a helpbar search result item is clicked (or actioned)
+
+```json
+{
+  "id": "5eb7c393300000dcb381a25a",
+  "kind": "helpbar.item.action",
+  "sent_at": "2029-12-11T00:28:18.651Z",
+  "data": {
+    "action": {
+      "id": "5f885a8af30008e7de3eb4f9",
+      "item_uid": "data-onboarding",
+      "href": "https://help.your-product.com/hc/articles/559284-data-onboarding",
+      "kinds": ["url"]
+    },
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 93,
+      ...
+    }
+  }
+}
+```
+
+##### Example: `helpbar.item.error` :id=example-helpbar-item-error
+
+When a helpbar search result item is clicked (or actioned) and then encounters an error processing the actions.
+
+In the example below, the `script` item is not working properly and should be checked
+
+```json
+{
+  "id": "5eb7c393300000dcb381a25a",
+  "kind": "helpbar.item.action",
+  "sent_at": "2029-12-11T00:28:18.651Z",
+  "data": {
+    "action": {
+      "id": "5f885a8af30008e7de3eb4f9",
+      "item_uid": "demo-upgrade",
+      "href": "https://calendly.com/your-product/demo-upgrade-chat",
+      "kinds": ["script", "calendly"]
+    },
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 93,
+      ...
     }
   }
 }
