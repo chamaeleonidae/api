@@ -1,6 +1,6 @@
 # Custom Triggers
 
-**Custom Triggers introduces a powerful mechanism for triggering and displaying steps using short code snippets. By providing a function or a promise as the trigger, it can dynamically evaluate any desired logic or asynchronous operations to determine whether the step should be triggered and shown.**
+**Custom trigger allows users to create highly customizable and responsive experiences within the system. Using custom logic or leveraging promises to perform complex operations and dynamically control the visibility of experiences based on real-time data, user interactions, or external events.**
 
 ---
 
