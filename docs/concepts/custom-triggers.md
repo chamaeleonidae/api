@@ -1,6 +1,6 @@
 # Custom Triggers
 
-**Custom triggers allow users to create highly customizable and responsive experiences within the system. Using custom logic or leveraging promises to perform complex operations and dynamically control the visibility of experiences based on real-time data, or user interactions.**
+**Custom triggers allow users to create highly customizable and responsive experiences by using custom logic or leveraging promises to perform complex operations and dynamically control the visibility of experiences based on real-time data, or user interactions.**
 
 ---
 
