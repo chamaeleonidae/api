@@ -34,7 +34,7 @@ The step will be displayed accordingly if the condition is true
 
 ```
 const input = document.getElementById('user-age');
-const age = parseInt(input) || 0;
+const age = parseInt(input.value) || 0;
 return age > 18;
 ```
 
