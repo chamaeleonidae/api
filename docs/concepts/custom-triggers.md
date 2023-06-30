@@ -33,7 +33,7 @@ fetch('https://jsonplaceholder.typicode.com/todos/x')
 The step will be displayed accordingly if the condition is true
 
 ```
-const input = document.getElementByName('user-age');
+const input = document.getElementById('user-age');
 const age = parseInt(input) || 0;
 return age > 18;
 ```
