@@ -24,10 +24,10 @@ fetch('https://jsonplaceholder.typicode.com/todos/1')
 .then(data => data.id === 0);
 ```
 
-A non-empty response is considered a truthy value, the step will be displayed.
+The request fails, the step won't be displayed.
 
 ```
-fetch('https://jsonplaceholder.typicode.com/todos/1')
+fetch('https://jsonplaceholder.typicode.com/todos/x')
 ```
 
 The step will be displayed accordingly if the condition is true
