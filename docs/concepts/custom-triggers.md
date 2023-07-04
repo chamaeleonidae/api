@@ -27,7 +27,7 @@ fetch('https://jsonplaceholder.typicode.com/todos/1')
 The request fails, the step won't be displayed.
 
 ```
-fetch('https://jsonplaceholder.typicode.com/todos/x')
+fetch('https://jsonplaceholder.typicode.com/todos/not-an-id')
 ```
 
 The step will be displayed accordingly if the condition is true
@@ -35,23 +35,22 @@ The step will be displayed accordingly if the condition is true
 ```
 const input = document.getElementById('user-age');
 const age = parseInt(input.value) || 0;
-return age > 18;
+
+age > 18
 ```
 
 The step will be displayed once the promise is resolved, after 5 seconds
 
 ```
-const promise = new Promise(function(resolve, reject) {
-  setTimeout(function(){ resolve("Display"); }, 5000);
+new Promise((resolve, reject) => {
+  setTimeout(() => { resolve("Display"); }, 5000);
 });
-promise
 ```
 
 The step won't be displayed as the promise will be rejected, no matter the value.
 
 ```
-const promise = new Promise(function(resolve, reject) {
-  setTimeout(function(){ reject(true); }, 5000);
+new Promise((resolve, reject) => {
+  setTimeout(() => { reject(true); }, 5000);
 });
-promise
 ```
