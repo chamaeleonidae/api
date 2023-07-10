@@ -54,3 +54,22 @@ new Promise((resolve, reject) => {
   setTimeout(() => { reject(true); }, 5000);
 });
 ```
+
+The step will display if the browser being used is Chrome
+
+```
+const { userAgent, vendor } = navigator;
+/chrome/i.test(userAgent) && /google inc/i.test(vendor);
+```
+
+The step will display if macOS (Mac OS X) is being used:
+
+```
+/Mac/.test(navigator.platform);
+```
+
+Using data from user profile, the step will display if the user is in a premium plan and is located in the US:
+
+```
+chmln.data.profile.get('plan') === 'premium' && chmln.data.profile.get('country') === 'US';
+```
