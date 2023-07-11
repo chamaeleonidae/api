@@ -8,7 +8,7 @@ Custom Triggers are available for Tours, Microsurveys and Tooltips as an on-page
 
 #### Examples
 
-The following request will resolve to a boolean, true in this case, the step will be displayed
+The following request will resolve to a boolean, true in this case, the step will be displayed.
 
 ```
 fetch('https://jsonplaceholder.typicode.com/todos/1')
@@ -30,7 +30,7 @@ The request fails, the step won't be displayed.
 fetch('https://jsonplaceholder.typicode.com/todos/not-an-id')
 ```
 
-The step will be displayed accordingly if the condition is true
+The step will be displayed accordingly if the condition is true.
 
 ```
 const input = document.getElementById('user-age');
@@ -39,7 +39,7 @@ const age = parseInt(input.value) || 0;
 age > 18
 ```
 
-The step will be displayed once the promise is resolved, after 5 seconds
+The step will be displayed once the promise is resolved, after 5 seconds.
 
 ```
 new Promise((resolve, reject) => {
@@ -62,7 +62,7 @@ const { userAgent, vendor } = navigator;
 /chrome/i.test(userAgent) && /google inc/i.test(vendor);
 ```
 
-The step will display if MacOS is being used:
+The step will display if MacOS is being used.
 
 ```
 /Mac/.test(navigator.platform);
