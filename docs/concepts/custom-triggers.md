@@ -55,21 +55,59 @@ new Promise((resolve, reject) => {
 });
 ```
 
-The step will display if the browser being used is Chrome
+The step will display if the user is using the Chrome browser.
 
 ```
 const { userAgent, vendor } = navigator;
 /chrome/i.test(userAgent) && /google inc/i.test(vendor);
 ```
 
-The step will display if macOS (Mac OS X) is being used:
+The step will display if MacOS is being used:
 
 ```
 /Mac/.test(navigator.platform);
 ```
 
-Using data from user profile, the step will display if the user is in a premium plan and is located in the US:
+Using data from user profile.
 
 ```
 chmln.data.profile.get('plan') === 'premium' && chmln.data.profile.get('country') === 'US';
+```
+
+The following conditional statement could be used to perform certain actions based on a checkbox's checked state and the user's plan.
+
+```
+const checkbox = document.getElementById('unsubscribe-checkbox');
+checkbox.checked && user.plan === 'trial';
+```
+
+This code creates a promise that asynchronously checks for the existence of an element in the DOM and resolves or rejects based on whether the element is found within a specified timeout period. This approach can be useful when dealing with asynchronous rendering or delayed content loading. It allows you to perform actions or handle the element once it becomes available.
+
+```
+new Promise((resolve, reject) => {
+  const interval = setInterval(() => {
+    const el = document.querySelector('#my_element');
+    if (el) {
+      clearInterval(interval);
+      resolve('Element found');
+    }
+  }, 100); // Check every 100 milliseconds
+
+  setTimeout(() => {
+    clearInterval(interval);
+    reject('Timeout: Element not found');
+  }, 5000);
+});
+```
+
+In this scenario, the promise is used in combination with a click listener on the confirm button. It allows you to control the execution flow and handle asynchronous tasks based on user interactions.
+
+```
+new Promise((resolve, reject) => {
+  const confirmButton = document.getElementById('my-button');
+
+  confirmButton.addEventListener('click', () => {
+    resolve('Button clicked');
+  });
+});
 ```
