@@ -4,7 +4,7 @@
 
 ---
 
-Custom Triggers are available for Tours, Microsurveys and Tooltips as an on-page trigger in the Display Rules section.
+Custom Triggers are available for Tours and Microsurveys as an on-page trigger in the Display Rules section.
 
 #### Examples
 
