@@ -753,11 +753,11 @@ After you have exposed a function on the `window` object within your application
 
 Show an Airtable form directly in your product.
 
-| Property | Type | Description |
-| --- | --- | --- |
-| `kind` | `string` | "airtable" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
-| `href` | `string` | The URL to use |
+| Property         | Type | Description                                                                                             |
+|------------------| --- |---------------------------------------------------------------------------------------------------------|
+| `kind`           | `string` | "airtable" (required)                                                                                   |
+| `helpbar_state`  | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href`           | `string` | The URL to use                                                                                          |
 
 ```json
 {
@@ -766,6 +766,22 @@ Show an Airtable form directly in your product.
 }
 ```
 
+## `SearchAction` with `kind=arcade` Schema :id=schema-search-action-arcade
+
+Launch an Arcade Demo in a full screen modal
+
+| Property        | Type      | Description                                                                                             |
+|-----------------|-----------|---------------------------------------------------------------------------------------------------------|
+| `kind`          | `string`  | "arcade" (required)                                                                                     |
+| `helpbar_state` | `string`  | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href`          | `string`  | The URL to use (Arcade Share URL)                                                                       |
+
+```json
+{
+   "kind": "arcade",
+   "href": "https://app.arcade.software/share/E4EoapWRfxxeN3nX1rRe"
+}
+```
 
 ## `SearchAction` with `kind=calendly` Schema :id=schema-search-action-calendly
 
@@ -775,7 +791,7 @@ Show a Calendly scheduling modal directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "calendly" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `href` | `string` | The URL to use |
 
 ```json
@@ -802,7 +818,7 @@ Show a ChiliPiper scheduling modal directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "chili_piper" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `selected` | `string` | The type of Experience to enable. One of: `router` or `href` |
 | `router` | `string` | The ChiliPiper Router name associated with this calendar |
 | `href` | `string` | The URL to use |
@@ -837,6 +853,25 @@ For a ChiliPiper router
 }
 ```
 
+## `SearchAction` with `kind=embed` Schema :id=schema-search-action-embed
+
+Launch any embeddable page in a full screen modal.
+
+
+| Property        | Type     | Description                                                                                             |
+|-----------------|----------|---------------------------------------------------------------------------------------------------------|
+| `kind`          | `string` | "embed" (required)                                                                                     |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href`          | `string` | The URL to use (this URL needs to be a embeddable)                                                      |
+
+```json
+{
+   "kind": "embed",
+   "href": "https://content.acme.co/embeds/custom-widgets/23s2a"
+}
+```
+
+
 ## `SearchAction` with `kind=figma` Schema :id=schema-search-action-figma
 
 Show a Figma file or prototype directly in your product.
@@ -845,7 +880,7 @@ Show a Figma file or prototype directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "figma" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `href` | `string` | The URL to use |
 
 ```json
@@ -855,13 +890,30 @@ Show a Figma file or prototype directly in your product.
 }
 ```
 
+## `SearchAction` with `kind=google` Schema :id=schema-search-action-google
+
+Show a Google Doc / Sheet / Form / Slides in a full screen modal.
+
+
+| Property | Type | Description                                                                                             |
+| --- | --- |---------------------------------------------------------------------------------------------------------|
+| `kind` | `string` | "google" (required)                                                                                     |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href` | `string` | The URL to use (this Google doc needs to be "Published to Web" to be embeddable)                        |
+
+```json
+{
+   "kind": "google",
+   "href": "https://docs.google.com/document/d/e/2PACX-1vQ7tXBCx-9gAlzHvROHNGC1_cklni0CmbBPHk/pub"
+}
+```
 
 ## `SearchAction` with `kind=helpscout` Schema :id=schema-search-action-helpscout
 
 | Property | Type | Description                                                                                                             |
 | --- | --- |-------------------------------------------------------------------------------------------------------------------------|
 | `kind` | `string` | "helpscout" (required)                                                                                                  |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                 |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                 |
 | `helpscout_kind` | `string` | The type of HelpScout Experience to enable. One of: `open_chat`, `open_answers`, `search_term`, or `open_help_center`   |
 | `query` | `string` | The search term to use for this action                                                                                  |
 | `article_url` | `string` | The specific URL / Help article to load                                                                                 |
@@ -924,7 +976,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "hubspot_lists" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `href` | `string` | The URL to use |
 
 ```json
@@ -940,7 +992,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "intercom" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `selected` | `string` | The type of Experience to enable. One of: `open_chat`, `search_term`, or `open_help_center` |
 | `message` | `string` | A pre-filled message to provide a hint of the proposed message to your team |
 | `search_term_article` | `string` | The search term to use for this action |
@@ -971,7 +1023,7 @@ Directly register a user for a webinar session; combine with a second action for
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "livestorm" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `session_uid` | `string` | The Livestorm Session ID copied from your Livestorm dashboard |
 | `utm_campaign` | `string` | The UTM Campaign parameter for this Livestorm Session registration |
 | `utm_source` | `string` | The UTM Source parameter for this Livestorm Session registration |
@@ -993,13 +1045,30 @@ Show a Loom video directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "loom" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `href` | `string` | The URL to use |
 
 ```json
 {
    "kind": "loom",
    "href": "https://www.loom.com/share/827d72cda9ed4724b30ba663f9ca00d3"
+}
+```
+
+## `SearchAction` with `kind=navattic` Schema :id=schema-search-action-navattic
+
+Launch an Navattic Demo in a full screen modal.
+
+| Property        | Type     | Description |
+|-----------------|----------| --- |
+| `kind`          | `string` | "navattic" (required) |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `href`          | `string` | The URL to use |
+
+```json
+{
+   "kind": "navattic",
+   "href": "https://capture.navattic.com/cl4r18309ml5cngqz3e4fu84k"
 }
 ```
 
@@ -1011,7 +1080,7 @@ Show a Pitch presentation directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "pitch" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `href` | `string` | The URL to use |
 
 ```json
@@ -1029,7 +1098,7 @@ Show a Typeform survey directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "typeform" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `href` | `string` | The URL to use |
 | `mode` | `string` | The Typeform display mode for this survey. One of: `popup`, `drawer_left`, `drawer_right`, or `popover` |
 
@@ -1047,7 +1116,7 @@ Show a Typeform survey directly in your product.
 | Property | Type | Description |
 | --- | --- | --- |
 | `kind` | `string` | "zendesk" (required) |
-| `helpbar_state` | string | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
+| `helpbar_state` | `string` | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open` |
 | `selected` | `string` | The type of Experience to enable. One of: `open_chat`, `search_term`, or `open_help_center` |
 | `search_term_article` | `string` | The search term to use for this action |
 | `specific_article` | `string` | The specific URL / Help article to load |
