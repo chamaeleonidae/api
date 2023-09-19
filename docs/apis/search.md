@@ -1429,13 +1429,13 @@ chmln.show('helpbar', options)
 - Prefill query
 
 ```
-chmln.show('helpbar', { query: 'Help center' })
+chmln.show('helpbar', { query: 'annual billing' })
 ```
 
 - When pre-filled as a question, this will trigger the AI to provide an asnwer.
 
 ```
-chmln.show('helpbar', { query: 'What's a tour?' })
+chmln.show('helpbar', { query: 'What is a tour?' })
 ```
 
 - Specify placeholder text:
