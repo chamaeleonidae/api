@@ -1420,7 +1420,7 @@ chmln.show('helpbar', options)
 
 #### Options:
 
-- `query` (optional): Specifies a pre-filled query string to assist users in formulating their inquiries. If prefilled as a question, it will also trigger the AI to generate an aswer.
+- `query` (optional): Specifies a pre-filled query string to assist users in formulating their inquiries. If pre-filled as a question, it will also trigger the AI to generate an aswer.
 
 - `placeholder` (optional): Sets a custom placeholder text within the HelpBar, guiding users on what they can search for or ask.
 
