@@ -1406,7 +1406,7 @@ GET https://api.trychameleon.com/v3/edit/search_imports/:id
 
 ## Trigger HelpBar :id=trigger-search-api
 
-This command triggers the display of the HelpBar. Additionally, you can use variations of this command with options to prefill a query or specify a custom placeholder, enhancing the user experience and engagement with the HelpBar.
+This command triggers the display of the HelpBar. You can also use variations of this command with options to prefill a query or specify a custom placeholder, enhancing the user experience and engagement with the HelpBar.
 
 ```
 chmln.show('helpbar')
@@ -1420,7 +1420,7 @@ chmln.show('helpbar', options)
 
 #### Options:
 
-- `query` (optional): Specifies a pre-filled query string to assist users in formulating their inquiries. If pre-filled as a question, it will also trigger the AI to generate an aswer.
+- `query` (optional): Specifies a pre-filled query string to assist users in formulating their inquiries. If pre-filled as a question, it will also trigger the AI to generate an answer.
 
 - `placeholder` (optional): Sets a custom placeholder text within the HelpBar, guiding users on what they can search for or ask.
 
