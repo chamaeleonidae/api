@@ -83,7 +83,46 @@ GET https://api.chameleon.io/v3/edit/surveys
 }
 ```
 
+## Update a Microsurvey :id=surveys-update
 
+Update a single Microsurvey to change the [Environments](apis/urls.md) or to Publish it.
+
+#### HTTP Request
+
+```
+PATCH https://api.chameleon.io/v3/edit/surveys/:id
+```
+
+| param           | -        | description                                                                                     |
+|-----------------|----------|-------------------------------------------------------------------------------------------------|
+| `id`            | required | A Microsurvey ID to update                                                                      |
+| `urls_group_id` | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
+| `published_at`  | optional | The published time of this Microsurvey (set to now to trigger a publish)                        |
+
+To **Publish** the Microsurvey
+
+```json
+{
+  "published_at": "2029-04-07T12:18:00Z"
+}
+```
+
+To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
+
+```json
+{
+  "url_group_id": "+5e3c4232c712de666d55632a"
+}
+```
+
+
+To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
+
+```json
+{
+  "url_group_id": "-5e3c4232c712de666d55632a"
+}
+```
 
 ## Filtering by Segment :id=filter-segment
 

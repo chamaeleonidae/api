@@ -47,6 +47,7 @@ With the Chameleon API for Tours, you can:
 | `stats.exited_count` | number | Number of your end-users who dismissed/exited this |
 | `stats.last_exited_at` | timestamp | Most recent time any user dismissed/exited this |
 
+
 ## List Tours :id=campaigns-index
 
 List all the  Tours that follow the specified parameters.
@@ -94,13 +95,56 @@ GET https://api.chameleon.io/v3/edit/tours
 }
 ```
 
+## Update a Tour :id=campaigns-update
+
+Update a single Tour to change the [Environments](apis/urls.md) or to Publish it.
+
+#### HTTP Request
+
+```
+PATCH https://api.chameleon.io/v3/edit/tours/:id
+```
+
+| param           | -        | description                                                                                     |
+|-----------------|----------|-------------------------------------------------------------------------------------------------|
+| `id`            | required | A Tour ID to update                                                                             |
+| `urls_group_id` | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
+| `published_at`  | optional | The published time of this Tour (set to now to trigger a publish)                               |
+
+
+To **Publish** the Tour send the current timestamp in `iso8601` format
+
+```json
+{
+  "published_at": "2029-04-07T12:18:00Z"
+}
+```
+
+To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
+
+```json
+{
+  "url_group_id": "+5e3c4232c712de666d55632a"
+}
+```
+
+
+To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
+
+```json
+{
+  "url_group_id": "-5e3c4232c712de666d55632a"
+}
+```
+
+
 ## Filtering by Segment :id=filter-segment
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
 ## Retrieve a Tour :id=campaigns-show
 
-Retrieve a single  Tour.
+Retrieve a single Tour.
 
 #### HTTP Request
 
