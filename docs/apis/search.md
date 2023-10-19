@@ -1171,13 +1171,13 @@ chmln.on('app:navigate', (opts: NavigateOpts) => {
 
 ```javascript
 
-chmln.on('helpbar:search', (opts: SearchOpts, ctx: Context) => {
+chmln.on('helpbar:search:content', (opts: SearchOpts, ctx: Context) => {
   /*
-  Optional:
+  Optional for User generated content search:
     - Generally Chameleon will handle search for you
     - If you need to add custom "Search" logic use this event to pass back the right items, two options:
       - directly return an array<SearchGroup>; include and `id`, `title`, and `search_items` keys for each SearchGroup
-      - return a Promise that will resolve with the first argument being an array<SearchItem>.
+      - return a Promise that will resolve with the first argument being an array<SearchGroup>.
     - Best used when you already use Algolia or have a custom search endpoint internally
 
   Called when:
@@ -1188,6 +1188,38 @@ chmln.on('helpbar:search', (opts: SearchOpts, ctx: Context) => {
    return null (or don't implement) to use the search results as pulled from Chameleon
 
    opts.query is the search term queried for
+
+   */
+});
+
+chmln.on('helpbar:search:external', (opts: SearchOpts, ctx: Context) => {
+  /*
+  Optional for Help center search:
+    - Generally Chameleon will handle search for you
+    - If you need to add custom "Help center search" logic use this event to pass back the right items, two options:
+      - directly return an array<SearchGroup>; include and `id`, `title`, and `search_items` keys for each SearchGroup
+      - return a Promise that will resolve with the first argument being an array<SearchGroup>.
+    - Best used when you use a Help center that Chameleon does not integrate with
+
+  Called when:
+    - The User has entered in a query; when a user enters text and pauses
+
+   return array<SearchGroup>
+   return Promise that resolves with the first argument as array<SearchGroup>
+   return null (or don't implement) to use the search results as pulled from Chameleon
+
+   opts.query is the search term queried for
+
+   */
+});
+
+chmln.on('helpbar:search:external', (opts: AnswerOpts, ctx: Context) => {
+  /*
+  Optional for tracking AI Answering
+    - Know when an answer is generated including the question and answer
+
+   opts.query is the question
+   opts.answer is the AI generated answer
 
    */
 });
@@ -1312,6 +1344,11 @@ type BlankOpts = {
 
 type SearchOpts = {
   query: string,
+};
+
+type AnswerOpts = {
+  query: string,
+  answer: string,
 };
 
 type SearchItemsOpts = {
