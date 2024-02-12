@@ -196,4 +196,4 @@ The Deletion is an internal Chameleon record that can be referenced as proof of 
 
 ## Delete many User Profiles :id=delete-many
 
-Please use [this gist]([url](https://gist.github.com/bnorton/f8f3cf5ecf7fc72d0586ad1774ca7802) to delete users via a CSV!
+Please use [this gist](https://gist.github.com/bnorton/f8f3cf5ecf7fc72d0586ad1774ca7802) to delete users via a CSV!
