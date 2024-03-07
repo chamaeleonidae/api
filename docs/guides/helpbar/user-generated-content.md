@@ -61,17 +61,17 @@ When a User has access to a Dashboard they will see it in their list of Dashboar
 # 1.
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
   -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-413", "title": "Q3 Northstar metrics", "profile_uids": ["134"], actions: [{ "kind": "navigate", "url": "/dashboards/413" }] }' \
-  'https://api.chameleon.io/edit/v3/search_items'
+  'https://api.chameleon.io/v3/edit/search_items'
 
 # 2.
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
   -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-476", "title": "Website/Ads metrics 2029-03", "profile_uids": ["134", "137"], actions: [{ "kind": "navigate", "url": "/dashboards/476" }] }' \
-  'https://api.chameleon.io/edit/v3/search_items'
+  'https://api.chameleon.io/v3/edit/search_items'
 
 # 3.
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
   -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-498", "title": "FY29 Financial reports", "company_uids": ["f2d3a"], actions: [{ "kind": "navigate", "url": "/dashboards/498" }] }' \
-  'https://api.chameleon.io/edit/v3/search_items'
+  'https://api.chameleon.io/v3/edit/search_items'
 ```
 
 When **Jane**  hits `CMD+k` in your product and searches via HelpBar for "metrics" it will display 2 results, "Q3 Northstar metrics" and "Website/Ads metrics 2029-03".
@@ -85,7 +85,7 @@ When **Jane** updates the title and adds a note about how to use this Dashboard.
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
   -d '{"uid": "dashboards-413", "title": "Q3 Northstar metrics - final", "description": "See how we are tracking for Q3 and help hit goals" }' \
-  'https://api.chameleon.io/edit/v3/search_items'
+  'https://api.chameleon.io/v3/edit/search_items'
 ```
 
 When **Jane** has finalized the metrics and makes this visible to the full **Jexar** Account. Setting `company_uids` will allow
@@ -94,7 +94,7 @@ any User on the given Account access to search for this content
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
   -d '{"uid": "dashboards-413", "company_uids": ["d3fa1"] }' \
-  'https://api.chameleon.io/edit/v3/search_items'
+  'https://api.chameleon.io/v3/edit/search_items'
 ```
 
 Now if **Jane** OR **John** hit `CMD+k` in your product and search via HelpBar for "metrics" they will both have one result, "Q3 Northstar metrics - final". 
@@ -106,6 +106,6 @@ Now that Q3 was a smashing success, **Jane** deletes the Q3 Dashboard
 ```bash
 curl -X DELETE -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
   -d '{"uid": "dashboards-413"}' \
-  'https://api.chameleon.io/edit/v3/search_items'
+  'https://api.chameleon.io/v3/edit/search_items'
 ```
 
