@@ -128,9 +128,9 @@ It is also possible to clear a user profile through the [Chameleon Dashboard](ht
 #### HTTP Request
 
 ```
-DELETE https://api.chameleon.io/v3/observe/profiles/:id
+DELETE https://api.chameleon.io/v3/edit/profiles/:id
 # OR
-DELETE https://api.chameleon.io/v3/observe/profiles?uid=:uid
+DELETE https://api.chameleon.io/v3/edit/profiles?uid=:uid
 ```
 
 | param | -        | description                                                  |
