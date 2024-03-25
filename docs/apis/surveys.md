@@ -1,7 +1,7 @@
 # Microsurveys
 
 **Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.**
-*To know more about Surveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/1752073-surveys).*
+*To know more about Surveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/7038460-microsurveys).*
 
 ------
 
