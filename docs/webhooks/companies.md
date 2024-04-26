@@ -69,7 +69,7 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies
 
 ## Bulk Create/Update Companies :id=companies-bulk
 
-- When sending a bulk create/update send an array of Company objects as the `companies` parameter
+- When sending a bulk create/update, send an array of Company objects as the `companies` parameter
 - For each Company, send the Company ID as `uid` and any other properties pertinent to that Company.
 
 #### HTTP Request
