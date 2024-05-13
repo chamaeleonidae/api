@@ -23,11 +23,16 @@ Using Chameleon's API for Microsurvey responses, you can:
 | `button_text` | string | The text of the button when clicked |
 | `button_order` | number | The 0-indexed index of the button |
 | `button_id` | ID | The Chameleon ID of the button |
-| `input_text` | string | Text comment left by the user (if configured) |
-| `dropdown_items` | string | For a dropdown Microsurvey, the selected options from the dropdown |
+| `input_text` | string | Text comment left by the user (if configured) for Input Microsurveys 1st Step or Question 1 in the Follow Up Step |
+| `input_text2` | string | Text comment left by the user (if configured) for Question 2 in the Follow Up Step |
+| `dropdown_items` | string | For a dropdown Microsurvey, the selected options from the dropdown on the 1st Step |
 | `other_text` | string | For a dropdown Microsurvey, the alternative text comment left by the user (if configured) |
-| `comment_step_dropdown_items` | string | For any kind of Microsurvey, the selected options from the comment step dropdown |
-| `comment_step_other_text` | string | For any kind of Microsurvey, the alternative text comment left by the user as the dropdown answer (if configured) |
+| `comment_step_dropdown_items` | string | For any kind of Microsurvey, the selected options from the Follow Up Step dropdown in Question 1 |
+| `comment_step_other_text` | string | For any kind of Microsurvey, the alternative text comment left by the user as the dropdown answer (if configured) in Question 1 |
+| `comment_step_dropdown_items2` | string | For any kind of Microsurvey, the selected options from the Follow Up Step dropdown in Question 2 |
+| `comment_step_other_text2` | string | For any kind of Microsurvey, the alternative text comment left by the user as the dropdown answer (if configured) in Question 2 |
+| `comment_step_buttons_selected` | string | For any kind of Microsurvey, the selected option(s) from the Follow Up Step buttons in Question 1 |
+| `comment_step_buttons_selected2` | string | For any kind of Microsurvey, the selected option(s) from the Follow Up Step buttons in Question 2 |
 | `finished_at` | timestamp | When the last step of Microsurvey response was completed |
 | `profile` | object | An expandable [Profile](apis/profiles.md) model |
 | `profile.company` | none | An expandable [Company](apis/companies.md) model embedded in the profile |
