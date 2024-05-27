@@ -2,7 +2,7 @@
 
 **Chameleon's REST API allows you to interact with information in Chameleon to integrate it with your own systems. It's meant to be flexible and adapt to your own use cases.**
 
-Requests look like this: `curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.chameleon.io/...` -- see the pafges below for more info
+Requests look like this: `curl -H "X-Account-Secret: ACCOUNT_SECRET" https://api.chameleon.io/...` -- see the pages below for more info
 
  - [Authentication](concepts/authentication.md)
  - [Pagination](concepts/pagination.md)
