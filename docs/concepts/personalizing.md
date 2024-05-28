@@ -282,6 +282,43 @@ window.chameleonContent = {
 {{global "chameleonContent.more_help_demo_offering.account_manager_calendly"}}
 ```
 
+#### Call a function (show a alert modal)
+
+> Note that this function should be added to your product's codebase to provide extended functionality. In this example we will assume you have a `performAction` function defined like this:
+
+```javascript
+//
+// Example showAlert function added to your frontend codebase
+//
+window.performAction = (type, text, options) => {
+  if(type === 'create_draft') {
+    // Create the new draft and then route to the editing page
+    //  Use the text as the title of the new Draft or to generate AI content
+    //
+    // From example [1], type='create_draft' and text='My first draft' (leaving options undefined)
+    //
+  } else if(type === 'create_import') {
+    // Create a new data import and route to where the data import workflow starts
+    //  Use the text as the input to GPT to generate the template
+    //
+    // From example [2], type='create_import', text='First Contacts' and options={ data_type: 'Contact', via: 'Chameleon' }
+    //
+  }
+}
+```
+
+```text
+# [1] Create a new draft with this title
+{{global 'performAction' 'create_draft' 'My first draft'}}
+
+# Create a new draft with this Prompt to your draft generator
+{{global 'performAction' 'create_draft' 'Generate placeholder text relating to a list of important items to remember for publishing content'}}
+
+# [2] Create a new data import passing the data_type and via options
+{{global 'performAction' 'create_import' 'First Contacts' data_type='Contact' via='Chameleon'}}
+
+```
+
 
 ## Examples using `delivery` helper :id=examples-delivery
 
