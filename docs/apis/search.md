@@ -1213,7 +1213,34 @@ chmln.on('helpbar:search:external', (opts: SearchOpts, ctx: Context) => {
    */
 });
 
-chmln.on('helpbar:search:external', (opts: AnswerOpts, ctx: Context) => {
+chmln.on('helpbar:search:question', (opts: QuestionOpts, ctx: Context) => {
+   /*
+    Optional for AI answering
+      - Generally Chameleon will handle AI answering for you
+      - If you need to provide an answer from your own API or own model
+
+    opts.query is the question
+    opts.searchGroups the currently displayed groups + results
+    opts.onAnswer a function to call when you have the partial or complete answer
+
+    This is where you would make our network request and then call onAnswer when ready
+
+    Example use of onAnswer
+      When the endpoint returns the full answer
+        - opts.onAnswer({ text: 'To start using the data import...' });
+
+      When the endpoint returns the full answer + reference material
+        - opts.onAnswer({ text: 'To start using the data import...', links: [{ text: 'Data importing guide', href: 'https://help.acme.io/en/394821' }} });
+
+      When the endpoint steams the answer in character, token, word, or sentence call multiple times with each part received
+        the onAnswer callback will concatenate these parts together as they come in
+        - opts.onAnswer({ text: 'To star' });
+        - opts.onAnswer({ text: 't using the' });
+        - opts.onAnswer({ text: ' data import feature, first' });
+    */
+});
+
+chmln.on('helpbar:search:answer', (opts: AnswerOpts, ctx: Context) => {
   /*
   Optional for tracking AI Answering
     - Know when an answer is generated including the question and answer
@@ -1346,6 +1373,12 @@ type SearchOpts = {
   query: string,
 };
 
+type QuestionOpts = {
+   query: string,
+   groups: array<SearchGroup>,
+   onAnswer(opts: { text: string, links?: array<ReferenceItem> }): null,
+}
+
 type AnswerOpts = {
   query: string,
   answer: string,
@@ -1373,6 +1406,11 @@ type ActionErrorOpts = {
 type NavigateOpts = {
   to: string,
 };
+
+type ReferenceItem = {
+  href: string,
+  text: string,
+}
 
 ```
 
