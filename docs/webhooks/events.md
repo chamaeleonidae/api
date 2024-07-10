@@ -4,7 +4,9 @@
 
 ------
 
-> Events are processed asynchronously (typically within a few seconds).
+> Events are processed asynchronously (typically within thirty seconds).
+> Events and their properties can be used for Segmentation, Goals, Launcher item completed etc.
+> Events tracked for users that have not yet been seen by Chameleon will be created first and then the event tracked to them
 
 ## Create an Event :id=events-create
 
@@ -16,16 +18,18 @@ POST https://api.chameleon.io/v3/observe/hooks/events
 POST to https://api.chameleon.io/v3/observe/hooks/:account_secret/events
 ```
 
-| param | -        | description                                                  |
-| ----- | -------- | ------------------------------------------------------------ |
-| `id`    | optional | The Chameleon ID of the User Profile                         |
+| param   | -        | description                                                               |
+|---------|----------|---------------------------------------------------------------------------|
+| `id`    | optional | The Chameleon ID of the User Profile                                      |
 | `uid`   | optional | The User Profile Identifier (typically the Database ID from your backend) |
-| `name`  | required | The name of the Event ("Imported Data" or "Completed Task")  |
+| `name`  | required | The name of the Event ("Imported Data" or "Completed Task")               |
+| *others | optional | All other properties will be added to the Event                           |
 
 ```json
 {
   "uid": 18821,
-  "name": "Scheduled follow up"
+  "name": "Scheduled follow up",
+  "scheduling_link": "https://acme.claendly.com/meetings/round-robin/15-min"
 }
 ```
 
@@ -36,6 +40,31 @@ POST to https://api.chameleon.io/v3/observe/hooks/:account_secret/events
   "event": {
     "id": "5f3c4232c712de665632a2a3"
   }
+}
+```
+
+### Event properties
+
+All other properties will be added to the Event and will be made available for creating [Custom Events](https://help.chameleon.io/en/articles/1226442-how-can-i-create-custom-events).
+
+```json
+{
+  "uid": 18821,
+  "name": "Scheduled follow up",
+  "scheduling_type": "demo",
+  "scheduling_source": "upsell",
+  "scheduling_link": "https://acme.claendly.com/meetings/round-robin/15-min"
+}
+```
+
+
+```json
+{
+  "uid": 18821,
+  "name": "Payment succeeded",
+  "plan": "Enterprise",
+  "amount": "129500",
+  "lifetime_value": "42905000",
 }
 ```
 
