@@ -8,7 +8,7 @@
 - **Element must be clicked on or hovered over - optional**
 - **etc.**
 
-*To know more about Tours, you can visit our [product documentation](https://help.chameleon.io/en/collections/74747-tours).*
+*To know more about Tours, you can visit our [product documentation](https://help.chameleon.io/en/collections/7038458-tours).*
 
 ------
 
@@ -80,7 +80,7 @@ GET https://api.chameleon.io/v3/edit/tours
     },
     {
       "id": "5f3c4232c712de665632a2a1",
-      "name": "Growth plan upsell banner 2029-02",
+      "name": "Growth plan upsell Tour 2029-02",
       "style": "auto",
       "position": 3,
       "published_at": "2029-04-07T12:18:00Z",
@@ -160,7 +160,7 @@ GET https://api.chameleon.io/v3/edit/tours/:id
 {
   "tour": {
     "id": "5f3c4232c712de665632a2a1",
-    "name": "Growth plan upsell banner 2029-02",
+    "name": "Growth plan upsell Tour 2029-02",
     "style": "auto",
     "position": 3,
     "published_at": "2029-04-07T12:18:00Z",
