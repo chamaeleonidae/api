@@ -132,16 +132,12 @@ expand[profile]=min&expand[company]=skip
 Searching Companies through the Chameleon API allows you to:
 
 - Search for a company by `id` and `uid`
-- Search for companies or get the Count of Companies by any of the properties you have sent to us
-
-Use [Segmentation Filter Expressions](concepts/filters.md) in the `filter` parameter to search for companies by any of the properties you have sent to us.
 
 > *Note: [Rate Limiting](concepts/rate-limiting.md) applies according to the table below.*
 
 | endpoint           | Maximum concurrent requests |
 |--------------------| --------------------------- |
 | `/companies`       | 2                           |
-| `/companies/count` | 1                           |
 
 
 #### Examples :id=companies-search-examples
@@ -158,18 +154,18 @@ Each example below is showing the value for the `filters` key in the JSON reques
 }
 ```
 
-##### Companies that are on specific plan
+##### Companies that have a specific uid
 
-Find all companies with that have a `plan` property with `silver` value:
+Find the company with the `uid` of `123`:
 
 ```json
 {
   "filters": [
     {
       "kind": "property",
-      "prop": "plan",
+      "prop": "uid",
       "op": "eq",
-      "value": "silver"
+      "value": "123"
     }
   ]
 }
@@ -179,73 +175,9 @@ Find all companies with that have a `plan` property with `silver` value:
 curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      -H "Content-Type: application/json" \
      -X POST \
-     -d '{"filters":[{"kind":"property","prop":"plan","op":"eq","value":"silver"}]}' \
+     -d '{"filters":[{"kind":"property","prop":"uid","op":"eq","value":"123"}]}' \
      https://api.trychameleon.com/v3/analyze/companies
 ```
-
-#### Companies that have between 10 and 20 employees
-
-```json
-{
-  "filters": [
-    {
-      "kind": "group",
-      "filters_op": "and",
-      "filters": [
-        {
-          "kind": "property",
-          "prop": "employee_count",
-          "op": "gt",
-          "value": 10
-        },
-        {
-          "kind": "property",
-          "prop": "employee_count",
-          "op": "lt",
-          "value": 20
-        }
-      ]
-    }
-  ]
-}
-```
-
-```bash
-curl -H "X-Account-Secret: ACCOUNT_SECRET" \
-     -H "Content-Type: application/json" \
-     -X POST \
-     -d '{"filters":[{"kind":"group","filters_op":"and","filters":[{"kind":"property","prop":"employee_count","op":"gt","value":10},{"kind":"property","prop":"employee_count","op":"lt","value":20}]}]}' \
-     https://api.trychameleon.com/v3/analyze/companies
-```
-
-## Counting Companies :id=companies-count
-
-#### HTTP Request
-
-```
-GET|POST https://api.trychameleon.com/v3/analyze/companies/count
-```
-
-**Use the same params / request body as [Search Companies](apis/companies.md?id=companies-index)**
-
-#### HTTP Response
-
-```json
-{
-  "count": 65121
-}
-```
-
-##### Example: counting companies matching given filters
-
-```bash
-curl -H "X-Account-Secret: ACCOUNT_SECRET" \
-     -H "Content-Type: application/json" \
-     -X POST \
-     -d '{"filters":[{"kind":"property","prop":"plan","op":"eq","value":"silver"}]}' \
-     https://api.trychameleon.com/v3/analyze/companies/count
-```
-
 
 ## Delete a Company :id=companies-delete
 
