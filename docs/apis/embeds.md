@@ -1,16 +1,23 @@
-# Microsurveys
+# Embeddables
 
-**Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.**
-*To know more about Surveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/7038460-microsurveys).*
+**Embeddables are content blocks that can be placed in-between other DOM elements, while keeping a native look. Embeddables are shown to your end-users when they meet all of the predefined matching criteria, including:**
+
+- **First step URL (on the right page) - required**
+- **Segmentation matches (User is the right person) - required but can be to match All Users**
+- **Element appears on the page - optional**
+- **Element must be clicked on or hovered over - optional**
+- **etc.**
+
+*To know more about Embeddables, you can visit our [product documentation](https://help.chameleon.io/en/collections/7829085-embeddables).*
 
 ------
 
 
 
-With the Chameleon Microsurveys API, you can:
+With the Chameleon API for Embeddables, you can:
 
-- List all Microsurveys that follow your indicated parameters.
-- Retrieve a single Microsurvey using its `id`.
+- List all the existing Embeddables according to the indicated parameters.
+- Retrieve a single Embeddable.
 
 
 
@@ -21,13 +28,16 @@ With the Chameleon Microsurveys API, you can:
 | `id` | ID | The Chameleon ID |
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
+| `archived_at` | timestamp | The time when this was archived |
 | `name` | string | The name given by an administrator of Chameleon |
+| `style` | string | The delivery method of this Embeddable: One of `banner` or `card` |
 | `position` | number | The order that these appear in lists (starting from 0) |
+| `experiment_at` | timestamp | When [Experimentation](https://help.chameleon.io/en/articles/1069709-a-b-testing-chameleon-tours) was turned on. |
+| `experiment_range` | string | The range of `Profile#percent` that will be included in the experiment |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](apis/segments.md?id=schema) |
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
-| `last_dropdown_items` | array&lt;String&gt; | For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
 | `stats.last_started_at` | timestamp | Most recent time any user saw this |
@@ -36,14 +46,15 @@ With the Chameleon Microsurveys API, you can:
 | `stats.exited_count` | number | Number of your end-users who dismissed/exited this |
 | `stats.last_exited_at` | timestamp | Most recent time any user dismissed/exited this |
 
-## List Microsurveys
 
-List all Microsurveys that follow your indicated parameters.
+## List Embeddables :id=campaigns-index
+
+List all the Embeddables that follow the specified parameters.
 
 #### HTTP Request
 
 ```
-GET https://api.chameleon.io/v3/edit/surveys
+GET https://api.chameleon.io/v3/edit/embeds
 ```
 
 | param  | -        | description                                                  |
@@ -53,53 +64,54 @@ GET https://api.chameleon.io/v3/edit/surveys
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-
-
 #### HTTP Response
 
 ```json
 {
-  "surveys": [
+  "embeds": [
     {
       "id": "5f3c4232c712de665632a6d5",
-      "name": "Task #2 completion CES",
-      "position": 1,
+      "name": "Revamped Dashboard Launch",
+      "style": "card",
+      "position": 4,
       "published_at": "2029-04-07T12:18:00Z",
        ...
     },
     {
-      "id": "5f3c4232c712de665632a2a3",
-      "name": "Admin account setup #1 completion question",
-      "position": 0,
-      "published_at": "2029-04-07T12:38:00Z",
+      "id": "5f3c4232c712de665632a2a1",
+      "name": "Growth plan upsell Banner 2029-02",
+      "style": "banner",
+      "position": 3,
+      "published_at": "2029-04-07T12:18:00Z",
        ...
     },
     ...
   ],
   "cursor": {
     "limit": 50,
-    "before": "5f3c4232c712de665632a2a3"
+    "before": "5f3c4232c712de665632a2a1"
   }
 }
 ```
 
-## Update a Microsurvey :id=surveys-update
+## Update a Embeddable :id=campaigns-update
 
-Update a single Microsurvey to change the [Environments](apis/urls.md) or to Publish it.
+Update a single Embeddable to change the [Environments](apis/urls.md) or to Publish it.
 
 #### HTTP Request
 
 ```
-PATCH https://api.chameleon.io/v3/edit/surveys/:id
+PATCH https://api.chameleon.io/v3/edit/embeds/:id
 ```
 
 | param           | -        | description                                                                                     |
 |-----------------|----------|-------------------------------------------------------------------------------------------------|
-| `id`            | required | A Microsurvey ID to update                                                                      |
+| `id`            | required | A Embeddable ID to update                                                                             |
 | `urls_group_id` | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
-| `published_at`  | optional | The published time of this Microsurvey (set to now to trigger a publish)                        |
+| `published_at`  | optional | The published time of this Embeddable (set to now to trigger a publish)                               |
 
-To **Publish** the Microsurvey
+
+To **Publish** the Embeddable send the current timestamp in `iso8601` format
 
 ```json
 {
@@ -124,32 +136,33 @@ To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
 }
 ```
 
+
 ## Filtering by Segment :id=filter-segment
 
-See [Listing Related Models](apis/segments.md?id=segment-experiences-index).
+See [Listing Related models](apis/segments.md?id=segment-experiences-index)
 
-## Retrieve a Microsurvey
+## Retrieve a Embeddable :id=campaigns-show
 
-Retrieve a single Microsurvey.
+Retrieve a single Embeddable.
 
 #### HTTP Request
 
 ```
-GET https://api.chameleon.io/v3/edit/surveys/:id
+GET https://api.chameleon.io/v3/edit/embeds/:id
 ```
 
-
-| param | -        | description                |
-| ----- | -------- | -------------------------- |
-| `id`    | required | A Microsurvey ID to lookup |
+| param | -        | description         |
+| ----- | -------- | ------------------- |
+| `id`    | required | A Embeddable ID to lookup |
 
 ```json
 {
-  "survey": {
+  "embed": {
     "id": "5f3c4232c712de665632a2a1",
-    "name": "Admin Self-serve menu",
-    "position": 0,
-    "published_at": "2029-04-07T12:38:00Z",
+    "name": "Growth plan upsell Banner 2029-02",
+    "style": "auto",
+    "position": 3,
+    "published_at": "2029-04-07T12:18:00Z",
     ...
   }
 }
