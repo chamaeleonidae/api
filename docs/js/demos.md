@@ -92,8 +92,7 @@ When `data-profile` is missing the Demo runs in **anonymous mode**.
 ```
 
 
-
-## Consent to track (cookies etc.) :id=cookie-consent
+### Consent to track (cookies etc.) :id=cookie-consent
 
 Start with consent mode of "consent not yet given" and use either `pending` or `denied`, then update when the user gives or denies
 consent by setting the `data-consent` value on the Demos.
@@ -115,7 +114,7 @@ demos.forEach(demoEl => demoEl.setAttribute('data-consent', consent));
 ```
 
 
-## Schema of `data-*` properties :id=schema
+### Schema of `data-*` properties :id=schema
 
 These control different aspects of the Product Demo including identity, use of cookies, prefilled data, etc.
 Sending either the `data-email` or the `data-profile` are **highly recommended** as a method of connecting the dots from
@@ -130,6 +129,123 @@ engagement with Product Demos into the other experiences that Chameleon offers s
 | `data-profile`         | {"email":"alice@acme.io"}       | A JSON object with a known email address                                                                        |
 
 
+## JavaScript API :id=js-api
+
+The iFrame uses `window.postMessage` to communicate information back to the parent page including to the Chameleon
+JavaScript [installation](https://help.chameleon.io/en/articles/1161793-installing-directly-using-javascript). Below are listed
+the messages you can expect from the iframe at the relevant times in the Demo. Message are described below as being sent but this just
+means that any listener to `iframe.addEventListener('message', message => ...)` will be called.
+
+The `message` parameter to the callback function is a [MessageEvent](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent) where `message.data` is the object sent
+from inside the iframe, akin to webhooks (but on the client side).
+
+### Message event kinds :id=schema-kinds
+
+
+| Event                          | Purpose | Description |
+|--------------------------------|---------|-------------|
+| `chmln:demo:loaded`            | Info    |             |
+| `chmln:demo:started`           | Info    |             |
+| `chmln:demo:completed`         | Info    |             |
+| `chmln:demo:item:started`      | Info    |             |
+| `chmln:demo:component:clicked` | Info    |             |
+| `chmln:demo:button:clicked`    | Info    |             |
+| `chmln:demo:form:submitted`    | Info    |             |
+
+
+### Examples
+
+The example code using `analytics.track` should be adapted for if/how you track analytics. This can also be completely omitted from your
+implementation and Demos will run just fine. _Consider this optional_.
+
+
+#### Generic analytics tracking :id=example1
+
+```javascript
+iframe.addEventListener('message', message => {
+  const { origin, data: { kind, eventName, event = {} } } = message;
+
+  if(/^chmln:demo:/.test(kind)) {
+    analytics.track(eventName, event);
+  }
+});
+```
+
+#### All message kinds listed + analytics tracking :id=example1
+
+```javascript
+iframe.addEventListener('message', message => {
+  const { origin, data: { kind, demo, event = {} } } = message;
+  // `kind` is one of the value in the following table
+  // `demo` is the full demo object
+  // `event` will hold a nicely formatted object that can be passed to Segment, Mixpnel, Amplitude, etc. and you can expect at least the following 
+  //   `event.demo_id`: the ID of the demo
+  //   `event.demo_name`
+  //   `event.item_id`: the ID of the demo step
+  //   `event.elapsed` : the time since the demo started
+  //   ...others
+
+  if (kind === 'chmln:demo:loaded') {
+    //
+    // The demo is loaded and ready to be interacted with
+    //   this is called very quickly after adding the iframe to the page
+    //
+  } else if (kind === 'chmln:demo:started') {
+    //
+    // The starting chapter or the first demo interaction was clicked
+    //
+    analytics.track('Chameleon Demo started', event);
+
+    //
+    // An suitable Event name is prodvided for convenience and is used in the example above
+    //
+    const { eventName } = message.data;
+
+    analytics.track(eventName, event);
+    //
+  } else if (kind === 'chmln:demo:completed') {
+    //
+    // The final chapter or final screen was reached
+    //
+    analytics.track('Chameleon Demo completed', event);
+    //
+  } else if (kind === 'chmln:demo:item:started') {
+    //
+    // The user advances to this screen
+    //
+    analytics.track('Chameleon Demo step seen', event);
+    //
+  } else if (kind === 'chmln:demo:component:clicked') {
+    //
+    // `event` will have component-specfiic data
+    //   - `event.component_kind`: values such as hotspot, tooltip, sticker,
+    //   - `event.component_text`: the text of this component
+    //
+    analytics.track('Chameleon Demo component clicked', event);
+    //
+  } else if (kind === 'chmln:demo:button:clicked') {
+    //
+    // `event` will have button-specfiic data
+    //   - `event.button_actions`: an array of actions taken, e.g. ['hubspot_scheduler', 'hubspot_flow']
+    //   - `event.button_text`: the text of this button, e.g. 'Book demo'
+    //
+    analytics.track('Chameleon Demo button clicked', event);
+    //
+  } else if (kind === 'chmln:demo:form:submitted') {
+    //
+    // `event` will have form/button-specfiic data
+    //   - `event.form_email`
+    //   - `event.button_text`: the text of this button, e.g. 'Book demo'
+    //
+    analytics.track('Chameleon Demo form submitted', event);
+    //
+    const { form } = message.data;
+    //
+    // `form` will contain form-specific data
+    // `form.email`
+  }
+});
+```
 
 ## Speed, Performance, Caching :id=caching
 
