@@ -88,7 +88,7 @@ to send is in the main documentation about [Identifying users](js/profiles.md) b
 When `data-profile` is missing the Demo runs in **anonymous mode**.
 
 ```html
-<iframe src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
+<iframe class="chmln-demo" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
 ```
 
 
@@ -100,7 +100,7 @@ consent by setting the `data-consent` value on the Demos.
 > Typically Product Demos fall into the **Functional** category.
 
 ```html
-<iframe src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
+<iframe class="chmln-demo" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
 ```
 
 Once the consent screen is dismissed
@@ -142,15 +142,15 @@ from inside the iframe, akin to webhooks (but on the client side).
 ### Message event kinds :id=schema-kinds
 
 
-| Event                          | Purpose | Description |
-|--------------------------------|---------|-------------|
-| `chmln:demo:loaded`            | Info    |             |
-| `chmln:demo:started`           | Info    |             |
-| `chmln:demo:completed`         | Info    |             |
-| `chmln:demo:item:started`      | Info    |             |
-| `chmln:demo:component:clicked` | Info    |             |
-| `chmln:demo:button:clicked`    | Info    |             |
-| `chmln:demo:form:submitted`    | Info    |             |
+| Event kind                     | Event name             | Description                                                                                          |
+|--------------------------------|------------------------|------------------------------------------------------------------------------------------------------|
+| `chmln:demo:loaded`            | Demo Loaded            | Once the Demo is ready for interaction                                                               |
+| `chmln:demo:started`           | Demo Started           | When the user clicks on the first step                                                               |
+| `chmln:demo:completed`         | Demo Completed         | When the last step of the demo is reached. This can happen directly or via branching                 |
+| `chmln:demo:step:started`      | Demo Step started      | When a Step is displayed to the user; typically because of clicking on the previous step             |
+| `chmln:demo:component:clicked` | Demo Component clicked | When a Hotspot, Tooltip, etc. is clicked                                                             |
+| `chmln:demo:button:clicked`    | Demo Button clicked    | When a Button is clicked. Buttons appear in many different places including Tooltips, Chapters, etc. |
+| `chmln:demo:form:submitted`    | Demo Form submitted    | When a form is submitted such as adding an email address and clicking "Learn more"                   |
 
 
 ### Examples
@@ -207,13 +207,13 @@ iframe.addEventListener('message', message => {
     //
     // The final chapter or final screen was reached
     //
-    analytics.track('Chameleon Demo completed', event);
+    analytics.track('Chameleon Demo Completed', event);
     //
-  } else if (kind === 'chmln:demo:item:started') {
+  } else if (kind === 'chmln:demo:step:started') {
     //
     // The user advances to this screen
     //
-    analytics.track('Chameleon Demo step seen', event);
+    analytics.track('Chameleon Demo Step started', event);
     //
   } else if (kind === 'chmln:demo:component:clicked') {
     //
@@ -221,7 +221,7 @@ iframe.addEventListener('message', message => {
     //   - `event.component_kind`: values such as hotspot, tooltip, sticker,
     //   - `event.component_text`: the text of this component
     //
-    analytics.track('Chameleon Demo component clicked', event);
+    analytics.track('Chameleon Demo Component clicked', event);
     //
   } else if (kind === 'chmln:demo:button:clicked') {
     //
@@ -229,7 +229,7 @@ iframe.addEventListener('message', message => {
     //   - `event.button_actions`: an array of actions taken, e.g. ['hubspot_scheduler', 'hubspot_flow']
     //   - `event.button_text`: the text of this button, e.g. 'Book demo'
     //
-    analytics.track('Chameleon Demo button clicked', event);
+    analytics.track('Chameleon Demo Button clicked', event);
     //
   } else if (kind === 'chmln:demo:form:submitted') {
     //
@@ -237,7 +237,7 @@ iframe.addEventListener('message', message => {
     //   - `event.form_email`
     //   - `event.button_text`: the text of this button, e.g. 'Book demo'
     //
-    analytics.track('Chameleon Demo form submitted', event);
+    analytics.track('Chameleon Demo Form submitted', event);
     //
     const { form } = message.data;
     //
