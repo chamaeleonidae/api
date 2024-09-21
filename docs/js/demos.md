@@ -22,8 +22,10 @@ Any and all times that you have information about the logged-in user. All of the
 to send is in the main documentation about [Identifying users](js/profiles.md) but the Tl;DR; is that you should send at least a
 `uid` as the ID from your database, the `email`, and `name`.
 
+Feel free to adjust anything other than `class` and `src`.
+
 ```html
-<iframe class="chmln-demo" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
+<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
 ```
 
 <details>
@@ -88,7 +90,7 @@ to send is in the main documentation about [Identifying users](js/profiles.md) b
 When `data-profile` is missing the Demo runs in **anonymous mode**.
 
 ```html
-<iframe class="chmln-demo" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
+<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
 ```
 
 
@@ -100,7 +102,7 @@ consent by setting the `data-consent` value on the Demos.
 > Typically Product Demos fall into the **Functional** category.
 
 ```html
-<iframe class="chmln-demo" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
+<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" width="100%" height="100%"></iframe>
 ```
 
 Once the consent screen is dismissed
