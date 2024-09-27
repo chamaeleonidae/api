@@ -34,6 +34,8 @@ Feel free to adjust anything other than `class` and `src`.
 Identifying the user and adding user data allows Demo specific data to be tied back to specific individuals and used in
 future segmentation / audience. e.g. the User took a Product Demo of an Enterprise feature and prompt them in-product to start an Enterprise trial
 
+_For simplicity, and unless otherwise specified, adding User ID for an identified user, changes to [consent](js/demos.md?id=cookie-consent) of `granted`._
+
 ```javascript
 (async () => {
   const user = await fetchCurrentUser(); // Note: use your current user function
@@ -61,34 +63,6 @@ future segmentation / audience. e.g. the User took a Product Demo of an Enterpri
 ```
 </details>
 
-<!--
-<details>
-<summary>Adding Email</summary>
-
-```javascript
-(async () => {
-  const email = localStorage.getItem('user-input:email'); // Note: this assumes that you store email when its added to a "login" or "subscribe to updates" form
-
-  if(!email) {
-    return;
-  }
-
-  // Add email data to Product demos
-  const demos = [...document.querySelectorAll('.chmln-demo')];
-  const profile = JSON.stringify({ email });
-
-  demos.forEach(demoEl => demoEl.setAttribute('data-profile', profile));
-
-  //
-  // Example things one might do with email address
-  //  - Fill email fields with email
-  //  - Fetch the company info and show content relevant to their industry
-  //
-})();
-```
-</details>
-
--->
 
 #### Anonymous mode (the default) :id=mode-anonymous
 
@@ -101,13 +75,13 @@ When `data-profile` is missing the Demo runs in **anonymous mode**.
 
 ### Consent to track (cookies etc.) :id=cookie-consent
 
-Start with consent mode of "consent not yet given" and use either `pending` or `denied`, then update when the user gives or denies
-consent by setting the `data-consent` value on the Demos.
+Start with consent mode of "consent not yet given", with the value `pending`, then update when the user gives or denies
+consent by setting the `data-consent` value on the Demos with either `granted` : `denied`.
 
 > Typically Product Demos fall into the **Functional** category.
 
 ```html
-<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" style="width: 100%; height: 100%" allow="fullscreen"></iframe>
+<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" style="width: 100%; height: 100%" allow="fullscreen" data-consent="granted"></iframe>
 ```
 
 Once the consent screen is dismissed
@@ -136,8 +110,6 @@ engagement with Product Demos into the other experiences that Chameleon offers s
 |------------------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | `data-consent`         | `granted`, `denied` , `pending` | Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent |
 | `data-profile`         | {"uid":"5a17d4", ...}           | A JSON object of data about the current user                                                                    |
-
-<!-- | `data-profile`         | {"email":"alice@acme.io"}       | A JSON object with a known email address                                                                        | -->
 
 
 ## JavaScript API :id=js-api
