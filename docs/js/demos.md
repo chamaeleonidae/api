@@ -175,18 +175,22 @@ implementation and Demos will run just fine. _Consider this optional_.
 #### Generic analytics tracking :id=example1
 
 ```javascript
+const iframe = document.querySelector('.chmln-demo');
+
 iframe.addEventListener('message', message => {
   const { data: { kind, eventName, event = {} } } = message;
 
   if(/^chmln:demo:/.test(kind)) {
-    analytics.track(eventName, event);
+    analytics.track(eventName, event); // TODO: Replace with your event tracking calls (e.g. mixpanel.track(eventName, event); etc.)
   }
-});
+})
 ```
 
 #### Custom handling of events :id=example2
 
 ```javascript
+const iframe = document.querySelector('.chmln-demo');
+
 iframe.addEventListener('message', message => {
   const { data: { kind, demo, event = {} } } = message;
   // `kind` is one of the value in the following table
