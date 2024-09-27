@@ -113,9 +113,12 @@ consent by setting the `data-consent` value on the Demos.
 Once the consent screen is dismissed
 
 ```javascript
+//
+// All Demos start with consent mode 'pending' by default; Set to 'granted' or 'denied' after the user decides about tracking
+//
 const demos = [...document.querySelectorAll('.chmln-demo')];
-const functionalAllowed = true; // Note: Use your method to check for this true/false value
-const consent = functionalAllowed ? 'granted' : 'denied';
+const trackingAllowed = true; // Note: Use your method to check for this true/false value
+const consent = trackingAllowed ? 'granted' : 'denied';
 
 demos.forEach(demoEl => demoEl.setAttribute('data-consent', consent));
 ```
@@ -173,7 +176,7 @@ implementation and Demos will run just fine. _Consider this optional_.
 
 ```javascript
 iframe.addEventListener('message', message => {
-  const { origin, data: { kind, eventName, event = {} } } = message;
+  const { data: { kind, eventName, event = {} } } = message;
 
   if(/^chmln:demo:/.test(kind)) {
     analytics.track(eventName, event);
@@ -185,7 +188,7 @@ iframe.addEventListener('message', message => {
 
 ```javascript
 iframe.addEventListener('message', message => {
-  const { origin, data: { kind, demo, event = {} } } = message;
+  const { data: { kind, demo, event = {} } } = message;
   // `kind` is one of the value in the following table
   // `demo` is the full demo object
   // `event` will hold a nicely formatted object that can be passed to Segment, Mixpnel, Amplitude, etc. and you can expect at least the following 
