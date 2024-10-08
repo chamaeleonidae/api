@@ -126,7 +126,6 @@ from inside the iframe, akin to webhooks (but on the client side).
 
 | Event kind                     | Event name                       | Description                                                                                          |
 |--------------------------------|----------------------------------|------------------------------------------------------------------------------------------------------|
-| `chmln:demo:loaded`            | Chameleon Demo Loaded            | Once the Demo is ready for interaction (client-side only)                                            |
 | `chmln:demo:started`           | Chameleon Demo Started           | When the user clicks on the first step                                                               |
 | `chmln:demo:completed`         | Chameleon Demo Completed         | When the last step of the demo is reached. This can happen directly or via branching                 |
 | `chmln:demo:restarted`         | Chameleon Demo Restarted         | When the user clicks of any call to action that results in restarting from the beginning             |
@@ -143,22 +142,59 @@ from inside the iframe, akin to webhooks (but on the client side).
 The example code using `analytics.track` should be adapted for how you track analytics in your product. This can also be completely omitted from your
 implementation and Demos will run just fine. _Consider this optional_.
 
-
-#### Generic analytics tracking :id=example1
+#### Generic analytics tracking :id=example0
 
 ```javascript
-const iframe = document.querySelector('.chmln-demo');
-
-iframe.addEventListener('message', message => {
-  const { data: { kind, eventName, event = {} } } = message;
+window.addEventListener('message', message => {
+  const { data: { kind, eventName, event = {} } = {} } = message;
 
   if(/^chmln:demo:/.test(kind)) {
-    analytics.track(eventName, event); // TODO: Replace with your event tracking calls (e.g. mixpanel.track(eventName, event); etc.)
+    // TODO: Replace this block with your event tracking call (e.g. mixpanel.track(eventName, event); etc.)
+
+    // Segment.com / Rudderstack
+    analytics.track(eventName, event);
+
+    // Adds this event into your data warehouse or other backend system
+    sendEventToSnowflake(eventName, event);
+  }
+});
+```
+
+#### Analytics tracking :id=example1
+
+```javascript
+window.addEventListener('message', message => {
+  const { data: { kind, eventName, event = {} } = {} } = message;
+
+  if(/^chmln:demo:/.test(kind)) {
+    // TODO: Replace this block with your event tracking call (e.g. mixpanel.track(eventName, event); etc.)
+    // Below are a quick reference to the various tracking calls -- let us know if we're missing something here
+
+    // Segment.com / Rudderstack
+    analytics.track(eventName, event);
+
+    // Freshpaint
+    freshpaint.track(eventName, event);
+
+    // Heap
+    heap.track(eventName, event, 'chameleon'); // 'chameleon' as the third argument is for data grouping within Heap
+
+    // Customer.io
+    _cio.track(eventName, event)
+
+    // Intercom
+    Intercom('trackEvent', eventName, event)
+
+    // Fullstory
+    FS.event(eventName, event);
+
+    // Google Analytics
+    window.gtag('event', eventName, { ...event, event_category: 'Demo', event_label: event.demo_name });
   }
 })
 ```
 
-#### Custom handling of events :id=example2
+#### Custom handling of individual events :id=example2
 
 ```javascript
 const iframe = document.querySelector('.chmln-demo');
@@ -175,12 +211,7 @@ iframe.addEventListener('message', message => {
   //   `event.elapsed` : the time since the demo started
   //   ...others
 
-  if (kind === 'chmln:demo:loaded') {
-    //
-    // The demo is loaded and ready to be interacted with
-    //   this is called very quickly after adding the iframe to the page
-    //
-  } else if (kind === 'chmln:demo:started') {
+  if (kind === 'chmln:demo:started') {
     //
     // The starting chapter or the first demo interaction was clicked
     //
