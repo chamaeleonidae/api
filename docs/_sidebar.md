@@ -16,6 +16,7 @@
 
   - [Overview](js/overview.md)
   - [Identify Users](js/profiles.md)
+  - [Embed a Demo](js/demos.md)
   - [Send Events](js/events.md)
   - [Show a Tour / Survey](js/show-tour.md)
   - [Show a Launcher](js/show-launcher.md)
@@ -27,6 +28,7 @@
 - Guides
 
   - [Installing correctly](guides/js/installing-correctly.md)
+  - [Embedding a Demo](js/demos.md)
   - [HelpBar User-generated content](guides/helpbar/user-generated-content.md)
 
 - Webhooks
