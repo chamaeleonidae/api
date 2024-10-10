@@ -116,7 +116,7 @@ engagement with Product Demos into the other experiences that Chameleon offers s
 
 The iframe uses `window.parent.postMessage` to communicate information back to the parent page. Chameleon also communicates to the Chameleon
 JavaScript [installation](https://help.chameleon.io/en/articles/1161793-installing-directly-using-javascript). Below are the messages you can expect from the iframe at the relevant times in the Demo. Message are described below as being sent but this just
-means that any listener to `iframe.addEventListener('message', message => ...)` will be called.
+means that any listener to `window.addEventListener('message', message => ...)` will be called.
 
 The `message` parameter to the callback function is a [MessageEvent](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent) where `message.data` is the object sent
 from inside the iframe, akin to webhooks (but on the client side).
@@ -197,9 +197,7 @@ window.addEventListener('message', message => {
 #### Custom handling of individual events :id=example2
 
 ```javascript
-const iframe = document.querySelector('.chmln-demo');
-
-iframe.addEventListener('message', message => {
+window.addEventListener('message', message => {
   const { data: { kind, demo, event = {} } } = message;
   // `kind` is one of the value in the following table
   // `demo` is the full demo object
