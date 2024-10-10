@@ -14,7 +14,7 @@ Call `chmln.show`  with the Chameleon ID of the Launcher, and the Launcher will 
  
 
 ```
-chmln.show('ID');
+chmln.show('LAUNCHER ID');
 ```
 
 ---

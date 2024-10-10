@@ -2,7 +2,7 @@
 
 **Use this JS API method to show a Tour using custom criteria**
 
-*To learn more about the Chameleon Tours product, please visit [this section from our Help Center](https://help.chameleon.io/en/collections/74747-tours).*
+*To learn more about the Chameleon Tours product, please visit [this section](https://help.chameleon.io/en/collections/74747-tours) in our Help Center.*
 
 ---
 
@@ -12,18 +12,8 @@
 Call `chmln.show`  with the Chameleon ID of the Tour and the Tour will redirect to the right page (if necessary) and start the Tour from the beginning.
 
 ```
-chmln.show('Chameleon Tour ID');
+chmln.show('TOUR ID');
 ```
-
-
-#### Finding the Chameleon Tour ID
-
-You can obtain the `Chameleon Tour ID` from the sidebar, inspect the "row of the Tour", find the element with "chmln-campaign-ID" and copy the ID part as shown below. 
-
-![img](https://downloads.intercomcdn.com/i/o/38502020/bacc2946cba493efdcbbc072/Find+tour+ID.gif)
-
-As per the above gif, to trigger this Tour you would call: `chmln.show('56998ae30036f20003000001');`
-
 
 
 ## Triggers, Elements and Delays
@@ -42,13 +32,13 @@ With options this API can be called with a second argument.
 Show **now** for users in the segment who have noe seen this Tour before
 
 ```javascript
-chmln.show('ID', { use_segmentation: true, once: true });
+chmln.show('TOUR ID', { use_segmentation: true, once: true });
 ```
 
 Allow this Tour to be **triggered** normally (assuming this Tour is triggered when the user clicks on a specific element etc.)
 
 ```javascript
-chmln.show('ID', { skip_triggers: false });
+chmln.show('TOUR ID', { skip_triggers: false });
 ```
 
 #### Options :id=options
