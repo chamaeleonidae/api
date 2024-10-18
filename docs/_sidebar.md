@@ -44,6 +44,7 @@
   - [Searching User Profiles](apis/profiles-search.md)
   - [Companies](apis/companies.md)
   - [Segments (audiences)](apis/segments.md)
+  - [Product Demos](apis/demos.md)
   - [HelpBar](apis/search.md)
   - [Properties](apis/properties.md)
   - [Internationalization](apis/translation.md)
