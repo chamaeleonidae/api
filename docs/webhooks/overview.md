@@ -74,6 +74,11 @@ When receiving a webhook from Chameleon you should:
 | `tour.exited`           | [example](webhooks/overview.md?id=example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Tour is exited; includes the Step the user exited                                   |
 | `tour.snoozed`          | [example](webhooks/overview.md?id=example-tour-snooze)         | Action, [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                              | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).  |
 | `tour.button.clicked`   | [example](webhooks/overview.md?id=example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md)           | Sent when the Tour is exited with the Step the user exited                                        |
+| `embed.started`          | [example](webhooks/overview.md?id=example-embed-all)            | [Embeddable](apis/embeds.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Embeddable is started; includes the first Step in the payload                             |
+| `embed.completed`        | [example](webhooks/overview.md?id=example-embed-all)            | [Embeddable](apis/embeds.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Embeddable is completed; includes the Step the user completed                             |
+| `embed.exited`           | [example](webhooks/overview.md?id=example-embed-all)            | [Embeddable](apis/embeds.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                      | Sent when the Embeddable is exited; includes the Step the user exited                                   |
+| `embed.snoozed`          | [example](webhooks/overview.md?id=example-embed-snooze)         | Action, [Embeddable](apis/embeds.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                              | Sent when the Embeddable is exited on Step configured to snooze (re-display the Step at a later time).  |
+| `embed.button.clicked`   | [example](webhooks/overview.md?id=example-embed-button-clicked) | [Embeddable](apis/embeds.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md)           | Sent when the Embeddable is exited with the Step the user exited                                        |
 | `survey.started`        | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Microsurvey is started with the first Step                                          |
 | `survey.completed`      | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Microsurvey is completed with the Step the user completed                           |
 | `survey.exited`         | [example](webhooks/overview.md?id=example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Microsurvey is exited with the Step the user exited                                 |
@@ -597,7 +602,7 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
 
 > The Steps corresponding to a _Response_ Step have `preset=response`; The _Thank You_ Steps have  `preset=thank_you`
 
- 
+
 ```json
 {
   "id": "5fb70dcbc39330000325a818",
