@@ -197,7 +197,7 @@ With the following update, you can send approximately _62,000 User Profiles_ per
 ```json
 {
   "uid": "49573fa9-f111-4644-8c24-e41520ee87e2",
-  "email": "jane@acme.software",
+  "email": "jane@acme.ai",
   "first_name": "Jane",
   "last_name": "Chameleon",
   "last_login": "2029-04-29T09:00:00.000Z",

@@ -3,7 +3,77 @@
 A Product Demo is recorded with the Chameleon Chrome extension as a way to show your product features to prospects, introduce
 new features, explain complex workflows, and drive adoption/retention.
 
-[Demo Webhooks](webhooks/overview.md?id=topics) are available for key moments in the life of a Demo
+> [Demo Webhooks](webhooks/overview.md?id=topics) are also available for key moments in the life of a Demo
+
+
+## Using Demos with your CRM :id=demos-in-the-crm
+
+Chameleon can create new (and update existing) **Contact** and **Company** records in response to interactions with Demos.
+Completions of, and Tags of Demos will be stored as properties; the data schema is [below](?id=schema-crm).
+
+
+### Contacts
+
+These are the moments when Chameleon will sync **Contact** data to your CRM:
+
+1. When a anonymous user submits a form with their email address
+2. When an [identified user](js/demos.md?id=mode-profile) with an email address starts a Demo
+
+What will happen in the above situations?
+
+1. A **Contact** is created or updated
+2. `Chameleon Demos last seen time` is updated
+3. The current Demo is added to `Chameleon Demos Seen` and the Tags (if any) are added to `Chameleon Demos Tags`
+4. Any previous demos attached to the same `anonymous_id` will be added to the respective properties from [3]
+
+
+### Companies
+
+These are the moments when Chameleon will sync **Company** data to your CRM:
+
+1. When [Clearbit reveal](https://app.chameleon.io/integrations/clearbit) is enabled, the Demo user has `consent_mode=granted` and a match is found
+
+What will happen in the above situation?
+
+1. A **Company** is created or updated
+
+
+
+## Integrations :id=integrations
+
+### Hubspot integration :id=hubspot
+
+1. Visit the [Hubspot integration](https://app.chameleon.io/integrations/hubspot) page in the Chameleon dashboard
+2. If you have not yet configured Hubspot, click "Connect" to initiate OAuth
+3. Toggle on the "Create and Update objects in the CRM" option
+4. Add an Email capture form or include a Product Demo in your product via another Chameleon experience
+
+
+## CRM Schema :id=schema-crm
+
+### Contacts
+
+| Name                                       | Property                                   | Type             | Description                                                                                              |
+|--------------------------------------------|--------------------------------------------|------------------|----------------------------------------------------------------------------------------------------------|
+| `Chameleon Demos - All Demos Seen`         | `chameleon_demos_seen__profile_v1`         | Multiple select  | A multi-checkbox of the Chameleon Demos that this Contact has seen                                       |
+| `Chameleon Demos - Last updated at`        | `chameleon_demos_last_updated__profile_v1` | Timestamp        | The last time any Demo/Tag was added to this Contact                                                     |
+| `Chameleon Demos - Tags of All Demos Seen` | `chameleon_demos_tags__profile_v1`         | Multiple select  | A multi-checkbox of the Chameleon Tags that were attached to all of the Demos that this Contact has seen |
+
+
+### Companies
+
+| Name                                       | Property                                   | Type             | Description                                                                                                                   |
+|--------------------------------------------|--------------------------------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `Chameleon Demos - All Demos Seen`         | `chameleon_demos_seen__company_v1`         | Multiple select  | A multi-checkbox of the Chameleon Demos that all of the Contacts have collectively seen                                       |
+| `Chameleon Demos - Last updated at`        | `chameleon_demos_last_updated__company_v1` | Timestamp        | The last time any Demo/Tag was added to this Company                                                                          |
+| `Chameleon Demos - Tags of All Demos Seen` | `chameleon_demos_tags__company_v1`         | Multiple select  | A multi-checkbox of the Chameleon Tags that were attached to all of the Demos that all of the Contacts have collectively seen |
+
+
+
+
+------
+
+
 
 ## `Demo` Schema :id=schema
 
