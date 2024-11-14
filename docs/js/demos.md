@@ -47,10 +47,10 @@ _For simplicity, and unless otherwise specified, adding User ID for an identifie
   const { id: uid, email, name } = user;
 
   // Add user data to Product demos
-  const demos = [...document.querySelectorAll('.chmln-demo')];
-  const profile = JSON.stringify({ uid, email, name });
+  const demoElements = [...document.querySelectorAll('.chmln-demo')];
+  const profile = { uid, email, name };
 
-  demos.forEach(demoEl => demoEl.setAttribute('data-profile', profile));
+  demoElements.forEach(demoEl => demoEl.src = srcWithData(demoEl.src, JSON.stringify({ profile })));
 
   //
   // Example things one might do with logged-in user info
@@ -66,7 +66,7 @@ _For simplicity, and unless otherwise specified, adding User ID for an identifie
 
 #### Anonymous mode (the default) :id=mode-anonymous
 
-When `data-profile` is missing the Demo runs in **anonymous mode**.
+When `profile` is missing the Demo runs in **anonymous mode**.
 
 ```html
 <iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" style="width: 100%; height: 100%" allow="fullscreen"></iframe>
@@ -76,12 +76,12 @@ When `data-profile` is missing the Demo runs in **anonymous mode**.
 ### Consent to track (cookies etc.) :id=cookie-consent
 
 Start with consent mode of "consent not yet given", with the value `pending`, then update when the user gives or denies
-consent by setting the `data-consent` value on the Demos with either `granted` : `denied`.
+consent by setting the `consent` value on the Demos with either `granted` : `denied`.
 
-> Typically Product Demos fall into the **Functional** category.
+> Typically, Product Demos fall into the **Functional** category.
 
 ```html
-<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id" style="width: 100%; height: 100%" allow="fullscreen" data-consent="granted"></iframe>
+<iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id#consent=granted" style="width: 100%; height: 100%" allow="fullscreen"></iframe>
 ```
 
 Once the consent screen is dismissed
@@ -90,26 +90,29 @@ Once the consent screen is dismissed
 //
 // All Demos start with consent mode 'pending' by default; Set to 'granted' or 'denied' after the user decides about tracking
 //
-const demos = [...document.querySelectorAll('.chmln-demo')];
+const srcWithData = (url, data) => `${url.split('#')[0] || url}#${Object.entries({ ...Object.fromEntries(new URLSearchParams(url.split('#')[1])), ...data }).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&')}`;
+
+const demoElements = [...document.querySelectorAll('.chmln-demo')];
 const trackingAllowed = true; // Note: Use your method to check for this true/false value
 const consent = trackingAllowed ? 'granted' : 'denied';
 
-demos.forEach(demoEl => demoEl.setAttribute('data-consent', consent));
+demoElements.forEach(demoEl => demoEl.src = srcWithData(demoEl.src, { consent }));
 ```
 
 
-### Schema of `data-*` properties :id=schema
+### Schema of properties :id=schema
 
 These control different aspects of the Product Demo including identity, use of cookies, prefilled data, etc.
-Sending `data-profile` is **highly recommended** as a method of connecting the dots from
+The data is passed to the iframe via the hash parameters and objects like `profile` should be JSON encoded first before being handed to `srcWithData`
+Sending the `profile` is **highly recommended** as a method of connecting the dots from
 engagement with Product Demos into the other experiences that Chameleon offers such as [Tours](apis/tours.md)),
 [Microsurveys](apis/surveys.md), and [HelpBar](apis/search.md). 
 
 
-| Property               | Values                          | Description                                                                                                     |
-|------------------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `data-consent`         | `granted`, `denied` , `pending` | Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent |
-| `data-profile`         | {"uid":"5a17d4", ...}           | A JSON object of data about the current user                                                                    |
+| Property     | Values                          | Description                                                                                                     |
+|--------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `consent`    | `granted`, `denied` , `pending` | Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent |
+| `profile`    | {"uid":"5a17d4", ...}           | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                   |
 
 
 ## JavaScript API :id=js-api
@@ -198,7 +201,7 @@ window.addEventListener('message', message => {
 
 ```javascript
 window.addEventListener('message', message => {
-  const { data: { kind, demo, event = {} } } = message;
+  const { data: { kind, demo, event = {} } = {} } = message;
   // `kind` is one of the value in the following table
   // `demo` is the full demo object
   // `event` will hold a nicely formatted object that can be passed to Segment, Mixpnel, Amplitude, etc. and you can expect at least the following 

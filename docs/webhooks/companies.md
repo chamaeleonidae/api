@@ -90,7 +90,7 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies/batch
   "companies": [
     {
       "uid": 18821,
-      "domain": "acme.software",
+      "domain": "acme.ai",
       "last_import_at": "2029-04-07T12:18:00Z",
       "number_of_employees": 73,
       ...
@@ -164,7 +164,7 @@ With the following update, you can send approximately _47,000 Companies_ per bat
 ```json
 {
   "uid": "20ee87e2-f144-4611-8c24-e41549573fa9",
-  "domain": "acme.software",
+  "domain": "acme.ai",
   "company_name": "Jane",
   "last_name": "Chameleon",
   "last_login": "2029-04-29T09:00:00.000Z",

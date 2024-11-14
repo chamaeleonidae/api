@@ -17,7 +17,7 @@ The Javascript API is the client-side portion of Chameleon's API. With it, you c
 - Change the branding of Chameleon Tours based on the brand settings for any particular customer account.
 
 
-#### Examples
+#### Examples :id=examples
 
 Identify the current user when you know who it is. Assuming you have expose the `currentUser` on the `window`.
 
