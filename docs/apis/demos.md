@@ -16,7 +16,7 @@ Completions of, and Tags of Demos will be stored as properties; the data schema 
 
 These are the moments when Chameleon will sync **Contact** data to your CRM:
 
-1. When a anonymous user submits a form with their email address
+1. When an anonymous user submits a form with their email address
 2. When an [identified user](js/demos.md?id=mode-profile) with an email address starts a Demo
 
 What will happen in the above situations?
@@ -87,7 +87,6 @@ What will happen in the above situation?
 | `position`    | string          | The order that these appear in lists (starting from 0)               |
 | `page_title`  | string          | The title of the page this Demo was recorded on                      |
 | `tag_ids`     | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
-| ``            | string          |                                                                      |
 
 
 ## `DemoRun` Schema :id=schema-demo-run
@@ -106,8 +105,8 @@ What will happen in the above situation?
 
 Additional `DemoRun` Schema when [Clearbit Reveal](https://clearbit.com/)
 
-1. Add for API Key in [your dashboard](https://app.chameleon.io/integrations/clearbit)
-2. Set `consent_mode` of the Demo was set to `granted` (e.g. `data-consent-mode="granted"` on the iframe element for the embed)
+1. Add your API Key in [your dashboard](https://app.chameleon.io/integrations/clearbit)
+2. Ensure `consent_mode` of the Demo is set to `granted` (e.g. `data-consent-mode="granted"` on the iframe element for the embed)
 3. Chameleon will try to find a match based on the IP address of anonymous traffic
 
 | Property        | Type      | Description                                             |
