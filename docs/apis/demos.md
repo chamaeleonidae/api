@@ -100,8 +100,8 @@ What will happen in the above situation?
 | `referrer`      | string                                                                 | The referrer of the page this Demo is embedded into                                                                                               |
 | `created_what`  | string                                                                 | The Browser name, version number and OS e.g. `Chrome 191.0 (Mac)`                                                                                 |
 | `created_where` | string                                                                 | The city, region, country, country flag of the likely location of the user; _Only present for `consent_mode=granted`_. e.g. `Oakland CA, US 🇺🇸` |
-| `actions`       | array&lt;[DemoSubmission](apis/demos.md?id=schema-demo-submission)&gt; | The city, region, country, country flag of the likely location of the user; _Only present for `consent_mode=granted`_. e.g. `Oakland CA, US 🇺🇸` |
-| `submissions`   | string                                                                 | The city, region, country, country flag of the likely location of the user; _Only present for `consent_mode=granted`_. e.g. `Oakland CA, US 🇺🇸` |
+| `actions`       | array&lt;DemoAction&gt;                                                | An array of the individual demo actions that occurred for this demo run                                                                           |
+| `submissions`   | array&lt;[DemoSubmission](apis/demos.md?id=schema-demo-submission)&gt; | An array of the form submissions that took place during this demo run                                                                             |
 
 Additional `DemoRun` Schema when [Clearbit Reveal](https://clearbit.com/)
 
