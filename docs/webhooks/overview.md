@@ -860,9 +860,9 @@ This webhook topic only differs from `demo.started` by the addition of the follo
 
 1. In the `demo_run`, an `actions` array of [DemoAction](apis/demos.md?id=schema-demo-action)s
 2. In the `demo_run`, a `submissions` array of [DemoSubmission](apis/demos.md?id=schema-demo-submission)s with a `data` key of [DemoSubmissionData](apis/demos.md?id=schema-demo-submission-data)
-3. `finished_kind` in the `demo_run` as either `"last_step"` or `"timeout_30m""` to give an indication of how this Demo was finished
+3. `finished_kind` in the `demo_run` as either `"last_step"` or `"timeout_30m"` to give an indication of how this Demo was finished
 
-It will be sent when the the last step of the Demo is reached with `finished_kind=last_step` _OR_ approximately
+It will be sent when the last step of the Demo is reached with `finished_kind=last_step` _OR_ approximately
 30 minutes after the last activity in the Demo and `finished_kind=timeout_30m`.
 
 ```json
@@ -933,7 +933,7 @@ It will be sent when the the last step of the Demo is reached with `finished_kin
 This webhook topic only differs by the addition of `reveal_domain`, `reveal_name`, and `clearbit_uid` in the `demo_run`.
 It will be sent when the following conditions are met
 
-1. [Clearbit Reveal](https://clearbit.com/) in configured in [your dashboard](https://app.chameleon.io/integrations/clearbit)
+1. [Clearbit Reveal](https://clearbit.com/) is configured in [your dashboard](https://app.chameleon.io/integrations/clearbit)
 2. The `consent_mode` of the Demo was set to `granted` (e.g. `data-consent-mode="granted"` on the iframe element for the embed)
 3. A match is found to the IP address of anonymous traffic
 
@@ -1019,21 +1019,21 @@ each data item has a `field` as [DemoFormField](apis/demos.md?id=schema-demo-for
 ##### Example: `demo.email.added` :id=example-demo-email-added
 
 This webhook topic is meant to capture the moment when previously taken anonymous Demos receive an email address.
-The flow can be arbitrarily complex but typically follows these 1 paths:
+The flow can be arbitrarily complex but typically follows one of these paths:
 
 1. **Demos taken => Submits interest form**
    1. User takes 1 or more Demos on the marketing site, help documentation, etc.
-   2. In one of the Demos the User submits a form with their email
-   3. Chameleon updates all of their previous demos (connected with the `anonymous_id`)
+   2. In one of the Demos, the User submits a form with their email
+   3. Chameleon will then update all the previous [DemoRun](apis/demos.md?id=schema-demo-run)s from [1i] (e.g. those connected with the `anonymous_id`)
    4. Chameleon sends one `demo.email.added` webhook per updated [DemoRun](apis/demos.md?id=schema-demo-run)
 
 2. **Demos taken => Product signup**
    1. User takes 1 or more Demos on the marketing site, help documentation, etc.
    2. User sign up for the product and is [identified](js/overview.md?id=examples) with their email address
-   3. Chameleon updates all of their previous demos (connected with the `anonymous_id`)
+   3. Chameleon will then update all the previous [DemoRun](apis/demos.md?id=schema-demo-run)s from [2i] (e.g. those connected with the `anonymous_id`)
    4. Chameleon sends one `demo.email.added` webhook per updated [DemoRun](apis/demos.md?id=schema-demo-run)
 
-`action.email` will now email address as a copy of the email address now found in `demo_run.email`.
+`action.email` will have email address as a copy of the email address now found in `demo_run.email`.
 
 ```json
 {
