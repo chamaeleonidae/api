@@ -24,7 +24,7 @@ Using Chameleon's API for Microsurvey responses, you can:
 | `button_order` | number | The 0-indexed index of the button |
 | `button_id` | ID | The Chameleon ID of the button |
 | `input_text` | string | Text comment left by the user (if configured) for Input Microsurveys 1st Step or Question 1 in the Follow Up Step |
-| `input_text2` | string | Text comment left by the user (if configured) for Question 2 in the Follow Up Step |
+| `comment_step_input_text2` | string | Text comment left by the user (if configured) for Question 2 in the Follow Up Step |
 | `dropdown_items` | string | For a dropdown Microsurvey, the selected options from the dropdown on the 1st Step |
 | `other_text` | string | For a dropdown Microsurvey, the alternative text comment left by the user (if configured) |
 | `comment_step_dropdown_items` | string | For any kind of Microsurvey, the selected options from the Follow Up Step dropdown in Question 1 |
