@@ -220,7 +220,7 @@ From the JavaScript code snippet, we collect a set of default properties that ca
 
 ## Reserved Keywords
 
-Chameleon has some reserved keywords that are not passable in identify. They include: `id`, `user_id`, `userId`, `account_id` , `accountId` , `profile_id`, `profileId`, `company_id`, `companyId`, `company`, `created_at`, `createdAt` , `updated_at`, `updatedAt` , `options`, `at`, `last_seen_at`, `last_requet_at`, `now`, `integration`, `disabled`, `chameleon_admin`, `chameleon_tag_ids` and `percent` .
+Chameleon has some reserved keywords that are not passable in identify. They include: `id`, `user_id`, `userId`, `account_id` , `accountId` , `profile_id`, `profileId`, `company_id`, `companyId`, `company`, `created_at`, `createdAt` , `updated_at`, `updatedAt` , `options`, `at`, `last_seen_at`, `last_request_at`, `now`, `integration`, `disabled`, `chameleon_admin`, `chameleon_tag_ids` and `percent` .
 
 
 ## Limits and Errors
