@@ -117,6 +117,48 @@ GET https://api.chameleon.io/v3/edit/launchers
 }
 ```
 
+## Update a Launcher :id=launchers-update
+
+Update a single Launcher to change its properties or to Publish it.
+
+#### HTTP Request
+
+```
+PATCH https://api.chameleon.io/v3/edit/launchers/:id
+```
+
+| param           | -        | description                                                                                     |
+|-----------------|----------|-------------------------------------------------------------------------------------------------|
+| `id`            | required | A Launcher ID to update                                                                         |
+| `urls_group_id` | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
+| `published_at`  | optional | The published time of this Launcher (set to now to trigger a publish)                           |
+
+
+To **Publish** the Launcher send the current timestamp in `iso8601` format
+
+```json
+{
+  "published_at": "2029-04-07T12:18:00Z"
+}
+```
+
+To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
+
+```json
+{
+  "url_group_id": "+5e3c4232c712de666d55632a"
+}
+```
+
+
+To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
+
+```json
+{
+  "url_group_id": "-5e3c4232c712de666d55632a"
+}
+```
+
 ## Filtering by Segment :id=filter-segment
 
 See [Listing Related models](apis/segments.md?id=segment-experiences-index)
