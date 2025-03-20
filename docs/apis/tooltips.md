@@ -103,6 +103,14 @@ To **Publish** the Tooltip send the current timestamp in `iso8601` format
 }
 ```
 
+To **Unpublish** the Tooltip set the `published_at` to `null`
+
+```json
+{
+  "published_at": null
+}
+```
+
 To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
 
 ```json
