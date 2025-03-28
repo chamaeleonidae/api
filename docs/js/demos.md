@@ -109,10 +109,11 @@ engagement with Product Demos into the other experiences that Chameleon offers s
 [Microsurveys](apis/surveys.md), and [HelpBar](apis/search.md). 
 
 
-| Property     | Values                          | Description                                                                                                     |
-|--------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `consent`    | `granted`, `denied` , `pending` | Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent |
-| `profile`    | {"uid":"5a17d4", ...}           | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                   |
+| Property         | Values                            | Description                                                                                                     |
+|------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| `consent`        | `granted`, `denied` , `pending`   | Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent |
+| `profile`         | {"uid":"5a17d4", ...}             | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                   |
+| `session_length` | Any positive integer (in minutes) | The length of the user session in minutes. Use `0` to indicate that the session should not be saved.            |
 
 
 ## JavaScript API :id=js-api
