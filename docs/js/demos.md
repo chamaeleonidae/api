@@ -103,17 +103,17 @@ demoElements.forEach(demoEl => demoEl.src = srcWithData(demoEl.src, { consent })
 ### Schema of properties :id=schema
 
 These control different aspects of the Product Demo including identity, use of cookies, prefilled data, etc.
-The data is passed to the iframe via the hash parameters and objects like `profile` should be JSON encoded first before being handed to `srcWithData`
+The data is passed to the iframe via the hash parameters and objects like `profile` and `options` should be JSON encoded first before being handed to `srcWithData`
 Sending the `profile` is **highly recommended** as a method of connecting the dots from
 engagement with Product Demos into the other experiences that Chameleon offers such as [Tours](apis/tours.md)),
 [Microsurveys](apis/surveys.md), and [HelpBar](apis/search.md). 
 
 
-| Property         | Values                            | Description                                                                                                     |
-|------------------|-----------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| `consent`        | `granted`, `denied` , `pending`   | Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent |
-| `profile`         | {"uid":"5a17d4", ...}             | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                   |
-| `session_length` | Any positive integer (in minutes) | The length of the user session in minutes. Use `0` to indicate that the session should not be saved.            |
+| Property                  | Values                         | Description                                                                                                                 |
+|---------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `consent`                 | `granted`, `denied` , `pending`| Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent             |
+| `profile`                  | {"uid":"5a17d4", ...}          | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                               |
+| `options.session_timeout` | `0`, `1`, `15`, `30`...        | The duration (in minutes) before the user's session expires automatically. Set to 0 to disable session persistence entirely.|
 
 
 ## JavaScript API :id=js-api
@@ -130,7 +130,7 @@ from inside the iframe, akin to webhooks (but on the client side).
 
 | Event kind                     | Event name                       | Description                                                                                          |
 |--------------------------------|----------------------------------|------------------------------------------------------------------------------------------------------|
-| `chmln:demo:started`           | Chameleon Demo Started           | When the user clicks on the first step                                                               |
+| `chmln:demo:started`           | Chameleon Demo Started           | When the user clicks on the first step                                                                |
 | `chmln:demo:completed`         | Chameleon Demo Completed         | When the last step of the demo is reached. This can happen directly or via branching                 |
 | `chmln:demo:restarted`         | Chameleon Demo Restarted         | When the user clicks of any call to action that results in restarting from the beginning             |
 | `chmln:demo:step:started`      | Chameleon Demo Step Started      | When a Step is displayed to the user; typically because of clicking on the previous step             |
