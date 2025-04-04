@@ -78,6 +78,56 @@ GET https://api.chameleon.io/v3/edit/tooltips
 }
 ```
 
+## Update a Tooltip :id=tooltips-update
+
+Update a single Tooltip to change its properties or to Publish it.
+
+#### HTTP Request
+
+```
+PATCH https://api.chameleon.io/v3/edit/tooltips/:id
+```
+
+| param           | -        | description                                                                                     |
+|-----------------|----------|-------------------------------------------------------------------------------------------------|
+| `id`            | required | A Tooltip ID to update                                                                          |
+| `urls_group_id` | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
+| `published_at`  | optional | The published time of this Tooltip (set to now to trigger a publish)                            |
+
+
+To **Publish** the Tooltip send the current timestamp in `iso8601` format
+
+```json
+{
+  "published_at": "2029-04-07T12:18:00Z"
+}
+```
+
+To **Unpublish** the Tooltip set the `published_at` to `null`
+
+```json
+{
+  "published_at": null
+}
+```
+
+To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
+
+```json
+{
+  "url_group_id": "+5e3c4232c712de666d55632a"
+}
+```
+
+
+To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
+
+```json
+{
+  "url_group_id": "-5e3c4232c712de666d55632a"
+}
+```
+
 ## Retrieve a Tooltip :id=campaigns-show
 
 Retrieve a single Tooltip
