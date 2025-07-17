@@ -317,7 +317,21 @@ window.performAction = (type, text, options) => {
 # [2] Create a new data import passing the data_type and via options
 {{global 'performAction' 'create_import' 'First Contacts' data_type='Contact' via='Chameleon'}}
 
+# [3] Using user properties in function calls
+# ✅ Correct - user property without quotes (gets resolved to user's value)
+{{global 'performAction' 'create_draft' first_name}}
+
+# ✅ Correct - mixing user properties and literal strings
+{{global 'performAction' 'create_import' company.name data_type='Contact' via='Chameleon'}}
+
+# ❌ Incorrect - user property with quotes becomes literal text
+{{global 'performAction' 'create_draft' 'first_name'}}
+
+# ❌ Incorrect - nested braces not supported in function arguments
+{{global 'performAction' 'create_draft' {{first_name}}}}
 ```
+
+> **Important**: When passing user properties to functions, use the property name **without quotes or double braces**. Quoted values (`'text'`) are passed as literal strings, while unquoted properties (`user_property`) are resolved to the user's actual property value.
 
 
 ## Examples using `delivery` helper :id=examples-delivery
