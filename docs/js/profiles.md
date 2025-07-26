@@ -110,16 +110,15 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
   <% end %>
 ```
 
-**Javascript:**
+**JavaScript:**
 
-```
+```javascript
 // Add the snippet here with account id (i.e. config.chameleonAccountId)
 // Assuming you preload your page with a current user
 
-(function() {
-  if(currentUser.id) {
-    chmln.identify({
-      uid: currentUser.id,
+(() => {
+  if (currentUser.id) {
+    chmln.identify(currentUser.id, {
       created: currentUser.createdAt,
       email: currentUser.email,
       plan: currentUser.planName,
@@ -131,12 +130,12 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 
 **Ajax:**
 
-```JavaScript
+```javascript
 // Add the snippet here with account id (i.e. config.chameleonAccountId)
 // Assuming you call `currentUserLoaded` after fetching the user
 
-(function() {
-  var currentUserLoaded = function(currentUser) {
+(() => {
+  const currentUserLoaded = (currentUser) => {
     chmln.identify(currentUser.id, {
       created: currentUser.createdAt,
       email: currentUser.email,
@@ -145,12 +144,18 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
     });
   };
 
-  var xhr = $.get('/user.json');
-  xhr.done(function(data) {
-    // Setup other aspects of the environment
-    
-    currentUserLoaded(data.user);
-  });
+  // Using fetch API (modern)
+  fetch('/user.json')
+    .then(response => response.json())
+    .then(data => {
+      // Setup other aspects of the environment
+      currentUserLoaded(data.user);
+    })
+    .catch(error => console.error('Error fetching user:', error));
+
+  // Or using jQuery (legacy)
+  // const xhr = $.get('/user.json');
+  // xhr.done(data => currentUserLoaded(data.user));
 })();
 ```
 
@@ -178,7 +183,7 @@ Use this function to de-identify the user and stop Chameleon from operating on t
 - When the user is logged out of a single page app that does not perform a full-page refresh
 - When your application enters a "mode" where automatic delivery of Chameleon Experiences should no longer happen (i.e. in full-screen mode)
 
-```JavaScript
+```javascript
 chmln.clear();
 ```
 

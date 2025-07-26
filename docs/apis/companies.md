@@ -39,9 +39,9 @@ Retrieve a single Company.
 #### HTTP Request
 
 ```
-GET https://api.trychameleon.com/v3/analyze/companies/:id
+GET https://api.chameleon.io/v3/analyze/companies/:id
 # OR
-GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
+GET https://api.chameleon.io/v3/analyze/company?uid=:uid
 ```
 
 | param | -        | description                                                  |
@@ -89,7 +89,7 @@ GET|POST https://api.chameleon.io/v3/analyze/companies
 # As a URL parameter
 expand[profile]=min&expand[company]=skip
 
-# In the Reqeust body
+# In the Request body
 {"expand":{"profile":"min","company":"skip"}}
 ```
 
@@ -176,7 +176,7 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      -H "Content-Type: application/json" \
      -X POST \
      -d '{"filters":[{"kind":"property","prop":"uid","op":"eq","value":"123"}]}' \
-     https://api.trychameleon.com/v3/analyze/companies
+     https://api.chameleon.io/v3/analyze/companies
 ```
 
 ## Delete a Company :id=companies-delete
@@ -195,9 +195,9 @@ The associated profiles can also be removed by passing `cascade=profiles` with t
 Either `id` or `uid` is required.
 
 ```
-DELETE https://api.trychameleon.com/v3/edit/companies/:id
+DELETE https://api.chameleon.io/v3/edit/companies/:id
 # OR
-DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid
+DELETE https://api.chameleon.io/v3/edit/company?uid=:uid
 ```
 
 #### HTTP Response
@@ -217,9 +217,9 @@ The Deletion is an internal Chameleon record that can be referenced as proof of 
 Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
 
 ```
-DELETE https://api.trychameleon.com/v3/edit/companies/:id?cascade=profiles
+DELETE https://api.chameleon.io/v3/edit/companies/:id?cascade=profiles
 # OR
-DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid&cascade=profiles
+DELETE https://api.chameleon.io/v3/edit/company?uid=:uid&cascade=profiles
 ```
 
 #### HTTP Response

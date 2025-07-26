@@ -30,7 +30,7 @@ With the Chameleon API for Segments, you can:
 > For a full list of your User / Company Properties see the [Properties API](apis/properties.md)
 
 
-## Listing Segments :id=segments-index
+## List Segments :id=segments-index
 
 Retrieve a list of segments according to the specified parameters.
 
@@ -43,8 +43,7 @@ GET https://api.chameleon.io/v3/edit/segments
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
 | `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
-| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
-| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response. Can also be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
 
