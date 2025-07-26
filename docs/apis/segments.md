@@ -72,34 +72,83 @@ From the previous response `cursor.before`
   "segments": [
     {
       "id": "5f3c4232c712de665632a6d9",
-      "name": "Admins who invited > 3",
+      "created_at": "2024-03-10T09:15:00.000Z",
+      "updated_at": "2024-04-05T14:22:00.000Z",
+      "name": "Enterprise Admins - Recent Activity",
       "items": [
         {
-          "id": "5f3c4232c712de665632a6d8",
+          "id": "5f3c4232c712de665632a6da",
+          "created_at": "2024-03-10T09:15:00.000Z",
+          "updated_at": "2024-04-05T14:22:00.000Z",
           "kind": "property",
           "prop": "role",
           "op": "eq",
           "value": "admin"
         },
         {
-          "id": "5f3c4232c712de665632a6d7",
+          "id": "5f3c4232c712de665632a6db",
+          "created_at": "2024-03-10T09:15:00.000Z",
+          "updated_at": "2024-04-05T14:22:00.000Z",
           "kind": "property",
-          "prop": "invited_users_count",
-          "op": "gte",
-          "value": 3
+          "prop": "company.plan",
+          "op": "in",
+          "value": ["enterprise", "business"]
+        },
+        {
+          "id": "5f3c4232c712de665632a6dc",
+          "created_at": "2024-03-10T09:15:00.000Z",
+          "updated_at": "2024-04-05T14:22:00.000Z",
+          "kind": "property",
+          "prop": "last_seen_at",
+          "op": "gt-d",
+          "value": "7"
         }
-      ]
+      ],
+      "items_op": "and"
     },
     {
-      "id": "5f3c4232c712de665632a6e2",
-      "name": "Grown Plan Upsell",
-       ...
-    },
-    ...
+      "id": "5f3c4232c712de665632a6e1",
+      "created_at": "2024-02-15T11:30:00.000Z",
+      "updated_at": "2024-04-01T16:45:00.000Z",
+      "name": "Trial Users - Feature Engagement",
+      "items": [
+        {
+          "id": "5f3c4232c712de665632a6e2",
+          "created_at": "2024-02-15T11:30:00.000Z",
+          "updated_at": "2024-04-01T16:45:00.000Z",
+          "kind": "property",
+          "prop": "subscription_status",
+          "op": "eq",
+          "value": "trial"
+        },
+        {
+          "id": "5f3c4232c712de665632a6e3",
+          "created_at": "2024-02-15T11:30:00.000Z",
+          "updated_at": "2024-04-01T16:45:00.000Z",
+          "kind": "event",
+          "op": "eq",
+          "value": "feature_used",
+          "mod": "gte",
+          "range": "3",
+          "period": "week"
+        },
+        {
+          "id": "5f3c4232c712de665632a6e4",
+          "created_at": "2024-02-15T11:30:00.000Z",
+          "updated_at": "2024-04-01T16:45:00.000Z",
+          "kind": "property",
+          "integration": "salesforce",
+          "prop": "lead_score",
+          "op": "gte",
+          "value": "75"
+        }
+      ],
+      "items_op": "and"
+    }
   ],
   "cursor": {
-    "limit": 50,
-    "before": "5f3c4232c712de665632a6d7"
+    "limit": 2,
+    "before": "5f3c4232c712de665632a6e1"
   }
 }
 ```
