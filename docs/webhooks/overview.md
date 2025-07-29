@@ -870,40 +870,297 @@ Every Button that is clicked in a Tour / Microsurvey will send a webhook to this
 }
 ```
 
+**Example: `embed.button.clicked`**
+```json
+{
+  "id": "5f3c4232c712de665632e5e1",
+  "kind": "embed.button.clicked",
+  "sent_at": "2024-06-15T16:32:18.890Z",
+  "data": {
+    "action": {
+      "id": "5f3c4232c712de665632e5e2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e1a3",
+      "created_at": "2024-05-20T14:15:00.000Z",
+      "updated_at": "2024-06-15T16:32:00.000Z",
+      "uid": "embed_user_789",
+      "company_id": "5f3c4232c712de665632e1a4",
+      "email": "jennifer.clark@creativecorp.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 85.42,
+      "last_seen_at": "2024-06-15T16:32:00.000Z",
+      "last_seen_session_count": 47,
+      "delivery_ids": [
+        "5f3c4232c712de665632e1a5",
+        "5f3c4232c712de665632e1a6"
+      ],
+      "role": "creative_director",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["embed_builder", "advanced_analytics", "custom_branding"],
+      "signup_source": "product_hunt",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Creative"
+    },
+    "embed": {
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2024-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 47
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
+    },
+    "button": {
+      "id": "5f3c4232c712de665632e5e3",
+      "text": "Try Demo",
+      "style_color_fill": "0084FF",
+      "style_color_text": "FFFFFF",
+      "style_color_border": "0084FF",
+      "style_button_roundness": "6px",
+      "style_border_width": "1px",
+      "action_new_window": false,
+      "position": "bottom_right",
+      "tour_action": "open_url",
+      "action_url": "https://app.chameleon.io/demos/interactive-showcase",
+      "order": 1
+    }
+  }
+}
+```
+
 
 ##### Example: `embed.started`, `embed.completed`, `embed.exited` :id=example-embed-all
 
 An Embed is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Embeds by default show once to any one User but can, depending on their settings, show multiple times.
 
+**Example: `embed.started`**
 ```json
 {
-  "id": "5fb70dcbc39330000325a818",
+  "id": "5f3c4232c712de665632e1a1",
   "kind": "embed.started",
-  "sent_at": "2029-12-11T00:28:59.652Z",
+  "sent_at": "2024-06-15T16:30:45.234Z",
   "data": {
+    "action": {
+      "id": "5f3c4232c712de665632e1a2"
+    },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632e1a3",
+      "created_at": "2024-05-20T14:15:00.000Z",
+      "updated_at": "2024-06-15T16:30:00.000Z",
+      "uid": "embed_user_789",
+      "company_id": "5f3c4232c712de665632e1a4",
+      "email": "jennifer.clark@creativecorp.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 85.42,
+      "last_seen_at": "2024-06-15T16:30:00.000Z",
+      "last_seen_session_count": 47,
+      "delivery_ids": [
+        "5f3c4232c712de665632e1a5",
+        "5f3c4232c712de665632e1a6"
+      ],
+      "role": "creative_director",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["embed_builder", "advanced_analytics", "custom_branding"],
+      "signup_source": "product_hunt",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Creative"
     },
     "embed": {
-      "id": "5fb6e4ab8af58a00073f0d98",
-      "name": "Usage upsell banner - A",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2024-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 47
+      }
     },
     "step": {
-      "id": "5fb6e4ab8af58a00073f0d99",
-       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
-       ...
-    },
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
+    }
+  }
+}
+```
+
+**Example: `embed.completed`**
+```json
+{
+  "id": "5f3c4232c712de665632e2b1",
+  "kind": "embed.completed",
+  "sent_at": "2024-06-15T16:35:22.567Z",
+  "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6"
+      "id": "5f3c4232c712de665632e2b2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e1a3",
+      "created_at": "2024-05-20T14:15:00.000Z",
+      "updated_at": "2024-06-15T16:35:00.000Z",
+      "uid": "embed_user_789",
+      "company_id": "5f3c4232c712de665632e1a4",
+      "email": "jennifer.clark@creativecorp.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 85.42,
+      "last_seen_at": "2024-06-15T16:35:00.000Z",
+      "last_seen_session_count": 47,
+      "delivery_ids": [
+        "5f3c4232c712de665632e1a5",
+        "5f3c4232c712de665632e1a6"
+      ],
+      "role": "creative_director",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["embed_builder", "advanced_analytics", "custom_branding"],
+      "signup_source": "product_hunt",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Creative"
+    },
+    "embed": {
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2024-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 188,
+        "exited_count": 46
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e2b3",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "body": "🎉 Excellent! You've completed the interactive demo showcase. You now understand how to create engaging product demonstrations.",
+      "preset": "embed_success"
+    }
+  }
+}
+```
+
+**Example: `embed.exited`**
+```json
+{
+  "id": "5f3c4232c712de665632e3c1",
+  "kind": "embed.exited",
+  "sent_at": "2024-06-15T16:28:45.890Z",
+  "data": {
+    "action": {
+      "id": "5f3c4232c712de665632e3c2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e3c3",
+      "created_at": "2024-06-10T11:20:00.000Z",
+      "updated_at": "2024-06-15T16:28:00.000Z",
+      "uid": "trial_user_456",
+      "company_id": "5f3c4232c712de665632e3c4",
+      "email": "miguel.santos@startuptech.es",
+      "browser_l": "es-ES",
+      "browser_n": "firefox",
+      "browser_k": "desktop",
+      "browser_x": 1440,
+      "browser_tz": 1,
+      "percent": 23.67,
+      "last_seen_at": "2024-06-15T16:28:00.000Z",
+      "last_seen_session_count": 8,
+      "delivery_ids": [],
+      "role": "developer",
+      "plan": "growth",
+      "onboarding_completed": false,
+      "feature_flags": ["basic_embeds"],
+      "signup_source": "google_ads",
+      "team_size": 5,
+      "subscription_status": "trial",
+      "department": "Engineering"
+    },
+    "embed": {
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2024-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 48
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
     }
   }
 }
@@ -917,38 +1174,74 @@ When an Embed is snoozed it is set to come back after a certain amount of time h
 
 ```json
 {
-  "id": "5fb70dcbc39330000325a818",
+  "id": "5f3c4232c712de665632e4d1",
   "kind": "embed.snoozed",
-  "sent_at": "2029-12-11T00:28:59.652Z",
+  "sent_at": "2024-06-15T17:15:45.678Z",
   "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "deferred_until": "2029-12-14T00:28:58.622Z",
-      "deferred_hours": 72,
-      "deferred_count": 2
+      "id": "5f3c4232c712de665632e4d2",
+      "deferred_until": "2024-06-17T09:15:44.567Z",
+      "deferred_hours": 40,
+      "deferred_count": 1
     },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632e4d3",
+      "created_at": "2024-06-12T14:30:00.000Z",
+      "updated_at": "2024-06-15T17:15:00.000Z",
+      "uid": "mobile_user_234",
+      "company_id": "5f3c4232c712de665632e4d4",
+      "email": "lucia.hernandez@mobilecorp.mx",
+      "browser_l": "es-MX",
+      "browser_n": "safari",
+      "browser_k": "mobile",
+      "browser_x": 375,
+      "browser_tz": -6,
+      "percent": 62.18,
+      "last_seen_at": "2024-06-15T17:15:00.000Z",
+      "last_seen_session_count": 19,
+      "delivery_ids": [
+        "5f3c4232c712de665632e4d5"
+      ],
+      "role": "product_manager",
+      "plan": "startup",
+      "onboarding_completed": true,
+      "feature_flags": ["mobile_embeds", "snooze_options"],
+      "signup_source": "referral",
+      "team_size": 3,
+      "subscription_status": "active",
+      "department": "Product",
+      "preferred_language": "es"
     },
     "embed": {
-      "id": "5fb6e4ab8af58a00073f0d98",
-      "name": "Usage upsell banner - A",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2024-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 47,
+        "snoozed_count": 15
+      }
     },
     "step": {
-      "id": "5fb6e4ab8af58a00073f0d99",
-       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
-       ...
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2024-06-10T10:00:00.000Z",
+      "updated_at": "2024-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
     }
-  },
+  }
 }
 ```
 
@@ -1347,42 +1640,44 @@ Demos can also [sync Contact data](apis/demos.md?id=demos-in-the-crm) into the C
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94a",
+  "id": "5f3c4232c712de665632f1a1",
   "kind": "demo.started",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2024-07-15T14:25:30.890Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb"
+    "action": {
+      "id": "5f3c4232c712de665632f1a2"
     },
-    "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
-    },
+    "profile": null,
     "demo_run": {
-      "id": "5fb7afb5ea19724169374269",
-      "referrer":  "https://www.acme.co/products/analytics",
-      "created_what":  "Chrome 191.0 (Mac)",
-      "created_where": "Oakland CA, US 🇺🇸",
-      "anonymous_id": "5fb7afb5ea19724169374269",
+      "id": "5f3c4232c712de665632f1a3",
+      "created_at": "2024-07-15T14:20:00.000Z",
+      "updated_at": "2024-07-15T14:25:27.308Z",
+      "anonymous_id": "5f3c4232c712de665632f1a4",
+      "email": null,
+      "created_what": "Chrome 138 - Mac",
+      "created_where": "Calgary Alberta, CA 🇨🇦",
       "consent_mode": "granted",
-      ...
+      "first_run": true,
+      "referrer": null
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      "name": "Demo of Analysis quickstart",
-      "description": "Our analysis goes deeper than you'd typically see in a trial",
-      "href": "https://app.acme.co/setup/tough-thing-to-do",
-      "page_title": "Analytics",
-      ...
-      "user": {
-        "id": "5490e42d65353700020030fa",
-        "email": "jim@acme.co",
-        "name": "Jim B"
+      "id": "6883d663cd779100179d6899",
+      "created_at": "2025-07-25T19:09:23.000Z",
+      "updated_at": "2025-07-25T19:10:50.463Z",
+      "name": "ClickHouse Console Overview",
+      "description": "Explore ClickHouse console, navigate clusters, and view tables. Learn how to manage huge data sets like Profiles EEV with 15 billion rows.",
+      "position": 1,
+      "href": "https://console.clickhouse.cloud/",
+      "page_title": "Services",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/6883d663cd779100179d6899"
+      },
+      "created_user": {
+        "id": "630fbe394c27640010814ccb",
+        "created_at": "2022-08-31T20:02:01.000Z",
+        "updated_at": "2025-07-29T18:15:04.229Z",
+        "email": "anton@trychameleon.com",
+        "name": "Anton Kolmakov"
       }
     }
   }
@@ -1403,60 +1698,59 @@ It will be sent when the last step of the Demo is reached with `finished_kind=la
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "688916adf1fd8340659b3221",
   "kind": "demo.finished",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-29T18:45:01.935Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb"
+    "action": {
+      "id": null
     },
+    "profile": null,
     "demo_run": {
-      ...,
-      "finished_kind": "last_step",
+      "id": "68890d3304dc0e002da0ed68",
+      "created_at": "2025-07-29T18:04:35.000Z",
+      "updated_at": "2025-07-29T18:45:01.832Z",
+      "anonymous_id": "68890d331d5eca09f6b22846",
+      "email": null,
+      "created_what": "Mobile Safari 18 - iOS",
+      "created_where": "Mexico City Distrito Federal, MX 🇲🇽",
+      "consent_mode": "granted",
+      "first_run": true,
+      "referrer": "https://www.chameleon.io/",
+      "finished_kind": "timeout_30m",
       "actions": [
         {
-          "id": "",
+          "id": "68890d331d5eca09f6b22847",
           "name": "Demo Started",
-          ...
+          "timestamp": "2025-07-29T18:04:35.000Z"
         },
         {
-          "id": "",
-          "name": "Demo Step Started",
-          ...
-        },
-        ...
-      ],
-      "submissions": [
-        {
-          "id": "6f885a84f600b0e38e7daf3e",
-          "step_id": "5fb7936edee1f70011bfc4c9",
-          "data": [
-            {
-              "field": {
-                "id": "6fa88e7daf34f6000e3eb885",
-                "type": "email",
-                "name": "Email address",
-                "description": ""
-              },
-              "value": "jane@example.io"
-            },
-            {
-              "field": {
-                "id": "6fa88e7daf34f6000e3eb885",
-                "type": "select",
-                "name": "Urgency",
-                "description": "Knowing how quickly you want to evaluate Acme helps us mirror your urgency"
-              },
-              "value": "this week"
-            },
-            ...
-          ]
+          "id": "68890d451d5eca09f6b22859",
+          "name": "Demo Step Viewed",
+          "timestamp": "2025-07-29T18:15:12.000Z"
         }
       ],
+      "submissions": []
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "687a5a17a15837001bb7bae4",
+      "created_at": "2025-07-18T14:28:39.000Z",
+      "updated_at": "2025-07-21T18:18:21.844Z",
+      "name": "Chameleon Demos",
+      "description": "Discover how to enhance user engagement through tailored onboarding experiences using Chameleon's powerful features.",
+      "position": 9,
+      "href": "https://app.chameleon.io/demos",
+      "page_title": "Demos",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/687a5a17a15837001bb7bae4"
+      },
+      "created_user": {
+        "id": "6257c12532625b000f6ba77b",
+        "created_at": "2022-04-14T06:37:25.000Z",
+        "updated_at": "2025-07-29T14:07:20.979Z",
+        "email": "sonia@trychameleon.com",
+        "name": "Sonia Schiau"
+      }
     }
   }
 }
@@ -1475,23 +1769,48 @@ It will be sent when the following conditions are met
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "68894c22f288e43bc9d7e567",
   "kind": "demo.reveal",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-29T22:15:45.678Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb"
+    "action": {
+      "id": "68894c1fd5b8f67ad2e3c234"
     },
+    "profile": null,
     "demo_run": {
-      ...,
-      "reveal_domain": "zenflex.io",
-      "reveal_name": "Zen Flexing Aura Ltd.",
-      "clearbit_uid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-      "consent_mode": "granted"
+      "id": "68894c1b04dc0e002da0f123",
+      "created_at": "2025-07-29T22:12:35.000Z",
+      "updated_at": "2025-07-29T22:15:44.832Z",
+      "anonymous_id": "68894c1b1d5eca09f6b22890",
+      "email": null,
+      "created_what": "Chrome 138 - Windows",
+      "created_where": "Toronto Ontario, CA 🇨🇦",
+      "consent_mode": "granted",
+      "first_run": true,
+      "referrer": "https://www.google.com/",
+      "reveal_domain": "techstartup.ca",
+      "reveal_name": "Toronto Tech Startups Inc.",
+      "clearbit_uid": "a47bc20c-68dd-4372-b567-1e02c3d4e890"
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "6883d663cd779100179d6899",
+      "created_at": "2025-07-25T19:09:23.000Z",
+      "updated_at": "2025-07-25T19:10:50.463Z",
+      "name": "ClickHouse Console Overview",
+      "description": "Explore ClickHouse console, navigate clusters, and view tables. Learn how to manage huge data sets like Profiles EEV with 15 billion rows.",
+      "position": 1,
+      "href": "https://console.clickhouse.cloud/",
+      "page_title": "Services",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/6883d663cd779100179d6899"
+      },
+      "created_user": {
+        "id": "630fbe394c27640010814ccb",
+        "created_at": "2022-08-31T20:02:01.000Z",
+        "updated_at": "2025-07-29T18:15:04.229Z",
+        "email": "anton@trychameleon.com",
+        "name": "Anton Kolmakov"
+      }
     }
   }
 }
@@ -1508,44 +1827,87 @@ each data item has a `field` as [DemoFormField](apis/demos.md?id=schema-demo-for
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "68895d33f288e43bc9d7e678",
   "kind": "demo.form.submitted",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-29T23:25:18.456Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb",
+    "action": {
+      "id": "68895d30d5b8f67ad2e3c345",
       "submission": {
-        "id": "6f885a84f600b0e38e7daf3e",
-        "step_id": "5fb7936edee1f70011bfc4c9",
+        "id": "68895d2cf600b0e38e7daf89",
+        "step_id": "6883d663cd779100179d689a",
         "data": [
           {
             "field": {
-              "id": "6fa88e7daf34f6000e3eb885",
+              "id": "68895d25af34f6000e3eb567",
               "type": "email",
-              "name": "Email address",
-              "description": ""
+              "name": "Work Email",
+              "description": "We'll use this to send you demo access"
             },
-            "value": "jane@example.io"
+            "value": "sarah.thompson@datacompany.io"
           },
           {
             "field": {
-              "id": "6fa88e7daf34f6000e3eb885",
-              "type": "select",
-              "name": "Urgency",
-              "description": "Knowing how quickly you want to evaluate Acme helps us mirror your urgency"
+              "id": "68895d26af34f6000e3eb568",
+              "type": "text",
+              "name": "Company Name",
+              "description": "What company do you work for?"
             },
-            "value": "this week"
+            "value": "DataFlow Analytics"
           },
-          ...
-        }
-      ],
+          {
+            "field": {
+              "id": "68895d27af34f6000e3eb569",
+              "type": "select",
+              "name": "Company Size",
+              "description": "How many employees work at your company?"
+            },
+            "value": "51-200"
+          },
+          {
+            "field": {
+              "id": "68895d28af34f6000e3eb570",
+              "type": "select",
+              "name": "Timeline",
+              "description": "When are you looking to implement a solution?"
+            },
+            "value": "Within 1 month"
+          }
+        ]
+      }
     },
+    "profile": null,
     "demo_run": {
-      ...,
+      "id": "68895d1b04dc0e002da0f234",
+      "created_at": "2025-07-29T23:20:35.000Z",
+      "updated_at": "2025-07-29T23:25:17.832Z",
+      "anonymous_id": "68895d1b1d5eca09f6b22901",
+      "email": "sarah.thompson@datacompany.io",
+      "created_what": "Chrome 138 - Mac",
+      "created_where": "San Francisco California, US 🇺🇸",
+      "consent_mode": "granted",
+      "first_run": true,
+      "referrer": "https://www.linkedin.com/"
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "6883d663cd779100179d6899",
+      "created_at": "2025-07-25T19:09:23.000Z",
+      "updated_at": "2025-07-25T19:10:50.463Z",
+      "name": "ClickHouse Console Overview",
+      "description": "Explore ClickHouse console, navigate clusters, and view tables. Learn how to manage huge data sets like Profiles EEV with 15 billion rows.",
+      "position": 1,
+      "href": "https://console.clickhouse.cloud/",
+      "page_title": "Services",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/6883d663cd779100179d6899"
+      },
+      "created_user": {
+        "id": "630fbe394c27640010814ccb",
+        "created_at": "2022-08-31T20:02:01.000Z",
+        "updated_at": "2025-07-29T18:15:04.229Z",
+        "email": "anton@trychameleon.com",
+        "name": "Anton Kolmakov"
+      }
     }
   }
 }
@@ -1573,20 +1935,46 @@ The flow can be arbitrarily complex but typically follows one of these paths:
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "68896e44f288e43bc9d7e789",
   "kind": "demo.email.added",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-30T00:35:28.678Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb",
-      "email": "jane@acme.co"
+    "action": {
+      "id": "68896e41d5b8f67ad2e3c456",
+      "email": "michael.chang@techcorp.sg"
     },
+    "profile": null,
     "demo_run": {
-      ...,
+      "id": "68896e2b04dc0e002da0f345",
+      "created_at": "2025-07-30T00:30:15.000Z",
+      "updated_at": "2025-07-30T00:35:27.832Z",
+      "anonymous_id": "68896e2b1d5eca09f6b22012",
+      "email": "michael.chang@techcorp.sg",
+      "created_what": "Chrome 138 - Mac",
+      "created_where": "Singapore Singapore, SG 🇸🇬",
+      "consent_mode": "granted",
+      "first_run": false,
+      "referrer": "https://www.chameleon.io/demos"
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "687a5a17a15837001bb7bae4",
+      "created_at": "2025-07-18T14:28:39.000Z",
+      "updated_at": "2025-07-21T18:18:21.844Z",
+      "name": "Chameleon Demos",
+      "description": "Discover how to enhance user engagement through tailored onboarding experiences using Chameleon's powerful features.",
+      "position": 9,
+      "href": "https://app.chameleon.io/demos",
+      "page_title": "Demos",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/687a5a17a15837001bb7bae4"
+      },
+      "created_user": {
+        "id": "6257c12532625b000f6ba77b",
+        "created_at": "2022-04-14T06:37:25.000Z",
+        "updated_at": "2025-07-29T14:07:20.979Z",
+        "email": "sonia@trychameleon.com",
+        "name": "Sonia Schiau"
+      }
     }
   }
 }
