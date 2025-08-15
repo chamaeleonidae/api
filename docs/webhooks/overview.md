@@ -234,7 +234,31 @@ Every Microsurvey that is finished will send a webhook to this topic.
         "started_count": 134,
         "completed_count": 98,
         "response_rate": 0.731
-      }
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632d7b1",
+          "body": "How would you rate the new design collaboration features?",
+          "preset": "survey_five",
+          "dropdown_items": [
+            "Excellent",
+            "Very Good", 
+            "Good",
+            "Fair",
+            "Poor"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632d7b2",
+          "body": "Any additional feedback or suggestions?",
+          "preset": "response"
+        },
+        {
+          "id": "5f3c4232c712de665632d7b3",
+          "body": "Thank you for your feedback! 🎨",
+          "preset": "thank_you"
+        }
+      ]
     }
   }
 }
@@ -844,7 +868,26 @@ Every Button that is clicked in a Tour / Microsurvey will send a webhook to this
         "started_count": 67,
         "completed_count": 52,
         "response_rate": 0.776
-      }
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632e8b9",
+          "body": "How useful do you find the new advanced workflow automation features?",
+          "preset": "survey_rating",
+          "dropdown_items": [
+            "Extremely useful",
+            "Very useful",
+            "Somewhat useful", 
+            "Not very useful",
+            "Not useful at all"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632e8bb",
+          "body": "Thank you for helping us improve! 🚀",
+          "preset": "thank_you"
+        }
+      ]
     },
     "step": {
       "id": "5f3c4232c712de665632e8b9",
@@ -1409,7 +1452,25 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
         "started_count": 156,
         "completed_count": 98,
         "response_rate": 0.628
-      }
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632b1aa",
+          "body": "How would you rate your mobile experience?",
+          "preset": "survey_four",
+          "dropdown_items": [
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632b1ab",
+          "body": "Thanks for your feedback! 📱",
+          "preset": "thank_you"
+        }
+      ]
     },
     "step": {
       "id": "5f3c4232c712de665632b1aa",
@@ -1483,7 +1544,26 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
         "started_count": 89,
         "completed_count": 67,
         "response_rate": 0.753
-      }
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632b2b8",
+          "body": "How satisfied are you with our customer service?",
+          "preset": "survey_five", 
+          "dropdown_items": [
+            "Very Satisfied",
+            "Satisfied",
+            "Neutral",
+            "Dissatisfied",
+            "Very Dissatisfied"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632b2b9",
+          "body": "Thank you for completing our survey! Your feedback helps us improve our service.",
+          "preset": "thank_you"
+        }
+      ]
     },
     "step": {
       "id": "5f3c4232c712de665632b2b9",
@@ -1556,7 +1636,26 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
         "started_count": 45,
         "completed_count": 12,
         "response_rate": 0.267
-      }
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632b3c7",
+          "body": "What feature would be most valuable for your workflow? Help us prioritize our roadmap!",
+          "preset": "survey_multiple_choice",
+          "dropdown_items": [
+            "Integrations",
+            "Analytics", 
+            "Collaboration Tools",
+            "API Access",
+            "Other"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632b3c8",
+          "body": "Thank you! We'll use your input to guide our development. 🛠️",
+          "preset": "thank_you"
+        }
+      ]
     },
     "step": {
       "id": "5f3c4232c712de665632b3c7",
