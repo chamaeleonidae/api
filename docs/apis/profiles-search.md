@@ -301,7 +301,7 @@ Notes:
     {
       "id": "5f3c4232c712de665632a6d5",
       "uid": 18821,
-      "email": "leon@chmln.co",
+      "email": "user1@example.com",
       "role": "admin",
       "invited_users_count": 4,
        ...
@@ -309,7 +309,7 @@ Notes:
     {
       "id": "5f3c4232c712de665632a6d6",
       "uid": 18829,
-      "email": "prehensile@chmln.co",
+      "email": "user2@example.com",
       "role": "admin",
       "invited_users_count": 6,
        ...

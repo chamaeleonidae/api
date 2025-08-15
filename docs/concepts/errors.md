@@ -4,8 +4,9 @@
 
 ---
 
-## Status Code 403 :id=code-403
-Account token is not valid or has been revoked
+## HTTP 403 Forbidden :id=code-403
+
+**Account token is not valid or has been revoked**
 
 ```json
 {
@@ -14,11 +15,11 @@ Account token is not valid or has been revoked
 }
 ```
 
-## Status Code 404 :id=code-404
+## HTTP 404 Not Found :id=code-404
 
-Endpoint or Resource not found
+**Endpoint or Resource not found**
 
-404's happen for a couple of reasons:
+404 errors happen for a couple of reasons:
 
  - The URL was not pasted correctly from these docs. URLs have an environment specifier directly after the version, make sure to include this
  - A resource/collection you tried to access is not found for this Secret token
@@ -30,9 +31,9 @@ Endpoint or Resource not found
 }
 ```
 
-## Status Code 409 :id=code-409
+## HTTP 409 Conflict :id=code-409
 
-Conflicting state of the Resource
+**Conflicting state of the Resource**
 
  - The Tour is not live when trying to create a Delivery
  - The specified update is not compatible with the current state of the Model
@@ -45,9 +46,9 @@ Conflicting state of the Resource
 }
 ```
 
-## Status Code 422 :id=code-422
+## HTTP 422 Unprocessable Entity :id=code-422
 
-The request parameters cannot be processed as-is
+**The request parameters cannot be processed as-is**
 
  - The parameter that is specifies a timestamp cannot be parsed/interpreted as a timestamp
  - The identifier is missing when looking up a User Profile
@@ -59,9 +60,9 @@ The request parameters cannot be processed as-is
 }
 ```
 
-## Status Code 429 :id=code-429
+## HTTP 429 Too Many Requests :id=code-429
 
-You have made too many concurrent or bucketed requests and exceeded your Rate limit.
+**You have made too many concurrent or bucketed requests and exceeded your rate limit.**
 
 See also [Rate limiting](concepts/rate-limiting.md)
 
@@ -82,11 +83,11 @@ X-Ratelimit-Limit: 2
 }
 ```
 
-## Status Code 500 :id=code-500
+## HTTP 500 Internal Server Error :id=code-500
 
-Server error
+**Server error**
 
-An Internal server error occurred (one that we otherwise had not planned on receiving). Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
+An internal server error occurred (one that we otherwise had not planned on receiving). Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
 
 ```json
 {
@@ -95,9 +96,11 @@ An Internal server error occurred (one that we otherwise had not planned on rece
 }
 ```
 
-## Status Code 503 :id=code-503
+## HTTP 503 Service Unavailable :id=code-503
 
-Server not available or backend didn't respond in time -- possibly not a JSON response depending on the origin of the 503
+**Server not available or backend didn't respond in time**
+
+Possibly not a JSON response depending on the origin of the 503.
 
 Unexpected maintenance, API downtime or the inability to shed enough load with [Rate limiting](rate-limiting.md)
 
@@ -108,9 +111,9 @@ Unexpected maintenance, API downtime or the inability to shed enough load with [
 }
 ```
 
-## Status Code 504 :id=code-504
+## HTTP 504 Gateway Timeout :id=code-504
 
-The Server contacted or proxied your request to a different Service which took too long to respond
+**The server contacted or proxied your request to a different service which took too long to respond**
 
 This can happen when a request is too complex or the system load is too high. You may retry your request again after a suitable delay.
 

@@ -76,7 +76,7 @@ When using a **GET** request with parameters:
 ```
 ?id=5f3c4232c712de665632a6d5
 ?uid=18821
-?email=leon@chmln.co
+?email=user@example.com
 ```
 
 When using a **POST** request send one of these properties:
@@ -85,7 +85,7 @@ When using a **POST** request send one of these properties:
 {
   "id": "5f3c4232c712de665632a6d5",
   "uid": 18821,
-  "email": "leon@chmln.co"
+  "email": "user@example.com"
 }
 ```
 
@@ -97,13 +97,27 @@ When using a **POST** request send one of these properties:
 {
   "profile": {
     "id": "5f3c4232c712de665632a6d5",
-    "uid": 18821,
-    "email": "leon@chmln.co",
-    "first_name": "Leon",
-    "role": "admin",
-    "last_import_at": "2029-04-07T12:18:00Z",
-    "invited_users_count": 4,
-     ...
+    "created_at": "2029-03-15T10:30:00.000Z",
+    "updated_at": "2029-04-07T12:18:00.000Z",
+    "uid": "user_18821",
+    "company_id": "5f3c4232c712de665632a6e8",
+    "browser_x": 1920,
+    "browser_tz": -8,
+    "browser_l": "en-US",
+    "browser_n": "chrome",
+    "browser_k": "desktop",
+    "percent": 42.87,
+    "last_seen_at": "2029-04-07T11:45:00.000Z",
+    "last_seen_session_count": 23,
+    "delivery_ids": [
+      "5f3c4232c712de665632a6f1",
+      "5f3c4232c712de665632a6f2"
+    ],
+    "company": {
+      "id": "5f3c4232c712de665632a6e8",
+      "created_at": "2029-01-10T08:00:00.000Z",
+      "uid": "company_abc123"
+    }
   }
 }
 ```

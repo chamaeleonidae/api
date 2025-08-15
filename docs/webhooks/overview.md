@@ -164,54 +164,101 @@ Every Microsurvey that is finished will send a webhook to this topic.
 
 ```json
 {
-  "id": "5fb70dcbc39330000325a81a",
+  "id": "5f3c4232c712de665632d7a1",
   "kind": "response.finished",
-  "sent_at": "2029-12-11T00:28:59.651Z",
+  "sent_at": "2029-05-05T16:22:18.456Z",
   "data": {
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632d7a2",
+      "created_at": "2029-04-12T10:30:00.000Z",
+      "updated_at": "2029-05-05T16:22:00.000Z",
+      "uid": "feedback_user_888",
+      "company_id": "5f3c4232c712de665632d7a3",
+      "email": "rachel.green@designstudio.co",
+      "browser_l": "fr-FR",
+      "browser_n": "firefox",
+      "browser_k": "desktop",
+      "browser_x": 1680,
+      "browser_tz": 1,
+      "percent": 67.89,
+      "last_seen_at": "2029-05-05T16:22:00.000Z",
+      "last_seen_session_count": 24,
+      "delivery_ids": [
+        "5f3c4232c712de665632d7a4"
+      ],
+      "role": "ux_designer",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["design_tools", "collaboration_features"],
+      "signup_source": "dribbble_ad",
+      "team_size": 7,
+      "subscription_status": "active",
+      "department": "Design"
     },
     "response": {
-      "id": "5fb7afb5ea19724169374269",
-      "survey_id": "5fb7936edee1f70011bfc4c9",
-      "profile_id": "5f884e1e03d9f4000ebcbb59",
-      "href": "https://app.acme.co/setup/tough-thing-to-do",
-      "button_text": "Very Easy",
+      "id": "5f3c4232c712de665632d7a5",
+      "created_at": "2029-05-05T16:22:18.000Z",
+      "updated_at": "2029-05-05T16:22:18.234Z",
+      "survey_id": "5f3c4232c712de665632d7a6",
+      "profile_id": "5f3c4232c712de665632d7a2",
+      "href": "https://app.example.com/dashboard/projects",
+      "button_text": "Submit Feedback",
       "button_order": 0,
-      "input_text": "I was able to figure it out quickly.",
-      "finished_at": "2029-12-11T00:28:59.641Z"
+      "button_id": "5f3c4232c712de665632d7a7",
+      "input_text": "The new design collaboration features are excellent! The real-time commenting system makes it so much easier to work with developers. Would love to see version history for design assets.",
+      "finished_at": "2029-05-05T16:22:18.000Z",
+      "rating": 5,
+      "nps_score": 9
     },
     "survey": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      "name": "2029-11 Role question",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+      "id": "5f3c4232c712de665632d7a6",
+      "created_at": "2029-04-28T14:00:00.000Z",
+      "updated_at": "2029-05-03T11:20:00.000Z",
+      "name": "New Feature Feedback - Design Collaboration",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632d7a8",
+        "5f3c4232c712de665632d7a9"
+      ],
+      "published_at": "2029-05-01T08:00:00.000Z",
+      "rate_unlimit_at": null,
+      "last_dropdown_items": [
+        "Excellent",
+        "Very Good",
+        "Good",
+        "Fair",
+        "Poor"
+      ],
+      "kind": "survey",
+      "stats": {
+        "started_count": 134,
+        "completed_count": 98,
+        "response_rate": 0.731
+      },
       "steps": [
         {
-          "id": "5fb7936d566535d75a87507c",
-          "body": "How was that?",
+          "id": "5f3c4232c712de665632d7b1",
+          "body": "How would you rate the new design collaboration features?",
           "preset": "survey_five",
           "dropdown_items": [
+            "Excellent",
+            "Very Good", 
+            "Good",
+            "Fair",
+            "Poor"
           ]
         },
         {
-          "id": "5fb7936d566535d75a87507e",
-          "body": "Thanks so much for your feedback! 🙏",
+          "id": "5f3c4232c712de665632d7b2",
+          "body": "Any additional feedback or suggestions?",
+          "preset": "response"
+        },
+        {
+          "id": "5f3c4232c712de665632d7b3",
+          "body": "Thank you for your feedback! 🎨",
           "preset": "thank_you"
         }
-      ],
-      "user": {
-        "id": "5490e42d65353700020030fa",
-        "email": "jim@acme.co",
-        "name": "Jim B"
-      }
+      ]
     }
   }
 }
@@ -227,29 +274,56 @@ This is the most important HelpBar webhook; it can directly inform your roadmap 
 - Seeing a `results_count` less than 3 is an important metric to track
 - Use `references` to know where to make improvements
 
-
 ```json
 {
-  "id": "5eb7c393300000dcb381a25a",
+  "id": "5f3c4232c712de665632c4d1",
   "kind": "helpbar.answer",
-  "sent_at": "2029-12-11T00:28:59.651Z",
+  "sent_at": "2029-04-28T13:45:22.567Z",
   "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "query": "What is a widget?",
-      "answer": "A widget is the generic name for the work product of a production run. One might use this term to describe something generic as an example in place of an unimportant specific item.",
+      "id": "5f3c4232c712de665632c4d2",
+      "query": "How do I integrate with Slack?",
+      "answer": "To integrate Chameleon with Slack, you can set up webhook notifications to send tour completions, survey responses, and other events directly to your Slack channels. First, create a Slack webhook URL in your Slack workspace settings, then configure it in your Chameleon dashboard under Integrations. You can customize which events trigger notifications and format the messages to include relevant user and experience data. This helps keep your team informed about user engagement in real-time.",
+      "url": "https://app.example.com/helpbar",
       "results_count": 7,
-      "references": ["https://help.your-product.com/hc/articles/925844-widgets-galore", "https://help.your-product.com/hc/articles/559284-widgets-n-more"],
-      "url": "https://app.your-product.com/widgets/start"
+      "references": [
+        {
+          "title": "Slack Integration Guide",
+          "url": "https://help.example.com/integrations/slack"
+        },
+        {
+          "title": "Webhook Configuration",
+          "url": "https://help.example.com/webhooks/setup"
+        }
+      ]
     },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632c4d3",
+      "created_at": "2029-03-20T12:30:00.000Z",
+      "updated_at": "2029-04-28T13:44:00.000Z",
+      "uid": "integration_user_999",
+      "company_id": "5f3c4232c712de665632c4d4",
+      "email": "david.kim@saas-company.com",
+      "browser_l": "ko-KR",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1600,
+      "browser_tz": 9,
+      "percent": 44.67,
+      "last_seen_at": "2029-04-28T13:44:00.000Z",
+      "last_seen_session_count": 18,
+      "delivery_ids": [
+        "5f3c4232c712de665632c4d5",
+        "5f3c4232c712de665632c4d6"
+      ],
+      "role": "integration_specialist",
+      "plan": "enterprise",
+      "onboarding_completed": true,
+      "feature_flags": ["advanced_integrations", "custom_webhooks"],
+      "signup_source": "partner_referral",
+      "team_size": 50,
+      "subscription_status": "active",
+      "department": "Engineering"
     }
   }
 }
@@ -258,55 +332,46 @@ This is the most important HelpBar webhook; it can directly inform your roadmap 
 
 ##### Example: `helpbar.search` :id=example-helpbar-search
 
-When a User searches for `"data importing"` only 0 results were found. This indicates a gap in your Help center.
+When a User searches for `"tell me about webhooks"` and 10 results were found.
 
 ```json
 {
-  "id": "5eb7c393300000dcb381a25a",
+  "id": "5f3c4232c712de665632c5e1",
   "kind": "helpbar.search",
-  "sent_at": "2029-12-11T00:29:59.651Z",
+  "sent_at": "2029-04-30T09:20:15.432Z",
   "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f7",
-      "query": "data importing",
-      "results_count": 2,
-      "url": "https://app.your-product.com/widgets/import"
+      "id": "5f3c4232c712de665632c5e2",
+      "query": "export user data",
+      "results_count": 5
     },
     "profile": {
-      "id": "5f885a88f30e7da00e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 85,
-      ...
-    }
-  }
-}
-```
-
-When a User searches for `"widget categories"` only 7 results were found.
-
-```json
-{
-  "id": "5eb7c393300000dcb381a25a",
-  "kind": "helpbar.search",
-  "sent_at": "2029-12-11T00:28:30.651Z",
-  "data": {
-    "action": {
-      "id": "5f885a8af30008e7de3eb4f9",
-      "query": "widget categories",
-      "results_count": 7,
-      "url": "https://app.your-product.com/widgets/import"
-    },
-    "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 93,
-      ...
+      "id": "5f3c4232c712de665632c5e3",
+      "created_at": "2029-04-25T14:15:00.000Z",
+      "updated_at": "2029-04-30T09:19:00.000Z",
+      "uid": "admin_user_111",
+      "company_id": "5f3c4232c712de665632c5e4",
+      "email": "emma.taylor@compliance-corp.org",
+      "browser_l": "en-AU",
+      "browser_n": "safari", 
+      "browser_k": "desktop",
+      "browser_x": 1440,
+      "browser_tz": 10,
+      "percent": 78.12,
+      "last_seen_at": "2029-04-30T09:19:00.000Z",
+      "last_seen_session_count": 6,
+      "delivery_ids": [
+        "5f3c4232c712de665632c5e5"
+      ],
+      "role": "compliance_officer",
+      "plan": "enterprise",
+      "onboarding_completed": true,
+      "feature_flags": ["data_export", "compliance_tools", "audit_logging"],
+      "signup_source": "enterprise_sales",
+      "team_size": 8,
+      "subscription_status": "active",
+      "department": "Legal",
+      "permissions": ["admin", "data_export", "user_management"]
     }
   }
 }
@@ -319,24 +384,48 @@ When a helpbar search result item is clicked (or actioned)
 
 ```json
 {
-  "id": "5eb7c393300000dcb381a25a",
+  "id": "5f3c4232c712de665632c6f1",
   "kind": "helpbar.item.action",
-  "sent_at": "2029-12-11T00:28:18.651Z",
+  "sent_at": "2029-05-02T14:35:42.891Z",
   "data": {
     "action": {
-      "id": "5f885a8af30008e7de3eb4f9",
-      "item_uid": "data-onboarding",
-      "href": "https://help.your-product.com/hc/articles/559284-data-onboarding",
-      "kinds": ["url"]
+      "id": "5f3c4232c712de665632c6f2",
+      "query": "setup analytics tracking",
+      "item_uid": "analytics-setup-guide-v2",
+      "title": "Analytics Integration Setup Guide",
+      "href": "https://help.example.com/analytics/setup-guide",
+      "kinds": ["url", "tutorial"]
     },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 93,
-      ...
+      "id": "5f3c4232c712de665632c6f3",
+      "created_at": "2029-04-18T11:00:00.000Z",
+      "updated_at": "2029-05-02T14:34:00.000Z",
+      "uid": "analytics_user_777",
+      "company_id": "5f3c4232c712de665632c6f4",
+      "email": "priya.patel@datadriven.startup",
+      "browser_l": "hi-IN",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": 5.5,
+      "percent": 33.44,
+      "last_seen_at": "2029-05-02T14:34:00.000Z",
+      "last_seen_session_count": 12,
+      "delivery_ids": [
+        "5f3c4232c712de665632c6f5",
+        "5f3c4232c712de665632c6f6",
+        "5f3c4232c712de665632c6f7"
+      ],
+      "role": "data_analyst",
+      "plan": "growth",
+      "onboarding_completed": true,
+      "feature_flags": ["advanced_analytics", "custom_events", "cohort_analysis"],
+      "signup_source": "content_marketing",
+      "team_size": 15,
+      "subscription_status": "active",
+      "department": "Product",
+      "time_zone": "Asia/Kolkata",
+      "preferred_language": "en"
     }
   }
 }
@@ -378,35 +467,209 @@ In the example below, the `script` item is not working properly and should be ch
 
 A Tour is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Tours by default show once to any one User but can, depending on their settings, show multiple times.
 
+**Example: `tour.started`**
 ```json
 {
-  "id": "5fb70dcbc39330000325a818",
+  "id": "5f3c4232c712de665632a6d5",
   "kind": "tour.started",
-  "sent_at": "2029-12-11T00:28:59.652Z",
+  "sent_at": "2029-04-15T14:30:22.150Z",
   "data": {
+    "action": {
+      "id": "5f3c4232c712de665632a6d6"
+    },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632a6d7",
+      "created_at": "2029-03-10T09:15:00.000Z",
+      "updated_at": "2029-04-15T14:25:00.000Z",
+      "uid": "user_12345",
+      "company_id": "5f3c4232c712de665632a6d8",
+      "email": "sarah.johnson@techstartup.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 72.45,
+      "last_seen_at": "2029-04-15T14:25:00.000Z",
+      "last_seen_session_count": 15,
+      "delivery_ids": [
+        "5f3c4232c712de665632a6e1",
+        "5f3c4232c712de665632a6e2"
+      ],
+      "role": "product_manager",
+      "plan": "professional",
+      "onboarding_completed": false,
+      "feature_flags": ["new_dashboard", "analytics_beta"],
+      "signup_source": "organic_search"
     },
     "tour": {
-      "id": "5fb6e4ab8af58a00073f0d98",
-      "name": "Usage upsell banner - A",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+      "id": "5f3c4232c712de665632a6d9",
+      "created_at": "2029-02-20T10:00:00.000Z",
+      "updated_at": "2029-04-10T16:30:00.000Z",
+      "name": "Dashboard Onboarding Tour",
+      "position": 1,
+      "segment_ids": [
+        "5f3c4232c712de665632a6da"
+      ],
+      "published_at": "2029-04-01T08:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "tour",
+      "style": "auto",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/tours/5f3c4232c712de665632a6d9"
+      },
+      "stats": {
+        "started_count": 1247,
+        "completed_count": 892,
+        "exited_count": 355
+      }
     },
     "step": {
-      "id": "5fb6e4ab8af58a00073f0d99",
-       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
-       ...
-    },
+      "id": "5f3c4232c712de665632a6db",
+      "created_at": "2029-02-20T10:00:00.000Z",
+      "updated_at": "2029-04-10T16:30:00.000Z",
+      "body": "Welcome to your new dashboard! Let's take a quick tour to help you get started with the key features.",
+      "preset": "tooltip_bottom"
+    }
+  }
+}
+```
+
+**Example: `tour.exited`**
+```json
+{
+  "id": "5f3c4232c712de665632a2a1",
+  "kind": "tour.exited",
+  "sent_at": "2029-04-18T16:45:12.890Z",
+  "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6"
+      "id": "5f3c4232c712de665632a2a2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632a2a3",
+      "created_at": "2029-01-15T11:30:00.000Z",
+      "updated_at": "2029-04-18T16:44:00.000Z",
+      "uid": "dev_user_789",
+      "company_id": "5f3c4232c712de665632a2a4",
+      "email": "mike.chen@enterprise-corp.com",
+      "browser_l": "en-CA",
+      "browser_n": "firefox",
+      "browser_k": "desktop",
+      "browser_x": 1440,
+      "browser_tz": -5,
+      "percent": 28.91,
+      "last_seen_at": "2029-04-18T16:44:00.000Z",
+      "last_seen_session_count": 45,
+      "delivery_ids": [
+        "5f3c4232c712de665632a2a5"
+      ],
+      "role": "developer",
+      "plan": "enterprise",
+      "onboarding_completed": true,
+      "feature_flags": ["advanced_analytics", "api_access"],
+      "signup_source": "referral",
+      "team_size": 12
+    },
+    "tour": {
+      "id": "5f3c4232c712de665632a2a6",
+      "created_at": "2029-03-01T14:00:00.000Z",
+      "updated_at": "2029-04-15T09:20:00.000Z",
+      "name": "New Feature Announcement - API v2",
+      "position": 3,
+      "segment_ids": [
+        "5f3c4232c712de665632a2a7",
+        "5f3c4232c712de665632a2a8"
+      ],
+      "published_at": "2029-04-01T12:00:00.000Z",
+      "rate_unlimit_at": "2029-05-01T00:00:00.000Z",
+      "kind": "tour",
+      "style": "manual",
+      "tour_link_url": "https://app.example.com/tours/api-v2-announcement",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/tours/5f3c4232c712de665632a2a6"
+      },
+      "stats": {
+        "started_count": 324,
+        "completed_count": 198,
+        "exited_count": 126
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632a2a9",
+      "created_at": "2029-03-01T14:00:00.000Z",
+      "updated_at": "2029-04-15T09:20:00.000Z",
+      "body": "🎉 Introducing API v2 with enhanced performance and new endpoints. Click here to explore the updated documentation.",
+      "preset": "banner_top"
+    }
+  }
+}
+```
+
+**Example: `tour.completed`**
+```json
+{
+  "id": "5f3c4232c712de665632a3b1",
+  "kind": "tour.completed",
+  "sent_at": "2029-05-12T14:25:45.123Z",
+  "data": {
+    "action": {
+      "id": "5f3c4232c712de665632a3b2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632a3b3",
+      "created_at": "2029-05-10T11:15:00.000Z",
+      "updated_at": "2029-05-12T14:25:00.000Z",
+      "uid": "design_user_202",
+      "company_id": "5f3c4232c712de665632a3b4",
+      "email": "lisa.wang@creativestudio.design",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 56.78,
+      "last_seen_at": "2029-05-12T14:25:00.000Z",
+      "last_seen_session_count": 7,
+      "delivery_ids": [
+        "5f3c4232c712de665632a3b5",
+        "5f3c4232c712de665632a3b6"
+      ],
+      "role": "senior_designer",
+      "plan": "professional",
+      "onboarding_completed": false,
+      "feature_flags": ["theme_templates", "custom_styling", "design_library"],
+      "signup_source": "behance_integration",
+      "team_size": 6,
+      "subscription_status": "active",
+      "department": "Creative",
+      "trial_converted": true
+    },
+    "tour": {
+      "id": "5f3c4232c712de665632a3b7",
+      "created_at": "2029-03-20T09:00:00.000Z",
+      "updated_at": "2029-05-10T16:30:00.000Z",
+      "name": "Theme Templates & Custom Styling Guide",
+      "position": 4,
+      "segment_ids": [],
+      "published_at": "2029-04-15T12:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "tour",
+      "style": "auto",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/tours/5f3c4232c712de665632a3b7"
+      },
+      "stats": {
+        "started_count": 89,
+        "completed_count": 71,
+        "exited_count": 18
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632a3b8",
+      "created_at": "2029-03-20T09:00:00.000Z",
+      "updated_at": "2029-05-10T16:30:00.000Z",
+      "body": "🎨 You can also create your own Templates that follow the style of specific Themes!\n\n1. Create a new Experience as usual\n2. Pick the Theme you want to add a new Template to\n3. Adjust it in the Builder\n4. Use the **'Templatize'** option to save your new Template.",
+      "preset": "tooltip_right"
     }
   }
 }
@@ -461,42 +724,274 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 
 Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
 
+**Example: `tour.button.clicked`**
 ```json
 {
-  "id": "5fb70dcbc39330000325a819",
+  "id": "5f3c4232c712de665632f9c1",
   "kind": "tour.button.clicked",
-  "sent_at": "2029-12-11T00:28:59.653Z",
+  "sent_at": "2029-05-15T11:40:18.456Z",
   "data": {
-    "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+    "action": {
+      "id": "5f3c4232c712de665632f9c2"
     },
-    "tour": { // or "survey" or "embed"
-      "id": "5fb6e4ab8af58a00073f0d98",
-      "name": "Usage upsell banner - A",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+    "profile": {
+      "id": "5f3c4232c712de665632f9c3",
+      "created_at": "2029-04-28T15:20:00.000Z",
+      "updated_at": "2029-05-15T11:39:00.000Z",
+      "uid": "content_user_444",
+      "company_id": "5f3c4232c712de665632f9c4",
+      "email": "maria.gonzalez@contentcorp.es",
+      "browser_l": "es-MX",
+      "browser_n": "safari",
+      "browser_k": "desktop",
+      "browser_x": 1440,
+      "browser_tz": -6,
+      "percent": 73.21,
+      "last_seen_at": "2029-05-15T11:39:00.000Z",
+      "last_seen_session_count": 16,
+      "delivery_ids": [
+        "5f3c4232c712de665632f9c5"
+      ],
+      "role": "content_manager",
+      "plan": "growth",
+      "onboarding_completed": true,
+      "feature_flags": ["content_templates", "multilingual_support"],
+      "signup_source": "linkedin_ad",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Marketing",
+      "preferred_language": "es"
+    },
+    "tour": {
+      "id": "5f3c4232c712de665632f9c6",
+      "created_at": "2029-04-22T14:00:00.000Z",
+      "updated_at": "2029-05-12T10:30:00.000Z",
+      "name": "Content Templates & Styling Guide",
+      "position": 7,
+      "segment_ids": [],
+      "published_at": "2029-05-05T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "tour",
+      "style": "auto",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/tours/5f3c4232c712de665632f9c6"
+      },
+      "stats": {
+        "started_count": 142,
+        "completed_count": 108,
+        "exited_count": 34
+      }
     },
     "step": {
-      "id": "5fb6e4ab8af58a00073f0d99",
-       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
-       ...
+      "id": "5f3c4232c712de665632f9c7",
+      "created_at": "2029-04-22T14:00:00.000Z",
+      "updated_at": "2029-05-12T10:30:00.000Z",
+      "body": "Explore the Templates Gallery and pick a specific Theme when saving new Templates on your account to leverage your style.",
+      "preset": "tooltip_bottom"
     },
     "button": {
-      "id": "5fb6e4ab8af58a00073f0d9a",
-       "text": "Check pricing",
-       "tour_action": "next",
-       "position": "bottom_right",
-       ...
-    },
+      "id": "5f3c4232c712de665632f9c8",
+      "text": "Next",
+      "style_color_fill": "2563EB",
+      "style_color_text": "FFFFFF",
+      "style_color_border": "2563EB",
+      "style_button_roundness": "6px",
+      "style_border_width": "1px",
+      "action_new_window": false,
+      "position": "bottom_right",
+      "tour_action": "next",
+      "order": 1
+    }
+  }
+}
+```
+
+**Example: `survey.button.clicked`**
+```json
+{
+  "id": "5f3c4232c712de665632e8b1",
+  "kind": "survey.button.clicked",
+  "sent_at": "2029-05-08T12:15:30.789Z",
+  "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6"
+      "id": "5f3c4232c712de665632e8b2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e8b3",
+      "created_at": "2029-05-01T09:45:00.000Z",
+      "updated_at": "2029-05-08T12:14:00.000Z",
+      "uid": "power_user_555",
+      "company_id": "5f3c4232c712de665632e8b4",
+      "email": "tom.harrison@productteam.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 2560,
+      "browser_tz": -8,
+      "percent": 89.34,
+      "last_seen_at": "2029-05-08T12:14:00.000Z",
+      "last_seen_session_count": 41,
+      "delivery_ids": [
+        "5f3c4232c712de665632e8b5",
+        "5f3c4232c712de665632e8b6"
+      ],
+      "role": "product_owner",
+      "plan": "enterprise",
+      "onboarding_completed": true,
+      "feature_flags": ["beta_features", "power_user_tools", "advanced_permissions"],
+      "signup_source": "word_of_mouth",
+      "team_size": 35,
+      "subscription_status": "active",
+      "department": "Product",
+      "seniority": "senior"
+    },
+    "survey": {
+      "id": "5f3c4232c712de665632e8b7",
+      "created_at": "2029-05-05T13:00:00.000Z",
+      "updated_at": "2029-05-07T16:45:00.000Z",
+      "name": "Beta Feature Feedback - Advanced Workflows",
+      "position": 15,
+      "segment_ids": [
+        "5f3c4232c712de665632e8b8"
+      ],
+      "published_at": "2029-05-06T10:00:00.000Z",
+      "rate_unlimit_at": null,
+      "last_dropdown_items": [
+        "Extremely useful",
+        "Very useful",
+        "Somewhat useful",
+        "Not very useful",
+        "Not useful at all"
+      ],
+      "kind": "survey",
+      "stats": {
+        "started_count": 67,
+        "completed_count": 52,
+        "response_rate": 0.776
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632e8b9",
+          "body": "How useful do you find the new advanced workflow automation features?",
+          "preset": "survey_rating",
+          "dropdown_items": [
+            "Extremely useful",
+            "Very useful",
+            "Somewhat useful", 
+            "Not very useful",
+            "Not useful at all"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632e8bb",
+          "body": "Thank you for helping us improve! 🚀",
+          "preset": "thank_you"
+        }
+      ]
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e8b9",
+      "created_at": "2029-05-05T13:00:00.000Z",
+      "updated_at": "2029-05-07T16:45:00.000Z",
+      "body": "How useful do you find the new advanced workflow automation features?",
+      "preset": "survey_rating"
+    },
+    "button": {
+      "id": "5f3c4232c712de665632e8ba",
+      "text": "Extremely useful",
+      "style_color_fill": "4F46E5",
+      "style_color_text": "FFFFFF",
+      "style_color_border": "4F46E5",
+      "style_button_roundness": "8px",
+      "action_new_window": false,
+      "position": "center",
+      "tour_action": "next",
+      "order": 0,
+      "value": 5
+    }
+  }
+}
+```
+
+**Example: `embed.button.clicked`**
+```json
+{
+  "id": "5f3c4232c712de665632e5e1",
+  "kind": "embed.button.clicked",
+  "sent_at": "2029-06-15T16:32:18.890Z",
+  "data": {
+    "action": {
+      "id": "5f3c4232c712de665632e5e2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e1a3",
+      "created_at": "2029-05-20T14:15:00.000Z",
+      "updated_at": "2029-06-15T16:32:00.000Z",
+      "uid": "embed_user_789",
+      "company_id": "5f3c4232c712de665632e1a4",
+      "email": "jennifer.clark@creativecorp.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 85.42,
+      "last_seen_at": "2029-06-15T16:32:00.000Z",
+      "last_seen_session_count": 47,
+      "delivery_ids": [
+        "5f3c4232c712de665632e1a5",
+        "5f3c4232c712de665632e1a6"
+      ],
+      "role": "creative_director",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["embed_builder", "advanced_analytics", "custom_branding"],
+      "signup_source": "product_hunt",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Creative"
+    },
+    "embed": {
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2029-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 47
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
+    },
+    "button": {
+      "id": "5f3c4232c712de665632e5e3",
+      "text": "Try Demo",
+      "style_color_fill": "0084FF",
+      "style_color_text": "FFFFFF",
+      "style_color_border": "0084FF",
+      "style_button_roundness": "6px",
+      "style_border_width": "1px",
+      "action_new_window": false,
+      "position": "bottom_right",
+      "tour_action": "open_url",
+      "action_url": "https://app.chameleon.io/demos/interactive-showcase",
+      "order": 1
     }
   }
 }
@@ -507,35 +1002,208 @@ Every Button that is clicked in a Tour / Microsurvey will send a webhook to this
 
 An Embed is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Embeds by default show once to any one User but can, depending on their settings, show multiple times.
 
+**Example: `embed.started`**
 ```json
 {
-  "id": "5fb70dcbc39330000325a818",
+  "id": "5f3c4232c712de665632e1a1",
   "kind": "embed.started",
-  "sent_at": "2029-12-11T00:28:59.652Z",
+  "sent_at": "2029-06-15T16:30:45.234Z",
   "data": {
+    "action": {
+      "id": "5f3c4232c712de665632e1a2"
+    },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632e1a3",
+      "created_at": "2029-05-20T14:15:00.000Z",
+      "updated_at": "2029-06-15T16:30:00.000Z",
+      "uid": "embed_user_789",
+      "company_id": "5f3c4232c712de665632e1a4",
+      "email": "jennifer.clark@creativecorp.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 85.42,
+      "last_seen_at": "2029-06-15T16:30:00.000Z",
+      "last_seen_session_count": 47,
+      "delivery_ids": [
+        "5f3c4232c712de665632e1a5",
+        "5f3c4232c712de665632e1a6"
+      ],
+      "role": "creative_director",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["embed_builder", "advanced_analytics", "custom_branding"],
+      "signup_source": "product_hunt",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Creative"
     },
     "embed": {
-      "id": "5fb6e4ab8af58a00073f0d98",
-      "name": "Usage upsell banner - A",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2029-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 47
+      }
     },
     "step": {
-      "id": "5fb6e4ab8af58a00073f0d99",
-       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
-       ...
-    },
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
+    }
+  }
+}
+```
+
+**Example: `embed.completed`**
+```json
+{
+  "id": "5f3c4232c712de665632e2b1",
+  "kind": "embed.completed",
+  "sent_at": "2029-06-15T16:35:22.567Z",
+  "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6"
+      "id": "5f3c4232c712de665632e2b2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e1a3",
+      "created_at": "2029-05-20T14:15:00.000Z",
+      "updated_at": "2029-06-15T16:35:00.000Z",
+      "uid": "embed_user_789",
+      "company_id": "5f3c4232c712de665632e1a4",
+      "email": "jennifer.clark@creativecorp.io",
+      "browser_l": "en-US",
+      "browser_n": "chrome",
+      "browser_k": "desktop",
+      "browser_x": 1920,
+      "browser_tz": -8,
+      "percent": 85.42,
+      "last_seen_at": "2029-06-15T16:35:00.000Z",
+      "last_seen_session_count": 47,
+      "delivery_ids": [
+        "5f3c4232c712de665632e1a5",
+        "5f3c4232c712de665632e1a6"
+      ],
+      "role": "creative_director",
+      "plan": "professional",
+      "onboarding_completed": true,
+      "feature_flags": ["embed_builder", "advanced_analytics", "custom_branding"],
+      "signup_source": "product_hunt",
+      "team_size": 12,
+      "subscription_status": "active",
+      "department": "Creative"
+    },
+    "embed": {
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2029-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 188,
+        "exited_count": 46
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e2b3",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "body": "🎉 Excellent! You've completed the interactive demo showcase. You now understand how to create engaging product demonstrations.",
+      "preset": "embed_success"
+    }
+  }
+}
+```
+
+**Example: `embed.exited`**
+```json
+{
+  "id": "5f3c4232c712de665632e3c1",
+  "kind": "embed.exited",
+  "sent_at": "2029-06-15T16:28:45.890Z",
+  "data": {
+    "action": {
+      "id": "5f3c4232c712de665632e3c2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632e3c3",
+      "created_at": "2029-06-10T11:20:00.000Z",
+      "updated_at": "2029-06-15T16:28:00.000Z",
+      "uid": "trial_user_456",
+      "company_id": "5f3c4232c712de665632e3c4",
+      "email": "miguel.santos@startuptech.es",
+      "browser_l": "es-ES",
+      "browser_n": "firefox",
+      "browser_k": "desktop",
+      "browser_x": 1440,
+      "browser_tz": 1,
+      "percent": 23.67,
+      "last_seen_at": "2029-06-15T16:28:00.000Z",
+      "last_seen_session_count": 8,
+      "delivery_ids": [],
+      "role": "developer",
+      "plan": "growth",
+      "onboarding_completed": false,
+      "feature_flags": ["basic_embeds"],
+      "signup_source": "google_ads",
+      "team_size": 5,
+      "subscription_status": "trial",
+      "department": "Engineering"
+    },
+    "embed": {
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2029-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 48
+      }
+    },
+    "step": {
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
     }
   }
 }
@@ -549,38 +1217,74 @@ When an Embed is snoozed it is set to come back after a certain amount of time h
 
 ```json
 {
-  "id": "5fb70dcbc39330000325a818",
+  "id": "5f3c4232c712de665632e4d1",
   "kind": "embed.snoozed",
-  "sent_at": "2029-12-11T00:28:59.652Z",
+  "sent_at": "2029-06-15T17:15:45.678Z",
   "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "deferred_until": "2029-12-14T00:28:58.622Z",
-      "deferred_hours": 72,
-      "deferred_count": 2
+      "id": "5f3c4232c712de665632e4d2",
+      "deferred_until": "2029-06-17T09:15:44.567Z",
+      "deferred_hours": 40,
+      "deferred_count": 1
     },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632e4d3",
+      "created_at": "2029-06-12T14:30:00.000Z",
+      "updated_at": "2029-06-15T17:15:00.000Z",
+      "uid": "mobile_user_234",
+      "company_id": "5f3c4232c712de665632e4d4",
+      "email": "lucia.hernandez@mobilecorp.mx",
+      "browser_l": "es-MX",
+      "browser_n": "safari",
+      "browser_k": "mobile",
+      "browser_x": 375,
+      "browser_tz": -6,
+      "percent": 62.18,
+      "last_seen_at": "2029-06-15T17:15:00.000Z",
+      "last_seen_session_count": 19,
+      "delivery_ids": [
+        "5f3c4232c712de665632e4d5"
+      ],
+      "role": "product_manager",
+      "plan": "startup",
+      "onboarding_completed": true,
+      "feature_flags": ["mobile_embeds", "snooze_options"],
+      "signup_source": "referral",
+      "team_size": 3,
+      "subscription_status": "active",
+      "department": "Product",
+      "preferred_language": "es"
     },
     "embed": {
-      "id": "5fb6e4ab8af58a00073f0d98",
-      "name": "Usage upsell banner - A",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
-      ...
+      "id": "5f3c4232c712de665632e1a7",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "name": "Interactive Demo Showcase",
+      "position": 8,
+      "segment_ids": [
+        "5f3c4232c712de665632e1a8"
+      ],
+      "published_at": "2029-06-12T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "kind": "embed",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/embeddables/5f3c4232c712de665632e1a7"
+      },
+      "stats": {
+        "started_count": 234,
+        "completed_count": 187,
+        "exited_count": 47,
+        "snoozed_count": 15
+      }
     },
     "step": {
-      "id": "5fb6e4ab8af58a00073f0d99",
-       "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
-       ...
+      "id": "5f3c4232c712de665632e1a9",
+      "created_at": "2029-06-10T10:00:00.000Z",
+      "updated_at": "2029-06-14T15:20:00.000Z",
+      "body": "Discover how to create interactive demos that showcase your product's key features and engage potential customers.",
+      "preset": "embed_tooltip"
     }
-  },
+  }
 }
 ```
 
@@ -678,7 +1382,6 @@ The primary use case for this is to notify the person in charge of the Experienc
 
 ##### Example: `survey.started`, `survey.completed`, `survey.exited` :id=example-survey-all
 
-
 These three topics are considered lifecycle events and occur when the user is presented with or interacts with a Chameleon
 Microsurvey. The `response.finished` Webhook is only sent when we consider the user **done** with the Microsurvey and will
 no longer interact with it. A [Microsurvey Response](apis/survey-responses.md) is generated when the Survey Step + associated
@@ -689,52 +1392,277 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
 
 > The Steps corresponding to a _Response_ Step have `preset=response`; The _Thank You_ Steps have  `preset=thank_you`
 
- 
+**Example: `survey.started`**
 ```json
 {
-  "id": "5fb70dcbc39330000325a818",
-  "kind": "survey.completed",
-  "sent_at": "2029-12-11T00:28:59.652Z",
+  "id": "5f3c4232c712de665632b1a1",
+  "kind": "survey.started",
+  "sent_at": "2029-04-20T10:15:30.245Z",
   "data": {
+    "action": {
+      "id": "5f3c4232c712de665632b1a2"
+    },
     "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
+      "id": "5f3c4232c712de665632b1a3",
+      "created_at": "2029-02-12T08:45:00.000Z",
+      "updated_at": "2029-04-20T10:10:00.000Z",
+      "uid": "marketing_user_456",
+      "company_id": "5f3c4232c712de665632b1a4",
+      "email": "alex.rivera@startup-inc.com",
+      "browser_l": "es-ES",
+      "browser_n": "safari",
+      "browser_k": "mobile",
+      "browser_x": 375,
+      "browser_tz": 2,
+      "percent": 64.33,
+      "last_seen_at": "2029-04-20T10:10:00.000Z",
+      "last_seen_session_count": 8,
+      "delivery_ids": [
+        "5f3c4232c712de665632b1a5",
+        "5f3c4232c712de665632b1a6",
+        "5f3c4232c712de665632b1a7"
+      ],
+      "role": "marketing_manager",
+      "plan": "startup",
+      "onboarding_completed": true,
+      "feature_flags": ["mobile_optimization", "multilingual_support"],
+      "signup_source": "product_hunt",
+      "team_size": 4,
+      "subscription_status": "trial"
     },
     "survey": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      "name": "2029-11 Role question",
-      "segment_id": "5f885a88e7daf3000e3eb4f7",
-      "published_at": "2029-11-11T00:12:59.002Z",
+      "id": "5f3c4232c712de665632b1a8",
+      "created_at": "2029-03-15T12:00:00.000Z",
+      "updated_at": "2029-04-18T14:30:00.000Z",
+      "name": "Product Feedback - Mobile Experience",
+      "position": 5,
+      "segment_ids": [
+        "5f3c4232c712de665632b1a9"
+      ],
+      "published_at": "2029-04-15T09:00:00.000Z",
+      "rate_unlimit_at": null,
+      "last_dropdown_items": [
+        "Excellent",
+        "Good", 
+        "Fair",
+        "Poor"
+      ],
+      "kind": "survey",
+      "stats": {
+        "started_count": 156,
+        "completed_count": 98,
+        "response_rate": 0.628
+      },
       "steps": [
         {
-          "id": "5fb7936d566535d75a87507c",
-          "body": "How was that?",
-          "preset": "survey_five",
-          ...
+          "id": "5f3c4232c712de665632b1aa",
+          "body": "How would you rate your mobile experience?",
+          "preset": "survey_four",
+          "dropdown_items": [
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor"
+          ]
         },
         {
-          "id": "5fb7936d566535d75a87507d",
-          "body": "Why specifically did you struggle?",
-          "preset": "response",
-          ...
+          "id": "5f3c4232c712de665632b1ab",
+          "body": "Thanks for your feedback! 📱",
+          "preset": "thank_you"
         }
-        ...
-      ],
-      ...
+      ]
     },
     "step": {
-      "id": "5fb7936d566535d75a87507c",
-      "body": "How was that?",
-      "preset": "survey_five",
-       ...
-    },
+      "id": "5f3c4232c712de665632b1aa",
+      "created_at": "2029-03-15T12:00:00.000Z",
+      "updated_at": "2029-04-18T14:30:00.000Z",
+      "body": "How would you rate your overall experience using our mobile app?",
+      "preset": "survey_five"
+    }
+  }
+}
+```
+
+**Example: `survey.completed`**
+```json
+{
+  "id": "5f3c4232c712de665632b2b1",
+  "kind": "survey.completed",
+  "sent_at": "2029-04-22T15:25:45.678Z",
+  "data": {
     "action": {
-      "id": "5f885a88e7daf3000e3eb4f6"
+      "id": "5f3c4232c712de665632b2b2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632b2b3",
+      "created_at": "2029-03-05T14:20:00.000Z",
+      "updated_at": "2029-04-22T15:25:00.000Z",
+      "uid": "support_user_321",
+      "company_id": "5f3c4232c712de665632b2b4",
+      "email": "jessica.wong@techsolutions.co",
+      "browser_l": "zh-CN",
+      "browser_n": "edge",
+      "browser_k": "tablet",
+      "browser_x": 768,
+      "browser_tz": 8,
+      "percent": 91.27,
+      "last_seen_at": "2029-04-22T15:25:00.000Z",
+      "last_seen_session_count": 32,
+      "delivery_ids": [
+        "5f3c4232c712de665632b2b5"
+      ],
+      "role": "customer_success",
+      "plan": "business",
+      "onboarding_completed": true,
+      "feature_flags": ["asian_localization", "advanced_reporting"],
+      "signup_source": "sales_demo",
+      "team_size": 25,
+      "subscription_status": "active",
+      "last_login_at": "2029-04-22T08:00:00.000Z"
+    },
+    "survey": {
+      "id": "5f3c4232c712de665632b2b6",
+      "created_at": "2029-04-01T10:00:00.000Z",
+      "updated_at": "2029-04-20T16:45:00.000Z",
+      "name": "Customer Support Satisfaction Survey",
+      "position": 12,
+      "segment_ids": [
+        "5f3c4232c712de665632b2b7",
+        "5f3c4232c712de665632b2b8"
+      ],
+      "published_at": "2029-04-10T09:00:00.000Z",
+      "rate_unlimit_at": "2029-05-10T00:00:00.000Z",
+      "last_dropdown_items": [
+        "Very Satisfied",
+        "Satisfied",
+        "Neutral",
+        "Dissatisfied",
+        "Very Dissatisfied"
+      ],
+      "kind": "survey",
+      "stats": {
+        "started_count": 89,
+        "completed_count": 67,
+        "response_rate": 0.753
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632b2b8",
+          "body": "How satisfied are you with our customer service?",
+          "preset": "survey_five", 
+          "dropdown_items": [
+            "Very Satisfied",
+            "Satisfied",
+            "Neutral",
+            "Dissatisfied",
+            "Very Dissatisfied"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632b2b9",
+          "body": "Thank you for completing our survey! Your feedback helps us improve our service.",
+          "preset": "thank_you"
+        }
+      ]
+    },
+    "step": {
+      "id": "5f3c4232c712de665632b2b9",
+      "created_at": "2029-04-01T10:00:00.000Z",
+      "updated_at": "2029-04-20T16:45:00.000Z",
+      "body": "Thank you for completing our survey! Your feedback helps us improve our service.",
+      "preset": "thank_you"
+    }
+  }
+}
+```
+
+**Example: `survey.exited`**
+```json
+{
+  "id": "5f3c4232c712de665632b3c1",
+  "kind": "survey.exited",
+  "sent_at": "2029-04-25T11:30:18.234Z",
+  "data": {
+    "action": {
+      "id": "5f3c4232c712de665632b3c2"
+    },
+    "profile": {
+      "id": "5f3c4232c712de665632b3c3",
+      "created_at": "2029-04-10T16:00:00.000Z",
+      "updated_at": "2029-04-25T11:29:00.000Z",
+      "uid": "trial_user_654",
+      "company_id": "5f3c4232c712de665632b3c4",
+      "email": "carlos.mendez@freelancer.dev",
+      "browser_l": "pt-BR",
+      "browser_n": "opera",
+      "browser_k": "desktop",
+      "browser_x": 1366,
+      "browser_tz": -3,
+      "percent": 15.88,
+      "last_seen_at": "2029-04-25T11:29:00.000Z",
+      "last_seen_session_count": 3,
+      "delivery_ids": [],
+      "role": "freelancer",
+      "plan": "free",
+      "onboarding_completed": false,
+      "feature_flags": ["basic_features"],
+      "signup_source": "google_ads",
+      "team_size": 1,
+      "subscription_status": "trial",
+      "trial_ends_at": "2029-05-10T00:00:00.000Z",
+      "utm_campaign": "latam_expansion",
+      "integration_connected": false
+    },
+    "survey": {
+      "id": "5f3c4232c712de665632b3c5",
+      "created_at": "2029-04-20T13:00:00.000Z",
+      "updated_at": "2029-04-24T10:15:00.000Z",
+      "name": "Early User Feedback - Feature Requests",
+      "position": 2,
+      "segment_ids": [
+        "5f3c4232c712de665632b3c6"
+      ],
+      "published_at": "2029-04-22T08:00:00.000Z",
+      "rate_unlimit_at": null,
+      "last_dropdown_items": [
+        "Integrations",
+        "Analytics",
+        "Collaboration Tools",
+        "API Access",
+        "Other"
+      ],
+      "kind": "survey",
+      "stats": {
+        "started_count": 45,
+        "completed_count": 12,
+        "response_rate": 0.267
+      },
+      "steps": [
+        {
+          "id": "5f3c4232c712de665632b3c7",
+          "body": "What feature would be most valuable for your workflow? Help us prioritize our roadmap!",
+          "preset": "survey_multiple_choice",
+          "dropdown_items": [
+            "Integrations",
+            "Analytics", 
+            "Collaboration Tools",
+            "API Access",
+            "Other"
+          ]
+        },
+        {
+          "id": "5f3c4232c712de665632b3c8",
+          "body": "Thank you! We'll use your input to guide our development. 🛠️",
+          "preset": "thank_you"
+        }
+      ]
+    },
+    "step": {
+      "id": "5f3c4232c712de665632b3c7",
+      "created_at": "2029-04-20T13:00:00.000Z",
+      "updated_at": "2029-04-24T10:15:00.000Z",
+      "body": "What feature would be most valuable for your workflow? Help us prioritize our roadmap!",
+      "preset": "survey_multiple_choice"
     }
   }
 }
@@ -811,42 +1739,44 @@ Demos can also [sync Contact data](apis/demos.md?id=demos-in-the-crm) into the C
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94a",
+  "id": "5f3c4232c712de665632f1a1",
   "kind": "demo.started",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2029-07-15T14:25:30.890Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb"
+    "action": {
+      "id": "5f3c4232c712de665632f1a2"
     },
-    "profile": {
-      "id": "5f885a88e7daf3000e3eb4f6",
-      "email": "jane@example.com",
-      "uid": "92340834",
-      "name": "Jane E",
-      "last_seen_at": "2029-12-11T00:21:59.109Z",
-      "last_seen_session_count": 83,
-      ...
-    },
+    "profile": null,
     "demo_run": {
-      "id": "5fb7afb5ea19724169374269",
-      "referrer":  "https://www.acme.co/products/analytics",
-      "created_what":  "Chrome 191.0 (Mac)",
-      "created_where": "Oakland CA, US 🇺🇸",
-      "anonymous_id": "5fb7afb5ea19724169374269",
+      "id": "5f3c4232c712de665632f1a3",
+      "created_at": "2029-07-15T14:20:00.000Z",
+      "updated_at": "2029-07-15T14:25:27.308Z",
+      "anonymous_id": "5f3c4232c712de665632f1a4",
+      "email": null,
+      "created_what": "Chrome 138 - Mac",
+      "created_where": "Calgary Alberta, CA 🇨🇦",
       "consent_mode": "granted",
-      ...
+      "first_run": true,
+      "referrer": null
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      "name": "Demo of Analysis quickstart",
-      "description": "Our analysis goes deeper than you'd typically see in a trial",
-      "href": "https://app.acme.co/setup/tough-thing-to-do",
-      "page_title": "Analytics",
-      ...
-      "user": {
-        "id": "5490e42d65353700020030fa",
-        "email": "jim@acme.co",
-        "name": "Jim B"
+      "id": "6883d663cd779100179d6899",
+      "created_at": "2025-07-25T19:09:23.000Z",
+      "updated_at": "2025-07-25T19:10:50.463Z",
+      "name": "ClickHouse Console Overview",
+      "description": "Explore ClickHouse console, navigate clusters, and view tables. Learn how to manage huge data sets like Profiles EEV with 15 billion rows.",
+      "position": 1,
+      "href": "https://console.clickhouse.cloud/",
+      "page_title": "Services",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/6883d663cd779100179d6899"
+      },
+      "created_user": {
+        "id": "630fbe394c27640010814ccb",
+        "created_at": "2022-08-31T20:02:01.000Z",
+        "updated_at": "2025-07-29T18:15:04.229Z",
+        "email": "anton@example.com",
+        "name": "Anton Kolmakov"
       }
     }
   }
@@ -867,60 +1797,59 @@ It will be sent when the last step of the Demo is reached with `finished_kind=la
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "688916adf1fd8340659b3221",
   "kind": "demo.finished",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-29T18:45:01.935Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb"
+    "action": {
+      "id": null
     },
+    "profile": null,
     "demo_run": {
-      ...,
-      "finished_kind": "last_step",
+      "id": "68890d3304dc0e002da0ed68",
+      "created_at": "2025-07-29T18:04:35.000Z",
+      "updated_at": "2025-07-29T18:45:01.832Z",
+      "anonymous_id": "68890d331d5eca09f6b22846",
+      "email": null,
+      "created_what": "Mobile Safari 18 - iOS",
+      "created_where": "Mexico City Distrito Federal, MX 🇲🇽",
+      "consent_mode": "granted",
+      "first_run": true,
+      "referrer": "https://www.chameleon.io/",
+      "finished_kind": "timeout_30m",
       "actions": [
         {
-          "id": "",
+          "id": "68890d331d5eca09f6b22847",
           "name": "Demo Started",
-          ...
+          "timestamp": "2025-07-29T18:04:35.000Z"
         },
         {
-          "id": "",
-          "name": "Demo Step Started",
-          ...
-        },
-        ...
-      ],
-      "submissions": [
-        {
-          "id": "6f885a84f600b0e38e7daf3e",
-          "step_id": "5fb7936edee1f70011bfc4c9",
-          "data": [
-            {
-              "field": {
-                "id": "6fa88e7daf34f6000e3eb885",
-                "type": "email",
-                "name": "Email address",
-                "description": ""
-              },
-              "value": "jane@example.io"
-            },
-            {
-              "field": {
-                "id": "6fa88e7daf34f6000e3eb885",
-                "type": "select",
-                "name": "Urgency",
-                "description": "Knowing how quickly you want to evaluate Acme helps us mirror your urgency"
-              },
-              "value": "this week"
-            },
-            ...
-          ]
+          "id": "68890d451d5eca09f6b22859",
+          "name": "Demo Step Viewed",
+          "timestamp": "2025-07-29T18:15:12.000Z"
         }
       ],
+      "submissions": []
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "687a5a17a15837001bb7bae4",
+      "created_at": "2025-07-18T14:28:39.000Z",
+      "updated_at": "2025-07-21T18:18:21.844Z",
+      "name": "Chameleon Demos",
+      "description": "Discover how to enhance user engagement through tailored onboarding experiences using Chameleon's powerful features.",
+      "position": 9,
+      "href": "https://app.chameleon.io/demos",
+      "page_title": "Demos",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/687a5a17a15837001bb7bae4"
+      },
+      "created_user": {
+        "id": "6257c12532625b000f6ba77b",
+        "created_at": "2022-04-14T06:37:25.000Z",
+        "updated_at": "2025-07-29T14:07:20.979Z",
+        "email": "sonia@example.com",
+        "name": "Sonia Schiau"
+      }
     }
   }
 }
@@ -939,23 +1868,48 @@ It will be sent when the following conditions are met
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "68894c22f288e43bc9d7e567",
   "kind": "demo.reveal",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-29T22:15:45.678Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb"
+    "action": {
+      "id": "68894c1fd5b8f67ad2e3c234"
     },
+    "profile": null,
     "demo_run": {
-      ...,
-      "reveal_domain": "zenflex.io",
-      "reveal_name": "Zen Flexing Aura Ltd.",
-      "clearbit_uid": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-      "consent_mode": "granted"
+      "id": "68894c1b04dc0e002da0f123",
+      "created_at": "2025-07-29T22:12:35.000Z",
+      "updated_at": "2025-07-29T22:15:44.832Z",
+      "anonymous_id": "68894c1b1d5eca09f6b22890",
+      "email": null,
+      "created_what": "Chrome 138 - Windows",
+      "created_where": "Toronto Ontario, CA 🇨🇦",
+      "consent_mode": "granted",
+      "first_run": true,
+      "referrer": "https://www.google.com/",
+      "reveal_domain": "techstartup.ca",
+      "reveal_name": "Toronto Tech Startups Inc.",
+      "clearbit_uid": "a47bc20c-68dd-4372-b567-1e02c3d4e890"
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "6883d663cd779100179d6899",
+      "created_at": "2025-07-25T19:09:23.000Z",
+      "updated_at": "2025-07-25T19:10:50.463Z",
+      "name": "ClickHouse Console Overview",
+      "description": "Explore ClickHouse console, navigate clusters, and view tables. Learn how to manage huge data sets like Profiles EEV with 15 billion rows.",
+      "position": 1,
+      "href": "https://console.clickhouse.cloud/",
+      "page_title": "Services",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/6883d663cd779100179d6899"
+      },
+      "created_user": {
+        "id": "630fbe394c27640010814ccb",
+        "created_at": "2022-08-31T20:02:01.000Z",
+        "updated_at": "2025-07-29T18:15:04.229Z",
+        "email": "anton@example.com",
+        "name": "Anton Kolmakov"
+      }
     }
   }
 }
@@ -972,44 +1926,87 @@ each data item has a `field` as [DemoFormField](apis/demos.md?id=schema-demo-for
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "68895d33f288e43bc9d7e678",
   "kind": "demo.form.submitted",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-29T23:25:18.456Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb",
+    "action": {
+      "id": "68895d30d5b8f67ad2e3c345",
       "submission": {
-        "id": "6f885a84f600b0e38e7daf3e",
-        "step_id": "5fb7936edee1f70011bfc4c9",
+        "id": "68895d2cf600b0e38e7daf89",
+        "step_id": "6883d663cd779100179d689a",
         "data": [
           {
             "field": {
-              "id": "6fa88e7daf34f6000e3eb885",
+              "id": "68895d25af34f6000e3eb567",
               "type": "email",
-              "name": "Email address",
-              "description": ""
+              "name": "Work Email",
+              "description": "We'll use this to send you demo access"
             },
-            "value": "jane@example.io"
+            "value": "sarah.thompson@datacompany.io"
           },
           {
             "field": {
-              "id": "6fa88e7daf34f6000e3eb885",
-              "type": "select",
-              "name": "Urgency",
-              "description": "Knowing how quickly you want to evaluate Acme helps us mirror your urgency"
+              "id": "68895d26af34f6000e3eb568",
+              "type": "text",
+              "name": "Company Name",
+              "description": "What company do you work for?"
             },
-            "value": "this week"
+            "value": "DataFlow Analytics"
           },
-          ...
-        }
-      ],
+          {
+            "field": {
+              "id": "68895d27af34f6000e3eb569",
+              "type": "select",
+              "name": "Company Size",
+              "description": "How many employees work at your company?"
+            },
+            "value": "51-200"
+          },
+          {
+            "field": {
+              "id": "68895d28af34f6000e3eb570",
+              "type": "select",
+              "name": "Timeline",
+              "description": "When are you looking to implement a solution?"
+            },
+            "value": "Within 1 month"
+          }
+        ]
+      }
     },
+    "profile": null,
     "demo_run": {
-      ...,
+      "id": "68895d1b04dc0e002da0f234",
+      "created_at": "2025-07-29T23:20:35.000Z",
+      "updated_at": "2025-07-29T23:25:17.832Z",
+      "anonymous_id": "68895d1b1d5eca09f6b22901",
+      "email": "sarah.thompson@datacompany.io",
+      "created_what": "Chrome 138 - Mac",
+      "created_where": "San Francisco California, US 🇺🇸",
+      "consent_mode": "granted",
+      "first_run": true,
+      "referrer": "https://www.linkedin.com/"
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "6883d663cd779100179d6899",
+      "created_at": "2025-07-25T19:09:23.000Z",
+      "updated_at": "2025-07-25T19:10:50.463Z",
+      "name": "ClickHouse Console Overview",
+      "description": "Explore ClickHouse console, navigate clusters, and view tables. Learn how to manage huge data sets like Profiles EEV with 15 billion rows.",
+      "position": 1,
+      "href": "https://console.clickhouse.cloud/",
+      "page_title": "Services",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/6883d663cd779100179d6899"
+      },
+      "created_user": {
+        "id": "630fbe394c27640010814ccb",
+        "created_at": "2022-08-31T20:02:01.000Z",
+        "updated_at": "2025-07-29T18:15:04.229Z",
+        "email": "anton@example.com",
+        "name": "Anton Kolmakov"
+      }
     }
   }
 }
@@ -1037,20 +2034,46 @@ The flow can be arbitrarily complex but typically follows one of these paths:
 
 ```json
 {
-  "id": "6fb70330dcbc39000325a94b",
+  "id": "68896e44f288e43bc9d7e789",
   "kind": "demo.email.added",
-  "sent_at": "2029-12-11T00:28:59.331Z",
+  "sent_at": "2025-07-30T00:35:28.678Z",
   "data": {
-    "action" : {
-      "id": "6f885a88e7daf34f6000e3eb",
-      "email": "jane@acme.co"
+    "action": {
+      "id": "68896e41d5b8f67ad2e3c456",
+      "email": "michael.chang@techcorp.sg"
     },
+    "profile": null,
     "demo_run": {
-      ...,
+      "id": "68896e2b04dc0e002da0f345",
+      "created_at": "2025-07-30T00:30:15.000Z",
+      "updated_at": "2025-07-30T00:35:27.832Z",
+      "anonymous_id": "68896e2b1d5eca09f6b22012",
+      "email": "michael.chang@techcorp.sg",
+      "created_what": "Chrome 138 - Mac",
+      "created_where": "Singapore Singapore, SG 🇸🇬",
+      "consent_mode": "granted",
+      "first_run": false,
+      "referrer": "https://www.chameleon.io/demos"
     },
     "demo": {
-      "id": "5fb7936edee1f70011bfc4c9",
-      ...
+      "id": "687a5a17a15837001bb7bae4",
+      "created_at": "2025-07-18T14:28:39.000Z",
+      "updated_at": "2025-07-21T18:18:21.844Z",
+      "name": "Chameleon Demos",
+      "description": "Discover how to enhance user engagement through tailored onboarding experiences using Chameleon's powerful features.",
+      "position": 9,
+      "href": "https://app.chameleon.io/demos",
+      "page_title": "Demos",
+      "urls": {
+        "dashboard": "https://app.chameleon.io/demos/687a5a17a15837001bb7bae4"
+      },
+      "created_user": {
+        "id": "6257c12532625b000f6ba77b",
+        "created_at": "2022-04-14T06:37:25.000Z",
+        "updated_at": "2025-07-29T14:07:20.979Z",
+        "email": "sonia@example.com",
+        "name": "Sonia Schiau"
+      }
     }
   }
 }

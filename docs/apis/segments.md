@@ -30,7 +30,7 @@ With the Chameleon API for Segments, you can:
 > For a full list of your User / Company Properties see the [Properties API](apis/properties.md)
 
 
-## Listing Segments :id=segments-index
+## List Segments :id=segments-index
 
 Retrieve a list of segments according to the specified parameters.
 
@@ -144,6 +144,49 @@ GET https://api.chameleon.io/v3/edit/segments/:id
         "value": 3
       }
     ]
+  }
+}
+```
+
+------
+
+## Listing Related Experiences :id=segment-experiences-index
+
+A Segment can be configured to be attached to many Chameleon Experiences, including [Microsurveys](apis/surveys.md), [Tours](apis/tours.md) and [Launchers](apis/launchers.md) and [Rate Limit Groups](apis/limit-groups.md). This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/segments/:id/:kind
+```
+
+| param | - | description |
+|---|---|---|
+| `id` | required | A Segment ID to lookup
+| `kind` | required | One of `tour`, `survey` or `launcher`
+
+#### HTTP Response
+
+```json
+{
+  "segment": {
+    "id": "5f3c4232c712de665632a6d7",
+    "name": "Admins",
+    ...
+  },
+  "tours": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Revamped Dashboard Launch",
+      "style": "auto",
+      "position": 4,
+      "published_at": "2029-04-07T12:18:00Z",
+       ...
+    },
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a2a1"
   }
 }
 ```

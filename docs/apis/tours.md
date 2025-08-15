@@ -30,7 +30,7 @@ With the Chameleon API for Tours, you can:
 | `updated_at` | timestamp | The last time any property was updated |
 | `archived_at` | timestamp | The time when this was archived |
 | `name` | string | The name given by an administrator of Chameleon |
-| `style` | string | The delivery method of this Tour: One of `auto` or `manual` |
+| `style` | string | The delivery method of this Tour: `auto` (triggers automatically based on conditions) or `manual` (requires manual triggering via URL or API) |
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `tour_link_url` | string | When `style=manual` this URL is loaded to start the Tour |
 | `experiment_at` | timestamp | When [Experimentation](https://help.chameleon.io/en/articles/1069709-a-b-testing-chameleon-tours) was turned on. |
@@ -72,24 +72,55 @@ GET https://api.chameleon.io/v3/edit/tours
   "tours": [
     {
       "id": "5f3c4232c712de665632a6d5",
-      "name": "Revamped Dashboard Launch",
+      "created_at": "2029-03-01T14:20:00.000Z",
+      "updated_at": "2029-04-07T12:18:00.000Z",
+      "archived_at": null,
+      "name": "Dashboard Onboarding Tour",
       "style": "auto",
-      "position": 4,
-      "published_at": "2029-04-07T12:18:00Z",
-       ...
+      "position": 1,
+      "tour_link_url": null,
+      "experiment_at": "2029-03-15T10:00:00.000Z",
+      "experiment_range": "0,50",
+      "segment_id": "5f3c4232c712de665632a6d9",
+      "published_at": "2029-03-05T09:00:00.000Z",
+      "tag_ids": ["5f3c4232c712de665632a6f5", "5f3c4232c712de665632a6f6"],
+      "stats": {
+        "started_count": 1247,
+        "last_started_at": "2029-04-07T11:30:00.000Z",
+        "completed_count": 892,
+        "last_completed_at": "2029-04-07T11:15:00.000Z",
+        "exited_count": 355,
+        "last_exited_at": "2029-04-07T10:45:00.000Z"
+      },
+      "rate_unlimit_at": null
     },
     {
       "id": "5f3c4232c712de665632a2a1",
-      "name": "Growth plan upsell banner 2029-02",
-      "style": "auto",
-      "position": 3,
-      "published_at": "2029-04-07T12:18:00Z",
-       ...
-    },
-    ...
+      "created_at": "2029-02-15T16:45:00.000Z",
+      "updated_at": "2029-03-20T13:22:00.000Z",
+      "archived_at": null,
+      "name": "Feature Announcement - New Analytics",
+      "style": "manual",
+      "position": 2,
+      "tour_link_url": "https://app.example.com/tours/feature-announcement",
+      "experiment_at": null,
+      "experiment_range": null,
+      "segment_id": "5f3c4232c712de665632a6e1",
+      "published_at": "2029-02-20T08:00:00.000Z",
+      "tag_ids": ["5f3c4232c712de665632a6f7"],
+      "stats": {
+        "started_count": 456,
+        "last_started_at": "2029-03-19T15:20:00.000Z",
+        "completed_count": 387,
+        "last_completed_at": "2029-03-19T14:55:00.000Z",
+        "exited_count": 69,
+        "last_exited_at": "2029-03-19T16:10:00.000Z"
+      },
+      "rate_unlimit_at": "2029-04-01T00:00:00.000Z"
+    }
   ],
   "cursor": {
-    "limit": 50,
+    "limit": 2,
     "before": "5f3c4232c712de665632a2a1"
   }
 }
@@ -167,12 +198,28 @@ GET https://api.chameleon.io/v3/edit/tours/:id
 ```json
 {
   "tour": {
-    "id": "5f3c4232c712de665632a2a1",
-    "name": "Growth plan upsell banner 2029-02",
+    "id": "5f3c4232c712de665632a6d5",
+    "created_at": "2029-03-01T14:20:00.000Z",
+    "updated_at": "2029-04-07T12:18:00.000Z",
+    "archived_at": null,
+    "name": "Dashboard Onboarding Tour",
     "style": "auto",
-    "position": 3,
-    "published_at": "2029-04-07T12:18:00Z",
-    ...
+    "position": 1,
+    "tour_link_url": null,
+    "experiment_at": "2029-03-15T10:00:00.000Z",
+    "experiment_range": "0,50",
+    "segment_id": "5f3c4232c712de665632a6d9",
+    "published_at": "2029-03-05T09:00:00.000Z",
+    "tag_ids": ["5f3c4232c712de665632a6f5", "5f3c4232c712de665632a6f6"],
+    "stats": {
+      "started_count": 1247,
+      "last_started_at": "2029-04-07T11:30:00.000Z",
+      "completed_count": 892,
+      "last_completed_at": "2029-04-07T11:15:00.000Z",
+      "exited_count": 355,
+      "last_exited_at": "2029-04-07T10:45:00.000Z"
+    },
+    "rate_unlimit_at": null
   }
 }
 ```
