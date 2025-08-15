@@ -43,7 +43,8 @@ GET https://api.chameleon.io/v3/edit/segments
 | param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
 | `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
-| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response. Can also be given as a timestamp to get only `limit` items that were created before this time |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
 
@@ -72,83 +73,34 @@ From the previous response `cursor.before`
   "segments": [
     {
       "id": "5f3c4232c712de665632a6d9",
-      "created_at": "2024-03-10T09:15:00.000Z",
-      "updated_at": "2024-04-05T14:22:00.000Z",
-      "name": "Enterprise Admins - Recent Activity",
+      "name": "Admins who invited > 3",
       "items": [
         {
-          "id": "5f3c4232c712de665632a6da",
-          "created_at": "2024-03-10T09:15:00.000Z",
-          "updated_at": "2024-04-05T14:22:00.000Z",
+          "id": "5f3c4232c712de665632a6d8",
           "kind": "property",
           "prop": "role",
           "op": "eq",
           "value": "admin"
         },
         {
-          "id": "5f3c4232c712de665632a6db",
-          "created_at": "2024-03-10T09:15:00.000Z",
-          "updated_at": "2024-04-05T14:22:00.000Z",
+          "id": "5f3c4232c712de665632a6d7",
           "kind": "property",
-          "prop": "company.plan",
-          "op": "in",
-          "value": ["enterprise", "business"]
-        },
-        {
-          "id": "5f3c4232c712de665632a6dc",
-          "created_at": "2024-03-10T09:15:00.000Z",
-          "updated_at": "2024-04-05T14:22:00.000Z",
-          "kind": "property",
-          "prop": "last_seen_at",
-          "op": "gt-d",
-          "value": "7"
+          "prop": "invited_users_count",
+          "op": "gte",
+          "value": 3
         }
-      ],
-      "items_op": "and"
+      ]
     },
     {
-      "id": "5f3c4232c712de665632a6e1",
-      "created_at": "2024-02-15T11:30:00.000Z",
-      "updated_at": "2024-04-01T16:45:00.000Z",
-      "name": "Trial Users - Feature Engagement",
-      "items": [
-        {
-          "id": "5f3c4232c712de665632a6e2",
-          "created_at": "2024-02-15T11:30:00.000Z",
-          "updated_at": "2024-04-01T16:45:00.000Z",
-          "kind": "property",
-          "prop": "subscription_status",
-          "op": "eq",
-          "value": "trial"
-        },
-        {
-          "id": "5f3c4232c712de665632a6e3",
-          "created_at": "2024-02-15T11:30:00.000Z",
-          "updated_at": "2024-04-01T16:45:00.000Z",
-          "kind": "event",
-          "op": "eq",
-          "value": "feature_used",
-          "mod": "gte",
-          "range": "3",
-          "period": "week"
-        },
-        {
-          "id": "5f3c4232c712de665632a6e4",
-          "created_at": "2024-02-15T11:30:00.000Z",
-          "updated_at": "2024-04-01T16:45:00.000Z",
-          "kind": "property",
-          "integration": "salesforce",
-          "prop": "lead_score",
-          "op": "gte",
-          "value": "75"
-        }
-      ],
-      "items_op": "and"
-    }
+      "id": "5f3c4232c712de665632a6e2",
+      "name": "Grown Plan Upsell",
+       ...
+    },
+    ...
   ],
   "cursor": {
-    "limit": 2,
-    "before": "5f3c4232c712de665632a6e1"
+    "limit": 50,
+    "before": "5f3c4232c712de665632a6d7"
   }
 }
 ```
@@ -192,6 +144,49 @@ GET https://api.chameleon.io/v3/edit/segments/:id
         "value": 3
       }
     ]
+  }
+}
+```
+
+------
+
+## Listing Related Experiences :id=segment-experiences-index
+
+A Segment can be configured to be attached to many Chameleon Experiences, including [Microsurveys](apis/surveys.md), [Tours](apis/tours.md) and [Launchers](apis/launchers.md) and [Rate Limit Groups](apis/limit-groups.md). This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/segments/:id/:kind
+```
+
+| param | - | description |
+|---|---|---|
+| `id` | required | A Segment ID to lookup
+| `kind` | required | One of `tour`, `survey` or `launcher`
+
+#### HTTP Response
+
+```json
+{
+  "segment": {
+    "id": "5f3c4232c712de665632a6d7",
+    "name": "Admins",
+    ...
+  },
+  "tours": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Revamped Dashboard Launch",
+      "style": "auto",
+      "position": 4,
+      "published_at": "2029-04-07T12:18:00Z",
+       ...
+    },
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a2a1"
   }
 }
 ```

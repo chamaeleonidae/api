@@ -33,7 +33,7 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles
 ```json
 {
   "uid": 18821,
-  "email": "leon@chmln.co",
+  "email": "user@example.com",
   "first_name": "Leon",
   "role": "admin",
   "last_import_at": "2029-04-07T12:18:00Z",

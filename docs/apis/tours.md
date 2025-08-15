@@ -72,32 +72,32 @@ GET https://api.chameleon.io/v3/edit/tours
   "tours": [
     {
       "id": "5f3c4232c712de665632a6d5",
-      "created_at": "2024-03-01T14:20:00.000Z",
-      "updated_at": "2024-04-07T12:18:00.000Z",
+      "created_at": "2029-03-01T14:20:00.000Z",
+      "updated_at": "2029-04-07T12:18:00.000Z",
       "archived_at": null,
       "name": "Dashboard Onboarding Tour",
       "style": "auto",
       "position": 1,
       "tour_link_url": null,
-      "experiment_at": "2024-03-15T10:00:00.000Z",
+      "experiment_at": "2029-03-15T10:00:00.000Z",
       "experiment_range": "0,50",
       "segment_id": "5f3c4232c712de665632a6d9",
-      "published_at": "2024-03-05T09:00:00.000Z",
+      "published_at": "2029-03-05T09:00:00.000Z",
       "tag_ids": ["5f3c4232c712de665632a6f5", "5f3c4232c712de665632a6f6"],
       "stats": {
         "started_count": 1247,
-        "last_started_at": "2024-04-07T11:30:00.000Z",
+        "last_started_at": "2029-04-07T11:30:00.000Z",
         "completed_count": 892,
-        "last_completed_at": "2024-04-07T11:15:00.000Z",
+        "last_completed_at": "2029-04-07T11:15:00.000Z",
         "exited_count": 355,
-        "last_exited_at": "2024-04-07T10:45:00.000Z"
+        "last_exited_at": "2029-04-07T10:45:00.000Z"
       },
       "rate_unlimit_at": null
     },
     {
       "id": "5f3c4232c712de665632a2a1",
-      "created_at": "2024-02-15T16:45:00.000Z",
-      "updated_at": "2024-03-20T13:22:00.000Z",
+      "created_at": "2029-02-15T16:45:00.000Z",
+      "updated_at": "2029-03-20T13:22:00.000Z",
       "archived_at": null,
       "name": "Feature Announcement - New Analytics",
       "style": "manual",
@@ -106,17 +106,17 @@ GET https://api.chameleon.io/v3/edit/tours
       "experiment_at": null,
       "experiment_range": null,
       "segment_id": "5f3c4232c712de665632a6e1",
-      "published_at": "2024-02-20T08:00:00.000Z",
+      "published_at": "2029-02-20T08:00:00.000Z",
       "tag_ids": ["5f3c4232c712de665632a6f7"],
       "stats": {
         "started_count": 456,
-        "last_started_at": "2024-03-19T15:20:00.000Z",
+        "last_started_at": "2029-03-19T15:20:00.000Z",
         "completed_count": 387,
-        "last_completed_at": "2024-03-19T14:55:00.000Z",
+        "last_completed_at": "2029-03-19T14:55:00.000Z",
         "exited_count": 69,
-        "last_exited_at": "2024-03-19T16:10:00.000Z"
+        "last_exited_at": "2029-03-19T16:10:00.000Z"
       },
-      "rate_unlimit_at": "2024-04-01T00:00:00.000Z"
+      "rate_unlimit_at": "2029-04-01T00:00:00.000Z"
     }
   ],
   "cursor": {
@@ -199,25 +199,25 @@ GET https://api.chameleon.io/v3/edit/tours/:id
 {
   "tour": {
     "id": "5f3c4232c712de665632a6d5",
-    "created_at": "2024-03-01T14:20:00.000Z",
-    "updated_at": "2024-04-07T12:18:00.000Z",
+    "created_at": "2029-03-01T14:20:00.000Z",
+    "updated_at": "2029-04-07T12:18:00.000Z",
     "archived_at": null,
     "name": "Dashboard Onboarding Tour",
     "style": "auto",
     "position": 1,
     "tour_link_url": null,
-    "experiment_at": "2024-03-15T10:00:00.000Z",
+    "experiment_at": "2029-03-15T10:00:00.000Z",
     "experiment_range": "0,50",
     "segment_id": "5f3c4232c712de665632a6d9",
-    "published_at": "2024-03-05T09:00:00.000Z",
+    "published_at": "2029-03-05T09:00:00.000Z",
     "tag_ids": ["5f3c4232c712de665632a6f5", "5f3c4232c712de665632a6f6"],
     "stats": {
       "started_count": 1247,
-      "last_started_at": "2024-04-07T11:30:00.000Z",
+      "last_started_at": "2029-04-07T11:30:00.000Z",
       "completed_count": 892,
-      "last_completed_at": "2024-04-07T11:15:00.000Z",
+      "last_completed_at": "2029-04-07T11:15:00.000Z",
       "exited_count": 355,
-      "last_exited_at": "2024-04-07T10:45:00.000Z"
+      "last_exited_at": "2029-04-07T10:45:00.000Z"
     },
     "rate_unlimit_at": null
   }

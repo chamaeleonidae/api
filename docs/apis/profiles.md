@@ -29,8 +29,8 @@ The Chameleon User Profiles API allows you to:
 | `browser_x` | number | Browser width in pixels |
 | `browser_tz` | number | Browser timezone in integer offset (+/-) from UTC |
 | `browser_l` | string | Language code as reported by the Accept-Language header |
-| `browser_n` | string | Browser name: One of `chrome`, `firefox`, `safari`, `opera`, `ie10`, `ie11`, `edge`, or `unknown` |
-| `browser_k` | string | Browser kind: One of `desktop`, `mobile`, or `tablet` |
+| `browser_n` | string | Browser name: One of `chrome`, `firefox`, `safari`, `opera`, `ie10`, `ie11`, or `edge` |
+| `browser_k` | string | Browser kind: One of `desktop` or `mobile` |
 | `percent` | number | Randomly assigned but stable, used for A/B testing |
 | `last_seen_at` | timestamp | When the user was las active on a page where Chameleon is installed |
 | `last_seen_session_count` | number | Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes |
@@ -76,7 +76,7 @@ When using a **GET** request with parameters:
 ```
 ?id=5f3c4232c712de665632a6d5
 ?uid=18821
-?email=leon@chmln.co
+?email=user@example.com
 ```
 
 When using a **POST** request send one of these properties:
@@ -85,7 +85,7 @@ When using a **POST** request send one of these properties:
 {
   "id": "5f3c4232c712de665632a6d5",
   "uid": 18821,
-  "email": "leon@chmln.co"
+  "email": "user@example.com"
 }
 ```
 
@@ -97,8 +97,8 @@ When using a **POST** request send one of these properties:
 {
   "profile": {
     "id": "5f3c4232c712de665632a6d5",
-    "created_at": "2024-03-15T10:30:00.000Z",
-    "updated_at": "2024-04-07T12:18:00.000Z",
+    "created_at": "2029-03-15T10:30:00.000Z",
+    "updated_at": "2029-04-07T12:18:00.000Z",
     "uid": "user_18821",
     "company_id": "5f3c4232c712de665632a6e8",
     "browser_x": 1920,
@@ -107,32 +107,16 @@ When using a **POST** request send one of these properties:
     "browser_n": "chrome",
     "browser_k": "desktop",
     "percent": 42.87,
-    "last_seen_at": "2024-04-07T11:45:00.000Z",
+    "last_seen_at": "2029-04-07T11:45:00.000Z",
     "last_seen_session_count": 23,
     "delivery_ids": [
       "5f3c4232c712de665632a6f1",
       "5f3c4232c712de665632a6f2"
     ],
-    "email": "john.doe@acmecorp.com",
-    "first_name": "John",
-    "last_name": "Doe",
-    "role": "admin",
-    "plan": "enterprise",
-    "onboarding_completed": true,
-    "subscription_status": "active",
-    "team_size": 25,
-    "last_login_at": "2024-04-07T11:30:00.000Z",
-    "feature_flags": ["beta_ui", "advanced_analytics"],
-    "custom_properties": {
-      "department": "Engineering",
-      "seniority": "Senior",
-      "signup_source": "organic"
-    },
     "company": {
       "id": "5f3c4232c712de665632a6e8",
-      "created_at": "2024-01-10T08:00:00.000Z",
-      "uid": "company_abc123",
-      "name": "Acme Corporation"
+      "created_at": "2029-01-10T08:00:00.000Z",
+      "uid": "company_abc123"
     }
   }
 }

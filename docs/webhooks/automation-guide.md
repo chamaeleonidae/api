@@ -290,7 +290,7 @@ Understanding the data available in each webhook helps you build more effective 
 {
   "tour": {
     "name": "Dashboard Onboarding Tour",
-    "published_at": "2024-07-15T09:00:00Z",
+    "published_at": "2029-07-15T09:00:00Z",
     "stats": {
       "started_count": 1247,
       "completed_count": 892,
