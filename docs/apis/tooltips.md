@@ -34,7 +34,6 @@ With the Chameleon API for Tooltips, you can:
 | `stats` | object | Aggregated statistics for this Tooltip (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this Tooltip |
 | `stats.last_started_at` | timestamp | Most recent time any user saw this Tooltip |
-| `stats.engagement_options` | object | Engagement scoring configuration and metrics |
 
 
 ## List Tooltips :id=tooltips-index
@@ -158,11 +157,7 @@ GET https://api.chameleon.io/v3/edit/tooltips/:id
     "tag_ids": [],
     "stats": {
       "started_count": 124,
-      "last_started_at": "2029-04-07T11:45:00Z",
-      "engagement_options": {
-        "score": 0.85,
-        "interactions": 124
-      }
+      "last_started_at": "2029-04-07T11:45:00Z"
     },
     ...
   }
