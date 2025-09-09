@@ -1,18 +1,33 @@
 # Steps
 
-Steps are he building blocks of Tours and Microsurveys
+Steps are the building blocks of Tours, Microsurveys, and Embeddables
 
 ## Schema :id=schema
 
-| Property | Type | Description |
-| --- | --- | --- |
-| `id` | ID | The Chameleon ID |
-| `created_at` | timestamp | When this happened or when this was added to the Database |
-| `updated_at` | timestamp | The last time any property was updated |
-| `body` | string | The configured body copy for this Step |
-| `preset` | string | The template this step follows: One of `survey_two`, `survey_nps`, `survey_csat`, `survey_ces`, `response`, `thank_you`, `survey_three`, `survey_four`, `survey_five`, `survey_input`, or `survey_dropdown` |
-| `dropdown_items` | array&lt;String&gt; | For a dropdown Microsurvey, the configured options for the dropdown |
-| `quantifier_urls` | array | List of URL matching conditions that must match the current page URL |
-| `quantifier_urls.url` | none | The specific URL used in this matching condition |
-| `quantifier_urls.match_type` | none | The type of matching used. One of: `simple`, `exact`, `regex`, `inverse_simple`, or `inverse_exact` |
-
+| Property                      | Type                | Description                                                                                                                                                                                                 |
+|-------------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`                          | ID                  | The Chameleon ID                                                                                                                                                                                            |
+| `created_at`                  | timestamp           | When this happened or when this was added to the Database                                                                                                                                                   |
+| `updated_at`                  | timestamp           | The last time any property was updated                                                                                                                                                                      |
+| `title`                       | string              | The configured title text for this Step                                                                                                                                                                     |
+| `body`                        | string              | The configured body copy for this Step                                                                                                                                                                      |
+| `preset`                      | string              | The template this step follows: One of `survey_two`, `survey_nps`, `survey_csat`, `survey_ces`, `response`, `thank_you`, `survey_three`, `survey_four`, `survey_five`, `survey_input`, or `survey_dropdown` |
+| `dropdown_items`              | array&lt;String&gt; | For a dropdown Microsurvey, the configured options for the dropdown                                                                                                                                         |
+| `follow_up_delay`             | integer             | Delay in milliseconds before follow-up actions are triggered                                                                                                                                                |
+| `cta_has_custom_click`        | boolean             | Whether the CTA requires custom click handling                                                                                                                                                              |
+| `step_trigger`                | string              | Primary trigger condition. One of: `page_load`, `element_match`, or `element_not_match`                                                                                                                     |
+| `position_type`               | string              | How the step is positioned on the page. One of: `relative_to_screen`, `snap_to_element`, `snap_to_trigger`, or `inline`                                                                                     |
+| `step_additional_trigger`     | string              | Additional trigger condition. One of: `element_match` or `element_not_match`                                                                                                                                |
+| `secondary_trigger`           | string              | Secondary trigger condition. One of: `click`, `hover`, `time_on_page`, `smart_delay`, `input`, or `custom_trigger`                                                                                          |
+| `quantifier_op`               | string              | Quantifier operation type. One of: `in` or `match`                                                                                                                                                          |
+| `buttons`                     | array               | Array of button configurations for this step                                                                                                                                                                |
+| `buttons.id`                  | ID                  | Unique identifier for the button                                                                                                                                                                            |
+| `buttons.enabled`             | boolean             | Whether this button is active                                                                                                                                                                               |
+| `buttons.text`                | string              | Display text for the button                                                                                                                                                                                 |
+| `buttons.updated_at`          | timestamp           | When this button was last modified                                                                                                                                                                          |
+| `buttons.additional_actions`  | array&lt;string&gt; | Additional actions triggered by this button                                                                                                                                                                 |
+| `buttons.tour_action`         | string              | Tour navigation action for this button                                                                                                                                                                      |
+| `quantifier_urls`             | array               | List of URL matching conditions that must match the current page URL                                                                                                                                        |
+| `quantifier_urls.id`          | ID                  | Unique identifier for this URL condition                                                                                                                                                                    |
+| `quantifier_urls.url`         | string              | The specific URL used in this matching condition                                                                                                                                                            |
+| `quantifier_urls.match_type`  | string              | The type of matching used. One of: `simple`, `exact`, `regex`, `inverse_simple`, or `inverse_exact`                                                                                                         |
