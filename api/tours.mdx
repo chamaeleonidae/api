@@ -1,0 +1,39 @@
+Tours are multi-step user onboarding experiences that guide users through your product.
+
+## Schema
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `name` | string | Given name |
+| `created_at` | timestamp | When this was created |
+| `updated_at` | timestamp | The last time any property was updated |
+| `published_at` | timestamp | When this was most recently published |
+| `position` | string | Position configuration for the tour |
+| `steps` | array&lt;object&gt; | List of tour Steps |
+
+## List Tours
+
+### HTTP Request
+
+```http
+GET https://api.chameleon.io/v3/edit/tours
+```
+
+| param | - | description |
+| ------ | -------- | ------------------------------------------------------------ |
+| `limit` | optional | Defaults to `50` with a maximum of `500` |
+| `before` | optional | Used when paginating |
+| `after` | optional | Read as "created `after`" timestamp or ID |
+
+## Retrieve a Tour
+
+### HTTP Request
+
+```http
+GET https://api.chameleon.io/v3/edit/tours/:id
+```
+
+| param | - | description |
+| ----- | -------- | ------------------------------------------------------------ |
+| `id` | required | A Chameleon Tour ID to retrieve |

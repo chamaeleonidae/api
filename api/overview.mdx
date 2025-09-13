@@ -1,0 +1,47 @@
+Access and manage your Chameleon data programmatically with our RESTful HTTP API. Perfect for server-side integrations, data exports, and automation workflows.
+
+<Warning>
+All API requests require authentication with your Account Secret. Find yours in your [Chameleon dashboard](https://app.chameleon.io) under Settings > Integrations.
+</Warning>
+
+## Quick Example
+
+```bash
+curl -H "X-Account-Secret: YOUR_ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     https://api.chameleon.io/v3/analyze/profiles
+```
+
+## API Design Principles
+
+- **RESTful**: Standard HTTP methods (GET, POST, PUT, DELETE)
+- **JSON**: All requests and responses use JSON format
+- **Consistent**: Uniform parameter patterns across endpoints
+- **Paginated**: Large datasets use cursor-based pagination
+- **Expandable**: Use `expand` parameters to control response size
+
+## Available Endpoints
+
+Currently, our REST API supports the following endpoints:
+
+| Model + details | List URL | Show URL |
+|---|---|---|
+| [User Profiles](/api/profiles) | `GET /v3/analyze/profiles` | `GET v3/analyze/profiles/:id` |
+| [Companies](/api/companies) | `GET /v3/analyze/companies` | `GET v3/analyze/companies/:id` |
+| [Segments](/api/segments) | `GET /v3/edit/segments` | `GET /v3/edit/segments/:id` |
+| [Tours](/api/tours) | `GET /v3/edit/tours` | `GET /v3/edit/tours/:id` |
+| [Microsurveys](/api/surveys) | `GET /v3/edit/surveys` | `GET /v3/edit/surveys/:id` |
+| [Experience Deliveries](/api/deliveries) | `GET /v3/edit/deliveries` | `GET /v3/edit/delivery/:id` |
+| [Webhooks](/api/webhooks) | `GET /v3/edit/webhooks` | `GET v3/edit/webhooks/:id` |
+
+## Ideas for how you can use this API
+
+Chameleon's REST API is made to be adaptable to your own custom use cases. Nevertheless, there are some cases where you might want to use it:
+
+- **Import data** (via CSV) on a one-time or recurring basis
+- Register a **Webhook** to receive realtime notifications of **Microsurvey Responses**
+- Use the **Microsurveys Endpoint** to download **Microsurvey Response** data periodically
+- Get a list of all the User data being sent to Chameleon and manipulate it (delete, update, etc.) through the **User Profiles Endpoint**
+- Trigger an Experience via REST API that will run on next page load via **Experience Deliveries**
+
+> If there is any use case where you'd like to use our API but you're not sure how, feel free to [Contact us](https://app.chameleon.io/help).

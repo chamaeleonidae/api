@@ -1,0 +1,66 @@
+User Profiles represent your *product's end-users*: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.
+
+The Chameleon User Profiles API allows you to:
+
+- Create / Update custom User properties
+- Retrieve a user by `id`, `uid` and `email`
+- Search for users or get the count of users using any of the properties you have sent to us
+- Clear or reset a specific user's data
+- Delete a user permanently
+
+## Schema
+
+### Fully-expanded profile
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `uid` | string | The external ID that came from your backend system |
+| `company_id` | ID | The Chameleon ID of the Company (only if associated) |
+| `browser_x` | number | Browser width in pixels |
+| `browser_tz` | number | Browser timezone in integer offset (+/-) from UTC |
+| `browser_l` | string | Language code as reported by the Accept-Language header |
+| `browser_n` | string | Browser name: One of `chrome`, `firefox`, `safari`, `opera`, `ie10`, `ie11`, or `edge` |
+| `browser_k` | string | Browser kind: One of `desktop` or `mobile` |
+| `percent` | number | Randomly assigned but stable, used for A/B testing |
+| `last_seen_at` | timestamp | When the user was last active on a page where Chameleon is installed |
+
+## Retrieve a specific User
+
+### HTTP Request
+
+```http
+GET https://api.chameleon.io/v3/analyze/profiles/:id
+POST https://api.chameleon.io/v3/analyze/profile
+```
+
+| param | - | description |
+| ----- | -------- | ------------------------------------------------------------ |
+| `id` | optional | The Chameleon ID of the User Profile |
+| `uid` | optional | The User Profile identifier (typically the Database ID from your backend) |
+| `email` | optional | If you have sent an email address, this will be available for single-user lookup |
+
+### Example Request
+
+```bash
+curl -H "X-Account-Secret: YOUR_SECRET" \
+  "https://api.chameleon.io/v3/analyze/profiles/5f3c4232c712de665632a6d5"
+```
+
+### Example Response
+
+```json
+{
+  "profile": {
+    "id": "5f3c4232c712de665632a6d5",
+    "uid": 18821,
+    "email": "leon@chmln.co",
+    "first_name": "Leon",
+    "role": "admin",
+    "last_import_at": "2029-04-07T12:18:00Z",
+    "invited_users_count": 4
+  }
+}
+```

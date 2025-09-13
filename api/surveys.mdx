@@ -1,0 +1,115 @@
+Microsurveys (commonly referred to as just "Surveys") are designed to collect information from your users while they are actually using your product.
+
+<Info>
+View detailed information about responses in [Survey Responses](/api/survey-responses).
+</Info>
+
+## Schema
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `name` | string | Given name |
+| `url` | string | URL where this will be delivered |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `published_at` | timestamp | When this was most recently published |
+| `position` | enum | `tr` `tl` `br` `bl` `center` for top-right, top-left, etc. |
+| `lang` | enum | `detect`, `en`, `es`, `pt`, `fr`, `de` - the language to show this in (defaults to `detect`) |
+| `segment_filters` | array&lt;object&gt; | Chameleon Segmentation filters that determine who sees this |
+| `page_url_filters` | array&lt;object&gt; | Chameleon URL filters that determine where this shows |
+| `trigger_filters` | array&lt;object&gt; | Chameleon Event filters that determine when this shows |
+| `steps` | array&lt;object&gt; | List of survey Steps (questions) |
+
+## List Surveys
+
+### HTTP Request
+
+```http
+GET https://api.chameleon.io/v3/edit/surveys
+```
+
+| param | - | description |
+| ------ | -------- | ------------------------------------------------------------ |
+| `limit` | optional | Defaults to `50` with a maximum of `500` |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `after` | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+
+### Example Response
+
+```json
+{
+  "surveys": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Overall satisfaction",
+      "created_at": "2029-04-07T12:18:00Z",
+      "updated_at": "2029-04-07T12:18:00Z",
+      "published_at": "2029-04-07T12:18:00Z",
+      "position": "br",
+      "lang": "en",
+      "steps": [
+        {
+          "uuid": "step_018221",
+          "kind": "question",
+          "title": "How would you rate your overall experience?",
+          "body": "Please be honest, we use this to improve the product.",
+          "input": {
+            "kind": "rating",
+            "scale": 5,
+            "required": true
+          }
+        }
+      ]
+    }
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a6d5"
+  }
+}
+```
+
+## Retrieve a Survey
+
+#### HTTP Request
+
+```http
+GET https://api.chameleon.io/v3/edit/surveys/:id
+```
+
+| param | - | description |
+| ----- | -------- | ------------------------------------------------------------ |
+| `id` | required | A Chameleon Survey ID to retrieve |
+
+### Example Response
+
+```json
+{
+  "survey": {
+    "id": "5f3c4232c712de665632a6d5",
+    "name": "Overall satisfaction",
+    "created_at": "2029-04-07T12:18:00Z",
+    "updated_at": "2029-04-07T12:18:00Z",
+    "published_at": "2029-04-07T12:18:00Z",
+    "position": "br",
+    "lang": "en",
+    "segment_filters": [],
+    "page_url_filters": [],
+    "trigger_filters": [],
+    "steps": [
+      {
+        "uuid": "step_018221",
+        "kind": "question",
+        "title": "How would you rate your overall experience?",
+        "body": "Please be honest, we use this to improve the product.",
+        "input": {
+          "kind": "rating",
+          "scale": 5,
+          "required": true
+        }
+      }
+    ]
+  }
+}
+```
