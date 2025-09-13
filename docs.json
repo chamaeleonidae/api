@@ -1,0 +1,81 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Chameleon Developer Hub",
+  "description": "Complete API documentation and developer resources for Chameleon's user onboarding and product adoption platform.",
+  "theme": "mint",
+  "logo": {
+    "light": "/assets/logo-light.svg",
+    "dark": "/assets/logo-dark.svg",
+    "href": "https://www.chameleon.io",
+    "target": "_blank"
+  },
+  "favicon": "/assets/favicon.svg",
+  "colors": {
+    "primary": "#18362E",
+    "light": "#81C784",
+    "dark": "#2E7D32"
+  },
+  "modeToggle": {
+    "default": "light"
+  },
+  "search": {
+    "prompt": "Search Chameleon docs..."
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true
+  },
+  "seo": {
+    "indexHiddenPages": true
+  },
+  "integrations": {
+    "intercom": {
+      "appId": "xwskxzr1"
+    }
+  },
+  "footerSocials": {
+    "website": "https://chameleon.io",
+    "twitter": "https://twitter.com/chameleonhq",
+    "linkedin": "https://www.linkedin.com/company/chameleonhq",
+    "github": "https://github.com/chamaeleonidae"
+  },
+  "ai": {
+    "openapi": "/openapi.json"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "icon": "rocket",
+        "pages": ["overview", "authentication"]
+      },
+      {
+        "group": "JavaScript API",
+        "icon": "code",
+        "pages": ["js/overview", "js/profiles"]
+      },
+      {
+        "group": "REST API",
+        "icon": "server",
+        "pages": [
+          "api/overview",
+          "api/profiles",
+          "api/companies",
+          "api/surveys",
+          "api/tours",
+          "api/deliveries"
+        ]
+      },
+      {
+        "group": "Webhooks",
+        "icon": "webhook",
+        "pages": ["webhooks/overview", "webhooks/profiles"]
+      },
+      {
+        "group": "Guides",
+        "icon": "book-open",
+        "pages": ["guides/installation", "guides/helpbar"]
+      }
+    ]
+  }
+}
