@@ -1,0 +1,63 @@
+Use the `identify` method to tell Chameleon about your users and their properties.
+
+## Basic Usage
+
+```javascript
+chmln.identify('user-123', {
+  email: 'john@example.com',
+  name: 'John Doe',
+  plan: 'premium'
+});
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `userId` | string | Unique identifier for the user |
+| `properties` | object | User properties and attributes |
+
+## Common Properties
+
+Here are some commonly used properties:
+
+```javascript
+chmln.identify('user-123', {
+  // Contact info
+  email: 'john@example.com',
+  name: 'John Doe',
+
+  // Plan info
+  plan: 'premium',
+  trial_ends_at: '2024-01-15',
+
+  // Usage info
+  login_count: 42,
+  last_seen: '2024-01-01',
+
+  // Company info
+  company: 'Acme Corp',
+  company_size: 50
+});
+```
+
+## Anonymous Users
+
+For anonymous users, you can omit the user ID:
+
+```javascript
+chmln.identify({
+  page_views: 5,
+  referrer: 'google'
+});
+```
+
+## Best Practices
+
+<Tip>
+Call `identify` early in your user's session, ideally right after they log in or when you have their information available.
+</Tip>
+
+- Always include an email when available
+- Use consistent property names across your application
+- Don't send sensitive information like passwords or credit card numbers

@@ -1,0 +1,80 @@
+The User Profiles webhook allows you to send user data to Chameleon in real-time.
+
+## Overview
+
+Use this webhook to:
+- Send user profile data to Chameleon
+- Update user properties when they change in your system
+- Identify users when they sign up or log in
+
+## Webhook URL
+
+```http
+POST https://api.chameleon.io/v3/identify
+```
+
+## Authentication
+
+Include your Account Secret in the `X-Account-Secret` header:
+
+```http
+X-Account-Secret: YOUR_ACCOUNT_SECRET
+```
+
+## Request Format
+
+```json
+{
+  "uid": "user-123",
+  "email": "user@example.com",
+  "properties": {
+    "name": "John Doe",
+    "plan": "premium",
+    "signup_date": "2024-01-01",
+    "company": "Acme Corp"
+  }
+}
+```
+
+## Required Fields
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `uid` | string | Unique identifier for the user |
+
+## Optional Fields
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `email` | string | User's email address |
+| `properties` | object | Custom user properties |
+
+## Example Usage
+
+```bash
+curl -X POST https://api.chameleon.io/v3/identify \
+  -H "X-Account-Secret: YOUR_ACCOUNT_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "uid": "user-123",
+    "email": "john@example.com",
+    "properties": {
+      "name": "John Doe",
+      "plan": "premium",
+      "signup_date": "2024-01-01"
+    }
+  }'
+```
+
+## Response
+
+```json
+{
+  "success": true,
+  "profile": {
+    "id": "5f3c4232c712de665632a6d5",
+    "uid": "user-123",
+    "email": "john@example.com"
+  }
+}
+```

@@ -1,0 +1,31 @@
+Webhooks allow you to receive real-time notifications when specific events occur in Chameleon.
+
+## Supported Events
+
+- User profile updates
+- Tour completions
+- Survey responses
+- Company data changes
+
+## Setting up Webhooks
+
+1. Configure your webhook endpoint to receive POST requests
+2. Add the webhook URL in your Chameleon dashboard
+3. Select which events you want to receive
+
+## Webhook Format
+
+All webhooks are sent as POST requests with a JSON payload:
+
+```json
+{
+  "event": "profile.updated",
+  "data": {
+    "profile": {
+      "id": "123",
+      "email": "user@example.com"
+    }
+  },
+  "timestamp": "2024-01-01T12:00:00Z"
+}
+```
