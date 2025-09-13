@@ -1,0 +1,27 @@
+All API requests require authentication using your Account Secret key.
+
+## How to authenticate
+
+Include your Account Secret in the request header:
+
+```bash
+curl -H "X-Account-Secret: YOUR_ACCOUNT_SECRET" https://api.chameleon.io/v3/analyze/profiles
+```
+
+## Finding your Account Secret
+
+Your Account Secret can be found in your Chameleon dashboard under Settings > Integrations.
+
+<Warning>
+Keep your Account Secret secure and never expose it in client-side code or public repositories.
+</Warning>
+
+## Rate Limits
+
+API requests are subject to rate limiting. See [Rate Limiting](/concepts/rate-limiting) for more details.
+
+## Base URLs
+
+Use one of these base URLs for all API requests:
+- `https://api.chameleon.io` (recommended for new projects)
+- `https://api.trychameleon.com` (legacy, still supported)

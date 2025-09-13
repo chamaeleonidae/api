@@ -1,0 +1,62 @@
+Chameleon's comprehensive API ecosystem allows you to integrate user onboarding, analytics, and experience management into your applications.
+
+<CardGroup cols={3}>
+  <Card title="JavaScript API" icon="code" href="/js/overview">
+    Client-side integration for web applications. Identify users, track events, and trigger experiences.
+  </Card>
+  <Card title="REST API" icon="server" href="/api/overview">
+    Server-side integration for managing users, companies, surveys, and analytics data.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks/overview">
+    Real-time notifications for user actions, survey responses, and experience completions.
+  </Card>
+</CardGroup>
+
+## Core Concepts
+
+<AccordionGroup>
+  <Accordion title="User Profiles & Companies">
+    Manage your users and accounts with rich property data. Track user behavior, segment audiences, and personalize experiences based on user attributes.
+  </Accordion>
+
+  <Accordion title="Experiences & Tours">
+    Create guided onboarding flows, product tours, tooltips, and microsurveys. Trigger experiences programmatically or based on user behavior.
+  </Accordion>
+
+  <Accordion title="Analytics & Responses">
+    Access detailed analytics on user engagement, experience completion rates, and survey responses. Export data for further analysis.
+  </Accordion>
+
+  <Accordion title="Automation & Webhooks">
+    Automate workflows with real-time event notifications. Sync data between Chameleon and your existing systems.
+  </Accordion>
+</AccordionGroup>
+
+## Authentication
+
+All API requests require your Account Secret key:
+
+```bash
+curl -H "X-Account-Secret: YOUR_ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     https://api.chameleon.io/v3/analyze/profiles
+```
+
+<Info>
+Find your Account Secret in your [Chameleon dashboard](https://app.chameleon.io) under Settings > Integrations.
+</Info>
+
+## Base URLs
+
+<Note>
+Use `https://api.chameleon.io` or `https://api.trychameleon.com` for all requests (either will work but use `chameleon.io` for new projects.)
+</Note>
+
+## Next Steps
+
+Ready to get started? Check out these essential resources:
+
+- **[Authentication Guide](/authentication)** - Set up your API credentials
+- **[JavaScript API](/js/overview)** - For client-side integrations
+- **[REST API](/api/overview)** - For server-side integrations
+- **[Webhooks](/webhooks/overview)** - For real-time event handling
