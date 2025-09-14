@@ -47,12 +47,35 @@
       {
         "group": "Getting Started",
         "icon": "rocket",
-        "pages": ["overview", "authentication"]
+        "pages": [
+          "overview",
+          "authentication",
+          "concepts/errors",
+          "concepts/pagination",
+          "concepts/rate-limiting",
+          "concepts/filters",
+          "concepts/normalization",
+          "concepts/any-model",
+          "concepts/personalizing",
+          "concepts/localization",
+          "concepts/custom-triggers"
+        ]
       },
       {
         "group": "JavaScript API",
         "icon": "code",
-        "pages": ["js/overview", "js/profiles"]
+        "pages": [
+          "js/overview",
+          "js/profiles",
+          "js/demos",
+          "js/events",
+          "js/show-tour",
+          "js/show-launcher",
+          "js/show-automation",
+          "js/show-demo",
+          "js/helpbar",
+          "js/listen"
+        ]
       },
       {
         "group": "REST API",
@@ -60,21 +83,45 @@
         "pages": [
           "api/overview",
           "api/profiles",
+          "api/profiles-search",
           "api/companies",
+          "api/segments",
+          "api/demos",
+          "api/search",
+          "api/properties",
+          "api/translation",
           "api/surveys",
+          "api/survey-responses",
           "api/tours",
-          "api/deliveries"
+          "api/tour-interactions",
+          "api/deliveries",
+          "api/limit-groups",
+          "api/alert-groups",
+          "api/imports",
+          "api/launchers",
+          "api/tooltips",
+          "api/changes",
+          "api/urls",
+          "api/webhooks"
         ]
       },
       {
         "group": "Webhooks",
         "icon": "webhook",
-        "pages": ["webhooks/overview", "webhooks/profiles"]
+        "pages": [
+          "webhooks/overview",
+          "webhooks/profiles",
+          "webhooks/events",
+          "webhooks/companies"
+        ]
       },
       {
         "group": "Guides",
         "icon": "book-open",
-        "pages": ["guides/installation", "guides/helpbar"]
+        "pages": [
+          "guides/installation",
+          "guides/helpbar"
+        ]
       }
     ]
   }

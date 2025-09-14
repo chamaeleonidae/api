@@ -1,12 +1,12 @@
 Companies represent your *accounts*: real customers who were identified to Chameleon. They can store complex (semi-arbitrary) properties.
 
-<Info>
-For a full list of your User / Company Properties see the [Properties API](/api/properties)
-</Info>
+> For a full list of your User / Company Properties see the [Properties API](/api/properties)
+
+---
 
 ## Schema
 
-**Fully-expanded Company** when listed directly or embedded with `expand` param specified properly:
+#### Fully-expanded [Company](/api/companies) when listed directly or embedded with `expand` param specified properly
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -15,7 +15,8 @@ For a full list of your User / Company Properties see the [Properties API](/api/
 | `uid` | string | The external ID that came from your backend system |
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
-**Non-expanded Company** when embedded in another (i.e. Microsurvey response):
+
+#### Non-expanded [Company](/api/companies) when embedded in another (i.e. Microsurvey response)
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -23,26 +24,29 @@ For a full list of your User / Company Properties see the [Properties API](/api/
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `uid` | string | The external ID that came from your backend system |
 
+
 ## Create / Update a Company
 
 See the [Companies Webhook](/webhooks/companies) for sending User data to Chameleon
 
+
 ## Retrieve a Company
 
-### HTTP Request
+Retrieve a single Company.
 
-```http
+#### HTTP Request
+
+```
 GET https://api.trychameleon.com/v3/analyze/companies/:id
 # OR
 GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
 ```
 
-| param | - | description |
+| param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
-| `id` | optional | The Chameleon ID of the Company |
-| `uid` | optional | The Company identifier (typically the Database ID from your backend) |
+| `id`    | optional | The Chameleon ID of the Company                         |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
 
-### Example Response
 
 ```json
 {
@@ -52,7 +56,8 @@ GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
     "uid": "1868",
     "domain": "example.com",
     "plan": "custom-92",
-    "clv": 231902.42
+    "clv": 231902.42,
+    ...
   }
 }
 ```
@@ -61,31 +66,31 @@ GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
 
 List all Companies.
 
-### HTTP Request
+#### HTTP Request
 
-```http
-GET https://api.chameleon.io/v3/analyze/companies
-POST https://api.chameleon.io/v3/analyze/companies
+```
+GET|POST https://api.chameleon.io/v3/analyze/companies
 ```
 
-| param | - | description |
+| param  | -        | description                                                  |
 | ------ | -------- | ------------------------------------------------------------ |
-| `limit` | optional | Defaults to `50` with a maximum of `500` |
+| `limit`  | optional | Defaults to `50` with a maximum of `500`                     |
 | `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
-| `after` | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
-| `expand` | optional | Object that specifies relationships to include/exclude. Supported keys are `company` |
+| `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+| `expand`         | optional | Object that specifies relationships to include/exclude. Supported keys are `company`      |
 | `expand.company` | optional | use values of `all`, `min` to control the properties present in the `company`. Defaults to `all` |
 
-### Using the `expand` parameter
+#### Using the `expand` parameter
 
-```bash
+```
 # As a URL parameter
 expand[profile]=min&expand[company]=skip
 
-# In the Request body
+# In the Reqeust body
 {"expand":{"profile":"min","company":"skip"}}
 ```
+
 
 #### HTTP Response
 
@@ -98,7 +103,8 @@ expand[profile]=min&expand[company]=skip
       "uid": "1868",
       "domain": "example.com",
       "plan": "custom-92",
-      "clv": 231902.42
+      "clv": 231902.42,
+      ...
     },
     {
       "id": "5f3c4232c712de665632a2a1",
@@ -106,8 +112,10 @@ expand[profile]=min&expand[company]=skip
       "uid": "2015",
       "domain": "chameleon.io",
       "plan": "custom-12",
-      "clv": 39102.17
-    }
+      "clv": 39102.17,
+      ...
+    },
+    ...
   ],
   "cursor": {
     "limit": 50,
@@ -116,21 +124,21 @@ expand[profile]=min&expand[company]=skip
 }
 ```
 
-## Search Companies
+
+### Search Companies
 
 Searching Companies through the Chameleon API allows you to:
 
 - Search for a company by `id` and `uid`
 
-<Note>
-[Rate Limiting](/concepts/rate-limiting) applies according to the table below.
-</Note>
+> *Note: [Rate Limiting](/concepts/rate-limiting) applies according to the table below.*
 
-| endpoint | Maximum concurrent requests |
+| endpoint           | Maximum concurrent requests |
 |--------------------| --------------------------- |
-| `/companies` | 2 |
+| `/companies`       | 2                           |
 
-### Examples
+
+#### Examples
 
 All of these examples are based directly on the full schema of [Segmentation Filter Expressions](/concepts/filters).
 
@@ -139,12 +147,12 @@ Each example below is showing the value for the `filters` key in the JSON reques
 ```json
 {
   "filters": [
-    // ... filter objects
+    ...
   ]
 }
 ```
 
-**Companies that have a specific uid:**
+##### Companies that have a specific uid
 
 Find the company with the `uid` of `123`:
 
@@ -171,28 +179,30 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
 
 ## Delete a Company
 
-When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it.
+When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it. 
 The associated profiles can also be removed by passing `cascade=profiles` with the request.
 
-| param | - | description |
+| param.  | -        | description                                                          |
 | ------- | -------- | -------------------------------------------------------------------- |
-| `id` | optional | The Chameleon ID of the Company |
-| `uid` | optional | The Company identifier (typically the Database ID from your backend) |
+| `id`    | optional | The Chameleon ID of the [Company](/api/companies)                 |
+| `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
 
-### HTTP Request
+
+#### HTTP Request
 
 Either `id` or `uid` is required.
 
-```http
+```
 DELETE https://api.trychameleon.com/v3/edit/companies/:id
 # OR
 DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid
 ```
 
-### HTTP Response
+#### HTTP Response
 
-The endpoint returns `id` of the Deletion record. The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
-
+The endpoint returns `id` of the Deletion record.
+The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
+   
 ```json
 {
   "deletion": {
@@ -202,18 +212,17 @@ The endpoint returns `id` of the Deletion record. The Deletion is an internal Ch
 ```
 
 ### Deleting a company and all profiles associated with it
-
 Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
 
-```http
+```
 DELETE https://api.trychameleon.com/v3/edit/companies/:id?cascade=profiles
 # OR
 DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid&cascade=profiles
 ```
 
-### HTTP Response
+#### HTTP Response
 
-When cascade deletion is requested, the endpoint also returns deletion ids of all the profiles associated with the company under `deletions` key.
+When cascade deletion is requested, the endpoint also returns deletion ids of all the profiles associated with the company under `deletions` key. 
 
 ```json
 {
@@ -221,9 +230,9 @@ When cascade deletion is requested, the endpoint also returns deletion ids of al
     "id": "5f3c4232c712de665632a6d5"
   },
   "deletions": [
-    { "id": "5f3c4232c712de665632a6d6" },
-    { "id": "5f3c4232c712de665632a6d7" },
-    { "id": "5f3c4232c712de665632a6d8" }
+    { "id":  "5f3c4232c712de665632a6d6" },
+    { "id":  "5f3c4232c712de665632a6d7" },
+    { "id":  "5f3c4232c712de665632a6d8" }
   ]
 }
 ```
