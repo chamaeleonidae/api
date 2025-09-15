@@ -51,7 +51,7 @@ Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpos
 
 ### Greeting with a User's name | `property` helper {#examples-property}
 
-```text
+```plaintext
 Hey {{first_name}} 👋!
 # Hey Alice 👋!
 
@@ -61,7 +61,7 @@ Hey {{property "first_name"}} 👋!
 
 ### Greeting with a User's name + gentle fallback | `property` helper
 
-```text
+```plaintext
 Hey {{first_name fallback="there"}}!
 # Hey Alice!
 
@@ -75,7 +75,7 @@ Hey {{property 'name' fallback='there'}}!
 
 ### Using nested data | `property` helper
 
-```text
+```plaintext
 You're subscribed to the {{plan.name}} plan.
 # You're subscribed to the Growth plan.
 
@@ -85,7 +85,7 @@ You're subscribed to the {{property 'plan.name'}} plan.
 
 ### Use a relative offset time | `time_difference_in_words` helper
 
-```text
+```plaintext
 You signed up {{time_difference_in_words created}}.
 # You signed up 2 years ago.
 
@@ -110,7 +110,7 @@ This calculation is best used as a nested helper in an `if` block | [examples �
 
 The value of the option `in` defaults to `seconds` but can be any of `milliseconds`, `seconds`, `minutes`, `hours`, `days`, `weeks`, `years`
 
-```text
+```plaintext
 Created {{time_ago created}} seconds ago.
 # Created 65836680 seconds ago.
 
@@ -164,7 +164,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 
 ##### Examples using `created_at` from above, where the user is in Pacific time with browser language `en-US`
 
-```text
+```plaintext
 {{time_local created_at}} # the default
 # 3/4/2028, 4:02:00 AM
 
@@ -196,7 +196,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 
 ##### Examples using a fixed string date value, where the user is in Pacific time with browser language `en-US`
 
-```text
+```plaintext
 {{time_local '2026-05-01'}} # Release date (assumed midnight UTC)
 4/30/2026, 5:00:00 PM
 
@@ -212,7 +212,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 
 ##### Examples where the user is in Spain with browser language `es-ES`
 
-```text
+```plaintext
 {{time_local created_at timeZone=time_z timeZoneName="long"}}
 # 3/4/2028, 1:02:00
 
@@ -222,7 +222,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 
 ##### Examples where the user is in France with browser language `fr`
 
-```text
+```plaintext
 {{time_local created_at timeZone=time_z timeZoneName="long"}}
 # 3/4/2028, 1:02:00 heure d’été d’Europe centrale
 
@@ -235,7 +235,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 
 The tense word can be singular **or** plural when it's passed in.
 
-```text
+```plaintext
 You've used {{pluralize credits.used "credit"}} and have {{pluralize credits.remaining "credit"}} left.
 # You've used 19 credits and have 1 credit left.
 
@@ -266,7 +266,7 @@ window.chameleonContent = {
 
 #### Book a demo with the User's account manager | `global` helper
 
-```text
+```plaintext
 # title
 {{global "chameleonContent.more_help_demo_offering.title"}}
 
@@ -305,7 +305,7 @@ window.performAction = (type, text, options) => {
 }
 ```
 
-```text
+```plaintext
 # [1] Create a new draft with this title
 {{global 'performAction' 'create_draft' 'My first draft'}}
 
@@ -362,7 +362,7 @@ A Delivery is a REST API for directly **triggering an Experience** for a **speci
 
 #### Book a demo with the User's account manager | `delivery` helper
 
-```text
+```plaintext
 {{delivery "salutation"}} {{first_name}}, we have a new product launching next month, can we show it off to you?
 Good day Alice, we have a new product launching next month, can we show it off to you?
 
@@ -370,12 +370,12 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 # Book a demo with Julia ✨
 ```
 
-```text
+```plaintext
 # as the "Additional action" field for the Primary call to action button
 {{delivery "account_manager.calendly"}}
 ```
 
-```text
+```plaintext
 # as the "Additional action" field for the Primary call to action button
 {{delivery "account_manager.calendly"}}
 ```
@@ -384,7 +384,7 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 
 ### Show a custom link | `html` helper
 
-```text
+```plaintext
 {{html 'Read' tagName='a' href='/read-more' target='read-more-tab' data-read-more='link' style='color: red'}}
 # <a href="/read-more" target="read-more-tab" data-read-more="link style="color: red">Read</a>
 ```
@@ -558,7 +558,7 @@ chmln.on('after:account', () => {
 
 Now, to use the merge tag (based on the [example data ↑](#example-user-data))
 
-```text
+```plaintext
 
 {{hello first_name}} # [1]
 # Hey Alice
