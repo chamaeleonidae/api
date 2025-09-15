@@ -1,26 +1,26 @@
-Personalizing is the way to adjust Experience content to match the User who is viewing an Chameleon Experience.
+Personalization is the way to adjust Experience content to match the User who is viewing an Chameleon Experience.
 
 ---
 
 | Helper name                | -                                                              | description                                                                           |
 |----------------------------|----------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| `property`                 | [examples ↓](#examples-property)   | The default used when a unquoted string is found at the beginning                     |
-| `global`                   | [examples ↓](#examples-global)     | Pull a value from the window object, useful for extra-advanced conditional formatting |
-| `pluralize`                | [examples ↓](#examples-plural)     | Given a specific number and a word produces a phrase with the correct tense           |
-| `time_difference_in_words` | [examples ↓](#examples-time-diff)  | Given a specific date/time produces a time offset                                     |
-| `time_ago`                 | [examples ↓](#examples-time-ago)   | Calculates the offset from now in `seconds`,`minutes`,`hours`,`days`,`weeks`,`years`  |
-| `time_local`               | [examples ↓](#examples-time-local) | Given a specific date/time uses toLocalString() to generate a human readable string   |
-| `delivery`                 | [examples ↓](#examples-delivery)   | Personalize with content explicitly sent via a [Delivery](/api/deliveries)         |
-| `html`                     | [examples ↓](#examples-html)       | Output html based on given options                                                    |
-| `filter`                   | [examples ↓](#examples-filter)     | Use filter to evaluate [Segmentation filter expressions](/concepts/filters)         |                                  |
-| `if` (content logic)       | [examples ↓](#examples-logic-if)   | Output html based on given options                                                    |
+| `property`                 | [examples ↓](#examples)   | The default used when a unquoted string is found at the beginning                     |
+| `global`                   | [examples ↓](#examples-for-global-helper)     | Pull a value from the window object, useful for extra-advanced conditional formatting |
+| `pluralize`                | [examples ↓](#examples)     | Given a specific number and a word produces a phrase with the correct tense           |
+| `time_difference_in_words` | [examples ↓](#examples)  | Given a specific date/time produces a time offset                                     |
+| `time_ago`                 | [examples ↓](#examples)   | Calculates the offset from now in `seconds`,`minutes`,`hours`,`days`,`weeks`,`years`  |
+| `time_local`               | [examples ↓](#examples) | Given a specific date/time uses toLocalString() to generate a human readable string   |
+| `delivery`                 | [examples ↓](#examples-using-delivery-helper)   | Personalize with content explicitly sent via a [Delivery](/api/deliveries)         |
+| `html`                     | [examples ↓](#examples)       | Output html based on given options                                                    |
+| `filter`                   | [examples ↓](#examples)     | Use filter to evaluate [Segmentation filter expressions](/concepts/filters)         |                                  |
+| `if` (content logic)       | [examples ↓](#examples)   | Output html based on given options                                                    |
 
 
 ## Examples
 
 Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpose of date-based examples below.
 
-##### Example user data
+### Example user data
 
 ```json
 {
@@ -100,7 +100,7 @@ Thanks for being a identified to Chameleon for \{\{time_difference_in_words crea
 
 ### Calculate differences between dates | `time_ago` helper
 
-This calculation is best used as a nested helper in an `if` block | [examples ↓](#examples-logic-if)
+This calculation is best used as a nested helper in an `if` block | [examples ↓](#use-custom-logic--if-block-helper)
 
 **This examples assumes that the current time is `2029-04-04T12:00:00Z`**
 
@@ -132,10 +132,10 @@ Created \{\{time_ago created in='milliseconds'\}\} milliseconds ago.
 # Created 65836680000 milliseconds ago.
 ```
 
-**As part of an `if` block** | [more examples ↓](#examples-logic-if)
+**As part of an `if` block** | [more examples ↓](#use-custom-logic--if-block-helper)
 
 ```plaintext
-\{\{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12\}\}
+\{\{if plan.spend > 500 && \{time_ago started_on in="weeks"\} > 12\}\}
 To get the most out of account, [book a review](\{\{account_info.csm_calendly\}\}) with your Account manager, \{\{account_info.csm_name\}\}.
 \{\{else\}\}
 Check out these [additional resources](https://help.your-product.co/getting-started)
@@ -158,7 +158,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 - The second argument is any `options` that are passed to the `time_local` helper. The examples below are non-exhaustive and you can use any/all of the `options` found in the [`toLocaleString` reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) or [options reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options)
 
 
-##### Examples using `created_at` from above, where the user is in Pacific time with browser language `en-US`
+#### Examples using `created_at` from above, where the user is in Pacific time with browser language `en-US`
 
 ```plaintext
 \{\{time_local created_at\}\} # the default
@@ -190,7 +190,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 ```
 
 
-##### Examples using a fixed string date value, where the user is in Pacific time with browser language `en-US`
+#### Examples using a fixed string date value, where the user is in Pacific time with browser language `en-US`
 
 ```plaintext
 \{\{time_local '2026-05-01'\}\} # Release date (assumed midnight UTC)
@@ -206,7 +206,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 # Thursday, Apr 30, 2026
 ```
 
-##### Examples where the user is in Spain with browser language `es-ES`
+#### Examples where the user is in Spain with browser language `es-ES`
 
 ```plaintext
 \{\{time_local created_at timeZone=time_z timeZoneName="long"\}\}
@@ -216,7 +216,7 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 # jueves, 30 de abr de 2026
 ```
 
-##### Examples where the user is in France with browser language `fr`
+#### Examples where the user is in France with browser language `fr`
 
 ```plaintext
 \{\{time_local created_at timeZone=time_z timeZoneName="long"\}\}
@@ -244,7 +244,7 @@ Your next bill is $\{\{pluralize plan.spend "dollars"\}\}. # given plural => plu
 
 ----------
 
-## Examples for `global` helper {#examples-global}
+## Examples for `global` helper
 
 ```javascript
 window.chameleonTheme = { background: "#1f1f24", primary: "#7856ff" };
@@ -260,7 +260,7 @@ window.chameleonContent = {
 ```
 
 
-#### Book a demo with the User's account manager | `global` helper
+### Book a demo with the User's account manager | `global` helper
 
 ```plaintext
 # title
@@ -276,7 +276,7 @@ window.chameleonContent = {
 \{\{global "chameleonContent.more_help_demo_offering.account_manager_calendly"\}\}
 ```
 
-#### Call a function (show a alert modal)
+### Call a function (show a alert modal)
 
 > Note that this function should be added to your product's codebase to provide extended functionality. In this example we will assume you have a `performAction` function defined like this:
 
@@ -338,7 +338,7 @@ A Delivery is a REST API for directly **triggering an Experience** for a **speci
 > Note that the `delivery` helper documented here only works for the specific Experience that was triggered via Delivery.
 > Make sure to configure your Experience to **only** show Manually.
 
-##### Example Delivery
+### Example Delivery
 
 ```json
 {
@@ -356,7 +356,7 @@ A Delivery is a REST API for directly **triggering an Experience** for a **speci
 ```
 
 
-#### Book a demo with the User's account manager | `delivery` helper
+### Book a demo with the User's account manager | `delivery` helper
 
 ```plaintext
 \{\{delivery "salutation"\}\} \{\{first_name\}\}, we have a new product launching next month, can we show it off to you?
@@ -412,7 +412,7 @@ Supported _condition_ operators:
 | `includes`                | Check if an array on the left hand side contains the value from the right hand side (same as `contains`) |
 | `contains`                | Check if an array on the left hand side contains the value from the right hand side (same as `includes`) |
 
-##### Basic examples
+#### Basic examples
 
 ```plaintext
 # check for "truthy", "falsey", "equality", "inequality"
@@ -447,12 +447,12 @@ You have \{\{if plan.features includes "unlimited_widgets"\}\}Unlimited\{\{else\
 
 
 ```
-##### An `if` block with a `else` block
+#### An `if` block with a `else` block
 
 > The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used).
 
 ```plaintext
-\{\{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12\}\}
+\{\{if plan.spend > 500 && \{time_ago started_on in="weeks"\} > 12\}\}
   To get the most out of account, [book a review](\{\{account_info.csm_calendly\}\}) with your Account manager, \{\{account_info.csm_name\}\}.
 \{\{else\}\}
   Check out these [additional resources](https://help.your-product.co/getting-started)
@@ -491,23 +491,23 @@ Request a member of the Acme team to widgetize some stuff for you.
 \{\{/if\}\}
 ```
 
-##### To use an embedded Helper within the `if` condition, use _single curly braces_
+#### To use an embedded Helper within the `if` condition, use _single curly braces_
 
 This example assumes you have a `currentUser` variable attached to `window`
 `window.currentUser = { id: '54s1', roles: { name: 'superadmin', items: ['invite_user', 'invite_admin'] } }`;
 
 ```plaintext
-\{\{if {global 'currentUser.roles.level'} == 'admin'\}\}
+\{\{if \{global 'currentUser.roles.level'\} == 'admin'\}\}
 As an admin, you're in charge of your team's permissions
-\{\{elsif {global 'currentUser.roles.level'} == 'superadmin'\}\}
+\{\{elsif \{global 'currentUser.roles.level'\} == 'superadmin'\}\}
 As the owner of your account, you're in charge of your team's admins
 \{\{/if\}\}
 ```
 
 ```plaintext
-\{\{if {global 'currentUser.roles.level'} includes 'invite_user'\}\}
+\{\{if \{global 'currentUser.roles.level'\} includes 'invite_user'\}\}
 Invite your teammates on the [Team page](/settings/team).
-\{\{elsif {global 'currentUser.roles.level'} includes 'invite_admin'\}\}
+\{\{elsif \{global 'currentUser.roles.level'\} includes 'invite_admin'\}\}
 As the owner of your account, you're in charge of your [Team's admins](/settings/admins).
 \{\{/if\}\}
 ```
@@ -523,7 +523,7 @@ conditions on user properties can be handled with `filter`.
 \{\{if plan.spend > 500\}\}Your monthly bill is greater than 500\{\{/if\}\}
 
 # as a filter
-\{\{if {filter prop='plan' op='gt' value='500'\}\}}Your monthly bill is greater than 500\{\{/if\}\}
+\{\{if \{filter prop='plan' op='gt' value='500'\}\}\}Your monthly bill is greater than 500\{\{/if\}\}
 
 ```
 

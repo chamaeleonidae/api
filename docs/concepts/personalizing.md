@@ -140,7 +140,7 @@ Created {{time_ago created in='milliseconds'}} milliseconds ago.
 
 **As part of an `if` block** | [more examples ↓](concepts/personalizing.md?id=examples-logic-if)
 
-```handlebars
+```text
 {{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
 To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
 {{else}}
@@ -457,7 +457,7 @@ You have {{if plan.features includes "unlimited_widgets"}}Unlimited{{else}}limit
 
 > The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used).
 
-```handlebars
+```text
 {{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
   To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
 {{else}}
@@ -471,7 +471,7 @@ When the condition does not match, the content in the `else` case is used.
 
 > The data says spend is 734
 
-```handlebars
+```text
 {{if plan.spend > 1000}}
 To get the most out of account, [book a review]({{account_info.csm_calendly}}) with your Account manager, {{account_info.csm_name}}.
 {{else}}
@@ -483,7 +483,7 @@ Check out these [additional resources](https://help.your-product.co/getting-star
 
 An `elseif` can be used to capture a cascading set of conditions
 
-```handlebars
+```text
 {{if !plan.spend}}
 Start your free trial to use your widgets.
 {{elsif plan.spend < 2050}}
@@ -502,7 +502,7 @@ Request a member of the Acme team to widgetize some stuff for you.
 This example assumes you have a `currentUser` variable attached to `window`
 `window.currentUser = { id: '54s1', roles: { name: 'superadmin', items: ['invite_user', 'invite_admin'] } }`;
 
-```handlebars
+```text
 {{if {global 'currentUser.roles.level'} == 'admin'}}
 As an admin, you're in charge of your team's permissions
 {{elsif {global 'currentUser.roles.level'} == 'superadmin'}}
@@ -510,7 +510,7 @@ As the owner of your account, you're in charge of your team's admins
 {{/if}}
 ```
 
-```handlebars
+```text
 {{if {global 'currentUser.roles.level'} includes 'invite_user'}}
 Invite your teammates on the [Team page](/settings/team).
 {{elsif {global 'currentUser.roles.level'} includes 'invite_admin'}}
@@ -525,7 +525,7 @@ You can use any of the [Segmentation filter expressions](concepts/filters.md) an
 conditions on user properties can be handled with `filter`.
 
 
-```handlebars
+```text
 {{if plan.spend > 500}}Your monthly bill is greater than 500{{/if}}
 
 # as a filter

@@ -112,8 +112,8 @@ engagement with Product Demos into the other experiences that Chameleon offers s
 | Property                   | Values                         | Description                                                                                                                 |
 |----------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
 | `consent`                  | `granted`, `denied` , `pending`| Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent             |
-| `profile`                   | {"uid":"5a17d4", ...}          | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                               |
-| `options.session_duration` | {"session_duration":15, ...}   | The duration (in minutes) before the user's session expires automatically. Set to 0 to disable session persistence entirely.|
+| `profile`                   | `\{"uid":"5a17d4", ...\}`      | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                               |
+| `options.session_duration` | `\{"session_duration": 15, ...\}` | The duration (in minutes) before the user's session expires automatically. Set to 0 to disable session persistence entirely.|
 
 
 ## JavaScript API :id=js-api
