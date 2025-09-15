@@ -20,12 +20,21 @@ At certain moments an experience can be exempt from a Rate Limit Group policy. T
 
 With the Chameleon API for Rate Limit Groups, you can:
 
-- Retrieve a list of Rate Limit Groups.
-- List all the related data that are connected to this Limit Group; Tours, Microsurveys and/or Tags
+<CardGroup cols={3}>
+  <Card title="List Limit Groups" icon="list" href="#listing-limit-groups">
+    Retrieve all rate limit groups with parameters
+  </Card>
+  <Card title="Get Limit Group" icon="eye" href="#showing-a-limit-group">
+    Get a specific limit group by ID
+  </Card>
+  <Card title="List Related Experiences" icon="chain" href="#listing-related-experiences">
+    Get all tours, surveys, and tags connected to this group
+  </Card>
+</CardGroup>
 
 
 
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -59,13 +68,13 @@ A Rate Limit Group creates a **dynamic** or **static** group of Experiences over
 
 Retrieve a list of **all** Limit Groups. An account typically has 1-5 Limit Groups so this response should be relatively small.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/limit_groups
 ```
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -113,7 +122,7 @@ GET https://api.chameleon.io/v3/edit/limit_groups
 
 Retrieve a single Limit Group.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/limit_groups/:id
@@ -123,7 +132,7 @@ GET https://api.chameleon.io/v3/edit/limit_groups/:id
 |---|---|---|
 | `id` | required | A Limit Group ID to lookup
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -144,7 +153,7 @@ GET https://api.chameleon.io/v3/edit/limit_groups/:id
 
 A Limit Group is attached to many Chameleon Experiences (Tours/Microsurveys). This endpoint allows you to get a complete picture of all Experiences currently attached to the Limit Group. 
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/limit_groups/:id/experiences
@@ -156,7 +165,7 @@ GET https://api.chameleon.io/v3/edit/limit_groups/:id/experiences
 | `filter` | optional | Use `all` or `published_at` to include or exclude Experiences that are currently not published. Defaults to `published_at` |
 
 
-#### HTTP Response (Example with `kind=campaigns`)
+##### HTTP Response (Example with `kind=campaigns`)
 
 Note: this example Limit Group is based on `kind=campaigns` which means the Chameleon administrator **_explicitly picked these Experiences_** from a dropdown menu in the application.  
 
@@ -202,7 +211,7 @@ Keys returned: `limit_group`, `tours` and `surveys`
   ]
 }
 ```
-#### HTTP Response (Example kind=tags)
+##### HTTP Response (Example kind=tags)
 
 Note: this example Limit Group is based on `kind=tags` which means the Chameleon administrator **_explicitly picked a [set of Tags](/api/tags)_** from a dropdown menu in the application.
 

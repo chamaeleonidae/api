@@ -7,13 +7,21 @@ Segments are fundamental to targeting users within Chameleon. They are used for 
 
 With the Chameleon API for Segments, you can:
 
-- Retrieve a list of segments according to the specified parameters.
-- Retrieve a single segment based on the `id`.
-- List all the Chameleon Experiences (Tours, Microsurveys, Launchers) that are connected to a defined segment.
+<CardGroup cols={3}>
+  <Card title="List Segments" icon="list" href="#listing-segments">
+    Retrieve segments with filtering and pagination
+  </Card>
+  <Card title="Get Segment" icon="eye" href="#showing-a-segment">
+    Retrieve a specific segment by ID
+  </Card>
+  <Card title="List Related Experiences" icon="chain" href="#listing-related-experiences">
+    Get all experiences connected to a segment
+  </Card>
+</CardGroup>
 
 
 
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -32,7 +40,7 @@ With the Chameleon API for Segments, you can:
 
 Retrieve a list of segments according to the specified parameters.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/segments
@@ -64,7 +72,7 @@ From the previous response `cursor.before`
 }
 ```
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -109,7 +117,7 @@ From the previous response `cursor.before`
 
 Retrieve a single Segment.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/segments/:id
@@ -119,7 +127,7 @@ GET https://api.chameleon.io/v3/edit/segments/:id
 |---|---|---|
 | `id` | required | A Segment ID to lookup
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -152,7 +160,7 @@ GET https://api.chameleon.io/v3/edit/segments/:id
 
 A Segment can be configured to be attached to many Chameleon Experiences, including [Microsurveys](/api/surveys), [Tours](/api/tours) and [Launchers](/api/launchers) and [Rate Limit Groups](/api/limit-groups). This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/segments/:id/:kind
@@ -163,7 +171,7 @@ GET https://api.chameleon.io/v3/edit/segments/:id/:kind
 | `id` | required | A Segment ID to lookup
 | `kind` | required | One of `tour`, `survey` or `launcher`
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {

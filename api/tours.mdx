@@ -14,12 +14,24 @@ A Tour is a sequence of steps that shows to your end-users when they meet all of
 
 With the Chameleon API for Tours, you can:
 
-- List all the existing  Tours according to the indicated parameters.
-- Retrieve a single  Tour.
+<CardGroup cols={2}>
+  <Card title="List Tours" icon="list" href="#list-tours">
+    Get all tours with filtering and pagination
+  </Card>
+  <Card title="Retrieve Tour" icon="eye" href="#retrieve-a-tour">
+    Get a specific tour by ID
+  </Card>
+  <Card title="Update Tour" icon="pen" href="#update-a-tour">
+    Modify existing tour properties and settings
+  </Card>
+  <Card title="Filter by Segment" icon="filter" href="#filtering-by-segment">
+    Find tours targeted to specific user segments
+  </Card>
+</CardGroup>
 
 
 
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -50,7 +62,7 @@ With the Chameleon API for Tours, you can:
 
 List all the  Tours that follow the specified parameters.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/tours
@@ -63,7 +75,7 @@ GET https://api.chameleon.io/v3/edit/tours
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -97,7 +109,7 @@ GET https://api.chameleon.io/v3/edit/tours
 
 Update a single Tour to change the [Environments](/api/urls) or to Publish it.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PATCH https://api.chameleon.io/v3/edit/tours/:id
@@ -152,7 +164,7 @@ See [Listing Related models](/api/segments#segment-experiences-index)
 
 Retrieve a single Tour.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/tours/:id

@@ -90,7 +90,7 @@ When receiving a webhook from Chameleon you should:
 
 > **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.chameleon.io/help)**
 
-### Schema (request body)
+## 📋 Schema (request body)
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -137,7 +137,7 @@ verified = ActiveSupport::SecurityUtils.secure_compare(received, expected) &&
 ### Payload Examples
 
 
-#### Example: `ping`-ping
+##### Example: ping
 
 Typically do process Verification for this topic but nothing really to be done when topic is received. It's simply part of how Chameleon determines active/inactive/performance of webhook endpoints.
 
@@ -156,7 +156,7 @@ Typically do process Verification for this topic but nothing really to be done w
 }
 ```
 
-#### Example: `response.finished`-response-finished
+##### Example: response.finished
 
 Every Microsurvey that is finished will send a webhook to this topic.
 
@@ -215,7 +215,7 @@ Every Microsurvey that is finished will send a webhook to this topic.
 }
 ```
 
-#### Example: `helpbar.answer`-helpbar-answer
+##### Example: helpbar.answer
 
 This is the most important HelpBar webhook; it can directly inform your roadmap for additional updated/documentation.
 
@@ -254,7 +254,7 @@ This is the most important HelpBar webhook; it can directly inform your roadmap 
 ```
 
 
-#### Example: `helpbar.search`-helpbar-search
+##### Example: helpbar.search
 
 When a User searches for `"data importing"` only 0 results were found. This indicates a gap in your Help center.
 
@@ -311,7 +311,7 @@ When a User searches for `"widget categories"` only 7 results were found.
 ```
 
 
-#### Example: `helpbar.item.action`-helpbar-item-action
+##### Example: helpbar.item.action
 
 When a helpbar search result item is clicked (or actioned)
 
@@ -340,7 +340,7 @@ When a helpbar search result item is clicked (or actioned)
 }
 ```
 
-#### Example: `helpbar.item.error`-helpbar-item-error
+##### Example: helpbar.item.error
 
 When a helpbar search result item is clicked (or actioned) and then encounters an error processing the actions.
 
@@ -372,7 +372,7 @@ In the example below, the `script` item is not working properly and should be ch
 ```
 
 
-#### Example: `tour.started`, `tour.completed`, `tour.exited`-tour-all
+##### Example: tour.started, tour.completed, tour.exited
 
 A Tour is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Tours by default show once to any one User but can, depending on their settings, show multiple times.
 
@@ -410,7 +410,7 @@ A Tour is started, runs through a sequence of 1 or more Steps and finishes by be
 }
 ```
 
-#### Example: `tour.snoozed`-tour-snooze
+##### Example: tour.snoozed
 
 When a Tour is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
 
@@ -455,7 +455,7 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 
 
 
-#### Example: `tour.button.clicked` + `survey.button.clicked`  + `embed.button.clicked`-tour-button-clicked
+##### Example: tour.button.clicked + survey.button.clicked + embed.button.clicked
 
 Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
 
@@ -501,7 +501,7 @@ Every Button that is clicked in a Tour / Microsurvey will send a webhook to this
 ```
 
 
-#### Example: `embed.started`, `embed.completed`, `embed.exited`-embed-all
+##### Example: embed.started, embed.completed, embed.exited
 
 An Embed is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Embeds by default show once to any one User but can, depending on their settings, show multiple times.
 
@@ -539,7 +539,7 @@ An Embed is started, runs through a sequence of 1 or more Steps and finishes by 
 }
 ```
 
-#### Example: `embed.snoozed`-embed-snooze
+##### Example: embed.snoozed
 
 When an Embed is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
 
@@ -584,7 +584,7 @@ When an Embed is snoozed it is set to come back after a certain amount of time h
 
 
 
-#### Example: `alert.triggered`-alert-triggered
+##### Example: alert.triggered
 
 When Experiences are in violation of the Alert conditions.
 The primary use case for this is to notify the person in charge of the Experience when X days have passed without activity (on something that is otherwise expected to have activity).
@@ -674,7 +674,7 @@ The primary use case for this is to notify the person in charge of the Experienc
 ```
 
 
-#### Example: `survey.started`, `survey.completed`, `survey.exited`-survey-all
+##### Example: survey.started, survey.completed, survey.exited
 
 
 These three topics are considered lifecycle events and occur when the user is presented with or interacts with a Chameleon
@@ -739,7 +739,7 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
 ```
 
 
-#### Example: `survey.snoozed`-survey-snooze
+##### Example: survey.snoozed
 
 When a Microsurvey is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
 
@@ -799,7 +799,7 @@ When a Microsurvey is snoozed it is set to come back after a certain amount of t
 ```
 
 
-#### Example: `demo.started`-demo-started
+##### Example: demo.started
 
 Right when the Demo is first started in this session. Chameleon calls this a Demo "run".
 
@@ -852,7 +852,7 @@ Demos can also [sync Contact data](/api/demos#demos-in-the-crm) into the CRM
 ```
 
 
-#### Example: `demo.finished`-demo-finished
+##### Example: demo.finished
 
 This webhook topic only differs from `demo.started` by the addition of the following keys in the `demo_run`.
 
@@ -926,7 +926,7 @@ It will be sent when the last step of the Demo is reached with `finished_kind=la
 
 
 
-#### Example: `demo.reveal`-demo-reveal
+##### Example: demo.reveal
 
 This webhook topic only differs by the addition of `reveal_domain`, `reveal_name`, and `clearbit_uid` in the `demo_run`.
 It will be sent when the following conditions are met
@@ -961,7 +961,7 @@ It will be sent when the following conditions are met
 
 
 
-#### Example: `demo.form.submitted`-demo-form-submitted
+##### Example: demo.form.submitted
 
 This webhook topic is meant to sync any form data to an external system; typically involving adding a new contact to your CRM. The
 `action.submission` is a [DemoSubmission](/api/demos#schema-demo-submission)s with a `data` key of [DemoSubmissionData](/api/demos#schema-demo-submission-data) and
@@ -1014,7 +1014,7 @@ each data item has a `field` as [DemoFormField](/api/demos#schema-demo-form-fiel
 ```
 
 
-#### Example: `demo.email.added`-demo-email-added
+##### Example: demo.email.added
 
 This webhook topic is meant to capture the moment when previously taken anonymous Demos receive an email address.
 The flow can be arbitrarily complex but typically follows one of these paths:

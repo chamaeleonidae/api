@@ -27,14 +27,29 @@ See the specific APIs for more information on how to use Search your product.
 
 With the Chameleon REST API for Search, you can:
 
-- Index custom content (the data from your product) into searchable [SearchItem](/api/search#schema-search-items)s.
-- Import your product navigation to allow your Users to jump to a specific thing they are looking for with a [SearchImport](/api/search#schema-search-imports).
-- Configure [SearchGroups](/api/search#schema-search-groups) to pull content from public sources (i.e. your Help center, Blog etc.).
-- Define a [SearchLabelTheme](/api/search#schema-search-label-themes) to label your [SearchItem](/api/search#schema-search-items)s for greater visibility.
-- Add labels to the title or description of `SearchItem`s as [SearchLabel](/api/search#schema-search-labels)s.
+<CardGroup cols={2}>
+  <Card title="Index Custom Content" icon="database" href="#searchitem-schema">
+    Index custom content from your product into searchable items
+  </Card>
+  <Card title="Import Navigation" icon="map" href="#schema-search-imports">
+    Import your product navigation for direct user jumping
+  </Card>
+  <Card title="Configure Groups" icon="folder" href="#searchgroups-schema">
+    Pull content from public sources like help centers and blogs
+  </Card>
+  <Card title="Create Labels" icon="tag" href="#searchlabel-schema">
+    Add labels to search items for better visibility and organization
+  </Card>
+  <Card title="Manage HelpBar" icon="bars" href="#list-all-helpbars">
+    Create and configure HelpBar instances
+  </Card>
+  <Card title="Label Themes" icon="palette" href="#searchlabeltheme-schema">
+    Define custom styling for search item labels
+  </Card>
+</CardGroup>
 
 
-## `Search` bar Schema
+## 📋 Search Bar Schema
 
 > `Search` is associated with `groups`: [SearchGroups](/api/search#schema-search-groups), and `label_themes`: [SearchLabelThemes](/api/search#schema-search-groups)
 
@@ -60,7 +75,7 @@ With the Chameleon REST API for Search, you can:
 | `label_themes`                | array     | The array of `SearchLabelTheme` models                                                                                                                            |
 
 
-## `SearchGroups` Schema
+## 📋 SearchGroups Schema
 
 | Property                    | Type      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 |-----------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -82,7 +97,7 @@ With the Chameleon REST API for Search, you can:
 | `url_options.title`         | none      | The title of the page loaded for URL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `url_options.results_count` | none      | The number of public search results for this URL (0-10)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
-## `SearchPage` Schema
+## 📋 SearchPage Schema
 
 | Property          | Type      | Description                                                          |
 |-------------------|-----------|----------------------------------------------------------------------|
@@ -95,7 +110,7 @@ With the Chameleon REST API for Search, you can:
 | `quantifier_urls` | array     | List of URL matching conditions that must match the current page URL |
 
 
-## `SearchLabelTheme` Schema
+## 📋 SearchLabelTheme Schema
 
 > To reference a `LabelTheme` when adding `title_labels` or `description_labels` to `SearchItem`s, use the `id` field returned in the `label_themes` wen listing the `Search` with `GET /searches` or Creating with `POST /searches`.
 
@@ -115,14 +130,14 @@ With the Chameleon REST API for Search, you can:
 
 There is only one per account.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.trychameleon.com/v3/edit/searches
 ```
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -143,7 +158,7 @@ GET https://api.trychameleon.com/v3/edit/searches
 
 There is only one per account so an update uses the same endpoint as create. Use any of the properties available in the [schema](/api/search#schema)
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 POST https://api.trychameleon.com/v3/edit/searches
@@ -222,7 +237,7 @@ Publish by setting `published_at` to the current time. This makes your HelpBar a
 }
 ```
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -255,7 +270,7 @@ Publish by setting `published_at` to the current time. This makes your HelpBar a
 
 ------
 
-## `SearchItem` Schema
+## 📋 SearchItem Schema
 
 A search item is a discrete unit of searchable content akin to a Google search result. You have content within your product, even if you don't think of it that way. Any database records that your Users would want to find is a piece of content. Send us this content to surface it to your Users in the Chameleon HelpBar.
 
@@ -285,7 +300,7 @@ A search item is a discrete unit of searchable content akin to a Google search r
 | `description_labels` | array     | An array of the [`SearchLabel`](/api/search#schema-search-labels) items displayed under the description of this `SearchItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 
-## `SearchLabel` Schema
+## 📋 SearchLabel Schema
 
 | Property    | Type   | Description                                                                                                                                                                                                                                                 |
 |-------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -304,7 +319,7 @@ use the `cursor` to list as many as you need.
 > Note: this is how you iterate through all searchable content but it's not how your Users search for this content, if you want to query your data like and end-user, feel free to [Contact us](https://app.trychameleon.com/help) to learn more.
 
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.trychameleon.com/v3/edit/search_items
@@ -319,7 +334,7 @@ GET https://api.trychameleon.com/v3/edit/search_items
 | `search_import_id` | optional | Fetch only the `SearchItem`s that were created (or updated most recently) by the given [SearchImport](/api/search#schema-search-imports). |
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -355,7 +370,7 @@ Using the POST-based endpoint below and sending the required `uid` acts as a "cr
 
 When content relates to a specific database item, include the database ID of that record in the `uid`
 
-#### HTTP Request
+##### HTTP Request
 
 With the parameter of `uid`; this endpoint will "create or update" (upsert) your content:
 
@@ -553,7 +568,7 @@ To update the [SearchGroup](/api/search#schema-search-group) of many items:
 Send the `uid` of a previously created `SearchItem`.
 
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 DELETE https://api.trychameleon.com/v3/edit/search_items
@@ -565,7 +580,7 @@ DELETE https://api.trychameleon.com/v3/edit/search_items
 Send the `ids` of a previously created `SearchItem`.
 
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 DELETE https://api.trychameleon.com/v3/edit/search_items/batch
@@ -581,7 +596,7 @@ DELETE https://api.trychameleon.com/v3/edit/search_items/batch
 ```
 
 
-## `SearchAction` Schema
+## 📋 SearchAction Schema
 
 A search action is one item in a collection of actions attached to a [SearchItem](/api/search#schema-search-items)s. When
 the item is clicked the actions will be run in order (configure `kind=navigate` / `kind=url` last).
@@ -598,8 +613,9 @@ Base schema
 
 ### Integration specific schemas
 
+## 📋 SearchAction Schemas
 
-## `SearchAction` with `kind=url` Schema
+### `SearchAction` with `kind=url` Schema
 
 | Property | Type | Description                                                                                             |
 | --- | --- |---------------------------------------------------------------------------------------------------------|
@@ -615,7 +631,7 @@ Base schema
 }
 ```
 
-## `SearchAction` with `kind=navigate` Schema
+### `SearchAction` with `kind=navigate` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -631,7 +647,7 @@ Base schema
 ```
 
 
-## `SearchAction` with `kind=event` Schema
+### `SearchAction` with `kind=event` Schema
 
 Track an event to Chameleon and all of your [configured integrations](https://app.chameleon.io/integrations).
 
@@ -649,7 +665,7 @@ Track an event to Chameleon and all of your [configured integrations](https://ap
 ```
 
 
-## `SearchAction` with `kind=identify` Schema
+### `SearchAction` with `kind=identify` Schema
 
 Send user data to Chameleon and all of your [configured integrations](https://app.chameleon.io/integrations).
 
@@ -670,7 +686,7 @@ Send user data to Chameleon and all of your [configured integrations](https://ap
 ```
 
 
-## `SearchAction` with `kind=tour` Schema
+### `SearchAction` with `kind=tour` Schema
 
 Show a Chameleon Tour immediately (calls `chmln.show` with the configured `tour_id`). Quickly access this ID in the URL on the [Chameleon dashboard](https://app.chameleon.io/tours).
 [JavaScript API reference](/js/show-tour)
@@ -690,7 +706,7 @@ Show a Chameleon Tour immediately (calls `chmln.show` with the configured `tour_
 
 
 
-## `SearchAction` with `kind=survey` Schema
+### `SearchAction` with `kind=survey` Schema
 
 Show a Chameleon Microsurvey immediately (calls `chmln.show` with the configured `survey_id`). Quickly access this ID in the URL on the [Chameleon dashboard](https://app.chameleon.io/surveys).
 [JavaScript API reference](/js/show-tour)
@@ -709,7 +725,7 @@ Show a Chameleon Microsurvey immediately (calls `chmln.show` with the configured
 ```
 
 
-## `SearchAction` with `kind=script` Schema
+### `SearchAction` with `kind=script` Schema
 
 Run customized JavaScript when this item is clicked in the HelpBar. Check variables, user data, or page
 state before performing different actions.
@@ -729,7 +745,7 @@ state before performing different actions.
 ```
 
 
-## `SearchAction` with `kind=function` Schema
+### `SearchAction` with `kind=function` Schema
 
 After you have exposed a function on the `window` object within your application, call it when this item is clicked.
 
@@ -747,7 +763,7 @@ After you have exposed a function on the `window` object within your application
 ```
 
 
-## `SearchAction` with `kind=airtable` Schema
+### `SearchAction` with `kind=airtable` Schema
 
 Show an Airtable form directly in your product.
 
@@ -764,7 +780,7 @@ Show an Airtable form directly in your product.
 }
 ```
 
-## `SearchAction` with `kind=arcade` Schema
+### `SearchAction` with `kind=arcade` Schema
 
 Launch an Arcade Demo in a full screen modal
 
@@ -781,7 +797,7 @@ Launch an Arcade Demo in a full screen modal
 }
 ```
 
-## `SearchAction` with `kind=calendly` Schema
+### `SearchAction` with `kind=calendly` Schema
 
 Show a Calendly scheduling modal directly in your product.
 
@@ -809,7 +825,7 @@ Show a Calendly scheduling modal directly in your product.
 ```
 
 
-## `SearchAction` with `kind=chili_piper` Schema
+### `SearchAction` with `kind=chili_piper` Schema
 
 Show a ChiliPiper scheduling modal directly in your product.
 
@@ -851,7 +867,7 @@ For a ChiliPiper router
 }
 ```
 
-## `SearchAction` with `kind=embed` Schema
+### `SearchAction` with `kind=embed` Schema
 
 Launch any embeddable page in a full screen modal.
 
@@ -870,7 +886,7 @@ Launch any embeddable page in a full screen modal.
 ```
 
 
-## `SearchAction` with `kind=figma` Schema
+### `SearchAction` with `kind=figma` Schema
 
 Show a Figma file or prototype directly in your product.
 
@@ -888,7 +904,7 @@ Show a Figma file or prototype directly in your product.
 }
 ```
 
-## `SearchAction` with `kind=google` Schema
+### `SearchAction` with `kind=google` Schema
 
 Show a Google Doc / Sheet / Form / Slides in a full screen modal.
 
@@ -906,7 +922,7 @@ Show a Google Doc / Sheet / Form / Slides in a full screen modal.
 }
 ```
 
-## `SearchAction` with `kind=helpscout` Schema
+### `SearchAction` with `kind=helpscout` Schema
 
 | Property | Type | Description                                                                                                             |
 | --- | --- |-------------------------------------------------------------------------------------------------------------------------|
@@ -969,7 +985,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 ```
 
 
-## `SearchAction` with `kind=hubspot_lists` Schema
+### `SearchAction` with `kind=hubspot_lists` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -985,7 +1001,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 ```
 
 
-## `SearchAction` with `kind=intercom` Schema
+### `SearchAction` with `kind=intercom` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -1014,7 +1030,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 ```
 
 
-## `SearchAction` with `kind=livestorm` Schema
+### `SearchAction` with `kind=livestorm` Schema
 
 Directly register a user for a webinar session; combine with a second action for `kind=url` that takes them to your "success" page.
 
@@ -1036,7 +1052,7 @@ Directly register a user for a webinar session; combine with a second action for
 ```
 
 
-## `SearchAction` with `kind=loom` Schema
+### `SearchAction` with `kind=loom` Schema
 
 Show a Loom video directly in your product.
 
@@ -1053,7 +1069,7 @@ Show a Loom video directly in your product.
 }
 ```
 
-## `SearchAction` with `kind=navattic` Schema
+### `SearchAction` with `kind=navattic` Schema
 
 Launch an Navattic Demo in a full screen modal.
 
@@ -1071,7 +1087,7 @@ Launch an Navattic Demo in a full screen modal.
 ```
 
 
-## `SearchAction` with `kind=pitch` Schema
+### `SearchAction` with `kind=pitch` Schema
 
 Show a Pitch presentation directly in your product.
 
@@ -1089,7 +1105,7 @@ Show a Pitch presentation directly in your product.
 ```
 
 
-## `SearchAction` with `kind=typeform` Schema
+### `SearchAction` with `kind=typeform` Schema
 
 Show a Typeform survey directly in your product.
 
@@ -1109,7 +1125,7 @@ Show a Typeform survey directly in your product.
 ```
 
 
-## `SearchAction` with `kind=zendesk` Schema
+### `SearchAction` with `kind=zendesk` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -1461,7 +1477,7 @@ type ReferenceItem = {
 
 Use `Content-Type: multipart/form-data` to create an Import in one request, include the `file` parameter with a CSV based on the [template](https://chmln.co/helpbar-content-template).
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 POST https://api.trychameleon.com/v3/edit/search_imports
@@ -1471,7 +1487,7 @@ POST https://api.trychameleon.com/v3/edit/search_imports
 
 Useful to track the progress of this import. Small imports (< 100 rows) will finish within approx 1 second.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.trychameleon.com/v3/edit/search_imports/:id

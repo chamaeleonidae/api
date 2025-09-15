@@ -7,12 +7,24 @@ Chameleon Microsurveys are a primary *question* step that allows you to get imme
 
 With the Chameleon Microsurveys API, you can:
 
-- List all Microsurveys that follow your indicated parameters.
-- Retrieve a single Microsurvey using its `id`.
+<CardGroup cols={2}>
+  <Card title="List Microsurveys" icon="list" href="#list-microsurveys">
+    Get all microsurveys with filtering and pagination
+  </Card>
+  <Card title="Retrieve Microsurvey" icon="eye" href="#retrieve-a-microsurvey">
+    Get a specific microsurvey by ID
+  </Card>
+  <Card title="Update Microsurvey" icon="pen" href="#update-a-microsurvey">
+    Modify existing microsurvey properties
+  </Card>
+  <Card title="Filter by Segment" icon="filter" href="#filtering-by-segment">
+    Find microsurveys targeted to specific user segments
+  </Card>
+</CardGroup>
 
 
 
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -38,7 +50,7 @@ With the Chameleon Microsurveys API, you can:
 
 List all Microsurveys that follow your indicated parameters.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/surveys
@@ -53,7 +65,7 @@ GET https://api.chameleon.io/v3/edit/surveys
 
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -85,7 +97,7 @@ GET https://api.chameleon.io/v3/edit/surveys
 
 Update a single Microsurvey to change the [Environments](/api/urls) or to Publish it.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PATCH https://api.chameleon.io/v3/edit/surveys/:id
@@ -130,7 +142,7 @@ See [Listing Related Models](/api/segments#segment-experiences-index).
 
 Retrieve a single Microsurvey.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/surveys/:id

@@ -4,12 +4,26 @@ Deliveries are used to directly trigger an Experience to one specific User.
 - A time window (`from` / `until`) can be applied to only deliver after/before/in the specified time window.
 - Filters such as `once` and `use_segmentation` can fine-tune the triggering.
 
-> An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences
-> but an Experience _may not_ show due to the conditions added to the Delivery itself.
-> For example, when a Delivery uses segmentation (`use_segmentation`) and the segmentation does not match the
-> User at the time of the delivery, the Experience will not show and the Delivery is not attempted again.
+<Warning>An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences but an Experience _may not_ show due to the conditions added to the Delivery itself. For example, when a Delivery uses segmentation (`use_segmentation`) and the segmentation does not match the User at the time of the delivery, the Experience will not show and the Delivery is not attempted again.</Warning>
 
-## Schema
+## Delivery Operations
+
+<CardGroup cols={2}>
+  <Card title="List Deliveries" icon="list" href="#list-all-deliveries">
+    Get all deliveries with filtering options
+  </Card>
+  <Card title="Create Delivery" icon="plus" href="#create-a-delivery">
+    Trigger experiences for specific users
+  </Card>
+  <Card title="Update Delivery" icon="pen" href="#update-a-delivery">
+    Modify delivery timing and parameters
+  </Card>
+  <Card title="Remove Delivery" icon="trash" href="#remove-a-delivery">
+    Cancel or delete scheduled deliveries
+  </Card>
+</CardGroup>
+
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -108,7 +122,7 @@ get feedback on your hypothetical "data import flow".
 
 ## List all Deliveries
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/deliveries
@@ -150,7 +164,7 @@ GET https://api.chameleon.io/v3/edit/deliveries
 
 ## Create a Delivery
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 POST https://api.chameleon.io/v3/edit/deliveries
@@ -191,7 +205,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour#
 }
 ```
 
-#### HTTP Response
+##### HTTP Response
 
 | Status code        | -        | description    |
 | ------------------ | -------- | -------------- |
@@ -235,7 +249,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour#
 
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.**
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PATCH https://api.chameleon.io/v3/edit/deliveries/:id
@@ -253,7 +267,7 @@ Cancel a Delivery that has yet to happen
 
 > **Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be deleted.**
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 DELETE https://api.chameleon.io/v3/edit/deliveries/:id

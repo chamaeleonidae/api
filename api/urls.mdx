@@ -30,7 +30,7 @@ With the Chameleon API for Domains, you can:
 - Retrieve a specific domain based on its `id`.
 
 
-## Domain Schema (Url)
+## 📋 Domain Schema (Url)
 
 | Property        | Type      | Description                                                                                                                                     |
 |-----------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -50,7 +50,7 @@ With the Chameleon API for Domains, you can:
 
 ## Create a Url (enable a new domain)
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 POST https://api.chameleon.io/v3/edit/urls
@@ -63,7 +63,7 @@ POST https://api.chameleon.io/v3/edit/urls
 | `unlisted`    | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.chameleon.io/settings/domains) in the dashboard |
 | `archived_at` | optional | To archive set to a timestamp, to unarchive set to `null`                                          |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -81,7 +81,7 @@ POST https://api.chameleon.io/v3/edit/urls
 
 ## Update a Url
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PUT|PATCH https://api.chameleon.io/v3/edit/urls/:id
@@ -95,7 +95,7 @@ PUT|PATCH https://api.chameleon.io/v3/edit/urls/:id
 | `archived_at`  | optional | To archive set to a timestamp, to unarchive set to `null`                                                                                                         |
 | `url_group_id` | optional | The Environment ([Url Group](/api/urls#url-groups)) to assign this Url to                                                                                                                 |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -113,7 +113,7 @@ PUT|PATCH https://api.chameleon.io/v3/edit/urls/:id
 
 ## Bulk a Url
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 POST https://api.chameleon.io/v3/edit/urls/batch
@@ -126,7 +126,7 @@ POST https://api.chameleon.io/v3/edit/urls/batch
 | `archived_at`  | optional | To archive set to a timestamp, to unarchive set to `null`                         |
 | `url_group_id` | optional | The Environment ([Url Group](/api/urls#url-groups)) to assign these Urls to |
 
-#### HTTP Response
+##### HTTP Response
 
 All of the Urls given in the request `ids` are updated with the value given by `enabled`, `archived_at`, or `url_group_id`. They are sent back even if they were already in the resulting bulk-update state.
 
@@ -155,7 +155,7 @@ All of the Urls given in the request `ids` are updated with the value given by `
 
 ## Listing all Urls
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/urls
@@ -169,7 +169,7 @@ GET https://api.chameleon.io/v3/edit/urls
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -208,7 +208,7 @@ GET https://api.chameleon.io/v3/edit/urls
 
 ## Retrieve a Url
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/urls/:id
@@ -218,7 +218,7 @@ GET https://api.chameleon.io/v3/edit/urls/:id
 | ----- | -------- | ------------------------------------- |
 | `id`    | required | The Chameleon ID of the Url to show |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -249,7 +249,7 @@ An Environment is a group of Domains. The purpose of an Environment is to:
 > Assigning a `url_group_id` to a TLD means that all future subdomains of that TLD are 
 
 
-## Environment Schema (Url Group)
+## 📋 Environment Schema (Url Group)
 
 | Property                 | Type      | Description                                                                      |
 |--------------------------|-----------|----------------------------------------------------------------------------------|
@@ -265,7 +265,7 @@ An Environment is a group of Domains. The purpose of an Environment is to:
 
 ## Create a Url Group
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 POST https://api.chameleon.io/v3/edit/url_groups
@@ -278,7 +278,7 @@ POST https://api.chameleon.io/v3/edit/url_groups
 | `short_name`             | optional | 1-3 character 'short code' that should be the short version of the name (PR for Production etc.) |
 | `style_short_name_color` | optional | A 6 character hex code color to identify the Environment                                    |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -296,7 +296,7 @@ POST https://api.chameleon.io/v3/edit/url_groups
 
 ## Update a Url Group
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PUT|PATCH https://api.chameleon.io/v3/edit/url_groups/:id
@@ -314,7 +314,7 @@ PUT|PATCH https://api.chameleon.io/v3/edit/url_groups/:id
 | `urls_action_on_archive` | optional | Use values of `ignore` or `archive`. When archiving with `archived_at`, the Domains of this environment will either be archived as well or left as-is. |
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -338,7 +338,7 @@ PUT|PATCH https://api.chameleon.io/v3/edit/url_groups/:id
 
 ## Listing all Url Groups
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/url_groups
@@ -351,7 +351,7 @@ GET https://api.chameleon.io/v3/edit/url_groups
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time     |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -393,7 +393,7 @@ GET https://api.chameleon.io/v3/edit/url_groups
 
 ## Retrieve a Url Group
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/url_groups/:id
@@ -403,7 +403,7 @@ GET https://api.chameleon.io/v3/edit/url_groups/:id
 |--------| -------- |----------------------------------------------------------------------------------------|
 | `id`   | required | The Chameleon ID of the Environment ([Url Group](/api/urls#url-groups)) to show  |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {

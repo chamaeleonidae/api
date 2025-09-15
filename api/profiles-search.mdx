@@ -8,9 +8,17 @@ User Profiles represent your *product's end-users*: real individuals who were id
 
 Searching User Profiles through the Chameleon API allows you to:
 
- - Search for a user by `id`, `uid` and `email`.
- - Search for users or get the Count of Users by any of the properties you have sent to us.
- - Search for users by any of the interactions they had with Chameleon (answered a Microsurvey etc.).
+<CardGroup cols={3}>
+  <Card title="Search Users" icon="magnifying-glass" href="#searching-users">
+    Search for users by ID, UID, email, or custom properties
+  </Card>
+  <Card title="Count Users" icon="chart-bar" href="#counting-users">
+    Get user counts based on properties and interactions
+  </Card>
+  <Card title="View Examples" icon="code" href="#examples">
+    Explore search query examples and use cases
+  </Card>
+</CardGroup>
 
 
 
@@ -23,7 +31,7 @@ Searching User Profiles through the Chameleon API allows you to:
 
 
 
-## Schema
+## 📋 Schema
 
 See the full [User Profile schema](/api/profiles#schema).
 
@@ -249,7 +257,7 @@ Query for users where either Admins AND are either com the Acme account or have 
 
 ## Searching Users
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET|POST https://api.chameleon.io/v3/analyze/profiles (plural)
@@ -291,7 +299,7 @@ Notes:
 
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -322,7 +330,7 @@ Notes:
 
 ## Counting Users
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET|POST https://api.chameleon.io/v3/analyze/profiles/count
@@ -332,7 +340,7 @@ GET|POST https://api.chameleon.io/v3/analyze/profiles/count
 
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {

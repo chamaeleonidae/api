@@ -11,7 +11,7 @@ Show a particular Launcher using the JS API. Optionally open or close the Launch
 Call `chmln.show`  with the Chameleon ID of the Launcher, and the Launcher will show (if possible) immediately. If the Launcher is anchored to an element on the page, that element is required to be present before the Launcher can show. If the Launcher is already showing, nothing will happen.
  
 
-```
+```javascript
 chmln.show('LAUNCHER ID');
 ```
 
@@ -29,7 +29,7 @@ Hover over the `<li id="chmln-list-XXXXXXXX"`  row which corresponds to the Laun
 
 With the Chameleon sidebar showing, run:
 
-```
+```javascript
 chmln.data.lists.each((l) => console.log(Object.values(l.pick(['id', 'name'])).join(':')))
 ```
 
@@ -46,7 +46,7 @@ You'll see a list of `ID:name` pairs.
 Find the line with the correct name, and copy the `ID`  (the part preceding the colon), and use it in your call to `chmln.show` . For example, to show 'my launcher', call:
  
 
-```
+```javascript
 chmln.show('5c2fe686593b2f00049fa27c');
 ```
 
@@ -59,7 +59,7 @@ Alternatively, from your list of Launchers in the Chameleon sidebar, you can use
 
 `chmln.show`  can accept a second argument which is an object containing optional parameters. For example:
 
-```
+```javascript
 chmln.show('5c2fe686593b2f00049fa27c', { open: true });
 ```
 

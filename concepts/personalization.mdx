@@ -149,7 +149,7 @@ Check out these [additional resources](https://help.your-product.co/getting-star
 
 Internally this helper generates a `Date` object and then calls `toLocaleString`.
 
-> Use for feature launches, maintenance windows, expiration dates for surveys/deals, etc.
+<Tip>Use for feature launches, maintenance windows, expiration dates for surveys/deals, etc.</Tip>
 
 - The first argument to `toLocaleString` is the locale of the identified user
   1. If you use [Translations](https://help.chameleon.io/en/articles/5868890) then it will be the same locale you've configured.
@@ -206,9 +206,18 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 # Thursday, Apr 30, 2026
 ```
 
-#### Examples where the user is in Spain with browser language `es-ES`
+#### Locale Examples
 
-```plaintext
+<CodeGroup>
+```plaintext en-US (Pacific Time)
+\{\{time_local created_at timeZone=time_z timeZoneName="long"\}\}
+# 3/4/2028, 1:02:00 PM Central European Standard Time
+
+\{\{time_local '2026-05-01' year="numeric" weekday="long" month="short" day="numeric"\}\}
+# Thursday, Apr 30, 2026
+```
+
+```plaintext es-ES (Spain)
 \{\{time_local created_at timeZone=time_z timeZoneName="long"\}\}
 # 3/4/2028, 1:02:00
 
@@ -216,15 +225,14 @@ Internally this helper generates a `Date` object and then calls `toLocaleString`
 # jueves, 30 de abr de 2026
 ```
 
-#### Examples where the user is in France with browser language `fr`
-
-```plaintext
+```plaintext fr (France)
 \{\{time_local created_at timeZone=time_z timeZoneName="long"\}\}
-# 3/4/2028, 1:02:00 heure d’été d’Europe centrale
+# 3/4/2028, 1:02:00 heure d'été d'Europe centrale
 
 \{\{time_local '2026-05-01' year="numeric" weekday="long" month="short" day="numeric"\}\}
 # jeudi 30 avr. 2026
 ```
+</CodeGroup>
 
 
 ### Pluralizing numbers | `pluralize` helper
@@ -278,7 +286,7 @@ window.chameleonContent = {
 
 ### Call a function (show a alert modal)
 
-> Note that this function should be added to your product's codebase to provide extended functionality. In this example we will assume you have a `performAction` function defined like this:
+<Note>This function should be added to your product's codebase to provide extended functionality. In this example we will assume you have a `performAction` function defined like this:</Note>
 
 ```javascript
 //
@@ -325,7 +333,7 @@ window.performAction = (type, text, options) => {
 \{\{global 'performAction' 'create_draft' \{\{first_name\}\}\}\}
 ```
 
-> **Important**: When passing user properties to functions, use the property name **without quotes or double braces**. Quoted values (`'text'`) are passed as literal strings, while unquoted properties (`user_property`) are resolved to the user's actual property value.
+<Warning>When passing user properties to functions, use the property name **without quotes or double braces**. Quoted values (`'text'`) are passed as literal strings, while unquoted properties (`user_property`) are resolved to the user's actual property value.</Warning>
 
 
 ## Examples using `delivery` helper
@@ -335,7 +343,7 @@ window.performAction = (type, text, options) => {
 A Delivery is a REST API for directly **triggering an Experience** for a **specific User**.
 
 > With a Delivery you can include personalized content for that specific instance of that Delivery.
-> Note that the `delivery` helper documented here only works for the specific Experience that was triggered via Delivery.
+<Note>The `delivery` helper documented here only works for the specific Experience that was triggered via Delivery.</Note>
 > Make sure to configure your Experience to **only** show Manually.
 
 ### Example Delivery

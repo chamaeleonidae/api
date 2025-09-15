@@ -13,12 +13,20 @@ A Tooltip is a single step which can be shown when your end-users click or hover
 
 With the Chameleon API for Tooltips, you can:
 
-- List all the Tooltips that follow a specified set of parameters.
+<CardGroup cols={3}>
+  <Card title="List Tooltips" icon="list" href="#list-tooltips">
+    Get all tooltips with filtering parameters
+  </Card>
+  <Card title="Retrieve Tooltip" icon="eye" href="#retrieve-a-tooltip">
+    Get a specific tooltip by ID
+  </Card>
+  <Card title="Update Tooltip" icon="pen" href="#update-a-tooltip">
+    Modify existing tooltip properties
+  </Card>
+</CardGroup>
 
-- Retrieve a single Tooltip based on the `id`.
 
-
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -35,7 +43,7 @@ With the Chameleon API for Tooltips, you can:
 
 List all the Tooltips that follow a specified set of parameters.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/tooltips
@@ -48,7 +56,7 @@ GET https://api.chameleon.io/v3/edit/tooltips
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -80,7 +88,7 @@ GET https://api.chameleon.io/v3/edit/tooltips
 
 Update a single Tooltip to change its properties or to Publish it.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PATCH https://api.chameleon.io/v3/edit/tooltips/:id
@@ -130,7 +138,7 @@ To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
 
 Retrieve a single Tooltip
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/tooltips/:id

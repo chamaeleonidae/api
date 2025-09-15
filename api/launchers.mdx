@@ -14,12 +14,24 @@ A Launcher is a collection of items shown in a menu to your end-users when they 
 
 With the Chameleon API for Launchers, you can:
 
-- List all Launchers based on the specified set of parameters.
-- Retrieve a specific Launcher based on its `id`.
+<CardGroup cols={2}>
+  <Card title="List Launchers" icon="list" href="#list-launchers">
+    Get all launchers with filtering parameters
+  </Card>
+  <Card title="Retrieve Launcher" icon="eye" href="#retrieve-a-launcher">
+    Get a specific launcher by ID
+  </Card>
+  <Card title="Update Launcher" icon="pen" href="#update-a-launcher">
+    Modify existing launcher properties
+  </Card>
+  <Card title="Filter by Segment" icon="filter" href="#filtering-by-segment">
+    Find launchers for specific user segments
+  </Card>
+</CardGroup>
 
 
 
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -54,7 +66,7 @@ With the Chameleon API for Launchers, you can:
 | `stats.started_count` | number | Number of times the Launcher menu was opened by an end-user |
 | `stats.last_started_at` | timestamp | Most recent time the Launcher menu was opened by an end-user |
 
-## Launcher Item Schema
+## 📋 Launcher Item Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -74,7 +86,7 @@ With the Chameleon API for Launchers, you can:
 
 List all Launchers based on the specified set of parameters.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/launchers
@@ -87,7 +99,7 @@ GET https://api.chameleon.io/v3/edit/launchers
 | `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
 | `after`  | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -119,7 +131,7 @@ GET https://api.chameleon.io/v3/edit/launchers
 
 Update a single Launcher to change its properties or to Publish it.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 PATCH https://api.chameleon.io/v3/edit/launchers/:id
@@ -173,7 +185,7 @@ See [Listing Related models](/api/segments#segment-experiences-index)
 
 Retrieve a single Launcher.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/launchers/:id

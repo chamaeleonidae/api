@@ -60,7 +60,7 @@ This might be relevant in the following instances:
 - Sending data to a tool without a native Chameleon integration.
 - Sending data to a tool via a backend/server-side method.
 
-```
+```javascript
 // Tour / Survey events only
 chmln.on('tour:event', function(eventName, options) {
   $http.post(internal_event_logging_url, {
@@ -72,7 +72,7 @@ chmln.on('tour:event', function(eventName, options) {
 // Tour / Survey / Tooltip / Launcher etc. events
 chmln.on('chmln:event', function(eventName, options) {
   $http.post(internal_event_logging_url, {
-    name: eventName, 
+    name: eventName,
     properties: options
   });
 });
@@ -87,7 +87,7 @@ This might be relevant in the following instances:
 - Sending data to your database, to allow deeper analysis of Chameleon Events.
 - Sending data that is not collected by your analytics tool (e.g. "Chameleon testing ID").
 
-```
+```javascript
 chmln.on('after:profile', function() {
   $http.post(internal_user_update_url, {
     chameleon_testing_id: chmln.data.profile.get('percent'),
@@ -101,10 +101,10 @@ chmln.on('after:profile', function() {
 
 For example, you can send the Chameleon "Percentage value" to your analytics solution, using a script like the below *(with examples for Segment and Mixpanel)*:
 
-```
+```javascript
 chmln.on('after:profile', function() {
   // Now you have full access to chmln.data.profile
-  
+
   var percent = chmln.data.profile.get('percent'));
   // Segment.com
   // analytics.identify({chameleon_testing_id: percent})

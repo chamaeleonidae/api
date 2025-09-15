@@ -4,9 +4,9 @@ Companies represent your *accounts*: real customers who were identified to Chame
 
 ---
 
-## Schema
+## 📋 Schema
 
-### Fully-expanded [Company](/api/companies) when listed directly or embedded with `expand` param specified properly
+**Fully-expanded company** when listed directly or embedded with `expand` param specified properly:
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ Companies represent your *accounts*: real customers who were identified to Chame
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
 
-### Non-expanded [Company](/api/companies) when embedded in another (i.e. Microsurvey response)
+**Non-expanded company** when embedded in another (i.e. Microsurvey response):
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -24,6 +24,22 @@ Companies represent your *accounts*: real customers who were identified to Chame
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `uid` | string | The external ID that came from your backend system |
 
+## Company Operations
+
+<CardGroup cols={2}>
+  <Card title="Create / Update Company" icon="building" href="#create--update-a-company">
+    Create new companies or update existing company properties
+  </Card>
+  <Card title="Retrieve Company" icon="eye" href="#retrieve-a-company">
+    Get a specific company by ID or UID
+  </Card>
+  <Card title="List Companies" icon="list" href="#list-companies">
+    Get all companies with filtering and pagination
+  </Card>
+  <Card title="Delete Company" icon="trash" href="#delete-a-company">
+    Permanently remove a company and its data
+  </Card>
+</CardGroup>
 
 ## Create / Update a Company
 
@@ -34,9 +50,9 @@ See the [Companies Webhook](/webhooks/companies) for sending User data to Chamel
 
 Retrieve a single Company.
 
-#### HTTP Request
+##### HTTP Request
 
-```
+```http
 GET https://api.trychameleon.com/v3/analyze/companies/:id
 # OR
 GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
@@ -66,9 +82,9 @@ GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
 
 List all Companies.
 
-#### HTTP Request
+##### HTTP Request
 
-```
+```http
 GET|POST https://api.chameleon.io/v3/analyze/companies
 ```
 
@@ -92,7 +108,7 @@ expand[profile]=min&expand[company]=skip
 ```
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -188,17 +204,17 @@ The associated profiles can also be removed by passing `cascade=profiles` with t
 | `uid`   | optional | The Company identifier (typically the Database ID from your backend) |
 
 
-#### HTTP Request
+##### HTTP Request
 
 Either `id` or `uid` is required.
 
-```
+```http
 DELETE https://api.trychameleon.com/v3/edit/companies/:id
 # OR
 DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid
 ```
 
-#### HTTP Response
+##### HTTP Response
 
 The endpoint returns `id` of the Deletion record.
 The Deletion is an internal Chameleon record that can be referenced as proof of initiating this request.
@@ -214,13 +230,13 @@ The Deletion is an internal Chameleon record that can be referenced as proof of 
 ### Deleting a company and all profiles associated with it
 Deleting a company and all profiles associated with it can be done by passing `cascade=profiles`:
 
-```
+```http
 DELETE https://api.trychameleon.com/v3/edit/companies/:id?cascade=profiles
 # OR
 DELETE https://api.trychameleon.com/v3/edit/company?uid=:uid&cascade=profiles
 ```
 
-#### HTTP Response
+##### HTTP Response
 
 When cascade deletion is requested, the endpoint also returns deletion ids of all the profiles associated with the company under `deletions` key. 
 

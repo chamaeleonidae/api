@@ -14,7 +14,7 @@ Use the feed of changes to:
 - Ensure that your most important Experiences stay static. Do this by listing all changes for a specific Experience and make sure the set of changes is empty
 - Audit an issue with the delivery of an Experience.
 
-## Schema
+## 📋 Schema
 
 
 | Property        | Type      | Description                                                                                                                                                                                                           |
@@ -52,7 +52,7 @@ In the context of a Change `object`:
 
 List all Changes.
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/changes
@@ -85,7 +85,7 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 ```
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -150,7 +150,7 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 
 # Summary of Changes
 
-## Summary Schema
+## 📋 Summary Schema
 
 | Property     | Type                       | Description                                                                                                                                                                                                            |
 |--------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -199,7 +199,7 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 
 List all Change Summaries
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes/summary
@@ -212,7 +212,7 @@ GET https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes/summary
 
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {

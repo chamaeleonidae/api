@@ -4,11 +4,17 @@ A Microsurvey response is a single object with all of the information about the 
 
 Using Chameleon's API for Microsurvey responses, you can:
 
-- List Microsurvey responses.
-- Delete a Microsurvey response.
+<CardGroup cols={2}>
+  <Card title="List Responses" icon="list" href="#list-microsurvey-responses">
+    Get all microsurvey responses with filtering
+  </Card>
+  <Card title="Delete Response" icon="trash" href="#delete-a-microsurvey-response">
+    Remove a specific microsurvey response
+  </Card>
+</CardGroup>
 
 
-## Schema
+## 📋 Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -37,7 +43,7 @@ Using Chameleon's API for Microsurvey responses, you can:
 
 ## List Microsurvey Responses
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 GET https://api.chameleon.io/v3/analyze/responses
@@ -70,7 +76,7 @@ Notes:
 - The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Survey Response (send the max ID from your last import as the `after` parameter).
 
 
-#### HTTP Response
+##### HTTP Response
 
 ```json
 {
@@ -120,7 +126,7 @@ Notes:
 
 Deleting a Microsurvey response also clears the associated metrics and summaries
 
-#### HTTP Request
+##### HTTP Request
 
 ```
 DELETE https://api.chameleon.io/v3/edit/responses/:id
