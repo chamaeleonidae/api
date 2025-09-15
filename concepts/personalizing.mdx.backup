@@ -51,9 +51,11 @@ Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpos
 
 ### Greeting with a User's name
 
-Use the `property` helper to insert user data into your content.
+**Template:**
+`Hey {{first_name}} 👋!`
 
-**Example:** Display user's first name with fallback option.
+**Result:**
+`Hey Alice 👋!`
 
 ### Greeting with a User's name + gentle fallback | `property` helper
 
