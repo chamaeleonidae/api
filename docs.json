@@ -73,7 +73,6 @@
           "js/show-launcher",
           "js/show-automation",
           "js/show-demo",
-          "js/helpbar",
           "js/listen"
         ]
       },
@@ -120,7 +119,7 @@
         "icon": "book-open",
         "pages": [
           "guides/installation",
-          "guides/helpbar"
+          "guides/helpbar-user-content"
         ]
       }
     ]
