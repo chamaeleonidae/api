@@ -6,7 +6,7 @@ Companies represent your *accounts*: real customers who were identified to Chame
 
 ## Schema
 
-#### Fully-expanded [Company](/api/companies) when listed directly or embedded with `expand` param specified properly
+### Fully-expanded [Company](/api/companies) when listed directly or embedded with `expand` param specified properly
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ Companies represent your *accounts*: real customers who were identified to Chame
 | `*any options` | mixed | Any other options you have sent as Custom Properties will show up here too |
 
 
-#### Non-expanded [Company](/api/companies) when embedded in another (i.e. Microsurvey response)
+### Non-expanded [Company](/api/companies) when embedded in another (i.e. Microsurvey response)
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -81,7 +81,7 @@ GET|POST https://api.chameleon.io/v3/analyze/companies
 | `expand`         | optional | Object that specifies relationships to include/exclude. Supported keys are `company`      |
 | `expand.company` | optional | use values of `all`, `min` to control the properties present in the `company`. Defaults to `all` |
 
-#### Using the `expand` parameter
+### Using the `expand` parameter
 
 ```
 # As a URL parameter
@@ -152,7 +152,7 @@ Each example below is showing the value for the `filters` key in the JSON reques
 }
 ```
 
-##### Companies that have a specific uid
+#### Companies that have a specific uid
 
 Find the company with the `uid` of `123`:
 
