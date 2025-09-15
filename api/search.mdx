@@ -611,11 +611,9 @@ Base schema
 | `helpbar_state` | string    | If the HelpBar stays open or closes when taking this action (optional defaults to null): One of: `open`                                                                                                                                                                      |
 | `*others`       | optional  | Any other integration specific configuration (more info below in the specific schemas)                                                                                                                                                                                       |
 
-### Integration specific schemas
-
 ## 📋 SearchAction Schemas
 
-### `SearchAction` with `kind=url` Schema
+##### `SearchAction` with `kind=url` Schema
 
 | Property | Type | Description                                                                                             |
 | --- | --- |---------------------------------------------------------------------------------------------------------|
@@ -631,7 +629,7 @@ Base schema
 }
 ```
 
-### `SearchAction` with `kind=navigate` Schema
+##### `SearchAction` with `kind=navigate` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -647,7 +645,7 @@ Base schema
 ```
 
 
-### `SearchAction` with `kind=event` Schema
+##### `SearchAction` with `kind=event` Schema
 
 Track an event to Chameleon and all of your [configured integrations](https://app.chameleon.io/integrations).
 
@@ -665,7 +663,7 @@ Track an event to Chameleon and all of your [configured integrations](https://ap
 ```
 
 
-### `SearchAction` with `kind=identify` Schema
+##### `SearchAction` with `kind=identify` Schema
 
 Send user data to Chameleon and all of your [configured integrations](https://app.chameleon.io/integrations).
 
@@ -686,7 +684,7 @@ Send user data to Chameleon and all of your [configured integrations](https://ap
 ```
 
 
-### `SearchAction` with `kind=tour` Schema
+##### `SearchAction` with `kind=tour` Schema
 
 Show a Chameleon Tour immediately (calls `chmln.show` with the configured `tour_id`). Quickly access this ID in the URL on the [Chameleon dashboard](https://app.chameleon.io/tours).
 [JavaScript API reference](/js/show-tour)
@@ -706,7 +704,7 @@ Show a Chameleon Tour immediately (calls `chmln.show` with the configured `tour_
 
 
 
-### `SearchAction` with `kind=survey` Schema
+##### `SearchAction` with `kind=survey` Schema
 
 Show a Chameleon Microsurvey immediately (calls `chmln.show` with the configured `survey_id`). Quickly access this ID in the URL on the [Chameleon dashboard](https://app.chameleon.io/surveys).
 [JavaScript API reference](/js/show-tour)
@@ -725,7 +723,7 @@ Show a Chameleon Microsurvey immediately (calls `chmln.show` with the configured
 ```
 
 
-### `SearchAction` with `kind=script` Schema
+##### `SearchAction` with `kind=script` Schema
 
 Run customized JavaScript when this item is clicked in the HelpBar. Check variables, user data, or page
 state before performing different actions.
@@ -745,7 +743,7 @@ state before performing different actions.
 ```
 
 
-### `SearchAction` with `kind=function` Schema
+##### `SearchAction` with `kind=function` Schema
 
 After you have exposed a function on the `window` object within your application, call it when this item is clicked.
 
@@ -763,7 +761,7 @@ After you have exposed a function on the `window` object within your application
 ```
 
 
-### `SearchAction` with `kind=airtable` Schema
+##### `SearchAction` with `kind=airtable` Schema
 
 Show an Airtable form directly in your product.
 
@@ -780,7 +778,7 @@ Show an Airtable form directly in your product.
 }
 ```
 
-### `SearchAction` with `kind=arcade` Schema
+##### `SearchAction` with `kind=arcade` Schema
 
 Launch an Arcade Demo in a full screen modal
 
@@ -797,7 +795,7 @@ Launch an Arcade Demo in a full screen modal
 }
 ```
 
-### `SearchAction` with `kind=calendly` Schema
+##### `SearchAction` with `kind=calendly` Schema
 
 Show a Calendly scheduling modal directly in your product.
 
@@ -825,7 +823,7 @@ Show a Calendly scheduling modal directly in your product.
 ```
 
 
-### `SearchAction` with `kind=chili_piper` Schema
+##### `SearchAction` with `kind=chili_piper` Schema
 
 Show a ChiliPiper scheduling modal directly in your product.
 
@@ -867,7 +865,7 @@ For a ChiliPiper router
 }
 ```
 
-### `SearchAction` with `kind=embed` Schema
+##### `SearchAction` with `kind=embed` Schema
 
 Launch any embeddable page in a full screen modal.
 
@@ -886,7 +884,7 @@ Launch any embeddable page in a full screen modal.
 ```
 
 
-### `SearchAction` with `kind=figma` Schema
+##### `SearchAction` with `kind=figma` Schema
 
 Show a Figma file or prototype directly in your product.
 
@@ -904,7 +902,7 @@ Show a Figma file or prototype directly in your product.
 }
 ```
 
-### `SearchAction` with `kind=google` Schema
+##### `SearchAction` with `kind=google` Schema
 
 Show a Google Doc / Sheet / Form / Slides in a full screen modal.
 
@@ -922,7 +920,7 @@ Show a Google Doc / Sheet / Form / Slides in a full screen modal.
 }
 ```
 
-### `SearchAction` with `kind=helpscout` Schema
+##### `SearchAction` with `kind=helpscout` Schema
 
 | Property | Type | Description                                                                                                             |
 | --- | --- |-------------------------------------------------------------------------------------------------------------------------|
@@ -985,7 +983,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 ```
 
 
-### `SearchAction` with `kind=hubspot_lists` Schema
+##### `SearchAction` with `kind=hubspot_lists` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -1001,7 +999,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 ```
 
 
-### `SearchAction` with `kind=intercom` Schema
+##### `SearchAction` with `kind=intercom` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -1030,7 +1028,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 ```
 
 
-### `SearchAction` with `kind=livestorm` Schema
+##### `SearchAction` with `kind=livestorm` Schema
 
 Directly register a user for a webinar session; combine with a second action for `kind=url` that takes them to your "success" page.
 
@@ -1052,7 +1050,7 @@ Directly register a user for a webinar session; combine with a second action for
 ```
 
 
-### `SearchAction` with `kind=loom` Schema
+##### `SearchAction` with `kind=loom` Schema
 
 Show a Loom video directly in your product.
 
@@ -1069,7 +1067,7 @@ Show a Loom video directly in your product.
 }
 ```
 
-### `SearchAction` with `kind=navattic` Schema
+##### `SearchAction` with `kind=navattic` Schema
 
 Launch an Navattic Demo in a full screen modal.
 
@@ -1087,7 +1085,7 @@ Launch an Navattic Demo in a full screen modal.
 ```
 
 
-### `SearchAction` with `kind=pitch` Schema
+##### `SearchAction` with `kind=pitch` Schema
 
 Show a Pitch presentation directly in your product.
 
@@ -1105,7 +1103,7 @@ Show a Pitch presentation directly in your product.
 ```
 
 
-### `SearchAction` with `kind=typeform` Schema
+##### `SearchAction` with `kind=typeform` Schema
 
 Show a Typeform survey directly in your product.
 
@@ -1125,7 +1123,7 @@ Show a Typeform survey directly in your product.
 ```
 
 
-### `SearchAction` with `kind=zendesk` Schema
+##### `SearchAction` with `kind=zendesk` Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
