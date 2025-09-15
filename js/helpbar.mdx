@@ -1,0 +1,377 @@
+## Search JavaScript API
+
+At a high level, Chameleon uses the `chmln` object on the page via `chmln.on` to allow you to control the HelpBar experience. **All of these event listeners are optional**.
+
+See the [Type definitions below ↓](/api/search.md?id=search-js-types)
+
+##### Recommended
+
+```javascript
+
+chmln.on('app:navigate', (opts: NavigateOpts) => {
+  /*
+  Nagivate with React router / Vue router / pushState / call window.open / etc.
+
+  Frameworks:
+    - React info here => https://www.npmjs.com/package/@chamaeleonidae/chmln
+    - Add more frameworks with a PR to this file and receive a $50 gift card
+
+  opts.to is the `url` from the SearchAction; this SearchAction is configured with `kind=navigate`
+
+  */
+});
+```
+
+##### Optional
+
+```javascript
+
+chmln.on('helpbar:search:content', (opts: SearchOpts, ctx: Context) => {
+  /*
+  Optional for User generated content search:
+    - Generally Chameleon will handle search for you
+    - If you need to add custom "Search" logic use this event to pass back the right items, two options:
+      - directly return an array<SearchGroup>; include and `id`, `title`, and `search_items` keys for each SearchGroup
+      - return a Promise that will resolve with the first argument being an array<SearchGroup>.
+    - Best used when you already use Algolia or have a custom search endpoint internally
+
+  Called when:
+    - The User has entered in a query; when a user enters text and pauses
+
+   return array<SearchGroup>
+   return Promise that resolves with the first argument as array<SearchGroup>
+   return null (or don't implement) to use the search results as pulled from Chameleon
+
+   opts.query is the search term queried for
+
+   */
+});
+
+chmln.on('helpbar:search:external', (opts: SearchOpts, ctx: Context) => {
+  /*
+  Optional for Help center search:
+    - Generally Chameleon will handle search for you
+    - If you need to add custom "Help center search" logic use this event to pass back the right items, two options:
+      - directly return an array<SearchGroup>; include and `id`, `title`, and `search_items` keys for each SearchGroup
+      - return a Promise that will resolve with the first argument being an array<SearchGroup>.
+    - Best used when you use a Help center that Chameleon does not integrate with
+
+  Called when:
+    - The User has entered in a query; when a user enters text and pauses
+
+   return array<SearchGroup>
+   return Promise that resolves with the first argument as array<SearchGroup>
+   return null (or don't implement) to use the search results as pulled from Chameleon
+
+   opts.query is the search term queried for
+
+   */
+});
+
+chmln.on('helpbar:search:question', (opts: QuestionOpts, ctx: Context) => {
+   /*
+    Optional for AI answering
+      - Generally Chameleon will handle AI answering for you
+      - If you need to provide an answer from your own API or own model
+
+    opts.query is the question
+    opts.searchGroups the currently displayed groups + results
+    opts.onAnswer a function to call when you have the partial or complete answer
+
+    This is where you would make our network request and then call onAnswer when ready
+
+    Example use of onAnswer
+      When the endpoint returns the full answer
+        - opts.onAnswer({ text: 'To start using the data import...' });
+
+      When the endpoint returns the full answer + reference material
+        - opts.onAnswer({ text: 'To start using the data import...', links: [{ text: 'Data importing guide', href: 'https://help.acme.io/en/394821' }} });
+
+      When the endpoint steams the answer in character, token, word, or sentence call multiple times with each part received
+        the onAnswer callback will concatenate these parts together as they come in
+        - opts.onAnswer({ text: 'To star' });
+        - opts.onAnswer({ text: 't using the' });
+        - opts.onAnswer({ text: ' data import feature, first' });
+    */
+});
+
+chmln.on('helpbar:search:answer', (opts: AnswerOpts, ctx: Context) => {
+  /*
+  Optional for tracking AI Answering
+    - Know when an answer is generated including the question and answer
+
+   opts.query is the question
+   opts.answer is the AI generated answer
+
+   */
+});
+
+chmln.on('helpbar:opened', (opts: BlankOpts, ctx: Context) => {
+  /*
+  Optional:
+    - This is purely informational but can be used for custom tracking etc.
+
+  Called when:
+    - The HelpBar is triggerd (opened by the User)
+
+  ctx.source will tell you how it was opened
+
+  */
+});
+
+chmln.on('helpbar:closed', (opts: BlankOpts, ctx: Context) => {
+  /*
+  Optional:
+    - This is purely informational but can be used for custom tracking etc.
+
+  Called when:
+    - The HelpBar is closed by the User
+
+  */
+});
+
+chmln.on('helpbar:items:recent', (opts: RecentOpts, ctx: Context) => {
+  /*
+  Optional:
+    - Chameleon will handle recent items for you
+    - If you need to add custom "Recent items" logic use this event to pass back the right items
+
+  Called when:
+    - the HelpBar needs a list of the most recent actions taken
+
+  return Array or Promise of recent actions taken
+  return null (or don't implement) to use the recent items as tracked by Chameleon
+
+  opts.items is an array<SearchItem>; the 4 most recent actions taken
+
+  */
+});
+
+chmln.on('helpbar:items:pinned', (opts: BlankOpts, ctx: Context) => {
+  /*
+  Optional:
+    - Chameleon will handle pinned items for you
+    - If you need to add custom "Suggestion items" logic use this event to pass back the right items
+
+  Called when:
+    - the HelpBar needs a list of the pinned items
+
+  return Array or Promise of pinned items to display
+  return null (or don't implement) to use the pinned items as added to Chameleon backend via SearchItem
+
+  */
+});
+
+chmln.on('helpbar:search:items', (opts: SearchItemsOpts, ctx: Context) => {
+  /*
+   Optional:
+     - This is purely informational but can be used for custom tracking etc.
+
+   Called when:
+     - The Search query finished with 1 or more search results
+
+   opts.query is the search term queried for
+   opts.items an array<SearchItem> of all search results for this query
+      - opts.items.length will equal 0 when no results were returned
+
+  */
+});
+
+chmln.on('helpbar:item:action', (opts: ActionOpts, ctx: Context) => {
+  /*
+  Optional:
+    - Chameleon performs the configured actions automatically in the order they are defined in.
+    - If you need to know when a specific "SearchItem" is clicked/triggered, use this event to know
+
+  Called when:
+    - When the SearchItem is clicked/triggered/selected and its actions are about to run
+
+  opts.item is a SearchItem
+  opts.item.actions is the array<SearchAction> that will be run
+
+  */
+});
+
+chmln.on('helpbar:item:action:error', (opts: ActionErrorOpts, ctx: Context) => {
+  /*
+  Optional:
+    - Chameleon may encounter an error when triggering an action.
+
+  Called when:
+    - When an action encounters an error
+
+  opts.item is a SearchItem
+  opts.action is a SearchAction that errored
+
+  */
+});
+
+```
+
+### JS API type definitions
+
+<details>
+<summary>Type definitions for JS API</summary>
+
+```typescript
+// Describes the context of the User when they do a specific action
+type Context = {
+  source: 'shortcut' | 'element' | 'js_api';
+  elapsed: number;
+};
+
+// just a plan object with no properties
+type BlankOpts = {
+};
+
+type SearchOpts = {
+  query: string,
+};
+
+type QuestionOpts = {
+   query: string,
+   groups: array<SearchGroup>,
+   onAnswer(opts: { text: string, links?: array<ReferenceItem> }): null,
+}
+
+type AnswerOpts = {
+  query: string,
+  answer: string,
+};
+
+type SearchItemsOpts = {
+  query: string,
+  items: array<SearchItem>,
+};
+
+type RecentOpts = {
+  items: array<SearchItem>,
+};
+
+// See SearchAction above for schema
+type ActionOpts = {
+  item: <SearchItem>,
+};
+
+type ActionErrorOpts = {
+  item: <SearchItem>,
+  action: <SearchAction>,
+};
+
+type NavigateOpts = {
+  to: string,
+};
+
+type ReferenceItem = {
+  href: string,
+  text: string,
+}
+
+```
+
+</details>
+
+
+
+## Limits
+
+> When these limits are exceeded, the endpoints will return a status code `409` with a descriptive error message please [Contact us](https://app.trychameleon.com/help) with any questions.
+
+1. Each `SearchItem` can be targeted to one or many `Company`, `Segment`, or `Profile`s. 
+   1. An Free/Startup account is limited to 10 per `SearchItem` and in aggregate across all `SearchItem`s.
+   2. A Growth/Enterprise account is limited to 30 per `SearchItem` and in aggregate across all `SearchItem`s..
+2. Each `SearchGroup` can be targeted to one or many `Company` or `Segment`.
+   1. An Free/Startup account is limited to 10 in use across all `SearchGroup`s and in aggregate across all `SearchGroup`s.
+   2. A Growth/Enterprise account is limited to 30 in use across all `SearchGroup`s and in aggregate across all `SearchGroup`s.
+3. Each HelpBar can have many groups (`SearchGroup`) and each can be targeted to one or many `Segment`s.
+   1. An Free/Startup account is limited to 20 `SearchGroup`s.
+   2. A Growth/Enterprise account is limited to 100 `SearchGroup`s.
+
+
+
+----
+
+## Search Item Importing via CSV (`SearchImport`)
+
+| Property                    | Type      | Description                                                                                                                                                              |
+|-----------------------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`                        | ID        | The Chameleon ID                                                                                                                                                         |
+| `created_at`                | timestamp | When this happened or when this was added to the Database                                                                                                                |
+| `updated_at`                | timestamp | The last time any property was updated                                                                                                                                   |
+| `file`                      | File      | The file to import, please use the [template](https://chmln.co/helpbar-content-template) to make this easier.                                                            |
+| `filename`                  | string    | The name of the original file uploaded                                                                                                                                   |
+| `search_group_id`           | string    | The [SearchGroup](/api/search.md?id=schema-search-groups) that all of the resulting `SearchItem`s will display in.  (and/or this can be customized per row with "HelpBar Group ID" column) |
+| `head_columns`              | array     | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column |
+| `stats`                     | object    | The details of the data itself and of the last run of this [SearchImport](/api/search.md?id=schema-search-imports).                                                      |
+| `stats.rows_count`          | number    | The number of rows in the file                                                                                                                                           |
+| `stats.last_row`            | number    | The row number of the most recent processed row (used for mid-import progress bar)                                                                                       |
+| `stats.last_import_state`   | string    | The current state of the import                                                                                                                                          |
+| `stats.last_import_error`   | string    | A representation of the error the last import encountered                                                                                                                |
+| `stats.last_import_at`      | timestamp | The last time this import was run                                                                                                                                        |
+| `stats.last_import_elapsed` | number    | The total time (in seconds) that the import took.                                                                                                                        |
+| `stats.created_count`       | number    | The number of records created by this Import                                                                                                                             |
+| `stats.updated_count`       | number    | The number of records updated by this Import                                                                                                                             |
+| `stats.deleted_count`       | number    | The number of records removed by this Import                                                                                                                             |
+
+
+## Create a Search Import
+
+Use `Content-Type: multipart/form-data` to create an Import in one request, include the `file` parameter with a CSV based on the [template](https://chmln.co/helpbar-content-template).
+
+#### HTTP Request
+
+```
+POST https://api.trychameleon.com/v3/edit/search_imports
+```
+
+## Get a Search Import
+
+Useful to track the progress of this import. Small imports (< 100 rows) will finish within approx 1 second.
+
+#### HTTP Request
+
+```
+GET https://api.trychameleon.com/v3/edit/search_imports/:id
+```
+
+## Trigger HelpBar
+
+This command triggers the display of the HelpBar. You can also use variations of this command with options to prefill a query or specify a custom placeholder, enhancing the user experience and engagement with the HelpBar.
+
+```
+chmln.show('helpbar')
+```
+
+This variation of the command allows for additional customization by accepting options. The `query` option enables the prefilling of a query within the HelpBar, serving as a starting point for user inquiries. Additionally, you can specify a custom placeholder using the `placeholder` option to provide users with a helpful prompt.
+
+```
+chmln.show('helpbar', options)
+```
+
+#### Options:
+
+- `query` (optional): Specifies a pre-filled query string to assist users in formulating their inquiries. If pre-filled as a question, it will also trigger the AI to generate an answer.
+
+- `placeholder` (optional): Sets a custom placeholder text within the HelpBar, guiding users on what they can search for or ask.
+
+#### Examples:
+
+- Prefill query
+
+```
+chmln.show('helpbar', { query: 'annual billing' })
+```
+
+- When pre-filled as a question, this will trigger the AI to provide an asnwer.
+
+```
+chmln.show('helpbar', { query: 'What is a tour?' })
+```
+
+- Specify placeholder text:
+
+```
+chmln.show('helpbar', { placeholder: 'Search for it...' })
+```
+
+

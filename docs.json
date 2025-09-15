@@ -73,6 +73,7 @@
           "js/show-launcher",
           "js/show-automation",
           "js/show-demo",
+          "js/helpbar",
           "js/listen"
         ]
       },
