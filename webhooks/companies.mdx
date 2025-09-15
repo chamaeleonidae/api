@@ -1,4 +1,4 @@
-**Send Company data to Chameleon from services like Customer.io, Heap, Zapier or from you own backend.** Looking for the [JavaScript API](/js/profiles.md?id=company)?
+**Send Company data to Chameleon from services like Customer.io, Heap, Zapier or from you own backend.** Looking for the [JavaScript API](/js/profiles#company)?
 
 ------
 
@@ -57,12 +57,12 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies
 ### Limits
 
 - Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
-- See the full page on [Normalization](/concepts/normalization.md?id=limits) for more information on these limits.
+- See the full page on [Normalization](/concepts/normalization#limits) for more information on these limits.
 
 ### Normalization
 
 - Property names are normalized to lower case and underscored i.e. `companyName` => `company_name`.
-- See the full page on [Normalization](/concepts/normalization.md?id=properties) for more information on how properties are normalized.
+- See the full page on [Normalization](/concepts/normalization#properties) for more information on how properties are normalized.
 
 
 ## Bulk Create/Update Companies
@@ -80,7 +80,7 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies/batch
 
 | param              | -                    | description                                                                                                                              |
 |--------------------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| `companies`        | array&lt;Company&gt; | The list of Companies to update; each item has the same schema as the [Single Company update](/webhooks/companies.md?id=companies-update) |
+| `companies`        | array&lt;Company&gt; | The list of Companies to update; each item has the same schema as the [Single Company update](/webhooks/companies#companies-update) |
 | `on_model_missing` | optional        m    | The treatment of Companies not previously sent to Chameleon. Defaults to `create`. One of `create`, `ignore`                             |
 
 ```json
@@ -140,8 +140,8 @@ Note: The status code will be the normal 202 for (Accepted for processing)
 ## Limits
 
 - The size of each batch request is limited to 16mb
-- As with the [Single Company update](/webhooks/companies.md?id=companies-update), up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
-- See the full page on [Normalization](/concepts/normalization.md?id=limits) for more information on these limits.
+- As with the [Single Company update](/webhooks/companies#companies-update), up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
+- See the full page on [Normalization](/concepts/normalization#limits) for more information on these limits.
 
 #### Examples
 

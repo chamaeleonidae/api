@@ -27,8 +27,8 @@ Use the feed of changes to:
 | `model_type`    | string    | The type of the model that this change represents                                                                                                                                                                     |
 | `kind`          | string    | The type of change this represents: One of: `create`, `update`, `destroy`, `raw`, `partial`, `related`, `revert`, or `apply`                                                                                          |
 | `path`          | string    | They keypath this change represents                                                                                                                                                                                   |
-| `object`        | object    | The underlying value of this change. It can be an object with scalar values (for a `kind=create` or `kind=destroy`) or values as a 2-item array of the [`before`, `after`] [diff](api/changes.md?id=schema-diff-item) |
-| `options`       | object    | A hash of other information about this change. Values are a [diff](api/changes.md?id=schema-diff-item).                                                                                                               |
+| `object`        | object    | The underlying value of this change. It can be an object with scalar values (for a `kind=create` or `kind=destroy`) or values as a 2-item array of the [`before`, `after`] [diff](api/changes#schema-diff-item) |
+| `options`       | object    | A hash of other information about this change. Values are a [diff](api/changes#schema-diff-item).                                                                                                               |
 
 
 ### Change "Diff item" Schema
@@ -157,10 +157,10 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 | `model_id`   | ID                         | The ID of the model that this change represents                                                                                                                                                                        |
 | `path`       | string                     | They keypath this change represents                                                                                                                                                                                    |
 | `kind`       | string                     | The type of change this represents: One of: `create`, `update`, `destroy`                                                                                                                                              |
-| `change_id`  | array                      | A 2-item array of the [`before`, `after`] [diff](api/changes.md?id=schema-diff-item) of Screen Capture ID of this change. Note some changes are no represented visually and will have null value for the `after` value |
-| `capture_id` | array                      | A 2-item array of the [`before`, `after`] [diff](api/changes.md?id=schema-diff-item) of Screen Capture ID of this change. Note some changes are no represented visually and will have null value for the `after` value |
-| `object`     | object&lt;ChangeUpdate&gt; | A [ChangeUpdate](api/changes.md?id=schema-summary-change-update-item) of properties that have changed for this model                                                                                                   |
-| `changes`    | array&lt;ChangeUpdate&gt;  | An Array of [ChangeUpdate](api/changes.md?id=schema-summary-change-update-item) items representing changes to child associated models ([Steps](/api/steps), [Buttons](/api/buttons) etc.                         |
+| `change_id`  | array                      | A 2-item array of the [`before`, `after`] [diff](api/changes#schema-diff-item) of Screen Capture ID of this change. Note some changes are no represented visually and will have null value for the `after` value |
+| `capture_id` | array                      | A 2-item array of the [`before`, `after`] [diff](api/changes#schema-diff-item) of Screen Capture ID of this change. Note some changes are no represented visually and will have null value for the `after` value |
+| `object`     | object&lt;ChangeUpdate&gt; | A [ChangeUpdate](api/changes#schema-summary-change-update-item) of properties that have changed for this model                                                                                                   |
+| `changes`    | array&lt;ChangeUpdate&gt;  | An Array of [ChangeUpdate](api/changes#schema-summary-change-update-item) items representing changes to child associated models ([Steps](/api/steps), [Buttons](/api/buttons) etc.                         |
 
 
 
@@ -170,7 +170,7 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 |---------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `name`        | string | The name of the underlying property that changed                                                                                                                                                                      |
 | `description` | string | A longer description of the underlying property                                                                                                                                                                       |
-| `value`       | object | The underlying value of this change. It can be an object with scalar values (for a `kind=create` or `kind=destroy`) or values as a 2-item array of the [`before`, `after`] [diff](api/changes.md?id=schema-diff-item) |
+| `value`       | object | The underlying value of this change. It can be an object with scalar values (for a `kind=create` or `kind=destroy`) or values as a 2-item array of the [`before`, `after`] [diff](api/changes#schema-diff-item) |
 
 ##### Examples
 

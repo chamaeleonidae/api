@@ -6,7 +6,7 @@ Tags are:
 
 - Used to Search and Filter Experiences in the [Chameleon Dashboard](https://app.chameleon.io).
 - Used to define [Rate Limit Groups](apis/limit-groups.md) of Experiences that are limited to a particular rate limit (i.e. 2 per week, 3 per month etc.).
-- [Normalized](concepts/normalization.md?id=tags) with the typical rules.
+- [Normalized](/concepts/normalization#tags) with the typical rules.
 
 ------
 
@@ -18,7 +18,7 @@ Tags are:
 | `id` | ID | The Chameleon ID |
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
-| `uid` | string | The [normalized](concepts/normalization.md?id=tags) name. Or an external ID |
+| `uid` | string | The [normalized](/concepts/normalization#tags) name. Or an external ID |
 | `name` | string | The original text entered for the Tag |
 | `description` | string | The display description |
 | `models_count` | number | The number of [Experiences](apis/overview.md) attached to this Tag |
@@ -76,7 +76,7 @@ GET https://api.chameleon.io/v3/edit/tags
 
 ## Filtering by Segment-segment
 
-See [Listing Related models](apis/segments.md?id=segment-experiences-index)
+See [Listing Related models](/api/segments#segment-experiences-index)
 
 
 ## Retrieve a Tag-show

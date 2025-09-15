@@ -18,8 +18,8 @@ Deliveries are used to directly trigger an Experience to one specific User.
 | `updated_at` | timestamp | The last time any property was updated |
 | `model_id` | ID | The Chameleon ID of Experience this Delivery will trigger. |
 | `model_kind` | string | The kind of Experience: One of `tour` or `survey` |
-| `profile_id` | ID | The Chameleon ID of the [User Profile](/api/profiles.md?id=schema) |
-| `idempotency_key` | string | A key that is used to enforce server-side "at most once delivery" for the given `profile_id`. [Learn more ↓](/api/deliveries.md?id=idempotency) |
+| `profile_id` | ID | The Chameleon ID of the [User Profile](/api/profiles#schema) |
+| `idempotency_key` | string | A key that is used to enforce server-side "at most once delivery" for the given `profile_id`. [Learn more ↓](/api/deliveries#idempotency) |
 | `options` | mixed | Any content to be used in the Experience, accessible via merge tag. |
 | `from` | timestamp | The timestamp before which this Delivery will not run. |
 | `until` | timestamp | The timestamp after which this Delivery is no longer valid. |
@@ -68,7 +68,7 @@ A User Profile that already has 2 pending Deliveries requires a special paramete
 the list to add this new Delivery. Use values of `first`, `last` or an integer array of indexes. 
 
 If an error occurs for a "limit reached", either specify `delivery_ids_at_limit` with value of `drop` or
-first [list the Deliveries by User Profile](/api/deliveries.md?id=deliveries-index) to determine which ones to remove.
+first [list the Deliveries by User Profile](/api/deliveries#deliveries-index) to determine which ones to remove.
 
 
 **Time based limits**: When using `from` and `until` the deliveries will be added to the list of pending deliveries and made
@@ -76,7 +76,7 @@ available to the client-side JavaScript but will remain undelivered until the `f
 or after the `until` time is been passed.
 
 
-**Managing Delivery lifecycle**: When delivering for multiple use cases or when using different versions of `from` and `until` you may need to implicitly manage the "current set of deliveries for a user". This can be done **_directly_** with the API for [Removing a Delivery ↓](/api/deliveries.md?id=deliveries-destroy)
+**Managing Delivery lifecycle**: When delivering for multiple use cases or when using different versions of `from` and `until` you may need to implicitly manage the "current set of deliveries for a user". This can be done **_directly_** with the API for [Removing a Delivery ↓](/api/deliveries#deliveries-destroy)
 OR **_indirectly_** with `delivery_ids_limit`, `delivery_ids_at_limit` and `delivery_ids_position`. Use `delivery_ids_limit=1` and `delivery_ids_at_limit=drop` to only keep **this Delivery** in the list.
 
 ### Idempotency
@@ -156,7 +156,7 @@ GET https://api.chameleon.io/v3/edit/deliveries
 POST https://api.chameleon.io/v3/edit/deliveries
 ```
 
-Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour.md?id=options)
+Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour#options)
 
 | param              | -        | type        | description    |
 | ------------------ | -------- | ----------- | -------------- |
@@ -169,7 +169,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour.
 | `options`          | optional | object | Any keys/values to be used in personalizing the Experience content (i.e. body text, button CTA url) |
 | `from`             | optional | timestamp | The timestamp before which this Delivery will not run - don't trigger this Experience before this time. |
 | `until`            | optional | timestamp | The timestamp after which this Delivery is no longer valid - don't trigger this Experience after this time. Default +infinity |
-| `until`            | optional | string | The [time interval](/concepts/normalization.md?id=timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
+| `until`            | optional | string | The [time interval](/concepts/normalization#timestamps) after which this Delivery is no longer valid (i.e. `"+30d"` => 30 days from now, `"+62d"` => 62 days from now) |
 | `use_segmentation` | optional | boolean | Whether or not to first apply the Segment to determine if the Experience show to the user. (default `false`) |
 | `once`             | optional | boolean | Whether or not to check if the user has seen this Experience before. (default `false`) |
 | `skip_triggers`    | optional | boolean | Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`) |
@@ -244,7 +244,7 @@ PATCH https://api.chameleon.io/v3/edit/deliveries/:id
 | param | -        | description                                                  |
 | ----- | -------- | ------------------------------------------------------------ |
 | `id`    | required | The Chameleon ID of the Delivery                         |
-| *others | optional | Any other params from [Create a Delivery](/api/deliveries.md?id=deliveries-create)                         |
+| *others | optional | Any other params from [Create a Delivery](/api/deliveries#deliveries-create)                         |
 
 
 ## Remove a Delivery

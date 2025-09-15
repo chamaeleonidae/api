@@ -19,7 +19,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 | `on_model_missing`          | string                     | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](/api/profiles) or [Company](/api/companies) has **not yet** been identified to Chameleon): One of `create` or `ignore`                                                                                         |
 | `head_columns`              | array&lt;Object&gt;        | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column                                                                                                                   |
 | `import_at`                 | timestamp                  | The "trigger" to start the importing process (for convenience, use the string `$now`). At this point, the CSV upload is completed, all `properties` are confirmed, and the Import starts                                                                                                   |
-| `properties`                | array&lt;Property&gt;      | The list of definitions of how to map CSV column headers to [Properties](/api/properties) on the model. [example ↓](/api/imports.md?id=examples-profiles-tag-all)                                                                                                                                                                               |
+| `properties`                | array&lt;Property&gt;      | The list of definitions of how to map CSV column headers to [Properties](/api/properties) on the model. [example ↓](/api/imports#examples-profiles-tag-all)                                                                                                                                                                               |
 | `properties.$.name`         | string                     | The column header of this property in the CSV file                                                                                                                                                                                                                                         |
 | `properties.$.prop`         | string                     | The `prop` value of the [Property](/api/properties) to store on the model. New properties are created dynamically for missing `prop` values.                                                                                                                                                           |
 | `filters`                   | array&lt;SegmentFilter&gt; | For filter-based imports, an array of items that each define a [Segmentation Filter expression](/concepts/filters)                                                                                                                                                                                       |
@@ -98,7 +98,7 @@ GET https://api.chameleon.io/v3/edit/imports
 
 ## Create an Import
 
-- Check out the [cURL Examples](/api/imports.md?id=examples-all-curl) below to see this in action.
+- Check out the [cURL Examples](/api/imports#examples-all-curl) below to see this in action.
 
 #### HTTP Request
 
@@ -133,13 +133,13 @@ POST https://api.chameleon.io/v3/edit/imports
 | Code  | description                                                                                                            |
 |-------|------------------------------------------------------------------------------------------------------------------------|
 | `409` | Once an Import has been started it cannot be updated                                                                   |
-| `409` | The number of Imports limit has been reached, see [limits ↑](/api/imports.md?id=limits) for details                    |
+| `409` | The number of Imports limit has been reached, see [limits ↑](/api/imports#limits) for details                    |
 | `422` | The `kind`, `model_kind`, or `on_model_missing` have unrecognized values                                               |
 | `422` | The `properties` contains a `name` that was not found as a header in the CSV                                           |
 | `422` | The `on_model_missing` is `create` and the `uid` property is not mapped in properties.                                 |
 | `422` | The `import_at` was sent before both `properties` and `file` was set                                                   |
-| `422` | The file is larger than the current limits [limits ↑](/api/imports.md?id=limits) allow                                 |
-| `422` | The file has more columns than the current limits [limits ↑](/api/imports.md?id=limits) allow                          |
+| `422` | The file is larger than the current limits [limits ↑](/api/imports#limits) allow                                 |
+| `422` | The file has more columns than the current limits [limits ↑](/api/imports#limits) allow                          |
 | `422` | The `kind=tag_csv` + `model_kind=profile` and `properties` does not map to a `uid` or `email`                          |
 | `422` | The `kind=tag_csv` + `model_kind=company` and `properties` does not map to a `uid`                                     |
 | `422` | The `tag_import_id` refers to an import that has not been finished (when `stats.last_import_state` is not `completed`) |
@@ -243,7 +243,7 @@ Response:
 
 ##### Using `kind=tag_csv` to tag Companies via a Company ID
 
-> This will be the same Company ID you send to Chameleon when calling `chmln.identify` => [Identifying Company](/js/profiles.md?id=company).
+> This will be the same Company ID you send to Chameleon when calling `chmln.identify` => [Identifying Company](/js/profiles#company).
 
 With a CSV `file` like this, specify the header of `Company ID` as mapping to the Chameleon Company field of `uid`.
 
@@ -507,7 +507,7 @@ GET https://api.chameleon.io/v3/edit/imports/:id
 PATCH https://api.chameleon.io/v3/edit/imports/:id
 ```
 
-**See options for [Creating an Import](/api/imports.md?id=imports-create)**
+**See options for [Creating an Import](/api/imports#imports-create)**
 
 
 
@@ -517,7 +517,7 @@ PATCH https://api.chameleon.io/v3/edit/imports/:id
 
 ## Download the uploaded data
 
-Same endpoint as [show](/api/imports.md?id=imports-show), but adds a `.csv` on the end. The response body is the CSV data.
+Same endpoint as [show](/api/imports#imports-show), but adds a `.csv` on the end. The response body is the CSV data.
 the `Content-Disposition` will be in this format => `attachment; filename="your original upload.csv"`
 
 #### HTTP Request

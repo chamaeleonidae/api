@@ -6,9 +6,9 @@
 >
 > The main [Help page](https://help.chameleon.io/en/articles/5868890) on this topic may be more helpful for a typical workflow.
 
-1. [Download](apis/translation.md?id=i18ns-show) or from the [various lists of Experiences](https://app.chameleon.io).
+1. [Download](/api/translation#i18ns-show) or from the [various lists of Experiences](https://app.chameleon.io).
 2. Translate
-3. [Upload](apis/translation.md?id=i18ns-create) or from the [Localization page](https://app.chameleon.io/settings/translations).
+3. [Upload](/api/translation#i18ns-create) or from the [Localization page](https://app.chameleon.io/settings/translations).
 4. Set Experiences live
 
 ----
@@ -34,7 +34,7 @@ GET|POST https://api.chameleon.io/v3/edit/experiences/i18n(.:format)
 | `kind`               | string              | optional | One of `tour`, `survey`, `lanuncher`, `tooltip`                                                                         |
 | `id`                 | ID                  | optional | The ID of a Chameleon Experience                                                                                        |
 | `format`             | string              | required | One of `yaml`, `json`                                                                                                   |
-| `experiences`        | array&lt;Object&gt; | optional | Each member of this array has two keys `kind` and `id` [examples](apis/translations.md?id=example-download-experiences) |
+| `experiences`        | array&lt;Object&gt; | optional | Each member of this array has two keys `kind` and `id` [examples](/api/translations#example-download-experiences) |
 | `experiences.$.kind` | string              | optional | One of `tour`, `survey`, `lanuncher`, `tooltip`                                                                                                              |
 | `experiences.$.id`   | string              | optional | The ID of a Chameleon Experience                                                                                                                       |
 

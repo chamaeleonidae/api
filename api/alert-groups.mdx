@@ -1,6 +1,6 @@
 Alert Groups are used for Tours and Microsurveys to notify any relevant Team members when an Experience is in violation of the alert conditions.
 
-In the HTTP Response for [Listing](/api/alert-groups.md?id=alert-groups-index) and [Showing](/api/alert-groups.md?id=alert-groups-show) Alert Groups,
+In the HTTP Response for [Listing](/api/alert-groups#alert-groups-index) and [Showing](/api/alert-groups#alert-groups-show) Alert Groups,
 the full list of matching [Experiences](/concepts/experiences) are returned as the `experiences` key.
 
 -------
@@ -14,10 +14,10 @@ the full list of matching [Experiences](/concepts/experiences) are returned as t
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
 | `name` | string | The name given by an administrator of Chameleon |
-| `kind` | string | The kind of matched Experiences for this Alert Group. [More info ↓](/api/alert-groups.md?id=alert-group-kinds): One of `all`, `tour`, `survey`, `tags`, or `campaigns` |
+| `kind` | string | The kind of matched Experiences for this Alert Group. [More info ↓](/api/alert-groups#alert-group-kinds): One of `all`, `tour`, `survey`, `tags`, or `campaigns` |
 | `interval` | number | # of days that the alerting condition should wait before triggering a violation |
 | `published_at` | timestamp | The time this was most recently published |
-| `style` | string | The style of alert condition to evaluate. [More info ↓](/api/alert-groups.md?id=alert-group-styles): One of `unseen` or `uncompleted` |
+| `style` | string | The style of alert condition to evaluate. [More info ↓](/api/alert-groups#alert-group-styles): One of `unseen` or `uncompleted` |
 | `last_notified_at` | timestamp | Last time this alert was triggered for any Experience |
 | `tag_ids` | array | When `kind=tags`, the IDs of the [Tags](/api/tags) that Experiences must be tagged with to be included in this Alert Group |
 | `campaign_ids` | array | When `kind=campaigns`, the IDs of the [Experiences](/concepts/experiences) to be included in this Alert Group |

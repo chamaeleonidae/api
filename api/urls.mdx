@@ -7,7 +7,7 @@ A Url is a record of authorization and permission. Without a Url record enabled 
 *If you want to know more about managing domains and subdomains in Chameleon, please visit our [product documentation](https://help.chameleon.io/en/articles/1318033-managing-domains-and-subdomains).*
 
 
-**[Jump to Environments](/api/urls.md?id=url-groups)**
+**[Jump to Environments](/api/urls#url-groups)**
 
 ------
 
@@ -23,8 +23,8 @@ Enabling Domains on your Chameleon account via API can be helpful for:
 
 With the Chameleon API for Domains, you can:
 
-- Enable new domains [jump ↓](/api/urls.md?id=urls-create).
-- Assign domains to different Environments [jump ↓](/api/urls.md?id=url-groups-create) (production,staging,test,etc.).
+- Enable new domains [jump ↓](/api/urls#urls-create).
+- Assign domains to different Environments [jump ↓](/api/urls#url-groups-create) (production,staging,test,etc.).
 - Enable or disable an existing domain.
 - Retrieve all domains that correspond to the specified parameters (search by tld).
 - Retrieve a specific domain based on its `id`.
@@ -37,7 +37,7 @@ With the Chameleon API for Domains, you can:
 | `id`            | ID        | The Chameleon ID                                                                                                                                |
 | `created_at`    | timestamp | When this happened or when this was added to the Database                                                                                       |
 | `updated_at`    | timestamp | The last time any property was updated                                                                                                          |
-| `url_group_id`  | ID        | The Environment ([Url Group](/api/urls.md?id=url-groups)) this Url is a part of. `null` to be part of all Environments.                         |
+| `url_group_id`  | ID        | The Environment ([Url Group](/api/urls#url-groups)) this Url is a part of. `null` to be part of all Environments.                         |
 | `host`          | string    | The fully qualified domain of this Url (i.e. app.example.com)                                                                                   |
 | `domain`        | string    | The top-level domain (i.e. example.com)                                                                                                         |
 | `enabled`       | string    | The authorization state of this Url. `subdomain` means that new urls are `on` vs safely defaulting to `off`: One of `off`, `on`, or `subdomain` |
@@ -93,7 +93,7 @@ PUT|PATCH https://api.chameleon.io/v3/edit/urls/:id
 | `enabled`      | optional | The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain`                                                            |
 | `unlisted`     | optional | [deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.chameleon.io/settings/domains) in the dashboard |
 | `archived_at`  | optional | To archive set to a timestamp, to unarchive set to `null`                                                                                                         |
-| `url_group_id` | optional | The Environment ([Url Group](/api/urls.md?id=url-groups)) to assign this Url to                                                                                                                 |
+| `url_group_id` | optional | The Environment ([Url Group](/api/urls#url-groups)) to assign this Url to                                                                                                                 |
 
 #### HTTP Response
 
@@ -124,7 +124,7 @@ POST https://api.chameleon.io/v3/edit/urls/batch
 | `ids`          | required | An array of Chameleon IDs of the Urls to update                                   |
 | `enabled`      | optional | The authorization state to change to.                                             |
 | `archived_at`  | optional | To archive set to a timestamp, to unarchive set to `null`                         |
-| `url_group_id` | optional | The Environment ([Url Group](/api/urls.md?id=url-groups)) to assign these Urls to |
+| `url_group_id` | optional | The Environment ([Url Group](/api/urls#url-groups)) to assign these Urls to |
 
 #### HTTP Response
 
@@ -327,12 +327,12 @@ PUT|PATCH https://api.chameleon.io/v3/edit/url_groups/:id
 
 ## Add Domains to an Environment
 
-[Updating a Url](/api/urls.md?id=urls-update) with a `url_group_id` of an Environment ([Url Group](/api/urls.md?id=url-groups)) will assign it to that Environment
+[Updating a Url](/api/urls#urls-update) with a `url_group_id` of an Environment ([Url Group](/api/urls#url-groups)) will assign it to that Environment
 
 
 ## Removing Domains from an Environment
 
-[Updating a Url](/api/urls.md?id=urls-update) with a `url_group_id` equal to `null` will assign it to the Default Environment
+[Updating a Url](/api/urls#urls-update) with a `url_group_id` equal to `null` will assign it to the Default Environment
 
 
 
@@ -401,7 +401,7 @@ GET https://api.chameleon.io/v3/edit/url_groups/:id
 
 | param  | -        | description                                                                            |
 |--------| -------- |----------------------------------------------------------------------------------------|
-| `id`   | required | The Chameleon ID of the Environment ([Url Group](/api/urls.md?id=url-groups)) to show  |
+| `id`   | required | The Chameleon ID of the Environment ([Url Group](/api/urls#url-groups)) to show  |
 
 #### HTTP Response
 

@@ -104,7 +104,7 @@ Thanks for being a identified to Chameleon for {{time_difference_in_words create
 
 ### Calculate differences between dates | `time_ago` helper
 
-This calculation is best used as a nested helper in an `if` block | [examples ↓](/concepts/personalizing.md?id=examples-logic-if)
+This calculation is best used as a nested helper in an `if` block | [examples ↓](#examples-logic-if)
 
 **This examples assumes that the current time is `2029-04-04T12:00:00Z`**
 
@@ -136,7 +136,7 @@ Created {{time_ago created in='milliseconds'}} milliseconds ago.
 # Created 65836680000 milliseconds ago.
 ```
 
-**As part of an `if` block** | [more examples ↓](/concepts/personalizing.md?id=examples-logic-if)
+**As part of an `if` block** | [more examples ↓](#examples-logic-if)
 
 ```handlebars
 {{if plan.spend > 500 && {time_ago started_on in="weeks"} > 12}}
@@ -556,7 +556,7 @@ chmln.on('after:account', () => {
 });
 ```
 
-Now, to use the merge tag (based on the [example data ↑](/concepts/personalizing.md?id=example-user-data))
+Now, to use the merge tag (based on the [example data ↑](#example-user-data))
 
 ```text
 

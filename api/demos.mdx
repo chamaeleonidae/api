@@ -1,7 +1,7 @@
 A Product Demo is recorded with the Chameleon Chrome extension as a way to show your product features to prospects, introduce
 new features, explain complex workflows, and drive adoption/retention.
 
-> [Demo Webhooks](/webhooks/overview.md?id=topics) are also available for key moments in the life of a Demo
+> [Demo Webhooks](/webhooks/overview#topics) are also available for key moments in the life of a Demo
 
 
 ## Using Demos with your CRM
@@ -15,7 +15,7 @@ Completions of, and Tags of Demos will be stored as properties; the data schema 
 These are the moments when Chameleon will sync **Contact** data to your CRM:
 
 1. When an anonymous user submits a form with their email address
-2. When an [identified user](/js/demos.md?id=mode-profile) with an email address starts a Demo
+2. When an [identified user](/js/demos#mode-profile) with an email address starts a Demo
 
 What will happen in the above situations?
 
@@ -99,7 +99,7 @@ What will happen in the above situation?
 | `created_what`  | string                                                                 | The Browser name, version number and OS e.g. `Chrome 191.0 (Mac)`                                                                                 |
 | `created_where` | string                                                                 | The city, region, country, country flag of the likely location of the user; _Only present for `consent_mode=granted`_. e.g. `Oakland CA, US 🇺🇸` |
 | `actions`       | array&lt;DemoAction&gt;                                                | An array of the individual demo actions that occurred for this demo run                                                                           |
-| `submissions`   | array&lt;[DemoSubmission](/api/demos.md?id=schema-demo-submission)&gt; | An array of the form submissions that took place during this demo run                                                                             |
+| `submissions`   | array&lt;[DemoSubmission](/api/demos#schema-demo-submission)&gt; | An array of the form submissions that took place during this demo run                                                                             |
 
 Additional `DemoRun` Schema when [Clearbit Reveal](https://clearbit.com/)
 
