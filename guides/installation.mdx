@@ -1,12 +1,12 @@
 
 In your SaaS product you likely have Users and Accounts (simply a group of Users often from the same real Company)
 
-Chameleon is designed to mirror this in its design of [User Profiles](apis/profiles.md), [Companies](apis/companies.md),
-[Segments](apis/segments.md), searchable [HelpBar content](guides/helpbar/user-generated-content.md), etc.
+Chameleon is designed to mirror this in its design of [User Profiles](/api/profiles), [Companies](/api/companies),
+[Segments](/api/segments), searchable [HelpBar content](/guides/helpbar/user-generated-content), etc.
 
 > **First, generate JavaScript Code on the [installation page](https://app.chameleon.io/setup/install)** and adapt based on this guide. 
 
-## The entrypoint JavaScript-page-script
+## The Entrypoint JavaScript
 
 The sets up the Chameleon object called `chmln` on the page and adds relevant hooks for loading the rest of Chameleon.
 Add this script first and then follow it up with the call to `chmln.identify`.
@@ -44,7 +44,7 @@ chmln.identify(user.id, { uid_hash: user.chameleon_uid_hash, company: { uid: acc
 ```
 
 
-## Navigating your Application-app-navigate
+## Navigating Your Application
 
 Imagine that you want to send your Users to the billing page. With this script you can setup a Navigate type of HelpBar [SearchItem](/api/search#schema-search-items) for the Billing page and link to `/settings/billing`.
 When this item is clicked you will receive a callback to `app:navigate` with opts set to `{ to: "/settings/billing" }`

@@ -7,7 +7,7 @@ new features, explain complex workflows, and drive adoption/retention.
 ## Using Demos with your CRM
 
 Chameleon can create new (and update existing) **Contact** and **Company** records in response to interactions with Demos.
-Completions of, and Tags of Demos will be stored as properties; the data schema is [below](?id=schema-crm).
+Completions of, and Tags of Demos will be stored as properties; the data schema is [below](#schema-crm).
 
 
 ### Contacts
@@ -123,8 +123,8 @@ Additional `DemoRun` Schema when [Clearbit Reveal](https://clearbit.com/)
 | `created_at` | timestamp                                                          | When this happened or when this was added to the Database               |
 | `updated_at` | timestamp                                                          | The last time any property was updated                                  |
 | `step_id`    | string                                                             | The id of the DemoItem this submission came from                        |
-| `action_id`  | string                                                             | The id of the item as found in [DemoRun](?id=schema-demo-run) `actions` |
-| `data`       | array&lt;[DemoSubmissionData](?id=schema-demo-submission-data)&gt; |                                                                         |
+| `action_id`  | string                                                             | The id of the item as found in [DemoRun](#schema-demo-run) `actions` |
+| `data`       | array&lt;[DemoSubmissionData](#schema-demo-submission-data)&gt; |                                                                         |
 
 
 ## `DemoSubmissionData` Schema
@@ -134,7 +134,7 @@ Additional `DemoRun` Schema when [Clearbit Reveal](https://clearbit.com/)
 | `id`         | ID                                                        | The Chameleon ID                                                                                                           |
 | `created_at` | timestamp                                                 | When this happened or when this was added to the Database                                                                  |
 | `updated_at` | timestamp                                                 | The last time any property was updated                                                                                     |
-| `field`      | object&lt;[DemoFormField](?id=schema-demo-form-field)&gt; |                                                                                                                            |
+| `field`      | object&lt;[DemoFormField](#schema-demo-form-field)&gt; |                                                                                                                            |
 | `value`      | string/array/number/timestamp                             | The inputted value from the user as the real data type. Array for field `type=select`, timestamp for `datetime-local` etc. |
 
 

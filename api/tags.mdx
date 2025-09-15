@@ -3,7 +3,7 @@ A Tag is a grouping of Experiences based on a readable name (i.e. `"Upsell"`, `"
 Tags are:
 
 - Used to Search and Filter Experiences in the [Chameleon Dashboard](https://app.chameleon.io).
-- Used to define [Rate Limit Groups](apis/limit-groups.md) of Experiences that are limited to a particular rate limit (i.e. 2 per week, 3 per month etc.).
+- Used to define [Rate Limit Groups](/api/limit-groups) of Experiences that are limited to a particular rate limit (i.e. 2 per week, 3 per month etc.).
 - [Normalized](/concepts/normalization#tags) with the typical rules.
 
 ------
@@ -19,13 +19,13 @@ Tags are:
 | `uid` | string | The [normalized](/concepts/normalization#tags) name. Or an external ID |
 | `name` | string | The original text entered for the Tag |
 | `description` | string | The display description |
-| `models_count` | number | The number of [Experiences](apis/overview.md) attached to this Tag |
+| `models_count` | number | The number of [Experiences](/api/overview) attached to this Tag |
 | `disabled_at` | timestamp | A timestamp indicating that this tag should no longer be displayed in the UI |
 | `last_seen_at` | timestamp | This last time this Tag was added or removed from an Experience |
 
 
 
-## Listing all Tags-index
+## Listing all Tags
 
 #### HTTP Request
 
@@ -72,12 +72,12 @@ GET https://api.chameleon.io/v3/edit/tags
 }
 ```
 
-## Filtering by Segment-segment
+## Filtering by Segment
 
 See [Listing Related models](/api/segments#segment-experiences-index)
 
 
-## Retrieve a Tag-show
+## Retrieve a Tag
 
 #### HTTP Request
 

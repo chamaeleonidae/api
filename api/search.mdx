@@ -6,15 +6,15 @@ Add a HelpBar to your product that allows your Users to search your Help center,
 
 See the specific APIs for more information on how to use Search your product.
 
- - [REST API](/api/search#search-rest-api)
- - [JavaScript API](/api/search#search-js-api)
+ - [REST API](/api/search#helpbar-rest-api)
+ - [JavaScript API](/api/search#search-javascript-api)
  - [Limits](/api/search#limits)
 
 
 #### To get HelpBar up and running, complete these items:
 
-1. Create a [HelpBar](/api/search#schema), configure it with `placeholder` etc.
-2. Add your Help center as a [`SearchGroup`](/api/search#schema-search-groups).
+1. Create a [HelpBar](/api/search#search-bar-schema), configure it with `placeholder` etc.
+2. Add your Help center as a [`SearchGroup`](/api/search#searchgroups-schema).
 3. Add the top-level navigation within your product; First download this CSV [template](/api/search#search-imports-template) or [example](/api/search#search-imports-example) then [Import](/api/search#schema-search-imports) it.
 4. [Optional] Add specific content from your database by creating a [SearchItem](/api/search#schema-search-items) per database record you want to be searchable.
 5. Publish your HelpBar by setting the `published_at` timestamp on the `Search`.
@@ -799,7 +799,7 @@ Show a Calendly scheduling modal directly in your product.
 }
 ```
 
-[Merge tags](/concepts/personalizing) are available for the `href` field; add the right Calendly link as [User data](/webhooks/profiles) and merge it in the action. (`csm` below refers to a customer success manager)
+[Merge tags](/concepts/personalization) are available for the `href` field; add the right Calendly link as [User data](/webhooks/profiles) and merge it in the action. (`csm` below refers to a customer success manager)
 
 ```json
 {
@@ -841,7 +841,7 @@ For a ChiliPiper router
 }
 ```
 
-[Merge tags](/concepts/personalizing) are available for the `href` field; add the right Calendly link as [User data](/webhooks/profiles) and merge it in the action. (`csm` below refers to a customer success manager)
+[Merge tags](/concepts/personalization) are available for the `href` field; add the right Calendly link as [User data](/webhooks/profiles) and merge it in the action. (`csm` below refers to a customer success manager)
 
 ```json
 {

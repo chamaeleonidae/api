@@ -3,35 +3,35 @@ Chameleon supports a robust data pipeline including receiving data from many dif
 ---
 
 
-## Data into Chameleon-webhooks
+## Data into Chameleon
 
 **These webhooks are a simple way to get data into Chameleon**.
 
 Currently, our Incoming Webhooks API supports the following two advanced use cases:
 
- - To send data from your Backend into Chameleon for targeting with [Segments](apis/segments.md).
+ - To send data from your Backend into Chameleon for targeting with [Segments](/api/segments).
  - To send data directly from our Integration partners. Some examples are [Heap](https://heap.io?utm_source=Chameleon) and [Customer.io](https://customer.io?utm_source=Chameleon) which both have the robust omni-webhook functionality to send Data directly into Chameleon.
 
 
 | Model + details                       | URL                                                |
 |---------------------------------------|----------------------------------------------------|
-| [User Profiles](webhooks/profiles.md) | `POST /v3/observe/hooks/:account_secret/profiles`  |
-| [Companies](webhooks/companies.md)    | `POST /v3/observe/hooks/:account_secret/companies` |
-| [Events](webhooks/events.md)          | `POST /v3/observe/hooks/:account_secret/events`    |
+| [User Profiles](/webhooks/profiles) | `POST /v3/observe/hooks/:account_secret/profiles`  |
+| [Companies](/webhooks/companies)    | `POST /v3/observe/hooks/:account_secret/companies` |
+| [Events](/webhooks/events)          | `POST /v3/observe/hooks/:account_secret/events`    |
 
 
-#### Integration partners
+### Integration partners
  - [Heap webhooks](https://help.chameleon.io/en/articles/1349836-heap-integration-user-guide)
  - [Customer.io webhooks](https://help.chameleon.io/en/articles/1349829-customer-io-integration-user-guide)
 
 
-#### Limits
+### Limits
 
 - Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
 - See the full page on [Limits](/concepts/normalization#limits) for more information.
 - Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.chameleon.io/data/properties/profile) or for [company data](https://app.chameleon.io/data/properties/company).
 
-#### Normalization
+### Normalization
 
 - Property names are normalized to lower case and underscored i.e. `planName` => `plan_name`.
 - See the full page on [Normalization](/concepts/normalization#properties) for more information.
@@ -39,7 +39,7 @@ Currently, our Incoming Webhooks API supports the following two advanced use cas
 ------------
 
 
-## Data out of Chameleon-webhooks
+## Data out of Chameleon
 
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](/webhooks/overview#verification) of any webhook requests before processing any included data.
 
@@ -54,43 +54,43 @@ When receiving a webhook from Chameleon you should:
  - [Verify](/webhooks/overview#verification) the Webhook request signature; respond with a status `400` if the signature does not match
  - Drop the request if the webhook is too old (to prevent replay attacks); respond with a status `400`
  - Respond quickly with a `200` status code (or any `2xx` status code)
- - Optional: Request any related data with the [other APIs](apis/overview.md)
+ - Optional: Request any related data with the [other APIs](/api/overview)
 
 
-#### Webhook topics
+### Webhook topics
 
 | Topic                   | Example Payload                                                | Included models                                                                                                    | Description                                                                                                                                                                                                                                       |
 |-------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ping`                  | [example](/webhooks/overview#example-ping)                | Account                                                                                                            | Sent as a simple check to make sure the endpoint is working                                                                                                                                                                                       |
-| `response.finished`     | [example](/webhooks/overview#example-response-finished)   | [Response](apis/survey-responses.md), [Microsurvey](apis/surveys.md), [User Profile](apis/profiles.md)             | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured)                                                                                                                                                 |
-| `alert.triggered`       | [example](/webhooks/overview#example-alert-triggered)     | [Alert Group](apis/alert_groups.md), [Experiences](concepts/experiences.md)                                        | Sent when an Alert is triggered by a violation of the alerting conditions                                                                                                                                                                         |
-| `helpbar.answer`        | [example](/webhooks/overview#example-helpbar-answer)      | Action, [User Profile](apis/profiles.md)                                                                           | Sent when a Search query generates an AI Answer in HelpBar                                                                                                                                                                                        |
-| `helpbar.search`        | [example](/webhooks/overview#example-helpbar-search)      | Action, [User Profile](apis/profiles.md)                                                                           | Sent when a Search query displays its results in the HelpBar                                                                                                                                                                                      |
-| `helpbar.item.action`   | [example](/webhooks/overview#example-helpbar-item-action) | Action, [User Profile](apis/profiles.md)                                                                           | Sent when an item in the HelpBar is clicked/actioned                                                                                                                                                                                              |
-| `helpbar.item.error`    | [example](/webhooks/overview#example-helpbar-item-error)  | Action, [User Profile](apis/profiles.md)                                                                           | Sent when an action from an item in the HelpBar throws an error when running                                                                                                                                                                      |
-| `tour.started`          | [example](/webhooks/overview#example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                     | Sent when the Tour is started; includes the first Step in the payload                                                                                                                                                                             |
-| `tour.completed`        | [example](/webhooks/overview#example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                     | Sent when the Tour is completed; includes the Step the user completed                                                                                                                                                                             |
-| `tour.exited`           | [example](/webhooks/overview#example-tour-all)            | [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                     | Sent when the Tour is exited; includes the Step the user exited                                                                                                                                                                                   |
-| `tour.snoozed`          | [example](/webhooks/overview#example-tour-snooze)         | Action, [Tour](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                             | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                  |
-| `tour.button.clicked`   | [example](/webhooks/overview#example-tour-button-clicked) | [Tour](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md)          | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
-| `survey.started`        | [example](/webhooks/overview#example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Microsurvey is started with the first Step                                                                                                                                                                                          |
-| `survey.completed`      | [example](/webhooks/overview#example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Microsurvey is completed with the Step the user completed                                                                                                                                                                           |
-| `survey.exited`         | [example](/webhooks/overview#example-survey-all)          | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Microsurvey is exited with the Step the user exited                                                                                                                                                                                 |
-| `survey.snoozed`        | [example](/webhooks/overview#example-survey-snooze)       | Action, [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                    | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                  |
-| `survey.button.clicked` | [example](/webhooks/overview#example-tour-button-clicked) | [Microsurvey](apis/surveys.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md) | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
-| `embed.started`         | [example](/webhooks/overview#example-embed-all)           | [Embed](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                    | Sent when the Embed is started; includes the first Step in the payload                                                                                                                                                                            |
-| `embed.completed`       | [example](/webhooks/overview#example-embed-all)           | [Embed](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                    | Sent when the Embed is completed; includes the Step the user completed                                                                                                                                                                            |
-| `embed.exited`          | [example](/webhooks/overview#example-embed-all)           | [Embed](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                                    | Sent when the Embed is exited; includes the Step the user exited                                                                                                                                                                                  |
-| `embed.snoozed`         | [example](/webhooks/overview#example-embed-snooze)        | Action, [Embed](apis/tours.md), [Step](apis/steps.md), [User Profile](apis/profiles.md)                            | Sent when the Embed is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                 |
-| `embed.button.clicked`  | [example](/webhooks/overview#example-tour-button-clicked) | [Embed](apis/tours.md), [Step](apis/steps.md), [Button](apis/buttons.md), [User Profile](apis/profiles.md)         | Sent when the Embed is exited with the Step the user exited                                                                                                                                                                                       |
-| `demo.started`          | [example](/webhooks/overview#example-demo-started)        | [Demo](apis/demos.md), [DemoRun](/api/demos#schema-demo-run), [User Profile](apis/profiles.md)               | Sent when the Demo is started                                                                                                                                                                                                                     |
-| `demo.reveal`           | [example](/webhooks/overview#example-demo-reveal)         | [Demo](apis/demos.md), [DemoRun](/api/demos#schema-demo-run), [User Profile](apis/profiles.md)               | Sent after the Demo is started _and_ [Clearbit reveal](https://app.chameleon.io/integrations/clearbit) is enabled _and_ a match is found. The `demo_run` will have `reveal_domain` and `reveal_name` keys for the Company domain and Company name |
-| `demo.finished`         | [example](/webhooks/overview#example-demo-finished)       | [Demo](apis/demos.md), [DemoRun](/api/demos#schema-demo-run), [User Profile](apis/profiles.md)               | Sent when the Demo is finished; Either the last step is reached **OR** when approximately 30 minutes has passed and the user likely bounced. The `demo_run` will have `finished_kind` of either `"last_step"` or `"timeout_30m"`.                 |
-| `demo.form.submitted`   | [example](/webhooks/overview#example-demo-form-submitted) | [Demo](apis/demos.md), [DemoRun](/api/demos#schema-demo-run), [User Profile](apis/profiles.md)               | Sent when a Demo form is submitted. The `action` will have the `submission` as a [DemoSubmission](/api/demos#schema-demo-submission) object. The final demo.finished webhook will contain all of the `actions` and `submissions`            |
+| `response.finished`     | [example](/webhooks/overview#example-response-finished)   | [Response](/api/survey-responses), [Microsurvey](/api/surveys), [User Profile](/api/profiles)             | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured)                                                                                                                                                 |
+| `alert.triggered`       | [example](/webhooks/overview#example-alert-triggered)     | [Alert Group](/api/alert_groups), [Experiences](/concepts/experiences)                                        | Sent when an Alert is triggered by a violation of the alerting conditions                                                                                                                                                                         |
+| `helpbar.answer`        | [example](/webhooks/overview#example-helpbar-answer)      | Action, [User Profile](/api/profiles)                                                                           | Sent when a Search query generates an AI Answer in HelpBar                                                                                                                                                                                        |
+| `helpbar.search`        | [example](/webhooks/overview#example-helpbar-search)      | Action, [User Profile](/api/profiles)                                                                           | Sent when a Search query displays its results in the HelpBar                                                                                                                                                                                      |
+| `helpbar.item.action`   | [example](/webhooks/overview#example-helpbar-item-action) | Action, [User Profile](/api/profiles)                                                                           | Sent when an item in the HelpBar is clicked/actioned                                                                                                                                                                                              |
+| `helpbar.item.error`    | [example](/webhooks/overview#example-helpbar-item-error)  | Action, [User Profile](/api/profiles)                                                                           | Sent when an action from an item in the HelpBar throws an error when running                                                                                                                                                                      |
+| `tour.started`          | [example](/webhooks/overview#example-tour-all)            | [Tour](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                                     | Sent when the Tour is started; includes the first Step in the payload                                                                                                                                                                             |
+| `tour.completed`        | [example](/webhooks/overview#example-tour-all)            | [Tour](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                                     | Sent when the Tour is completed; includes the Step the user completed                                                                                                                                                                             |
+| `tour.exited`           | [example](/webhooks/overview#example-tour-all)            | [Tour](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                                     | Sent when the Tour is exited; includes the Step the user exited                                                                                                                                                                                   |
+| `tour.snoozed`          | [example](/webhooks/overview#example-tour-snooze)         | Action, [Tour](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                             | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                  |
+| `tour.button.clicked`   | [example](/webhooks/overview#example-tour-button-clicked) | [Tour](/api/tours), [Step](/api/steps), [Button](/api/buttons), [User Profile](/api/profiles)          | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
+| `survey.started`        | [example](/webhooks/overview#example-survey-all)          | [Microsurvey](/api/surveys), [Step](/api/steps), [User Profile](/api/profiles)                            | Sent when the Microsurvey is started with the first Step                                                                                                                                                                                          |
+| `survey.completed`      | [example](/webhooks/overview#example-survey-all)          | [Microsurvey](/api/surveys), [Step](/api/steps), [User Profile](/api/profiles)                            | Sent when the Microsurvey is completed with the Step the user completed                                                                                                                                                                           |
+| `survey.exited`         | [example](/webhooks/overview#example-survey-all)          | [Microsurvey](/api/surveys), [Step](/api/steps), [User Profile](/api/profiles)                            | Sent when the Microsurvey is exited with the Step the user exited                                                                                                                                                                                 |
+| `survey.snoozed`        | [example](/webhooks/overview#example-survey-snooze)       | Action, [Microsurvey](/api/surveys), [Step](/api/steps), [User Profile](/api/profiles)                    | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                  |
+| `survey.button.clicked` | [example](/webhooks/overview#example-tour-button-clicked) | [Microsurvey](/api/surveys), [Step](/api/steps), [Button](/api/buttons), [User Profile](/api/profiles) | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
+| `embed.started`         | [example](/webhooks/overview#example-embed-all)           | [Embed](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                                    | Sent when the Embed is started; includes the first Step in the payload                                                                                                                                                                            |
+| `embed.completed`       | [example](/webhooks/overview#example-embed-all)           | [Embed](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                                    | Sent when the Embed is completed; includes the Step the user completed                                                                                                                                                                            |
+| `embed.exited`          | [example](/webhooks/overview#example-embed-all)           | [Embed](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                                    | Sent when the Embed is exited; includes the Step the user exited                                                                                                                                                                                  |
+| `embed.snoozed`         | [example](/webhooks/overview#example-embed-snooze)        | Action, [Embed](/api/tours), [Step](/api/steps), [User Profile](/api/profiles)                            | Sent when the Embed is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                 |
+| `embed.button.clicked`  | [example](/webhooks/overview#example-tour-button-clicked) | [Embed](/api/tours), [Step](/api/steps), [Button](/api/buttons), [User Profile](/api/profiles)         | Sent when the Embed is exited with the Step the user exited                                                                                                                                                                                       |
+| `demo.started`          | [example](/webhooks/overview#example-demo-started)        | [Demo](/api/demos), [DemoRun](/api/demos#schema-demo-run), [User Profile](/api/profiles)               | Sent when the Demo is started                                                                                                                                                                                                                     |
+| `demo.reveal`           | [example](/webhooks/overview#example-demo-reveal)         | [Demo](/api/demos), [DemoRun](/api/demos#schema-demo-run), [User Profile](/api/profiles)               | Sent after the Demo is started _and_ [Clearbit reveal](https://app.chameleon.io/integrations/clearbit) is enabled _and_ a match is found. The `demo_run` will have `reveal_domain` and `reveal_name` keys for the Company domain and Company name |
+| `demo.finished`         | [example](/webhooks/overview#example-demo-finished)       | [Demo](/api/demos), [DemoRun](/api/demos#schema-demo-run), [User Profile](/api/profiles)               | Sent when the Demo is finished; Either the last step is reached **OR** when approximately 30 minutes has passed and the user likely bounced. The `demo_run` will have `finished_kind` of either `"last_step"` or `"timeout_30m"`.                 |
+| `demo.form.submitted`   | [example](/webhooks/overview#example-demo-form-submitted) | [Demo](/api/demos), [DemoRun](/api/demos#schema-demo-run), [User Profile](/api/profiles)               | Sent when a Demo form is submitted. The `action` will have the `submission` as a [DemoSubmission](/api/demos#schema-demo-submission) object. The final demo.finished webhook will contain all of the `actions` and `submissions`            |
 
 > **Looking for a different topic? We're excited to chat about your use case! [Contact us](https://app.chameleon.io/help)**
 
-#### Schema (request body)
+### Schema (request body)
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -99,7 +99,7 @@ When receiving a webhook from Chameleon you should:
 | `kind` | enum | The [topic identifier](/webhooks/overview#topics) |
 | `data` | object | Contains the webhook payload data. This can be any models included by singular or plural name |
 
-#### Request headers
+### Request headers
 
 | Header | Example value | Description |
 | --- | --- |--- |
@@ -117,7 +117,7 @@ As a second step, reject the message if it was sent outside of a few minutes (in
 
 ### Verification Examples
 
-###### Rails
+#### Rails
  ```ruby
 # Assumes this code runs in a Controller to access the `request` object
 # Could easily be run in a background task or elsewhere by passing the `X-Chameleon-Signature` and `request.raw_post` exactly as-is
@@ -131,13 +131,13 @@ verified = ActiveSupport::SecurityUtils.secure_compare(received, expected) &&
   (sent_at > 5.minutes.ago && sent_at < 5.minutes.from_now)
 ```
 
-**Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview.md) and we'll give you $25 Amazon credit via our Docs Bounty program!**
+**Have an example from your production app to add? Submit a [PR to this file](https://github.com/chamaeleonidae/api/blob/master/docs/webhooks/overview) and we'll give you $25 Amazon credit via our Docs Bounty program!**
 
 
 ### Payload Examples
 
 
-##### Example: `ping`-ping
+#### Example: `ping`-ping
 
 Typically do process Verification for this topic but nothing really to be done when topic is received. It's simply part of how Chameleon determines active/inactive/performance of webhook endpoints.
 
@@ -156,7 +156,7 @@ Typically do process Verification for this topic but nothing really to be done w
 }
 ```
 
-##### Example: `response.finished`-response-finished
+#### Example: `response.finished`-response-finished
 
 Every Microsurvey that is finished will send a webhook to this topic.
 
@@ -215,7 +215,7 @@ Every Microsurvey that is finished will send a webhook to this topic.
 }
 ```
 
-##### Example: `helpbar.answer`-helpbar-answer
+#### Example: `helpbar.answer`-helpbar-answer
 
 This is the most important HelpBar webhook; it can directly inform your roadmap for additional updated/documentation.
 
@@ -254,7 +254,7 @@ This is the most important HelpBar webhook; it can directly inform your roadmap 
 ```
 
 
-##### Example: `helpbar.search`-helpbar-search
+#### Example: `helpbar.search`-helpbar-search
 
 When a User searches for `"data importing"` only 0 results were found. This indicates a gap in your Help center.
 
@@ -311,7 +311,7 @@ When a User searches for `"widget categories"` only 7 results were found.
 ```
 
 
-##### Example: `helpbar.item.action`-helpbar-item-action
+#### Example: `helpbar.item.action`-helpbar-item-action
 
 When a helpbar search result item is clicked (or actioned)
 
@@ -340,7 +340,7 @@ When a helpbar search result item is clicked (or actioned)
 }
 ```
 
-##### Example: `helpbar.item.error`-helpbar-item-error
+#### Example: `helpbar.item.error`-helpbar-item-error
 
 When a helpbar search result item is clicked (or actioned) and then encounters an error processing the actions.
 
@@ -372,7 +372,7 @@ In the example below, the `script` item is not working properly and should be ch
 ```
 
 
-##### Example: `tour.started`, `tour.completed`, `tour.exited`-tour-all
+#### Example: `tour.started`, `tour.completed`, `tour.exited`-tour-all
 
 A Tour is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Tours by default show once to any one User but can, depending on their settings, show multiple times.
 
@@ -410,7 +410,7 @@ A Tour is started, runs through a sequence of 1 or more Steps and finishes by be
 }
 ```
 
-##### Example: `tour.snoozed`-tour-snooze
+#### Example: `tour.snoozed`-tour-snooze
 
 When a Tour is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
 
@@ -455,7 +455,7 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 
 
 
-##### Example: `tour.button.clicked` + `survey.button.clicked`  + `embed.button.clicked`-tour-button-clicked
+#### Example: `tour.button.clicked` + `survey.button.clicked`  + `embed.button.clicked`-tour-button-clicked
 
 Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
 
@@ -501,7 +501,7 @@ Every Button that is clicked in a Tour / Microsurvey will send a webhook to this
 ```
 
 
-##### Example: `embed.started`, `embed.completed`, `embed.exited`-embed-all
+#### Example: `embed.started`, `embed.completed`, `embed.exited`-embed-all
 
 An Embed is started, runs through a sequence of 1 or more Steps and finishes by being Exited or Completed. Embeds by default show once to any one User but can, depending on their settings, show multiple times.
 
@@ -539,7 +539,7 @@ An Embed is started, runs through a sequence of 1 or more Steps and finishes by 
 }
 ```
 
-##### Example: `embed.snoozed`-embed-snooze
+#### Example: `embed.snoozed`-embed-snooze
 
 When an Embed is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
 
@@ -584,14 +584,14 @@ When an Embed is snoozed it is set to come back after a certain amount of time h
 
 
 
-##### Example: `alert.triggered`-alert-triggered
+#### Example: `alert.triggered`-alert-triggered
 
 When Experiences are in violation of the Alert conditions.
 The primary use case for this is to notify the person in charge of the Experience when X days have passed without activity (on something that is otherwise expected to have activity).
 
-> [Experiences](concepts/experiences.md) are either `kind=tour` for a [Tour](apis/tours.md) or `kind=survey` for a [Microsurvey](apis/surveys.md)
+> [Experiences](/concepts/experiences) are either `kind=tour` for a [Tour](/api/tours) or `kind=survey` for a [Microsurvey](/api/surveys)
 
-> For Tags and Environments see the `"tags"` and `"url_groups"` keys below and see [Experience](concepts/experiences.md) page.
+> For Tags and Environments see the `"tags"` and `"url_groups"` keys below and see [Experience](/concepts/experiences) page.
 
 
 ```json
@@ -674,12 +674,12 @@ The primary use case for this is to notify the person in charge of the Experienc
 ```
 
 
-##### Example: `survey.started`, `survey.completed`, `survey.exited`-survey-all
+#### Example: `survey.started`, `survey.completed`, `survey.exited`-survey-all
 
 
 These three topics are considered lifecycle events and occur when the user is presented with or interacts with a Chameleon
 Microsurvey. The `response.finished` Webhook is only sent when we consider the user **done** with the Microsurvey and will
-no longer interact with it. A [Microsurvey Response](apis/survey-responses.md) is generated when the Survey Step + associated
+no longer interact with it. A [Microsurvey Response](/api/survey-responses) is generated when the Survey Step + associated
 Response Step are finished; it sends a `response.finished` Webhook.
 
 A Microsurvey is started on the _Survey_ Step and either `completed` or `exited` when the first step is "actioned". It then automatically
@@ -739,7 +739,7 @@ branches through a sequence of optional _Response_ Steps and finishes with an op
 ```
 
 
-##### Example: `survey.snoozed`-survey-snooze
+#### Example: `survey.snoozed`-survey-snooze
 
 When a Microsurvey is snoozed it is set to come back after a certain amount of time has passed (i.e. 1 day, 2 weeks, 2 hours etc.).
 
@@ -799,7 +799,7 @@ When a Microsurvey is snoozed it is set to come back after a certain amount of t
 ```
 
 
-##### Example: `demo.started`-demo-started
+#### Example: `demo.started`-demo-started
 
 Right when the Demo is first started in this session. Chameleon calls this a Demo "run".
 
@@ -852,7 +852,7 @@ Demos can also [sync Contact data](/api/demos#demos-in-the-crm) into the CRM
 ```
 
 
-##### Example: `demo.finished`-demo-finished
+#### Example: `demo.finished`-demo-finished
 
 This webhook topic only differs from `demo.started` by the addition of the following keys in the `demo_run`.
 
@@ -926,7 +926,7 @@ It will be sent when the last step of the Demo is reached with `finished_kind=la
 
 
 
-##### Example: `demo.reveal`-demo-reveal
+#### Example: `demo.reveal`-demo-reveal
 
 This webhook topic only differs by the addition of `reveal_domain`, `reveal_name`, and `clearbit_uid` in the `demo_run`.
 It will be sent when the following conditions are met
@@ -961,7 +961,7 @@ It will be sent when the following conditions are met
 
 
 
-##### Example: `demo.form.submitted`-demo-form-submitted
+#### Example: `demo.form.submitted`-demo-form-submitted
 
 This webhook topic is meant to sync any form data to an external system; typically involving adding a new contact to your CRM. The
 `action.submission` is a [DemoSubmission](/api/demos#schema-demo-submission)s with a `data` key of [DemoSubmissionData](/api/demos#schema-demo-submission-data) and
@@ -1014,7 +1014,7 @@ each data item has a `field` as [DemoFormField](/api/demos#schema-demo-form-fiel
 ```
 
 
-##### Example: `demo.email.added`-demo-email-added
+#### Example: `demo.email.added`-demo-email-added
 
 This webhook topic is meant to capture the moment when previously taken anonymous Demos receive an email address.
 The flow can be arbitrarily complex but typically follows one of these paths:
