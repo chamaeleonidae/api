@@ -120,6 +120,7 @@
         "icon": "book-open",
         "pages": [
           "guides/installation",
+          "js/demos",
           "guides/helpbar-user-content"
         ]
       }
