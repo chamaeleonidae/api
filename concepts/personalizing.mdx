@@ -4,16 +4,16 @@ Personalizing is the way to adjust Experience content to match the User who is v
 
 | Helper name                | -                                                              | description                                                                           |
 |----------------------------|----------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| `property`                 | [examples ↓](/concepts/personalizing.md?id=examples-property)   | The default used when a unquoted string is found at the beginning                     |
-| `global`                   | [examples ↓](/concepts/personalizing.md?id=examples-global)     | Pull a value from the window object, useful for extra-advanced conditional formatting |
-| `pluralize`                | [examples ↓](/concepts/personalizing.md?id=examples-plural)     | Given a specific number and a word produces a phrase with the correct tense           |
-| `time_difference_in_words` | [examples ↓](/concepts/personalizing.md?id=examples-time-diff)  | Given a specific date/time produces a time offset                                     |
-| `time_ago`                 | [examples ↓](/concepts/personalizing.md?id=examples-time-ago)   | Calculates the offset from now in `seconds`,`minutes`,`hours`,`days`,`weeks`,`years`  |
-| `time_local`               | [examples ↓](/concepts/personalizing.md?id=examples-time-local) | Given a specific date/time uses toLocalString() to generate a human readable string   |
-| `delivery`                 | [examples ↓](/concepts/personalizing.md?id=examples-delivery)   | Personalize with content explicitly sent via a [Delivery](/api/deliveries)         |
-| `html`                     | [examples ↓](/concepts/personalizing.md?id=examples-html)       | Output html based on given options                                                    |
-| `filter`                   | [examples ↓](/concepts/personalizing.md?id=examples-filter)     | Use filter to evaluate [Segmentation filter expressions](/concepts/filters)         |                                  |
-| `if` (content logic)       | [examples ↓](/concepts/personalizing.md?id=examples-logic-if)   | Output html based on given options                                                    |
+| `property`                 | [examples ↓](#examples-property)   | The default used when a unquoted string is found at the beginning                     |
+| `global`                   | [examples ↓](#examples-global)     | Pull a value from the window object, useful for extra-advanced conditional formatting |
+| `pluralize`                | [examples ↓](#examples-plural)     | Given a specific number and a word produces a phrase with the correct tense           |
+| `time_difference_in_words` | [examples ↓](#examples-time-diff)  | Given a specific date/time produces a time offset                                     |
+| `time_ago`                 | [examples ↓](#examples-time-ago)   | Calculates the offset from now in `seconds`,`minutes`,`hours`,`days`,`weeks`,`years`  |
+| `time_local`               | [examples ↓](#examples-time-local) | Given a specific date/time uses toLocalString() to generate a human readable string   |
+| `delivery`                 | [examples ↓](#examples-delivery)   | Personalize with content explicitly sent via a [Delivery](/api/deliveries)         |
+| `html`                     | [examples ↓](#examples-html)       | Output html based on given options                                                    |
+| `filter`                   | [examples ↓](#examples-filter)     | Use filter to evaluate [Segmentation filter expressions](/concepts/filters)         |                                  |
+| `if` (content logic)       | [examples ↓](#examples-logic-if)   | Output html based on given options                                                    |
 
 
 ## Examples
@@ -49,7 +49,7 @@ Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpos
 ```
 
 
-### Greeting with a User's name | `property` helper
+### Greeting with a User's name | `property` helper {#examples-property}
 
 ```text
 Hey {{first_name}} 👋!
@@ -248,7 +248,7 @@ Your next bill is ${{pluralize plan.spend "dollars"}}. # given plural => plural 
 
 ----------
 
-## Examples for `global` helper
+## Examples for `global` helper {#examples-global}
 
 ```javascript
 window.chameleonTheme = { background: "#1f1f24", primary: "#7856ff" };
