@@ -1,0 +1,145 @@
+---
+title: "Webhooks"
+---
+
+This doc is all about how to manage your webhook subscriptions via API.
+
+<Note>See the [Webhooks page](webhooks/overview) for information about the Webhooks that Chameleon sends to configured endpoints</Note>
+
+<Note>See the [configured Webhooks](https://app.chameleon.io/integrations/webhooks) in your dashboard.</Note>
+
+
+## Schema {#schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="uid" type="string">
+The webhook url to POST to
+</ParamField>
+
+<ParamField path="name" type="string">
+The identifiable name for this webhook
+</ParamField>
+
+<ParamField path="last_item_at" type="timestamp">
+Last time this webhook URL was POSTed to
+</ParamField>
+
+<ParamField path="last_item_state" type="string">
+Result of the last POST to the URL. One of `valid` or `error`
+</ParamField>
+
+<ParamField path="last_item_error" type="string">
+Description of the last non-2xx error code response
+</ParamField>
+
+
+## Listing Webhooks {#webhooks-index}
+
+Retrieve a complete (un-paginated) list of webhooks.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/webhooks
+```
+
+<ParamField path="kind" type="required">
+Use a values of either `webhook` or `zapier_hook`
+</ParamField>
+
+
+#### HTTP Response
+
+```json
+{
+  "webhooks": [
+    {
+      "id": "5f3c4232c712de665632a6d9",
+      "uid": "https://data.chameleon.io/where?is=it",
+      "name": "Tour events to Data warehouse",
+      "last_item_at": "2029-04-07T12:18:00Z",
+      ...
+    },
+    {
+      "id": "5f3c4232c712de665632a6e2",
+      "uid": "https://hooks.other-system.com/N6bE1XGhTz5YbAQ?via=chameleon",
+      "name": "Keep Other system up to date",
+      ...
+    },
+    ...
+  ]
+}
+```
+
+
+## Create a Webhook {#webhooks-create}
+
+Add a new Webhook endpoint (limited to 5 total)
+
+#### HTTP Request
+
+```
+POST https://api.chameleon.io/v3/edit/webhooks
+```
+
+<ParamField path="kind" type="required">
+The type of webhook. One of `webhook` or `zapier_hook`. (defaults to `webhook`)
+</ParamField>
+
+<ParamField path="url" type="required">
+A https-based URL where webhooks are to be sent
+</ParamField>
+
+<ParamField path="topics" type="required">
+A comma-separated list OR Array of topics to send webhooks for. Any/all of the [Webhook topics](webhooks/overview#topics)
+</ParamField>
+
+<ParamField path="experience_id" type="optional">
+A single Experience ID to send Webhooks for. An Experience is a Tour or Microsurvey
+</ParamField>
+
+<ParamField path="experience_ids" type="required">
+An array of Experience IDs to send Webhooks for. An Experience is a Tour or Microsurvey
+</ParamField>
+
+
+#### HTTP Response
+
+```json
+{
+  "webhook": {
+    "id": "5f3c4232c712de665632a6d9",
+    "uid": "https://data.chameleon.io/where?is=it",
+    ...
+  }
+}
+```
+
+
+## Delete a Webhook {#webhooks-destroy}
+
+Remove a Webhook
+
+#### HTTP Request
+
+```
+DELETE https://api.chameleon.io/v3/edit/webhooks/:id
+```
+
+<ParamField path="id" type="required">
+The Chameleon ID of the Webhook
+</ParamField>
+
+
+#### HTTP Response
+
+```json
+{
+  "webhook": {
+    "id": "5f3c4232c712de665632a6d9"
+  }
+}
+```

@@ -1,0 +1,230 @@
+---
+title: "Product Demos"
+---
+
+A Product Demo is recorded with the Chameleon Chrome extension as a way to show your product features to prospects, introduce
+new features, explain complex workflows, and drive adoption/retention.
+
+<Info>
+[Demo Webhooks](/webhooks/overview#topics) are also available for key moments in the life of a Demo
+</Info>
+
+## Using Demos with your CRM
+
+Chameleon can create new (and update existing) **Contact** and **Company** records in response to interactions with Demos.
+Completions of, and Tags of Demos will be stored as properties; the data schema is [below](#schema-crm).
+
+### Contacts
+
+These are the moments when Chameleon will sync **Contact** data to your CRM:
+
+1. When an anonymous user submits a form with their email address
+2. When an [identified user](/js/demos#mode-profile) with an email address starts a Demo
+
+What will happen in the above situations?
+
+1. A **Contact** is created or updated
+2. `Chameleon Demos last seen time` is updated
+3. The current Demo is added to `Chameleon Demos Seen` and the Tags (if any) are added to `Chameleon Demos Tags`
+4. Any previous demos attached to the same `anonymous_id` will be added to the respective properties from [3]
+
+### Companies
+
+These are the moments when Chameleon will sync **Company** data to your CRM:
+
+1. When [Clearbit reveal](https://app.chameleon.io/integrations/clearbit) is enabled, the Demo user has `consent_mode=granted` and a match is found
+
+What will happen in the above situation?
+
+1. A **Company** is created or updated
+
+## Integrations
+
+### Hubspot integration
+
+1. Visit the [Hubspot integration](https://app.chameleon.io/integrations/hubspot) page in the Chameleon dashboard
+2. If you have not yet configured Hubspot, click "Connect" to initiate OAuth
+3. Toggle on the "Create and Update objects in the CRM" option
+4. Add an Email capture form or include a Product Demo in your product via another Chameleon experience
+
+## CRM Schema
+
+### Contacts
+
+| Name                                       | Property                                   | Type             | Description                                                                                              |
+|--------------------------------------------|--------------------------------------------|------------------|----------------------------------------------------------------------------------------------------------|
+| `Chameleon Demos - All Demos Seen`         | `chameleon_demos_seen__profile_v1`         | Multiple select  | A multi-checkbox of the Chameleon Demos that this Contact has seen                                       |
+| `Chameleon Demos - Last updated at`        | `chameleon_demos_last_updated__profile_v1` | Timestamp        | The last time any Demo/Tag was added to this Contact                                                     |
+| `Chameleon Demos - Tags of All Demos Seen` | `chameleon_demos_tags__profile_v1`         | Multiple select  | A multi-checkbox of the Chameleon Tags that were attached to all of the Demos that this Contact has seen |
+
+### Companies
+
+| Name                                       | Property                                   | Type             | Description                                                                                                                   |
+|--------------------------------------------|--------------------------------------------|------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `Chameleon Demos - All Demos Seen`         | `chameleon_demos_seen__company_v1`         | Multiple select  | A multi-checkbox of the Chameleon Demos that all of the Contacts have collectively seen                                       |
+| `Chameleon Demos - Last updated at`        | `chameleon_demos_last_updated__company_v1` | Timestamp        | The last time any Demo/Tag was added to this Company                                                                          |
+| `Chameleon Demos - Tags of All Demos Seen` | `chameleon_demos_tags__company_v1`         | Multiple select  | A multi-checkbox of the Chameleon Tags that were attached to all of the Demos that all of the Contacts have collectively seen |
+
+## Demo Schema
+
+<ResponseField name="id" type="string">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The name given by an administrator of Chameleon
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The display description
+</ResponseField>
+
+<ResponseField name="position" type="string">
+  The order that these appear in lists (starting from 0)
+</ResponseField>
+
+<ResponseField name="page_title" type="string">
+  The title of the page this Demo was recorded on
+</ResponseField>
+
+<ResponseField name="tag_ids" type="array<string>">
+  The Chameleon IDs of the [Tags](/apis/tags) attached to this model
+</ResponseField>
+
+## DemoRun Schema
+
+<ResponseField name="id" type="string">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="consent_mode" type="string">
+  One of `pending`, `denied`, or `granted`
+</ResponseField>
+
+<ResponseField name="referrer" type="string">
+  The referrer of the page this Demo is embedded into
+</ResponseField>
+
+<ResponseField name="created_what" type="string">
+  The Browser name, version number and OS e.g. `Chrome 191.0 (Mac)`
+</ResponseField>
+
+<ResponseField name="created_where" type="string">
+  The city, region, country, country flag of the likely location of the user; _Only present for `consent_mode=granted`_. e.g. `Oakland CA, US 🇺🇸`
+</ResponseField>
+
+<ResponseField name="actions" type="array<DemoAction>">
+  An array of the individual demo actions that occurred for this demo run
+</ResponseField>
+
+<ResponseField name="submissions" type="array<DemoSubmission>">
+  An array of the form submissions that took place during this demo run
+</ResponseField>
+
+### Additional DemoRun Schema with Clearbit Reveal
+
+1. Add your API Key in [your dashboard](https://app.chameleon.io/integrations/clearbit)
+2. Ensure `consent_mode` of the Demo is set to `granted` (e.g. `data-consent-mode="granted"` on the iframe element for the embed)
+3. Chameleon will try to find a match based on the IP address of anonymous traffic
+
+<ResponseField name="clearbit_uid" type="string">
+  The ID of the matched company from Clearbit
+</ResponseField>
+
+<ResponseField name="reveal_domain" type="string">
+  The Company domain of the matched company from Clearbit
+</ResponseField>
+
+<ResponseField name="reveal_name" type="string">
+  The Company name of the matched company from Clearbit
+</ResponseField>
+
+## DemoSubmission Schema
+
+<ResponseField name="id" type="string">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="step_id" type="string">
+  The id of the DemoItem this submission came from
+</ResponseField>
+
+<ResponseField name="action_id" type="string">
+  The id of the item as found in [DemoRun](#schema-demo-run) `actions`
+</ResponseField>
+
+<ResponseField name="data" type="array<DemoSubmissionData>">
+  Array of form submission data
+</ResponseField>
+
+## DemoSubmissionData Schema
+
+<ResponseField name="id" type="string">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="field" type="DemoFormField">
+  The form field object
+</ResponseField>
+
+<ResponseField name="value" type="string | array | number | timestamp">
+  The inputted value from the user as the real data type. Array for field `type=select`, timestamp for `datetime-local` etc.
+</ResponseField>
+
+## DemoFormField Schema
+
+<ResponseField name="id" type="string">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The input/field type of this field. One of `text`, `email`, `select`, `checkbox`, `radio`, `datetime-local`, `number`, `tel`, `url`, or `button`
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The display label of the field
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The display description of the field
+</ResponseField>

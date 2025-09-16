@@ -128,3 +128,109 @@ first [list the Deliveries by User Profile](#deliveries-index) to determine whic
 **Time based limits**: When using `from` and `until` the deliveries will be added to the list of pending deliveries and made
 available to the client-side JavaScript but will remain undelivered until the `from` time is reached
 or after the `until` time is been passed.
+
+## Create a Delivery
+
+### Request Examples
+
+Basic delivery:
+
+```json
+{
+  "model_kind": "tour",
+  "model_id": "5f3c4232c712de665632a6d5",
+  "profile_id": "5f3c4232c712de665632a6d7",
+  "from": "2029-02-03T00:00:00Z",
+  "until": "2029-04-20T00:00:00Z"
+}
+```
+
+### Response
+
+| Code  | Description |
+| ----- | ----------- |
+| `201` | Delivery was created |
+| `200` | idempotent Delivery already occurred |
+
+```json Response
+{
+  "delivery": {
+    "model_kind": "tour",
+    "model_id": "5f3c4232c712de665632a6d5",
+    "profile_id": "5f3c4232c712de665632a6d7",
+    "from": "2029-02-03T00:00:00Z",
+    "until": "2029-04-20T00:00:00Z"
+  }
+}
+```
+
+Request with data (in `options`) intended for **merge tags** in the Experience:
+
+```json
+{
+  "model_kind": "tour",
+  "model_id": "5f3c4232c712de665632a6d5",
+  "profile_id": "5f3c4232c712de665632a6d7",
+  "options": {
+    "title": "Upcoming changes to billing",
+    "body": "Book a demo with your Account manager, Jessica to see our upcoming changes in action",
+    "button1": {
+      "text": "Book Demo",
+      "url": "https://calendly.com/your-product/15min"
+    }
+  }
+}
+```
+
+## Update a Delivery
+
+<Warning>
+Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.
+</Warning>
+
+```bash HTTP Request
+PATCH https://api.chameleon.io/v3/edit/deliveries/:id
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  The Chameleon ID of the Delivery
+</ParamField>
+
+<ParamField path="*others" type="mixed">
+  Any other params from [Create a Delivery](#deliveries-create)
+</ParamField>
+
+## Remove a Delivery
+
+Cancel a Delivery that has yet to happen
+
+<Warning>
+Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be deleted.
+</Warning>
+
+```bash HTTP Request
+DELETE https://api.chameleon.io/v3/edit/deliveries/:id
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  The Chameleon ID of the Delivery
+</ParamField>
+
+## Troubleshooting
+
+Deliveries are used to directly trigger an Experience to one or to many users. On the next page-load, the linked Experience will be triggered with the given options.
+
+While this is generally true there are a few different conditions that must be met for the trigger to occur:
+
+- The user never loads any page
+- The `from` time has not be reached
+- The `until` time has passed
+- The Experience is not live
+- `use_segmentation=true` and the Audience does not currently match
+- `once=false` and the user has seen the Experience before
+- `skip_triggers=false` and the user never clicks/hovers on the configured Step triggers
+- `skip_url_match=false` and the user never loads the matching URL

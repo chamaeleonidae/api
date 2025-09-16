@@ -1,0 +1,43 @@
+---
+title: "Steps"
+---
+
+Steps are he building blocks of Tours and Microsurveys
+
+## Schema
+
+<ResponseField name="id" type="ID">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="body" type="string">
+  The configured body copy for this Step
+</ResponseField>
+
+<ResponseField name="preset" type="string">
+  The template this step follows: One of `survey_two`, `survey_nps`, `survey_csat`, `survey_ces`, `response`, `thank_you`, `survey_three`, `survey_four`, `survey_five`, `survey_input`, or `survey_dropdown`
+</ResponseField>
+
+<ResponseField name="dropdown_items" type="array<String>">
+  For a dropdown Microsurvey, the configured options for the dropdown
+</ResponseField>
+
+<ResponseField name="quantifier_urls" type="array">
+  List of URL matching conditions that must match the current page URL
+</ResponseField>
+
+<ResponseField name="quantifier_urls.url" type="none">
+  The specific URL used in this matching condition
+</ResponseField>
+
+<ResponseField name="quantifier_urls.match_type" type="none">
+  The type of matching used. One of: `simple`, `exact`, `regex`, `inverse_simple`, or `inverse_exact`
+</ResponseField>

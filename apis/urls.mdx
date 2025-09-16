@@ -1,0 +1,555 @@
+---
+title: "Domains and Environments"
+---
+
+A Url is a record of authorization and permission. Without a Url record enabled for a particular domain:
+
+- The Live Experiences will not display and the Chameleon JavaScript will not be loaded onto the page.
+- HTTP requests to our Internal APIs (to edit any Experiences or content) will fail.
+
+
+If you want to know more about managing domains and subdomains in Chameleon, please visit our [product documentation](https://help.chameleon.io/en/articles/1318033-managing-domains-and-subdomains).
+
+
+[Jump to Environments](apis/urls#url-groups)
+
+------
+
+## Domains (Urls)
+
+
+Enabling Domains on your Chameleon account via API can be helpful for:
+
+- Enabling new domains on a top-level-domain.
+- Enabling Chameleon on a white-label application.
+
+
+
+With the Chameleon API for Domains, you can:
+
+- Enable new domains [jump ↓](apis/urls#urls-create).
+- Assign domains to different Environments [jump ↓](apis/urls#url-groups-create) (production,staging,test,etc.).
+- Enable or disable an existing domain.
+- Retrieve all domains that correspond to the specified parameters (search by tld).
+- Retrieve a specific domain based on its `id`.
+
+
+## Domain Schema (Url) {#schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="url_group_id" type="ID">
+The Environment ([Url Group](apis/urls#url-groups)) this Url is a part of. `null` to be part of all Environments.
+</ParamField>
+
+<ParamField path="host" type="string">
+The fully qualified domain of this Url (i.e. app.example.com)
+</ParamField>
+
+<ParamField path="domain" type="string">
+The top-level domain (i.e. example.com)
+</ParamField>
+
+<ParamField path="enabled" type="string">
+The authorization state of this Url. `subdomain` means that new urls are `on` vs safely defaulting to `off`: One of `off`, `on`, or `subdomain`
+</ParamField>
+
+<ParamField path="installed_at" type="timestamp">
+When the JavaScript snippet was installed on this domain
+</ParamField>
+
+<ParamField path="first_seen_at" type="timestamp">
+When this domain had its first User Profile identified
+</ParamField>
+
+<ParamField path="last_seen_at" type="timestamp">
+The most recent time a User Profile as identified
+</ParamField>
+
+<ParamField path="unlisted" type="boolean">
+[deprecated; replaced by `archived_at`] If this Url is hidden from the list of domains
+</ParamField>
+
+<ParamField path="archived_at" type="timestamp">
+The time when this was archived
+</ParamField>
+
+
+## Create a Url (enable a new domain) {#urls-create}
+
+#### HTTP Request
+
+```
+POST https://api.chameleon.io/v3/edit/urls
+```
+
+<ParamField path="host" type="required">
+The fully qualified domain of this Url (i.e. app.example.com)
+</ParamField>
+
+<ParamField path="enabled" type="required">
+The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain`
+</ParamField>
+
+<ParamField path="unlisted" type="optional">
+[deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.chameleon.io/settings/domains) in the dashboard
+</ParamField>
+
+<ParamField path="archived_at" type="optional">
+To archive set to a timestamp, to unarchive set to `null`
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "url": {
+     "id": "5c4950c34733cc0004d5bfd7",
+     "host": "app.example.com",
+     "domain": "example.com",
+     "enabled": "on",
+     ...
+  }
+}
+```
+
+
+
+## Update a Url {#urls-update}
+
+#### HTTP Request
+
+```
+PUT|PATCH https://api.chameleon.io/v3/edit/urls/:id
+```
+
+<ParamField path="id" type="required">
+The Chameleon ID of the Url to update
+</ParamField>
+
+<ParamField path="enabled" type="optional">
+The authorization state to create with. Default is `on`. Values are one of `on`, `off`, or `subdomain`
+</ParamField>
+
+<ParamField path="unlisted" type="optional">
+[deprecated; replaced by `archived_at`] Whether or not the Url is displayed on the [Domains page](https://app.chameleon.io/settings/domains) in the dashboard
+</ParamField>
+
+<ParamField path="archived_at" type="optional">
+To archive set to a timestamp, to unarchive set to `null`
+</ParamField>
+
+<ParamField path="url_group_id" type="optional">
+The Environment ([Url Group](apis/urls#url-groups)) to assign this Url to
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "url": {
+     "id": "5c4950c34733cc0004d5bfd7",
+     "host": "app.example.com",
+     "domain": "example.com",
+     "enabled": "on",
+     ...
+  }
+}
+```
+
+
+
+## Bulk a Url {#urls-bulk-update}
+
+#### HTTP Request
+
+```
+POST https://api.chameleon.io/v3/edit/urls/batch
+```
+
+<ParamField path="ids" type="required">
+An array of Chameleon IDs of the Urls to update
+</ParamField>
+
+<ParamField path="enabled" type="optional">
+The authorization state to change to.
+</ParamField>
+
+<ParamField path="archived_at" type="optional">
+To archive set to a timestamp, to unarchive set to `null`
+</ParamField>
+
+<ParamField path="url_group_id" type="optional">
+The Environment ([Url Group](apis/urls#url-groups)) to assign these Urls to
+</ParamField>
+
+#### HTTP Response
+
+All of the Urls given in the request `ids` are updated with the value given by `enabled`, `archived_at`, or `url_group_id`. They are sent back even if they were already in the resulting bulk-update state.
+
+```json
+{
+  "urls": [
+    {
+      "id": "5c4950c34733cc0004d5bfd7",
+      "host": "test2.example.com",
+      "domain": "example.com",
+      "enabled": "on",
+      ...
+    },
+    {
+      "id": "5c4950c34733cc0004d5bfd8",
+      "host": "test4.example.com",
+      "domain": "example.com",
+      "enabled": "on",
+      ...
+    }
+  ]
+}
+```
+
+
+
+## Listing all Urls {#urls-index}
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/urls
+```
+
+<ParamField path="domain" type="optional">
+Filter to urls only on this domain (i.e. ex.io will return app.ex.io, dashboard.ex.io but not app.example.com)
+</ParamField>
+
+<ParamField path="limit" type="optional">
+Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField path="before" type="optional">
+Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField path="before" type="optional">
+Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField path="after" type="optional">
+Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "urls": [
+     {
+       "id": "5c4950c34733cc0004d5bfd7",
+       "host": "app.example.com",
+       "domain": "example.com",
+       "enabled": "on",
+       ...
+    },
+     {
+       "id": "5c4950c34733cc0004d5bfd4",
+       "host": "example.com",
+       "domain": "example.com",
+       "enabled": "subdomain",
+       ...
+    },
+     {
+       "id": "5c4950c34733cc0004d5bfd2",
+       "host": "internal.example.com",
+       "domain": "example.com",
+       "enabled": "off",
+       ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5c4950c34733cc0004d5bfd2"
+  }
+}
+```
+
+
+
+## Retrieve a Url {#urls-show}
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/urls/:id
+```
+
+<ParamField path="id" type="required">
+The Chameleon ID of the Url to show
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "url": {
+     "id": "5c4950c34733cc0004d5bfd7",
+     "host": "app.example.com",
+     "domain": "example.com",
+     "enabled": "on",
+     ...
+  }
+}
+```
+
+---------------
+
+## Environments (Url Groups) {#url-groups}
+
+<Note>Environments are in BETA at the moment ([Contact us](https://app.chameleon.io/help) to join).</Note>
+
+An Environment is a group of Domains. The purpose of an Environment is to:
+
+1. Split data out into groups; the groups are used in the Chameleon Dashboard to display your Experience data by environment.
+2. Allow Chameleon Admins a simple way to publish Experiences first to Staging/QA then to Production without needing to change the [Url Rules](https://help.chameleon.io/en/articles/1183932).
+3. Have greater visibility into what your end-users will be eligible for.
+
+
+<Note>All Urls and all Experiences are part of the Default Environment by default</Note>
+<Note>Assigning a `url_group_id` to a TLD means that all future subdomains of that TLD are</Note>
+
+
+## Environment Schema (Url Group) {#url-groups-schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="archived_at" type="timestamp">
+The time when this was archived
+</ParamField>
+
+<ParamField path="name" type="string">
+The name given by an administrator of Chameleon
+</ParamField>
+
+<ParamField path="description" type="string">
+The display description
+</ParamField>
+
+<ParamField path="short_name" type="string">
+Up to 3 characters abbreviating the name (i.e. PR for Production)
+</ParamField>
+
+<ParamField path="style_short_name_color" type="string">
+A easily recognizable color; an uppercase 6 char hex code excluding the `#`.
+</ParamField>
+
+
+## Create a Url Group {#url-groups-create}
+
+#### HTTP Request
+
+```
+POST https://api.chameleon.io/v3/edit/url_groups
+```
+
+<ParamField path="name" type="required">
+The name of this Environment
+</ParamField>
+
+<ParamField path="description" type="optional">
+A description to display along with the Environment `name`
+</ParamField>
+
+<ParamField path="short_name" type="optional">
+1-3 character 'short code' that should be the short version of the name (PR for Production etc.)
+</ParamField>
+
+<ParamField path="style_short_name_color" type="optional">
+A 6 character hex code color to identify the Environment
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "url_group": {
+     "id": "6c4950c34733cc0004d5bff1",
+     "name": "Test QA #1",
+     "description": "Pre-production for our QA team",
+     "short_name": "Q1",
+     "style_short_name_color": "E7AD5A",
+     ...
+  }
+}
+```
+
+
+## Update a Url Group {#url-groups-update}
+
+#### HTTP Request
+
+```
+PUT|PATCH https://api.chameleon.io/v3/edit/url_groups/:id
+```
+
+
+<ParamField path="id" type="required">
+The Url Group ID.
+</ParamField>
+
+<ParamField path="name" type="optional">
+The name of this Environment
+</ParamField>
+
+<ParamField path="description" type="optional">
+A description to display along with the Environment `name`
+</ParamField>
+
+<ParamField path="short_name" type="optional">
+1-3 character 'short code' that should be the short version of the name (PR for Production etc.)
+</ParamField>
+
+<ParamField path="style_short_name_color" type="optional">
+A 6 character hex code color to identify the Environment
+</ParamField>
+
+<ParamField path="archived_at" type="optional">
+To archive set to a timestamp, to unarchive set to `null`
+</ParamField>
+
+<ParamField path="urls_action_on_archive" type="optional">
+Use values of `ignore` or `archive`. When archiving with `archived_at`, the Domains of this environment will either be archived as well or left as-is.
+</ParamField>
+
+
+#### HTTP Response
+
+```json
+{
+  "url_group": {
+    "name": "QA #1",
+    ...
+  }
+}
+```
+
+## Add Domains to an Environment
+
+[Updating a Url](apis/urls#urls-update) with a `url_group_id` of an Environment ([Url Group](apis/urls#url-groups)) will assign it to that Environment
+
+
+## Removing Domains from an Environment
+
+[Updating a Url](apis/urls#urls-update) with a `url_group_id` equal to `null` will assign it to the Default Environment
+
+
+
+## Listing all Url Groups {#url-groups-index}
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/url_groups
+```
+
+<ParamField path="limit" type="optional">
+Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField path="before" type="optional">
+Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField path="before" type="optional">
+Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField path="after" type="optional">
+Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "urls": [
+    {
+      "id": "6c4950c34733cc0004d5bff1",
+      "name": "Test QA #1",
+      "description": "Pre-production for our QA team",
+      "short_name": "Q1",
+      "style_short_name_color": "E7AD5A",
+      ...
+    },
+    {
+      "id": "6c4950c34733cc0004d5bff2",
+      "name": "Staging",
+      "description": null,
+      "short_name": "ST",
+      "style_short_name_color": "6D95C0",
+      ...
+    },
+     {
+       "id": "6c4950c34733cc0004d5bff2",
+       "name": "Production",
+       "description": "Live for customers",
+       "short_name": "PR",
+       "style_short_name_color": "8FC06D",
+       ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5c4950c34733cc0004d5bfd2"
+  }
+}
+```
+
+
+
+## Retrieve a Url Group {#url-groups-show}
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/url_groups/:id
+```
+
+<ParamField path="id" type="required">
+The Chameleon ID of the Environment ([Url Group](apis/urls#url-groups)) to show
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "url": {
+    "id": "6c4950c34733cc0004d5bff2",
+    "name": "Staging",
+    "description": null,
+    "short_name": "ST",
+    "style_short_name_color": "6D95C0",
+    ...
+  }
+}
+```

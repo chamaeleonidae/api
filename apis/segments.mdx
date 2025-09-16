@@ -1,0 +1,221 @@
+---
+title: "Segments"
+---
+
+Segments are fundamental to targeting users within Chameleon. They are used for Microsurveys, Tours and Launchers to make sure the right users see the right content at the right moment.
+
+A Segment is a collection of [Segmentation filter expressions](concepts/filters) in the `items` key.
+
+------
+
+
+With the Chameleon API for Segments, you can:
+
+- Retrieve a list of segments according to the specified parameters.
+- Retrieve a single segment based on the `id`.
+- List all the Chameleon Experiences (Tours, Microsurveys, Launchers) that are connected to a defined segment.
+
+
+
+## Schema {#schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="name" type="string">
+The name given by an administrator of Chameleon
+</ParamField>
+
+<ParamField path="items" type="array<SegmentFilter>">
+An array of items that each define a [Segmentation Filter expression](concepts/filters)
+</ParamField>
+
+<ParamField path="items_op" type="enum">
+If each filter item is joined with logical `AND` or `OR`. One of `and` or `or`
+</ParamField>
+
+
+<Note>For a full list of your User / Company Properties see the [Properties API](apis/properties)</Note>
+
+
+## Listing Segments {#segments-index}
+
+Retrieve a list of segments according to the specified parameters.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/segments
+```
+
+<ParamField path="limit" type="optional">
+Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField path="before" type="optional">
+Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField path="before" type="optional">
+Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField path="after" type="optional">
+Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+
+With a timestamp
+
+```json
+{
+  "limit": 100,
+  "before": "2029-04-07T12:18:00Z"
+}
+```
+
+From the previous response `cursor.before`
+
+```json
+{
+  "limit": 500,
+  "before": "5f3c4232c712de665632a6d7"
+}
+```
+
+#### HTTP Response
+
+```json
+{
+  "segments": [
+    {
+      "id": "5f3c4232c712de665632a6d9",
+      "name": "Admins who invited > 3",
+      "items": [
+        {
+          "id": "5f3c4232c712de665632a6d8",
+          "kind": "property",
+          "prop": "role",
+          "op": "eq",
+          "value": "admin"
+        },
+        {
+          "id": "5f3c4232c712de665632a6d7",
+          "kind": "property",
+          "prop": "invited_users_count",
+          "op": "gte",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "id": "5f3c4232c712de665632a6e2",
+      "name": "Grown Plan Upsell",
+       ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a6d7"
+  }
+}
+```
+
+-----
+
+## Showing a Segment {#segments-show}
+
+Retrieve a single Segment.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/segments/:id
+```
+
+<ParamField path="id" type="required">
+A Segment ID to lookup
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "segment": {
+    "id": "5f3c4232c712de665632a6d7",
+    "name": "Admins who invited > 3",
+    "items": [
+      {
+        "id": "5f3c4232c712de665632a6d8",
+        "kind": "property",
+        "prop": "role",
+        "op": "eq",
+        "value": "admin"
+      },
+      {
+        "id": "5f3c4232c712de665632a6d9",
+        "kind": "property",
+        "prop": "invited_users_count",
+        "op": "gte",
+        "value": 3
+      }
+    ]
+  }
+}
+```
+
+------
+
+## Listing Related Experiences {#segment-experiences-index}
+
+A Segment can be configured to be attached to many Chameleon Experiences, including [Microsurveys](apis/surveys), [Tours](apis/tours) and [Launchers](apis/launchers) and [Rate Limit Groups](apis/limit-groups). This endpoint allows you to list any of these items that are currently attached to the Segment given with the ID
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/segments/:id/:kind
+```
+
+<ParamField path="id" type="required">
+A Segment ID to lookup
+</ParamField>
+
+<ParamField path="kind" type="required">
+One of `tour`, `survey` or `launcher`
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "segment": {
+    "id": "5f3c4232c712de665632a6d7",
+    "name": "Admins",
+    ...
+  },
+  "tours": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Revamped Dashboard Launch",
+      "style": "auto",
+      "position": 4,
+      "published_at": "2029-04-07T12:18:00Z",
+       ...
+    },
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a2a1"
+  }
+}
+```

@@ -1,0 +1,140 @@
+---
+title: "Tags"
+---
+
+A Tag is a grouping of Experiences based on a readable name (i.e. `"Upsell"`, `"Feature"` etc.)
+
+Tags are:
+
+- Used to Search and Filter Experiences in the [Chameleon Dashboard](https://app.chameleon.io).
+- Used to define [Rate Limit Groups](apis/limit-groups.md) of Experiences that are limited to a particular rate limit (i.e. 2 per week, 3 per month etc.).
+- [Normalized](concepts/normalization.md#tags) with the typical rules.
+
+------
+
+## Schema
+
+<ResponseField name="id" type="ID">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="uid" type="string">
+  The [normalized](concepts/normalization.md#tags) name. Or an external ID
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The original text entered for the Tag
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  The display description
+</ResponseField>
+
+<ResponseField name="models_count" type="number">
+  The number of [Experiences](apis/overview.md) attached to this Tag
+</ResponseField>
+
+<ResponseField name="disabled_at" type="timestamp">
+  A timestamp indicating that this tag should no longer be displayed in the UI
+</ResponseField>
+
+<ResponseField name="last_seen_at" type="timestamp">
+  This last time this Tag was added or removed from an Experience
+</ResponseField>
+
+## Listing all Tags
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/tags
+```
+
+<ParamField query="limit" type="optional">
+  Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField query="before" type="optional">
+  Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField query="before" type="optional">
+  Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField query="after" type="optional">
+  Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "tags": [
+    {
+      "id": "5f3c4232c712de665632a5f1",
+      "uid": "new_features",
+      "name": "New Features 🎉",
+      "description": "Any feature announcement",
+      "models_count": 3,
+      "disabled_at": null,
+      "last_seen_at": "2029-04-07T12:18:00Z"
+    },
+    {
+      "id": "5f3c4232c712de665632a5f2",
+      "uid": "01_onboarding",
+      "name": "01 Onboarding 🚧",
+      "description": "Any onboarding prompt",
+      "models_count": 12,
+      "disabled_at": null,
+      "last_seen_at": "2029-04-09T12:19:00Z"
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5c4950c34733cc0004d5bfd2"
+  }
+}
+```
+
+## Filtering by Segment
+
+See [Listing Related models](apis/segments.md#segment-experiences-index)
+
+## Retrieve a Tag
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/tags/:id
+```
+
+<ParamField path="id" type="required">
+  The Chameleon ID of the Tag to show
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "tag": {
+    "id": "5f3c4232c712de665632a5f2",
+    "uid": "01_onboarding",
+    "name": "01 Onboarding 🚧",
+    "description": "Any onboarding prompt",
+    "models_count": 12,
+    "disabled_at": null,
+    "last_seen_at": "2029-04-09T12:19:00Z",
+    ...
+  }
+}
+```

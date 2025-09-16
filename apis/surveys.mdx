@@ -1,0 +1,221 @@
+---
+title: "Microsurveys"
+---
+
+Chameleon Microsurveys are a primary *question* step that allows you to get immediate and contextual user feedback.
+To know more about Surveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/1752073-surveys).
+
+------
+
+
+
+With the Chameleon Microsurveys API, you can:
+
+- List all Microsurveys that follow your indicated parameters.
+- Retrieve a single Microsurvey using its `id`.
+
+
+
+## Schema {#schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="name" type="string">
+The name given by an administrator of Chameleon
+</ParamField>
+
+<ParamField path="position" type="number">
+The order that these appear in lists (starting from 0)
+</ParamField>
+
+<ParamField path="segment_id" type="ID">
+The Chameleon ID of the configured [Segment](apis/segments#schema)
+</ParamField>
+
+<ParamField path="published_at" type="timestamp">
+The time this was most recently published
+</ParamField>
+
+<ParamField path="tag_ids" type="array<ID>">
+The Chameleon IDs of the [Tags](apis/tags) attached to this model
+</ParamField>
+
+<ParamField path="rate_unlimit_at" type="timestamp">
+This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences)
+</ParamField>
+
+<ParamField path="last_dropdown_items" type="array<String>">
+For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User
+</ParamField>
+
+<ParamField path="stats" type="object">
+Aggregated statistics for this model (all-time)
+</ParamField>
+
+<ParamField path="stats.started_count" type="number">
+Number of your end-users who saw this
+</ParamField>
+
+<ParamField path="stats.last_started_at" type="timestamp">
+Most recent time any user saw this
+</ParamField>
+
+<ParamField path="stats.completed_count" type="number">
+Number of your end-users who completed/finished this
+</ParamField>
+
+<ParamField path="stats.last_completed_at" type="timestamp">
+Most recent time any user completed/finished this
+</ParamField>
+
+<ParamField path="stats.exited_count" type="number">
+Number of your end-users who dismissed/exited this
+</ParamField>
+
+<ParamField path="stats.last_exited_at" type="timestamp">
+Most recent time any user dismissed/exited this
+</ParamField>
+
+## List Microsurveys
+
+List all Microsurveys that follow your indicated parameters.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/surveys
+```
+
+<ParamField path="limit" type="optional">
+Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField path="before" type="optional">
+Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField path="before" type="optional">
+Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField path="after" type="optional">
+Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+
+
+#### HTTP Response
+
+```json
+{
+  "surveys": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Task #2 completion CES",
+      "position": 1,
+      "published_at": "2029-04-07T12:18:00Z",
+       ...
+    },
+    {
+      "id": "5f3c4232c712de665632a2a3",
+      "name": "Admin account setup #1 completion question",
+      "position": 0,
+      "published_at": "2029-04-07T12:38:00Z",
+       ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a2a3"
+  }
+}
+```
+
+## Update a Microsurvey {#surveys-update}
+
+Update a single Microsurvey to change the [Environments](apis/urls) or to Publish it.
+
+#### HTTP Request
+
+```
+PATCH https://api.chameleon.io/v3/edit/surveys/:id
+```
+
+<ParamField path="id" type="required">
+A Microsurvey ID to update
+</ParamField>
+
+<ParamField path="urls_group_id" type="optional">
+An [Environments](apis/urls) ID prefixed with `+` to add or or `-` to remove the Environment
+</ParamField>
+
+<ParamField path="published_at" type="optional">
+The published time of this Microsurvey (set to now to trigger a publish)
+</ParamField>
+
+To **Publish** the Microsurvey
+
+```json
+{
+  "published_at": "2029-04-07T12:18:00Z"
+}
+```
+
+To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
+
+```json
+{
+  "url_group_id": "+5e3c4232c712de666d55632a"
+}
+```
+
+
+To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
+
+```json
+{
+  "url_group_id": "-5e3c4232c712de666d55632a"
+}
+```
+
+## Filtering by Segment {#filter-segment}
+
+See [Listing Related Models](apis/segments#segment-experiences-index).
+
+## Retrieve a Microsurvey
+
+Retrieve a single Microsurvey.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/surveys/:id
+```
+
+
+<ParamField path="id" type="required">
+A Microsurvey ID to lookup
+</ParamField>
+
+```json
+{
+  "survey": {
+    "id": "5f3c4232c712de665632a2a1",
+    "name": "Admin Self-serve menu",
+    "position": 0,
+    "published_at": "2029-04-07T12:38:00Z",
+    ...
+  }
+}
+```

@@ -1,0 +1,230 @@
+---
+title: "Microsurvey Responses"
+---
+
+A Microsurvey response is a single object with all of the information about the microsurvey interactions: the buttons clicked on the first step, the text input entered in the follow-up step, and the time that the microsurvey was finished.
+
+------
+
+Using Chameleon's API for Microsurvey responses, you can:
+
+- List Microsurvey responses.
+- Delete a Microsurvey response.
+
+
+## Schema {#schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="survey_id" type="ID">
+The Chameleon ID of the [Microsurvey](apis/surveys#schema)
+</ParamField>
+
+<ParamField path="profile_id" type="ID">
+The Chameleon ID of the [User Profile](apis/profiles#schema)
+</ParamField>
+
+<ParamField path="href" type="string">
+The current page URL when the Microsurvey was displayed
+</ParamField>
+
+<ParamField path="button_text" type="string">
+The text of the button when clicked
+</ParamField>
+
+<ParamField path="button_order" type="number">
+The 0-indexed index of the button
+</ParamField>
+
+<ParamField path="button_id" type="ID">
+The Chameleon ID of the button
+</ParamField>
+
+<ParamField path="input_text" type="string">
+Text comment left by the user (if configured) for Input Microsurveys 1st Step or Question 1 in the Follow Up Step
+</ParamField>
+
+<ParamField path="comment_step_input_text2" type="string">
+Text comment left by the user (if configured) for Question 2 in the Follow Up Step
+</ParamField>
+
+<ParamField path="dropdown_items" type="string">
+For a dropdown Microsurvey, the selected options from the dropdown on the 1st Step
+</ParamField>
+
+<ParamField path="other_text" type="string">
+For a dropdown Microsurvey, the alternative text comment left by the user (if configured)
+</ParamField>
+
+<ParamField path="comment_step_dropdown_items" type="string">
+For any kind of Microsurvey, the selected options from the Follow Up Step dropdown in Question 1
+</ParamField>
+
+<ParamField path="comment_step_other_text" type="string">
+For any kind of Microsurvey, the alternative text comment left by the user as the dropdown answer (if configured) in Question 1
+</ParamField>
+
+<ParamField path="comment_step_dropdown_items2" type="string">
+For any kind of Microsurvey, the selected options from the Follow Up Step dropdown in Question 2
+</ParamField>
+
+<ParamField path="comment_step_other_text2" type="string">
+For any kind of Microsurvey, the alternative text comment left by the user as the dropdown answer (if configured) in Question 2
+</ParamField>
+
+<ParamField path="comment_step_buttons_selected" type="string">
+For any kind of Microsurvey, the selected option(s) from the Follow Up Step buttons in Question 1
+</ParamField>
+
+<ParamField path="comment_step_buttons_selected2" type="string">
+For any kind of Microsurvey, the selected option(s) from the Follow Up Step buttons in Question 2
+</ParamField>
+
+<ParamField path="finished_at" type="timestamp">
+When the last step of Microsurvey response was completed
+</ParamField>
+
+<ParamField path="profile" type="object">
+An expandable [Profile](apis/profiles) model
+</ParamField>
+
+<ParamField path="profile.company" type="none">
+An expandable [Company](apis/companies) model embedded in the profile
+</ParamField>
+
+## List Microsurvey Responses {#responses-index}
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/analyze/responses
+```
+
+<ParamField path="id" type="required">
+The Chameleon ID of the Microsurvey
+</ParamField>
+
+<ParamField path="limit" type="optional">
+Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField path="before" type="optional">
+Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField path="before" type="optional">
+Read as "created `before`" and can be given as a timestamp or ID to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField path="after" type="optional">
+Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+<ParamField path="order" type="optional">
+One of `created_at` or `updated_at`. Defaults to `created_at` (the ID encodes this information).
+</ParamField>
+
+<ParamField path="expand" type="optional">
+Object that specifies relationships to include/exclude. Supported keys are `profile` and `company`
+</ParamField>
+
+<ParamField path="expand.profile" type="optional">
+use values of `all`, `min` or `skip` to control the properties present in the `profile`. Defaults to `min`
+</ParamField>
+
+<ParamField path="expand.company" type="optional">
+use values of `all`, `min` or `skip` to control the properties present in the `company`. Defaults to `min`
+</ParamField>
+
+#### Using the `expand` parameter
+
+```
+# As a URL parameter
+expand[profile]=all&expand[company]=skip
+
+# In the Reqeust body
+{"expand":{"profile":"all","company":"skip"}}
+```
+
+Notes:
+- A `profile` key will always be present with an object value. The `company` (embedded within `profile`) will be missing when the User Profile is not attached to a Company, otherwise it will be an object.
+- The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Survey Response (send the max ID from your last import as the `after` parameter).
+
+
+#### HTTP Response
+
+```json
+{
+  "responses": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "href": "https://app.example.com/starting/page/1",
+      "button_text": "Yes please 👍",
+      "button_order": 3,
+      "input_text": "I saw...",
+      "finished_at": "2029-04-07T12:18:00Z",
+      "profile": {
+        "id": "5f3c4232c712de665632a6d5",
+        "uid": "55232",
+        ...
+      },
+      ...
+    },
+    {
+      "id": "5f3c4232c712de665632a2a3",
+      "href": "https://app.example.com/starting/page/2",
+      "button_text": "No thanks 👎",
+      "button_order": 2,
+      "input_text": "I would have liked to see...",
+      "finished_at": "2029-04-07T12:18:00Z",
+      "profile": {
+        "id": "5f3c4232c712de665632a6d6",
+        "uid": "55125",
+        "company": {
+          "id": "5f3c4232c712de665632a6d7",
+          "uid": "3321",
+        },
+        ...
+      },
+      ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a2a3"
+  }
+}
+```
+
+## Delete a Microsurvey Response {#responses-destroy}
+
+Deleting a Microsurvey response also clears the associated metrics and summaries
+
+#### HTTP Request
+
+```
+DELETE https://api.chameleon.io/v3/edit/responses/:id
+```
+
+<ParamField path="id" type="required">
+A Response ID to remove
+</ParamField>
+
+```json
+{
+  "response": {
+    "id": "5f3c4232c712de665632a2a1",
+  }
+}
+```

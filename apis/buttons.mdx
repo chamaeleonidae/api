@@ -1,0 +1,55 @@
+---
+title: "Buttons"
+---
+
+Buttons are the configuration for a specific "call to action" on a Step. They can contain information about styling and about any actions that should be taken when clicked.
+
+## Schema
+
+<ResponseField name="id" type="ID">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="text" type="string">
+  The call to action text for this button
+</ResponseField>
+
+<ResponseField name="position" type="string">
+  The placement of this button: One of `bottom_left`, `bottom_center`, `bottom_right`, `center_right`, or `center_left`
+</ResponseField>
+
+<ResponseField name="tour_action" type="string">
+  What does this [Tour](apis/tours.md) do when clicked: One of `next`, `previous`, or `exit`
+</ResponseField>
+
+<ResponseField name="additional_action" type="string">
+  What else does this Button do when clicked: One of `cta`, `cta_url`, `any_click`, `code`, `element_click`, `hero_button`, `tour`, `survey`, or `exit`
+</ResponseField>
+
+<ResponseField name="action_url" type="string">
+  With `additional_action=cta_url` this is the URL to load (action_new_window=tue opens this URL in a new `_blank` tab)
+</ResponseField>
+
+<ResponseField name="action_new_window" type="boolean">
+  Should the `action_url` open in a new tab
+</ResponseField>
+
+<ResponseField name="action_script" type="string">
+  With `additional_action=code` this is the JavaScript code snippet to evaluate
+</ResponseField>
+
+<ResponseField name="action_element" type="object">
+  With `additional_action=element_click` this is the element targeted for clicking
+</ResponseField>
+
+<ResponseField name="action_campaign_id" type="ID">
+  With `additional_action={tour,survey}` uses this attribute to determine which Tour or Microsurvey to link to
+</ResponseField>

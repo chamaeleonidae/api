@@ -1,0 +1,332 @@
+---
+title: "Launchers"
+---
+
+A Launcher is a collection of items shown in a menu to your end-users when they meet all of the predefined matching criteria
+
+ - The current page URL matches.
+ - Segmentation matches (User is the right person) - required but can be to match All Users.
+ - Launcher menu Icon or Custom Icon must be clicked.
+
+
+
+To know more about Launchers, feel free to visit our [product documentation](https://help.chameleon.io/en/collections/1587145-launchers).
+
+---
+
+
+
+With the Chameleon API for Launchers, you can:
+
+- List all Launchers based on the specified set of parameters.
+- Retrieve a specific Launcher based on its `id`.
+
+
+
+## Schema {#schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="name" type="string">
+The name given by an administrator of Chameleon
+</ParamField>
+
+<ParamField path="title" type="string">
+The display title
+</ParamField>
+
+<ParamField path="description" type="string">
+The display description
+</ParamField>
+
+<ParamField path="preset" type="string">
+The preconfigured type: One of `icon`, `element`, `icon_checklist`, `updates`, or `faqs`
+</ParamField>
+
+<ParamField path="segment_id" type="ID">
+The Chameleon ID of the configured [Segment](apis/segments#schema)
+</ParamField>
+
+<ParamField path="published_at" type="timestamp">
+The time this was most recently published
+</ParamField>
+
+<ParamField path="tag_ids" type="array<ID>">
+The Chameleon IDs of the [Tags](apis/tags) attached to this model
+</ParamField>
+
+<ParamField path="list_type" type="string">
+If this is a checklist or a normal list: One of `default` or `checklist`
+</ParamField>
+
+<ParamField path="search_placeholder" type="string">
+Search placeholder
+</ParamField>
+
+<ParamField path="quantifier_url" type="string">
+This must match the current page URL _[deprecated]_
+</ParamField>
+
+<ParamField path="quantifier_urls" type="array">
+List of URL matching conditions that must match the current page URL
+</ParamField>
+
+<ParamField path="quantifier_urls.url" type="none">
+The specific URL used in this matching condition
+</ParamField>
+
+<ParamField path="quantifier_urls.match_type" type="none">
+The type of matching used. One of: `simple`, `exact`, `regex`, `inverse_simple`, or `inverse_exact`
+</ParamField>
+
+<ParamField path="trigger_text" type="string">
+Trigger text
+</ParamField>
+
+<ParamField path="blocked_domains" type="string">
+Domains that, if matched, will make this now show
+</ParamField>
+
+<ParamField path="empty_state_content" type="string">
+Markdown content to show when all items in the Launcher are completed/hidden
+</ParamField>
+
+<ParamField path="icon_size" type="string">
+Icon size
+</ParamField>
+
+<ParamField path="screen_position" type="string">
+Screen position: One of `bottom_left` or `bottom_right`
+</ParamField>
+
+<ParamField path="position_type" type="string">
+Position type: One of `relative_to_screen` or `snap_to_element`
+</ParamField>
+
+<ParamField path="trigger" type="string">
+Trigger: One of `click` or `hover`
+</ParamField>
+
+<ParamField path="trigger_type" type="string">
+Trigger type: One of `custom_icon`, `element`, `icon_lightbulb`, `icon_question`, `icon_checklist`, `icon_signpost`, `icon_bell`, or `text`
+</ParamField>
+
+<ParamField path="items" type="array<LauncherItem>">
+An array of items that define the Launcher menu contents (see full schema below)
+</ParamField>
+
+<ParamField path="stats" type="object">
+Aggregated statistics for this model (all-time)
+</ParamField>
+
+<ParamField path="stats.displayed_count" type="number">
+Number of times the Launcher widget (icon) was shown to end-users
+</ParamField>
+
+<ParamField path="stats.last_displayed_at" type="timestamp">
+Most recent time the Launcher widget (icon) was shown to end-users
+</ParamField>
+
+<ParamField path="stats.started_count" type="number">
+Number of times the Launcher menu was opened by an end-user
+</ParamField>
+
+<ParamField path="stats.last_started_at" type="timestamp">
+Most recent time the Launcher menu was opened by an end-user
+</ParamField>
+
+## Launcher Item Schema {#item-schema}
+
+<ParamField path="id" type="ID">
+The Chameleon ID
+</ParamField>
+
+<ParamField path="created_at" type="timestamp">
+When this happened or when this was added to the Database
+</ParamField>
+
+<ParamField path="updated_at" type="timestamp">
+The last time any property was updated
+</ParamField>
+
+<ParamField path="kind" type="string">
+The type of item this is: One of `url`, `tour`, `survey`, `script`, or `divider`
+</ParamField>
+
+<ParamField path="title" type="string">
+The display title in the Launcher menu
+</ParamField>
+
+<ParamField path="description" type="string">
+The display description in the Launcher menu
+</ParamField>
+
+<ParamField path="segment_id" type="ID">
+The Chameleon ID of the configured [Segment](apis/segments#schema)
+</ParamField>
+
+<ParamField path="url" type="string">
+The URL to link to when `kind=url
+</ParamField>
+
+<ParamField path="campaign_id" type="ID">
+The Chameleon ID of the [Tour](apis/tours) or [Microsurvey](apis/surveys) referenced when `kind=tour` or `kind=survey`
+</ParamField>
+
+<ParamField path="script" type="string">
+The JavaScript code snippet to execute when this item is clicked by your end-user
+</ParamField>
+
+<ParamField path="hide" type="boolean">
+Whether or not to remove this item from the list after clicked/completed
+</ParamField>
+
+## List Launchers {#launchers-index}
+
+List all Launchers based on the specified set of parameters.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/launchers
+```
+
+<ParamField path="limit" type="optional">
+Defaults to `50` with a maximum of `500`
+</ParamField>
+
+<ParamField path="before" type="optional">
+Used when paginating, use directly from the `cursor` object from the previous response
+</ParamField>
+
+<ParamField path="before" type="optional">
+Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time
+</ParamField>
+
+<ParamField path="after" type="optional">
+Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time
+</ParamField>
+
+#### HTTP Response
+
+```json
+{
+  "launchers": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Admin Onboarding checklist",
+      "position": 1,
+      "published_at": "2029-04-07T12:18:00Z",
+       ...
+    },
+    {
+      "id": "5f3c4232c712de665632a2a1",
+      "name": "Admin Self-serve menu",
+      "position": 0,
+      "published_at": "2029-04-07T12:38:00Z",
+       ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a2a1"
+  }
+}
+```
+
+## Update a Launcher {#launchers-update}
+
+Update a single Launcher to change its properties or to Publish it.
+
+#### HTTP Request
+
+```
+PATCH https://api.chameleon.io/v3/edit/launchers/:id
+```
+
+<ParamField path="id" type="required">
+A Launcher ID to update
+</ParamField>
+
+<ParamField path="urls_group_id" type="optional">
+An [Environments](apis/urls) ID prefixed with `+` to add or or `-` to remove the Environment
+</ParamField>
+
+<ParamField path="published_at" type="optional">
+The published time of this Launcher (set to now to trigger a publish)
+</ParamField>
+
+
+To **Publish** the Launcher send the current timestamp in `iso8601` format
+
+```json
+{
+  "published_at": "2029-04-07T12:18:00Z"
+}
+```
+
+To **Unpublish** the Launcher set the `published_at` to `null`
+
+```json
+{
+  "published_at": null
+}
+```
+
+To **add** the `5e3c4232c712de666d55632a` Environment use a `+` prefix
+
+```json
+{
+  "url_group_id": "+5e3c4232c712de666d55632a"
+}
+```
+
+
+To **remove** the `5e3c4232c712de666d55632a` Environment use a `-` prefix
+
+```json
+{
+  "url_group_id": "-5e3c4232c712de666d55632a"
+}
+```
+
+## Filtering by Segment {#filter-segment}
+
+See [Listing Related models](apis/segments#segment-experiences-index)
+
+## Retrieve a Launcher {#launchers-show}
+
+Retrieve a single Launcher.
+
+#### HTTP Request
+
+```
+GET https://api.chameleon.io/v3/edit/launchers/:id
+```
+
+<ParamField path="id" type="required">
+A Launcher ID to lookup
+</ParamField>
+
+```json
+{
+  "launcher": {
+    "id": "5f3c4232c712de665632a2a1",
+    "name": "Admin Self-serve menu",
+    "position": 0,
+    "published_at": "2029-04-07T12:38:00Z",
+    ...
+  }
+}
+```
