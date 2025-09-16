@@ -87,7 +87,7 @@
           "api/companies",
           "api/segments",
           "api/demos",
-          "api/search",
+          "api/helpbar",
           "api/properties",
           "api/translation",
           "api/surveys",

@@ -1,4 +1,4 @@
-In this guide we will talk about how to make your User-generated content ([SearchItem](/api/search#schema-search-items)s) searchable with the HelpBar. This guide makes some assumptions
+In this guide we will talk about how to make your User-generated content ([SearchItem](/api/helpbar#schema-search-items)s) searchable with the HelpBar. This guide makes some assumptions
 about how you install Chameleon, than you pass the User ID + Account ID to like this: `chmln.identify(user.id, { company: { uid: account.id } })` and that you have installed with `chmln.on("app:navigate", opts => { ... })`
 
 Your Saas Product likely has the concept of Users, Accounts and a variety of things (content) that Users can create. Each item
@@ -49,10 +49,10 @@ When a User has access to a Dashboard they will see it in their list of Dashboar
 2. **John** creates a Dashboard called **Website/Ads metrics 2029-03** it's visible only to **John** AND **Jane** but not to new Users who join **Jexar** (since it's visible explicitly to Users `134` and `137`).
 3. **Alice** creates a Dashboard called **FY29 Financial reports** it's visible to all Users who join **Apex** (since it's visible to Account `f2d3a`).
 
-- Pull the `SEARCH_GROUP_ID` from the URL for the Chameleon [SearchGroup](/api/search#schema-search-groups) that you want to add this content to (e.g. `https://app.chameleon.io/helpbar/edit/content/654001081b27ac5e6ae5a08e`)
+- Pull the `SEARCH_GROUP_ID` from the URL for the Chameleon [SearchGroup](/api/helpbar#schema-search-groups) that you want to add this content to (e.g. `https://app.chameleon.io/helpbar/edit/content/654001081b27ac5e6ae5a08e`)
 - Send a `uid` that will be stable for the life of this content. `dashboard-413` in this example; you use this to update / delete.
 - In this example we use `profile_uids` as an array of 1 item, **Jane**, because only 1 User should have access to search for this.
-- Use 1 [SearchActions](/api/search#schema-search-actions) in `actions` with `kind=navigate`. When clicked in the HelpBar
+- Use 1 [SearchActions](/api/helpbar#schema-search-actions) in `actions` with `kind=navigate`. When clicked in the HelpBar
   the page will receive a callback into `chmln.on("app:navigate", (opts) => { /* opts.to will be "/dashboards/413" */ })`.
 
 ```bash
