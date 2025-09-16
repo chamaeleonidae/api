@@ -4,7 +4,7 @@ In your SaaS product you likely have Users and Accounts (simply a group of Users
 Chameleon is designed to mirror this in its design of [User Profiles](/api/profiles), [Companies](/api/companies),
 [Segments](/api/segments), searchable [HelpBar content](/guides/helpbar/user-generated-content), etc.
 
-> **First, generate JavaScript Code on the [installation page](https://app.chameleon.io/setup/install)** and adapt based on this guide. 
+<Note>**First, generate JavaScript Code on the [installation page](https://app.chameleon.io/setup/install)** and adapt based on this guide.</Note> 
 
 ## The Entrypoint JavaScript
 
@@ -26,7 +26,7 @@ chmln.identify(user.id, { company: { uid: account.id } });
 We highly recommend using [Identity verification](https://help.chameleon.io/en/articles/4281577) where Chameleon will only accept verified requests.
 On your server, you generate a `SHA256` of the User ID and the current timestamp connected with a dash inside and outside the hash (the `chameleon_uid_hash` key shown below is just an example key name).
 
-> The [full list](https://github.com/chamaeleonidae/verification) of Examples in [Node.js](https://github.com/chamaeleonidae/verification/blob/master/verification.js), [Python](https://github.com/chamaeleonidae/verification/blob/master/verification.py), [Ruby](https://github.com/chamaeleonidae/verification/blob/master/verification.rb), etc.
+<Tip>The [full list](https://github.com/chamaeleonidae/verification) of Examples in [Node.js](https://github.com/chamaeleonidae/verification/blob/master/verification.js), [Python](https://github.com/chamaeleonidae/verification/blob/master/verification.py), [Ruby](https://github.com/chamaeleonidae/verification/blob/master/verification.rb), etc.</Tip>
 
 ```javascript
 const crypto = require('crypto');

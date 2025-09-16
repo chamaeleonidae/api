@@ -192,7 +192,7 @@ Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour#
 | `delivery_ids_position` | optional | one of 'first', 'last', integer | Defaults to `first`. The value of `last` or a specific integer array index to insert at, are accepted. |
 | `delivery_ids_at_limit` | optional | one of 'error', 'drop' | Defaults to `error`. The value of `drop` is used to "pop" a delivery id off the end of the `delivery_ids` array after adding the current one. Note: when at the limit of pending deliveries, using `delivery_ids_position=last` + `delivery_ids_at_limit=drop` will cause an error. |
 
-> Required: One of `profile_id`, `uid` or `email`
+<Info>Required: One of `profile_id`, `uid` or `email`</Info>
 
 ```json
 {

@@ -120,7 +120,7 @@ POST https://api.chameleon.io/v3/edit/imports
 | `filters`                   | array&lt;SegmentFilter&gt; | For filter-based imports, an array of items that each define a [Segmentation Filter expression](/concepts/filters) |
 | `import_at`         | optional | timestamp             | The "trigger" to start the importing process. At this point, the CSV upload is completed, all `properties` are confirmed, and the import starts |
 
-> For CSV-based import `kind`, both valid `properties` and `file` are required before `import_at` can be set.
+<Info>For CSV-based import `kind`, both valid `properties` and `file` are required before `import_at` can be set.</Info>
 
 ##### Errors (for both `create` and `update`)
 
@@ -199,7 +199,7 @@ Response:
 
 With a CSV `file` like this, specify the header of `Email address` as mapping to the Chameleon User Profile field of `email`.
 
-> You must set `on_model_missing` to `ignore` because no field maps to the `uid` Property.
+<Warning>You must set `on_model_missing` to `ignore` because no field maps to the `uid` Property.</Warning>
 
 ```text
 Email address

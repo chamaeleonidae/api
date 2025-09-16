@@ -6,11 +6,11 @@ It is typically delivered as an embed on your marketing site, or as part of a Ch
 - Product managers and product marketing use Demos in-product to drive awareness, upsell, and education.
 - Prospects are more likely to buy software they have seen/experienced
 
-> The demo can run in Profile or Anonymous modes as outlined below. If possible, run Product Demos in Profile mode 
+The demo can run in Profile or Anonymous modes as outlined below. If possible, run Product Demos in Profile mode. 
 
 ## Embedding
 
-> Replace the `:id` below with the Demo ID from the dashboard OR copy the embed code from the Sharing section.
+<Note>Replace the `:id` below with the Demo ID from the dashboard OR copy the embed code from the Sharing section.</Note>
 
 ### Examples
 
@@ -76,7 +76,7 @@ When `profile` is missing the Demo runs in **anonymous mode**.
 Start with consent mode of "consent not yet given", with the value `pending`, then update when the user gives or denies
 consent by setting the `consent` value on the Demos with either `granted` : `denied`.
 
-> Typically, Product Demos fall into the **Functional** category.
+Typically, Product Demos fall into the **Functional** category.
 
 ```html
 <iframe class="chmln-demo" loading="lazy" src="https://fast.chameleon.io/edit/demos/:id#consent=granted" style="width: 100%; height: 100%" allow="fullscreen"></iframe>

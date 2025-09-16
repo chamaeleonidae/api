@@ -342,9 +342,9 @@ window.performAction = (type, text, options) => {
 
 A Delivery is a REST API for directly **triggering an Experience** for a **specific User**.
 
-> With a Delivery you can include personalized content for that specific instance of that Delivery.
+With a Delivery you can include personalized content for that specific instance of that Delivery.
 <Note>The `delivery` helper documented here only works for the specific Experience that was triggered via Delivery.</Note>
-> Make sure to configure your Experience to **only** show Manually.
+Make sure to configure your Experience to **only** show Manually.
 
 ### Example Delivery
 
@@ -457,7 +457,7 @@ You have \{\{if plan.features includes "unlimited_widgets"\}\}Unlimited\{\{else\
 ```
 #### An `if` block with a `else` block
 
-> The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used).
+The data says spend is 734 and it's been 13 weeks (so the content in the "if block" will be used).
 
 ```plaintext
 \{\{if plan.spend > 500 && \{time_ago started_on in="weeks"\} > 12\}\}
@@ -471,7 +471,7 @@ You have \{\{if plan.features includes "unlimited_widgets"\}\}Unlimited\{\{else\
 
 When the condition does not match, the content in the `else` case is used.
 
-> The data says spend is 734
+The data says spend is 734
 
 ```plaintext
 \{\{if plan.spend > 1000\}\}
