@@ -1,0 +1,204 @@
+---
+title: "User Profiles"
+---
+
+User Profiles represent your product's end-users: real individuals who were identified to Chameleon. They can store complex (semi-arbitrary) properties about who they are.
+
+<Info>
+For a full list of your User / Company Properties see the [Properties API](/apis/properties)
+</Info>
+
+## API Capabilities
+
+The User Profiles API allows you to:
+
+- Create / Update custom User properties
+- Retrieve a user by `id`, `uid` and `email`
+- Search for users or get the count of users using any of the properties you have sent to us
+- Clear or reset a specific user's data
+- Delete a user permanently
+
+## User Profile Schema
+
+<Tabs>
+  <Tab title="Fully Expanded">
+    The full profile schema when listed directly or embedded with `expand` parameter specified properly:
+
+    <ResponseField name="id" type="string">
+      The Chameleon ID
+    </ResponseField>
+
+    <ResponseField name="created_at" type="timestamp">
+      When this happened or when this was added to the Database
+    </ResponseField>
+
+    <ResponseField name="updated_at" type="timestamp">
+      The last time any property was updated
+    </ResponseField>
+
+    <ResponseField name="uid" type="string">
+      The external ID that came from your backend system
+    </ResponseField>
+
+    <ResponseField name="company_id" type="string">
+      The Chameleon ID of the [Company](/apis/companies#schema) (only if associated)
+    </ResponseField>
+
+    <ResponseField name="browser_x" type="number">
+      Browser width in pixels
+    </ResponseField>
+
+    <ResponseField name="browser_tz" type="number">
+      Browser timezone in integer offset (+/-) from UTC
+    </ResponseField>
+
+    <ResponseField name="browser_l" type="string">
+      Language code as reported by the Accept-Language header
+    </ResponseField>
+
+    <ResponseField name="browser_n" type="string">
+      Browser name: One of `chrome`, `firefox`, `safari`, `opera`, `ie10`, `ie11`, or `edge`
+    </ResponseField>
+
+    <ResponseField name="browser_k" type="string">
+      Browser kind: One of `desktop` or `mobile`
+    </ResponseField>
+
+    <ResponseField name="percent" type="number">
+      Randomly assigned but stable, used for A/B testing
+    </ResponseField>
+
+    <ResponseField name="last_seen_at" type="timestamp">
+      When the user was last active on a page where Chameleon is installed
+    </ResponseField>
+
+    <ResponseField name="last_seen_session_count" type="number">
+      Number of sessions specified as a period of inactivity of `last_seen_at` of greater than 90 minutes
+    </ResponseField>
+
+    <ResponseField name="delivery_ids" type="array<string>">
+      Ordered list of [Delivery](/apis/deliveries#schema) model IDs
+    </ResponseField>
+
+    <ResponseField name="company" type="object">
+      The expandable [Company](/apis/companies#schema) (only if associated)
+    </ResponseField>
+
+    <ResponseField name="*any options" type="mixed">
+      Any other options you have sent as Custom Properties will show up here too
+    </ResponseField>
+  </Tab>
+
+  <Tab title="Non-Expanded">
+    The simplified profile schema when embedded in another resource (e.g., Microsurvey response):
+
+    <ResponseField name="id" type="string">
+      The Chameleon ID
+    </ResponseField>
+
+    <ResponseField name="created_at" type="timestamp">
+      When this happened or when this was added to the Database
+    </ResponseField>
+
+    <ResponseField name="updated_at" type="timestamp">
+      The last time any property was updated
+    </ResponseField>
+
+    <ResponseField name="uid" type="string">
+      The external ID that came from your backend system
+    </ResponseField>
+  </Tab>
+</Tabs>
+
+## Create / Update a User
+
+<Info>
+See the [User Profiles Webhook](/webhooks/profiles) for sending User data to Chameleon
+</Info>
+
+## Retrieve a User
+
+<CodeGroup>
+```bash GET with ID
+GET https://api.chameleon.io/v3/analyze/profiles/:id
+```
+
+```bash GET with Parameters
+GET https://api.chameleon.io/v3/analyze/profile
+```
+
+```bash POST Request
+POST https://api.chameleon.io/v3/analyze/profile
+```
+</CodeGroup>
+
+### Parameters
+
+<ParamField path="id" type="string">
+  The Chameleon ID of the User Profile
+</ParamField>
+
+<ParamField path="uid" type="string | number">
+  The User Profile identifier (typically the Database ID from your backend)
+</ParamField>
+
+<ParamField path="email" type="string">
+  If you have sent an email address, this will be available for single-user lookup
+</ParamField>
+
+<Note>
+Only one of these parameters is required. Users matched are uniquely identified based on these keys (no two users have the same `uid` or `email`)
+</Note>
+
+### Request Examples
+
+<CodeGroup>
+```bash GET with Query Parameters
+# By ID
+curl "https://api.chameleon.io/v3/analyze/profile?id=5f3c4232c712de665632a6d5" \
+  -H "X-Account-Secret: ACCOUNT_SECRET"
+
+# By UID
+curl "https://api.chameleon.io/v3/analyze/profile?uid=18821" \
+  -H "X-Account-Secret: ACCOUNT_SECRET"
+
+# By Email
+curl "https://api.chameleon.io/v3/analyze/profile?email=leon@chmln.co" \
+  -H "X-Account-Secret: ACCOUNT_SECRET"
+```
+
+```json POST with Body
+{
+  "id": "5f3c4232c712de665632a6d5",
+  "uid": 18821,
+  "email": "leon@chmln.co"
+}
+```
+</CodeGroup>
+
+### Response
+
+```json Response Example
+{
+  "profile": {
+    "id": "5f3c4232c712de665632a6d5",
+    "uid": 18821,
+    "created_at": "2020-08-18T16:47:30.314Z",
+    "updated_at": "2020-08-18T16:47:30.314Z",
+    "company_id": "5f3c4232c712de665632a6d4",
+    "browser_x": 1920,
+    "browser_tz": -8,
+    "browser_l": "en-US",
+    "browser_n": "chrome",
+    "browser_k": "desktop",
+    "percent": 42.7,
+    "last_seen_at": "2020-08-18T16:47:30.314Z",
+    "last_seen_session_count": 12,
+    "delivery_ids": ["5f3c4232c712de665632a6d6", "5f3c4232c712de665632a6d7"],
+    "company": {
+      "id": "5f3c4232c712de665632a6d4",
+      "name": "Chameleon"
+    }
+  }
+}
+```

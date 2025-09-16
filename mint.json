@@ -1,0 +1,106 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Chameleon API",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#18362E",
+    "light": "#22C55E",
+    "dark": "#0F2A22"
+  },
+  "topbarLinks": [
+    {
+      "name": "Dashboard",
+      "url": "https://app.chameleon.io"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Sign Up",
+    "url": "https://app.chameleon.io/signup"
+  },
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "overview",
+        "concepts/authentication",
+        "concepts/errors",
+        "concepts/pagination",
+        "concepts/rate-limiting",
+        "concepts/filters",
+        "concepts/normalization",
+        "concepts/any-model",
+        "concepts/personalizing",
+        "concepts/custom-triggers"
+      ]
+    },
+    {
+      "group": "JavaScript API",
+      "pages": [
+        "js/overview",
+        "js/profiles",
+        "js/demos",
+        "js/events",
+        "js/show-tour",
+        "js/show-launcher",
+        "js/show-automation",
+        "js/show-demo",
+        "js/listen"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/js/installing-correctly",
+        "guides/helpbar/user-generated-content"
+      ]
+    },
+    {
+      "group": "Webhooks",
+      "pages": [
+        "webhooks/overview",
+        "webhooks/profiles",
+        "webhooks/events",
+        "webhooks/companies"
+      ]
+    },
+    {
+      "group": "REST API",
+      "pages": [
+        "apis/overview",
+        "apis/profiles",
+        "apis/profiles-search",
+        "apis/companies",
+        "apis/segments",
+        "apis/demos",
+        "apis/search",
+        "apis/properties",
+        "apis/translation",
+        "apis/surveys",
+        "apis/survey-responses",
+        "apis/tours",
+        "apis/tour-interactions",
+        "apis/deliveries",
+        "apis/limit-groups",
+        "apis/alert-groups",
+        "apis/imports",
+        "apis/launchers",
+        "apis/tooltips",
+        "apis/changes",
+        "apis/urls",
+        "apis/webhooks"
+      ]
+    }
+  ],
+  "api": {
+    "baseUrl": "https://api.chameleon.io/v3"
+  },
+  "analytics": {
+    "ga4": {
+      "measurementId": "G-XXXXXXXXXX"
+    }
+  }
+}

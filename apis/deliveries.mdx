@@ -1,0 +1,130 @@
+---
+title: "Deliveries"
+---
+
+Deliveries are used to directly trigger an Experience to one specific User.
+
+- In a simple case, the linked Experience will be triggered with the given options.
+- A time window (`from` / `until`) can be applied to only deliver after/before/in the specified time window.
+- Filters such as `once` and `use_segmentation` can fine-tune the triggering.
+
+<Warning>
+An Experience that is delivered to the User will show immediately and with higher priority than any other Automatic Experiences
+but an Experience _may not_ show due to the conditions added to the Delivery itself.
+For example, when a Delivery uses segmentation (`use_segmentation`) and the segmentation does not match the
+User at the time of the delivery, the Experience will not show and the Delivery is not attempted again.
+</Warning>
+
+## Delivery Schema
+
+<ResponseField name="id" type="string">
+  The Chameleon ID
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+  When this happened or when this was added to the Database
+</ResponseField>
+
+<ResponseField name="updated_at" type="timestamp">
+  The last time any property was updated
+</ResponseField>
+
+<ResponseField name="model_id" type="string">
+  The Chameleon ID of Experience this Delivery will trigger.
+</ResponseField>
+
+<ResponseField name="model_kind" type="string">
+  The kind of Experience: One of `tour` or `survey`
+</ResponseField>
+
+<ResponseField name="profile_id" type="string">
+  The Chameleon ID of the [User Profile](/apis/profiles#schema)
+</ResponseField>
+
+<ResponseField name="idempotency_key" type="string">
+  A key that is used to enforce server-side "at most once delivery" for the given `profile_id`. [Learn more ↓](#idempotency)
+</ResponseField>
+
+<ResponseField name="options" type="mixed">
+  Any content to be used in the Experience, accessible via merge tag.
+</ResponseField>
+
+<ResponseField name="from" type="timestamp">
+  The timestamp before which this Delivery will not run.
+</ResponseField>
+
+<ResponseField name="until" type="timestamp">
+  The timestamp after which this Delivery is no longer valid.
+</ResponseField>
+
+<ResponseField name="use_segmentation" type="boolean">
+  Whether or not to first apply the Segment to determine if the Experience will show to the user. (default `false`)
+</ResponseField>
+
+<ResponseField name="once" type="boolean">
+  Whether or not to check if the user has seen this Experience before. (default `false`)
+</ResponseField>
+
+<ResponseField name="skip_triggers" type="boolean">
+  Whether or not to bypass the triggers, elements and delays on the first step to "force" it to show right away. (default `true`)
+</ResponseField>
+
+<ResponseField name="skip_url_match" type="boolean">
+  Whether or not to bypass the first Step URL match to "force" it to show right away. (default `true`)
+</ResponseField>
+
+<ResponseField name="at" type="timestamp">
+  The timestamp of when this Delivery was triggered for the User.
+</ResponseField>
+
+<ResponseField name="at_href" type="string">
+  The page URL of where this Delivery was triggered for the User.
+</ResponseField>
+
+<ResponseField name="interaction_id" type="string">
+  The Chameleon ID of [Interaction](/apis/tour-interactions) this Delivery triggered.
+</ResponseField>
+
+<ResponseField name="group_kind" type="string">
+  The triggering system/api: One of `link`, `api_js`, `launcher`, `experiment`, `campaign`, or `delivery`
+</ResponseField>
+
+### Errors
+
+- When the Experience is not live (not currently published) (`409`)
+- When User Profile has too many pending Deliveries (`409`)
+- When the user has not been seen by Chameleon (`422`)
+- When the supplied dates (`from` and `until`) are out of order (`422`)
+- When the supplied dates (`from` and `until`) are not in compatible formats (`422`)
+
+| Code  | description                                                  |
+| ----- | ------------------------------------------------------------ |
+| `404` | A related model cannot be found (Tour, Survey or Profile) |
+| `409` | The Experience is not live, please publish and retry |
+| `409` | The Experience has already been triggered (it can no longer be subsequently changed) |
+| `409` | Too many outstanding deliveries for this User Profile, use `delivery_ids_at_limit` with value of `drop` |
+| `422` | The dates cannot be used in their given values (use `iso8601` or similar format) |
+| `422` | The `delivery_ids_limit` is too small or too large |
+| `429` | Only one Delivery at a time can be created per User Profile |
+
+### Limitations
+
+<Warning>
+Once a Delivery is marked as triggered (when `at` has a timestamp value) the delivery can no-longer be updated.
+</Warning>
+
+**Pending Deliveries** (yet untriggered; with a `null` value for the `at` property) are limited to 3 total per User Profile.
+This limit can be changed:
+
+- Globally to enable certain Use cases (if you're on our Growth plan, [Contact us](https://app.chameleon.io/help)).
+- Per request, to limit to any number smaller than your global limit (defaults to `3`).
+
+A User Profile that already has 2 pending Deliveries requires a special parameter `delivery_ids_position` to instruct us where in
+the list to add this new Delivery. Use values of `first`, `last` or an integer array of indexes.
+
+If an error occurs for a "limit reached", either specify `delivery_ids_at_limit` with value of `drop` or
+first [list the Deliveries by User Profile](#deliveries-index) to determine which ones to remove.
+
+**Time based limits**: When using `from` and `until` the deliveries will be added to the list of pending deliveries and made
+available to the client-side JavaScript but will remain undelivered until the `from` time is reached
+or after the `until` time is been passed.
