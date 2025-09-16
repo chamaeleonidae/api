@@ -16,9 +16,9 @@ It is typically delivered as an embed on your marketing site, or as part of a Ch
 
 <Note>Replace the `:id` below with the Demo ID from the dashboard OR copy the embed code from the Sharing section.</Note>
 
-### Examples {#examples}
+### Examples
 
-#### Profile mode (logged-in user ID) {#mode-profile}
+#### Profile mode (logged-in user ID)
 
 Any and all times that you have information about the logged-in user. All of the information about what properties/data
 to send is in the main documentation about [Identifying users](js/profiles) but the Tl;DR is that you should send at least a
@@ -65,7 +65,7 @@ For simplicity, and unless otherwise specified, adding User ID for an identified
 </Accordion>
 
 
-#### Anonymous mode (the default) {#mode-anonymous}
+#### Anonymous mode (the default)
 
 When `profile` is missing the Demo runs in **anonymous mode**.
 
@@ -74,7 +74,7 @@ When `profile` is missing the Demo runs in **anonymous mode**.
 ```
 
 
-### Consent to track (cookies etc.) {#cookie-consent}
+### Consent to track (cookies etc.)
 
 Start with consent mode of "consent not yet given", with the value `pending`, then update when the user gives or denies
 consent by setting the `consent` value on the Demos with either `granted` : `denied`.
@@ -101,7 +101,7 @@ demoElements.forEach(demoEl => demoEl.src = srcWithData(demoEl.src, { consent })
 ```
 
 
-### Schema of properties {#schema}
+### Schema of properties
 
 These control different aspects of the Product Demo including identity, use of cookies, prefilled data, etc.
 The data is passed to the iframe via the hash parameters and objects like `profile` and `options` should be JSON encoded first before being handed to `srcWithData`
@@ -113,11 +113,11 @@ engagement with Product Demos into the other experiences that Chameleon offers s
 | Property                   | Values                         | Description                                                                                                                 |
 |----------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
 | `consent`                  | `granted`, `denied` , `pending`| Whether or not consent has been given. Defaults to `granted`. Change this when the user gives or denies consent             |
-| `profile`                   | {"uid":"5a17d4", ...}          | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                               |
-| `options.session_duration` | {"session_duration":15, ...}   | The duration (in minutes) before the user's session expires automatically. Set to 0 to disable session persistence entirely.|
+| `profile`                   | ``{"uid":"5a17d4", ...}``          | A JSON object of data about the current user (encode as JSON before passing to `srcWithData`)                               |
+| `options.session_duration` | ``{"session_duration":15, ...}``   | The duration (in minutes) before the user's session expires automatically. Set to 0 to disable session persistence entirely.|
 
 
-## JavaScript API {#js-api}
+## JavaScript API
 
 The iframe uses `window.parent.postMessage` to communicate information back to the parent page. Chameleon also communicates to the Chameleon
 JavaScript [installation](https://help.chameleon.io/en/articles/1161793-installing-directly-using-javascript). Below are the messages you can expect from the iframe at the relevant times in the Demo. Message are described below as being sent but this just
@@ -126,7 +126,7 @@ means that any listener to `window.addEventListener('message', message => ...)` 
 The `message` parameter to the callback function is a [MessageEvent](https://developer.mozilla.org/en-US/docs/Web/API/MessageEvent) where `message.data` is the object sent
 from inside the iframe, akin to webhooks (but on the client side).
 
-### Message event kinds {#schema-kinds}
+### Message event kinds
 
 
 | Event kind                     | Event name                       | Description                                                                                          |
@@ -147,7 +147,7 @@ from inside the iframe, akin to webhooks (but on the client side).
 The example code using `analytics.track` should be adapted for how you track analytics in your product. This can also be completely omitted from your
 implementation and Demos will run just fine. Consider this optional.
 
-#### Generic analytics tracking {#example0}
+#### Generic analytics tracking
 
 ```javascript
 window.addEventListener('message', message => {
@@ -165,7 +165,7 @@ window.addEventListener('message', message => {
 });
 ```
 
-#### Analytics tracking {#example1}
+#### Analytics tracking
 
 ```javascript
 window.addEventListener('message', message => {
@@ -199,7 +199,7 @@ window.addEventListener('message', message => {
 })
 ```
 
-#### Custom handling of individual events {#example2}
+#### Custom handling of individual events
 
 ```javascript
 window.addEventListener('message', message => {
@@ -265,7 +265,7 @@ window.addEventListener('message', message => {
 });
 ```
 
-## Speed, Performance, Caching {#caching}
+## Speed, Performance, Caching
 
 Including a Product Demo in your marketing site will give your prospective users an inside view
 into what it is like to use your product. It may given them the confidence to make a purchase, book a demo, or recommend you to their team.

@@ -27,12 +27,12 @@ Searching User Profiles through the Chameleon API allows you to:
 
 
 
-## Schema {#schema}
+## Schema
 
 See the full [User Profile schema](apis/profiles#schema).
 
 
-## Examples {#examples}
+## Examples
 
 All of these examples are based directly on the full schema of [Segmentation Filter Expressions](concepts/filters).
 
@@ -251,7 +251,7 @@ Query for users where either Admins AND are either com the Acme account or have 
 ```
 
 
-## Searching Users {#profiles-index}
+## Searching Users
 
 #### HTTP Request
 
@@ -290,7 +290,7 @@ use values of `all`, `min` or `skip` to control the properties present in the `c
 expand[profile]=min&expand[company]=skip
 
 # In the Reqeust body
-{"expand":{"profile":"min","company":"skip"}}
+``{"expand":{"profile":"min","company":"skip"}}``
 ```
 
 Notes:
@@ -339,7 +339,7 @@ Notes:
 
 
 
-## Counting Users {#profiles-count}
+## Counting Users
 
 #### HTTP Request
 

@@ -12,7 +12,7 @@ Using Chameleon's API for Microsurvey responses, you can:
 - Delete a Microsurvey response.
 
 
-## Schema {#schema}
+## Schema
 
 <ParamField path="id" type="ID">
 The Chameleon ID
@@ -102,7 +102,7 @@ An expandable [Profile](apis/profiles) model
 An expandable [Company](apis/companies) model embedded in the profile
 </ParamField>
 
-## List Microsurvey Responses {#responses-index}
+## List Microsurvey Responses
 
 #### HTTP Request
 
@@ -153,7 +153,7 @@ use values of `all`, `min` or `skip` to control the properties present in the `c
 expand[profile]=all&expand[company]=skip
 
 # In the Reqeust body
-{"expand":{"profile":"all","company":"skip"}}
+``{"expand":{"profile":"all","company":"skip"}}``
 ```
 
 Notes:
@@ -207,7 +207,7 @@ Notes:
 }
 ```
 
-## Delete a Microsurvey Response {#responses-destroy}
+## Delete a Microsurvey Response
 
 Deleting a Microsurvey response also clears the associated metrics and summaries
 

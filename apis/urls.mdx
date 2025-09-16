@@ -34,7 +34,7 @@ With the Chameleon API for Domains, you can:
 - Retrieve a specific domain based on its `id`.
 
 
-## Domain Schema (Url) {#schema}
+## Domain Schema (Url)
 
 <ParamField path="id" type="ID">
 The Chameleon ID
@@ -85,7 +85,7 @@ The time when this was archived
 </ParamField>
 
 
-## Create a Url (enable a new domain) {#urls-create}
+## Create a Url (enable a new domain)
 
 #### HTTP Request
 
@@ -125,7 +125,7 @@ To archive set to a timestamp, to unarchive set to `null`
 
 
 
-## Update a Url {#urls-update}
+## Update a Url
 
 #### HTTP Request
 
@@ -169,7 +169,7 @@ The Environment ([Url Group](apis/urls#url-groups)) to assign this Url to
 
 
 
-## Bulk a Url {#urls-bulk-update}
+## Bulk a Url
 
 #### HTTP Request
 
@@ -220,7 +220,7 @@ All of the Urls given in the request `ids` are updated with the value given by `
 
 
 
-## Listing all Urls {#urls-index}
+## Listing all Urls
 
 #### HTTP Request
 
@@ -285,7 +285,7 @@ Read as "created `after`" and can be given as a timestamp or ID to get only `lim
 
 
 
-## Retrieve a Url {#urls-show}
+## Retrieve a Url
 
 #### HTTP Request
 
@@ -313,7 +313,7 @@ The Chameleon ID of the Url to show
 
 ---------------
 
-## Environments (Url Groups) {#url-groups}
+## Environments (Url Groups)
 
 <Note>Environments are in BETA at the moment ([Contact us](https://app.chameleon.io/help) to join).</Note>
 
@@ -328,7 +328,7 @@ An Environment is a group of Domains. The purpose of an Environment is to:
 <Note>Assigning a `url_group_id` to a TLD means that all future subdomains of that TLD are</Note>
 
 
-## Environment Schema (Url Group) {#url-groups-schema}
+## Environment Schema (Url Group)
 
 <ParamField path="id" type="ID">
 The Chameleon ID
@@ -363,7 +363,7 @@ A easily recognizable color; an uppercase 6 char hex code excluding the `#`.
 </ParamField>
 
 
-## Create a Url Group {#url-groups-create}
+## Create a Url Group
 
 #### HTTP Request
 
@@ -403,7 +403,7 @@ A 6 character hex code color to identify the Environment
 ```
 
 
-## Update a Url Group {#url-groups-update}
+## Update a Url Group
 
 #### HTTP Request
 
@@ -463,7 +463,7 @@ Use values of `ignore` or `archive`. When archiving with `archived_at`, the Doma
 
 
 
-## Listing all Url Groups {#url-groups-index}
+## Listing all Url Groups
 
 #### HTTP Request
 
@@ -527,7 +527,7 @@ Read as "created `after`" and can be given as a timestamp or ID to get only `lim
 
 
 
-## Retrieve a Url Group {#url-groups-show}
+## Retrieve a Url Group
 
 #### HTTP Request
 

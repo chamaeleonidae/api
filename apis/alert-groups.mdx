@@ -10,7 +10,7 @@ the full list of matching [Experiences](/concepts/experiences) are returned as t
 -------
 
 
-## Schema {#schema}
+## Schema
 
 | Property | Type | Description |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ the full list of matching [Experiences](/concepts/experiences) are returned as t
 | `opt_in_email_at` | timestamp | Whether or not to send triggered alerts to the given list of `emails` |
 
 
-##### Kinds of Alert Groups (`kind` property) {#alert-group-kinds}
+##### Kinds of Alert Groups (`kind` property)
 
 An Alert Group creates a **dynamic** or **static** group of Experiences. Each experience is checked for violation of the alert conditions.
 
@@ -44,14 +44,14 @@ An Alert Group creates a **dynamic** or **static** group of Experiences. Each ex
 | `campaigns` | static | All published [Tours](/apis/tours) + [Microsurveys](/apis/surveys) **_explicitly_** in the `campaign_ids` list |
 
 
-##### Alerting conditions (`style` property) {#alert-group-styles}
+##### Alerting conditions (`style` property)
 | Kind | - | Description |
 | --- | --- | --- |
 | `unseen` | - | An Experience that is not Seen (i.e. displayed to any User) during the `interval` # of days will trigger an alert. |
 | `uncompleted` | - | An Experience that is not Completed (i.e. no User finished) during the `interval` # of days will trigger an alert. |
 
 
-## Listing Alert Groups {#alert-groups-index}
+## Listing Alert Groups
 
 Retrieve a list of **all** Alert Groups and **all** currently matching [Experiences](/concepts/experiences).
 An account typically has 1-5 Alert Groups so this response should be relatively small.
@@ -125,7 +125,7 @@ GET https://api.chameleon.io/v3/edit/alert_groups
 
 -----
 
-## Showing a Alert Group {#alert-groups-show}
+## Showing a Alert Group
 
 Retrieve a single Alert Group and **all** currently matching [Experiences](/concepts/experiences).
 

@@ -10,7 +10,7 @@ A Tour Interaction is a state object which contains the current view of a Tour f
 
 With the Chameleon API, you can list Tour Interactions that follow the specified parameters.
 
-## Schema {#schema}
+## Schema
 
 <ParamField path="id" type="ID">
 The Chameleon ID
@@ -60,7 +60,7 @@ An expandable [Profile](apis/profiles) model
 An expandable [Company](apis/companies) model embedded in the profile
 </ParamField>
 
-## List Tour Interactions {#tour-interactions-index}
+## List Tour Interactions
 
 #### HTTP Request
 
@@ -111,7 +111,7 @@ use values of `all`, `min` or `skip` to control the properties present in the `c
 expand[profile]=all&expand[company]=skip
 
 # In the Reqeust body
-{"expand":{"profile":"all","company":"skip"}}
+``{"expand":{"profile":"all","company":"skip"}}``
 ```
 
 Notes:

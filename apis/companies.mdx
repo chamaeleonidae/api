@@ -10,7 +10,7 @@ For a full list of your User / Company Properties see the [Properties API](/apis
 
 ---
 
-## Schema {#schema}
+## Schema
 
 #### Fully-expanded [Company](/apis/companies) when listed directly or embedded with `expand` param specified properly
 
@@ -31,12 +31,12 @@ For a full list of your User / Company Properties see the [Properties API](/apis
 | `uid` | string | The external ID that came from your backend system |
 
 
-## Create / Update a Company {#companies-create}
+## Create / Update a Company
 
 See the [Companies Webhook](/webhooks/companies) for sending User data to Chameleon
 
 
-## Retrieve a Company {#companies-show}
+## Retrieve a Company
 
 Retrieve a single Company.
 
@@ -68,7 +68,7 @@ GET https://api.trychameleon.com/v3/analyze/company?uid=:uid
 }
 ```
 
-## List Companies {#companies-index}
+## List Companies
 
 List all Companies.
 
@@ -94,7 +94,7 @@ GET|POST https://api.chameleon.io/v3/analyze/companies
 expand[profile]=min&expand[company]=skip
 
 # In the Reqeust body
-{"expand":{"profile":"min","company":"skip"}}
+```{"expand":{"profile":"min","company":"skip"}}```
 ```
 
 
@@ -131,7 +131,7 @@ expand[profile]=min&expand[company]=skip
 ```
 
 
-### Search Companies {#companies-search}
+### Search Companies
 
 Searching Companies through the Chameleon API allows you to:
 
@@ -146,7 +146,7 @@ Searching Companies through the Chameleon API allows you to:
 | `/companies`       | 2                           |
 
 
-#### Examples {#companies-search-examples}
+#### Examples
 
 All of these examples are based directly on the full schema of [Segmentation Filter Expressions](/concepts/filters).
 
@@ -185,7 +185,7 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      https://api.trychameleon.com/v3/analyze/companies
 ```
 
-## Delete a Company {#companies-delete}
+## Delete a Company
 
 When deleting a company, the company record itself is deleted and company is removed from all profiles associated with it.
 The associated profiles can also be removed by passing `cascade=profiles` with the request.

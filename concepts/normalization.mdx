@@ -6,14 +6,14 @@ Data in Chameleon is [normalized](concepts/normalization.md) for storage, to eli
 
 ---
 
-## Properties, Events and Tags {#all}
+## Properties, Events and Tags
 
 - **User Property** names are normalized to their lower-cased and underscored versions.
 - **Event Names** are normalized in the same way.
 - **Tag Names** are normalized in the same way.
 - This is done to provide the consistent application of API inputs and Segmentation outputs without runtime translations.
 
-### User/Company Properties {#properties}
+### User/Company Properties
 
 All of these examples will be stored internally as `user_role` and be called "User Role" in the UI.
 
@@ -22,7 +22,7 @@ All of these examples will be stored internally as `user_role` and be called "Us
 - `UserRole` => `user_role`
 - `user role` => `user_role`
 
-### Event Names {#events}
+### Event Names
 
 All of these examples will be stored internally as `imported_leads` and be called "Imported Leads" in the UI.
 
@@ -31,7 +31,7 @@ All of these examples will be stored internally as `imported_leads` and be calle
 - `ImportedLeads` => `imported_leads`
 - `Imported leads` => `imported_leads`
 
-### Tag Names {#tags}
+### Tag Names
 
 All of these examples will be stored internally as `feature_announcements` and be called "Feature Announcements" in the UI.
 
@@ -44,7 +44,7 @@ All of these examples will be stored internally as `feature_announcements` and b
 All of the data sent to Chameleon is cleaned before storage in the Database.
 We translate JSON and/or String inputs into *real data* for the purpose of storage.
 
-### Timestamps and Dates {#timestamps}
+### Timestamps and Dates
 
 We try to recognize as many types of dates as possible to provide rich filtering based on date ranges.
 
@@ -85,7 +85,7 @@ We try to recognize as many types of dates as possible to provide rich filtering
 
 - `["992", {"list_of_things":["thing1","12"]}]` => `[992]`
 
-## Limitations {#limits}
+## Limitations
 
 - Data received which is bigger than 768 bytes (characters) will be truncated and an alert will be set on the [Data management](https://app.chameleon.io/data/properties/profile) page.
 - Each Array member as well as each Hash value can reach this limit.

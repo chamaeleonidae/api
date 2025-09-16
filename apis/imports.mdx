@@ -9,7 +9,7 @@ When using a CSV to create new records that are not yet in Chameleon, you must p
 
 Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new User Tag or a new Company Tag and add all of the matching models to the new Tag.
 
-## Schema {#schema}
+## Schema
 
 | Property                    | Type                       | Description                                                                                                                                                                                                                                                                                |
 |-----------------------------|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -43,7 +43,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 
 ------
 
-## Limitations {#limits}
+## Limitations
 
 - Imports must be less than 50MB (200MB on the Growth plan) [1]
 - Imports must be less 20 columns (100 on the Growth plan) [1]
@@ -59,7 +59,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 
 ------
 
-## List all Imports {#imports-index}
+## List all Imports
 
 #### HTTP Request
 
@@ -102,7 +102,7 @@ GET https://api.chameleon.io/v3/edit/imports
 ```
 
 
-## Create an Import {#imports-create}
+## Create an Import
 
 - Check out the [cURL Examples](/apis/imports#examples-all-curl) below to see this in action.
 
@@ -158,7 +158,7 @@ For CSV-based import `kind`, both valid `properties` and `file` are required bef
 - When an error occurs during the Import, the `stats.last_import_state` will change to `retrying` or `error` and `stats.last_import_error` will have a value.
 
 
-##### Using `kind=tag_csv` to tag User Profiles via a User ID {#examples-profiles-tag-all}
+##### Using `kind=tag_csv` to tag User Profiles via a User ID
 
 <Info>
 This will be the same User ID you send to Chameleon when calling `chmln.identify` => [Identifying Users](/js/profiles).
@@ -253,7 +253,7 @@ Response:
 ```
 
 
-##### Using `kind=tag_csv` to tag Companies via a Company ID {#examples-companies-tag-all}
+##### Using `kind=tag_csv` to tag Companies via a Company ID
 
 <Info>
 This will be the same Company ID you send to Chameleon when calling `chmln.identify` => [Identifying Company](/js/profiles#company).
@@ -300,7 +300,7 @@ Response:
 }
 ```
 
-##### Using `kind=update_csv` to update User Profile data {#examples-profiles-update-all}
+##### Using `kind=update_csv` to update User Profile data
 
 With a CSV `file` like this, use `properties` to specify the headers as mapped to the `prop` field of Chameleon [Property](/apis/properties).
 
@@ -359,7 +359,7 @@ Response:
 }
 ```
 
-##### Using `kind=delete_csv` to delete User Profiles via a User ID {#examples-profiles-delete-by-id}
+##### Using `kind=delete_csv` to delete User Profiles via a User ID
 
 <Info>
 This will be the same User ID you send to Chameleon when calling `chmln.identify` => [Identifying Users](/js/profiles).
@@ -406,7 +406,7 @@ Response:
 }
 ```
 
-##### Using `kind=delete_csv` to delete User Profiles with Email {#examples-profiles-delete-by-email}
+##### Using `kind=delete_csv` to delete User Profiles with Email
 
 With a CSV `file` like this, specify the header of `Email address` as mapping to the Chameleon User Profile field of `email`.
 
@@ -471,7 +471,7 @@ Response:
 }
 ```
 
-## Show an Import {#imports-show}
+## Show an Import
 
 Get information about the this Import which is typically used to track the Import's progress and to know when it finishes.
 Use `stats.rows_count` and `stats.last_row` to give a percentage complete.
@@ -512,7 +512,7 @@ GET https://api.chameleon.io/v3/edit/imports/:id
 ```
 
 
-## Update an Import {#imports-update}
+## Update an Import
 
 <Info>
 The main reason to update an import is to "capture a workflow" or to separately upload the CSV file for convenience via `cURL`.
@@ -533,7 +533,7 @@ PATCH https://api.chameleon.io/v3/edit/imports/:id
 --------
 
 
-## Download the uploaded data {#imports-download}
+## Download the uploaded data
 
 Same endpoint as [show](/apis/imports#imports-show), but adds a `.csv` on the end. The response body is the CSV data.
 the `Content-Disposition` will be in this format => `attachment; filename="your original upload.csv"`
@@ -550,7 +550,7 @@ GET https://api.trychameleon.com/v3/edit/imports/:id.csv
 
 
 
-## cURL Examples {#examples-all-curl}
+## cURL Examples
 
 To [Authenticate](/concepts/authentication), replace `ACCOUNT_SECRET` below with your secret token. This can be generated on your [dashboard](https://app.chameleon.io/integrations/tokens).
 

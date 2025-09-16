@@ -20,11 +20,11 @@ Personalizing is the way to adjust Experience content to match the User who is v
 | `if` (content logic)       | [examples ↓](/concepts/personalizing#examples-logic-if)   | Output html based on given options                                                    |
 
 
-## Examples {#examples}
+## Examples
 
 Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpose of date-based examples below.
 
-##### Example user data {#example-user-data}
+##### Example user data
 
 ```json
 {
@@ -53,7 +53,7 @@ Current reference time is `2029-04-04T12:00:00Z` -- this is "now" for the purpos
 ```
 
 
-### Greeting with a User's name | `property` helper {#examples-property}
+### Greeting with a User's name | `property` helper
 
 ```text
 Hey {{first_name}} 👋!
@@ -87,7 +87,7 @@ You're subscribed to the {{property 'plan.name'}} plan.
 # You're subscribed to the Growth plan.
 ```
 
-### Use a relative offset time | `time_difference_in_words` helper {#examples-time-diff}
+### Use a relative offset time | `time_difference_in_words` helper
 
 ```text
 You signed up {{time_difference_in_words created}}.
@@ -106,7 +106,7 @@ Thanks for being a identified to Chameleon for {{time_difference_in_words create
 # Thanks for being a identified to Chameleon for 1 year!
 ```
 
-### Calculate differences between dates | `time_ago` helper {#examples-time-ago}
+### Calculate differences between dates | `time_ago` helper
 
 This calculation is best used as a nested helper in an `if` block | [examples ↓](/concepts/personalizing#examples-logic-if)
 
@@ -153,7 +153,7 @@ Check out these [additional resources](https://help.your-product.co/getting-star
 ```
 
 
-### Display a timestamp/date in a presentable format | `time_local` helper {#examples-time-local}
+### Display a timestamp/date in a presentable format | `time_local` helper
 
 Internally this helper generates a `Date` object and then calls `toLocaleString`.
 
@@ -237,7 +237,7 @@ Use for feature launches, maintenance windows, expiration dates for surveys/deal
 ```
 
 
-### Pluralizing numbers | `pluralize` helper {#examples-plural}
+### Pluralizing numbers | `pluralize` helper
 
 The tense word can be singular **or** plural when it's passed in.
 
@@ -254,7 +254,7 @@ Your next bill is ${{pluralize plan.spend "dollars"}}. # given plural => plural 
 
 ----------
 
-## Examples for `global` helper {#examples-global}
+## Examples for `global` helper
 
 ```javascript
 window.chameleonTheme = { background: "#1f1f24", primary: "#7856ff" };
@@ -342,7 +342,7 @@ window.performAction = (type, text, options) => {
 </Warning>
 
 
-## Examples using `delivery` helper {#examples-delivery}
+## Examples using `delivery` helper
 
 More information about Deliveries can be found on the [Deliveries API reference](/apis/deliveries).
 
@@ -394,7 +394,7 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 
 
 
-### Show a custom link | `html` helper {#examples-html}
+### Show a custom link | `html` helper
 
 ```text
 {{html 'Read' tagName='a' href='/read-more' target='read-more-tab' data-read-more='link' style='color: red'}}
@@ -403,7 +403,7 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 
 
 
-### Use custom logic | `if` block helper {#examples-logic-if}
+### Use custom logic | `if` block helper
 
 When the _condition_ evaluates to truthy, the content in the `if` block is used, otherwise the `else` block is used.
 A condition is a JS-like combination of a "left hand side", and "operator" and a "right hand side". If you're having
@@ -532,7 +532,7 @@ As the owner of your account, you're in charge of your [Team's admins](/settings
 {{/if}}
 ```
 
-## Segmentation filter conditions | `filter` helper {#examples-filter}
+## Segmentation filter conditions | `filter` helper
 
 Sometimes you need to do something especially complicated that can't be captured with `==` or `&&`; enter the `filter` helper.
 You can use any of the [Segmentation filter expressions](/concepts/filters) and many of the simple
@@ -548,7 +548,7 @@ conditions on user properties can be handled with `filter`.
 ```
 
 
-## Custom helpers {#custom-helpers}
+## Custom helpers
 
 - Your developers can define the implementation for a custom helper to fit you merge tag needs. A merge tag helper is simply a function that takes arguments (args) and options (opts) and outputs a string.
 - A merge tag follows the typical "mustache syntax" like the other examples above `{{helper_name ["arg1", "arg2", ...] [option1="value1" option2="value2"]}}`
