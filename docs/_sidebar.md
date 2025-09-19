@@ -52,6 +52,8 @@
   - [Microsurvey Responses](apis/survey-responses.md)
   - [Tours](apis/tours.md)
   - [Tour interactions](apis/tour-interactions.md)
+  - [Steps](apis/steps.md)
+  - [Elements](apis/elements.md)
   - [Experience Deliveries](apis/deliveries.md)
   - [Experience Rate Limit Groups](apis/limit-groups.md)
   - [Experience Alert Groups](apis/alert-groups.md)
