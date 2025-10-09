@@ -105,12 +105,12 @@ Update a single Tour to change the [Environments](apis/urls.md) or to Publish it
 PATCH https://api.chameleon.io/v3/edit/tours/:id
 ```
 
-| param           | -        | description                                                                                    |
-|-----------------|----------|------------------------------------------------------------------------------------------------|
-| `id`            | required | A Tour ID to update                                                                            |
+| param          | -        | description                                                                                    |
+|----------------|----------|------------------------------------------------------------------------------------------------|
+| `id`           | required | A Tour ID to update                                                                            |
 | `url_group_id` | optional | An [Environment](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
-| `tag_id`        | optional | An [Tag](apis/tags.md) ID prefixed with `+` to add or or `-` to remove the Tag                 |
-| `published_at`  | optional | The published time of this Tour (set to now to trigger a publish)                              |
+| `tag_id`       | optional | A [Tag](apis/tags.md) ID prefixed with `+` to add or or `-` to remove the Tag                  |
+| `published_at` | optional | The published time of this Tour (set to now to trigger a publish)                              |
 
 
 To **Publish** the Tour send the current timestamp in `iso8601` format
