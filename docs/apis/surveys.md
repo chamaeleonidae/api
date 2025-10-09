@@ -96,7 +96,8 @@ PATCH https://api.chameleon.io/v3/edit/surveys/:id
 | param           | -        | description                                                                                     |
 |-----------------|----------|-------------------------------------------------------------------------------------------------|
 | `id`            | required | A Microsurvey ID to update                                                                      |
-| `urls_group_id` | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
+| `url_group_id`  | optional | An [Environments](apis/urls.md) ID prefixed with `+` to add or or `-` to remove the Environment |
+| `tag_id`        | optional | A [Tag](apis/tags.md) ID prefixed with `+` to add or or `-` to remove the Tag                   |
 | `published_at`  | optional | The published time of this Microsurvey (set to now to trigger a publish)                        |
 
 To **Publish** the Microsurvey
