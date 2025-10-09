@@ -113,6 +113,8 @@ GET https://api.chameleon.io/v3/edit/tags/:id
 
 Apply multiple tag operations across multiple Experiences (Tours, Microsurveys, Tooltips, Launchers) in a single request. This endpoint is optimized for bulk updates.
 
+**Check out [this guide](guides/scripts/bulk-tagging.md) with specific examples**
+
 > A Tour, Microsurvey, and Embed is `model_type=Campaign` when used in this API
 
 - Tags names are automatically [normalized](concepts/normalization.md?id=tags) when created
