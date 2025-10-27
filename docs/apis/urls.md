@@ -238,8 +238,6 @@ GET https://api.chameleon.io/v3/edit/urls/:id
 
 ## Environments (Url Groups) :id=url-groups
 
-> Environments are in BETA at the moment ([Contact us](https://app.chameleon.io/help) to join).
-
 An Environment is a group of Domains. The purpose of an Environment is to:
 
 1. Split data out into groups; the groups are used in the Chameleon Dashboard to display your Experience data by environment.
@@ -419,3 +417,4 @@ GET https://api.chameleon.io/v3/edit/url_groups/:id
   }
 }
 ```
+
