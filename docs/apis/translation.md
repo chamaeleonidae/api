@@ -1,8 +1,8 @@
-# Localization / Internationalization [BETA]
+# Localization / Internationalization 
 
 **The content of Chameleon Experiences can be Localized / Internationalized into a reasonable number of languages**
 
-> Localization is in BETA at the moment ([Contact us](https://app.chameleon.io/help) to join) and available as an add-on to our Grown / Enterprise plans.
+> Localization is available on Enterprise plans or as an add-on to other plans.
 >
 > The main [Help page](https://help.chameleon.io/en/articles/5868890) on this topic may be more helpful for a typical workflow.
 
