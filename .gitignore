@@ -1,2 +1,13 @@
 .idea
 .DS_Store
+
+# Migration scripts (kept locally, not in repo)
+scripts/
+
+# Migration documentation files
+COLOR_OPTIONS.md
+CONVERSION_REFERENCE.md
+MIGRATION_COMPLETE.md
+PHASE1_COMPLETE.md
+PHASE2_COMPLETE.md
+VALIDATION_CHECKLIST.md
