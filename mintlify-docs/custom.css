@@ -1,5 +1,17 @@
 /* Custom styling for Chameleon API docs */
 
+/* Make logo bigger - try multiple selectors */
+.logo img,
+header img,
+nav img,
+[class*="logo"] img,
+a[href="/"] img {
+  height: 56px !important;
+  width: auto !important;
+  max-height: none !important;
+  min-height: 56px !important;
+}
+
 /* Inline code blocks - orange text with default gray background like old docs */
 code:not(pre code) {
   color: #D97706 !important;

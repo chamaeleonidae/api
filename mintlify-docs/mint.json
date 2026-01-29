@@ -1,10 +1,11 @@
 {
   "name": "Chameleon API",
   "logo": {
-    "light": "https://www.chameleon.io/wp-content/uploads/2023/05/chameleon-icon.svg",
-    "dark": "https://www.chameleon.io/wp-content/uploads/2023/05/chameleon-icon.svg"
+    "light": "/logo-light.png",
+    "dark": "/logo-dark.png",
+    "height": 56
   },
-  "favicon": "https://www.chameleon.io/favicon.ico",
+  "favicon": "/favicon.png",
   "colors": {
     "primary": "#22C55E",
     "light": "#4ADE80",
@@ -21,10 +22,14 @@
   "theme": "venus",
   "topbarLinks": [
     {
-      "name": "Chameleon.io",
-      "url": "https://www.chameleon.io"
+      "name": "Help Center",
+      "url": "https://help.chameleon.io"
     }
   ],
+  "topbarCtaButton": {
+    "name": "Go to Dashboard",
+    "url": "https://app.chameleon.io"
+  },
   "navigation": [
     {
       "group": "Getting Started",
