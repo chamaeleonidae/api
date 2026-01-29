@@ -1,0 +1,71 @@
+/* Custom styling for Chameleon API docs */
+
+/* Inline code blocks - orange text with default gray background like old docs */
+code:not(pre code) {
+  color: #D97706 !important;
+  font-weight: 500 !important;
+}
+
+/* Table styling improvements */
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+/* Light mode table styling */
+table th {
+  background-color: #F0FDF4 !important;
+  font-weight: 600 !important;
+  padding: 12px !important;
+  border: 1px solid #BBF7D0 !important;
+}
+
+table td {
+  padding: 10px 12px !important;
+  border: 1px solid #E5E7EB !important;
+}
+
+table tr:nth-child(even) {
+  background-color: #F9FAFB !important;
+}
+
+/* Dark mode table styling */
+@media (prefers-color-scheme: dark) {
+  table th {
+    background-color: #1E3A2E !important;
+    border: 1px solid #2D5A45 !important;
+    color: #86EFAC !important;
+  }
+
+  table td {
+    border: 1px solid #374151 !important;
+  }
+
+  table tr:nth-child(even) {
+    background-color: #1F2937 !important;
+  }
+}
+
+/* Dark mode via class/attribute (Mintlify support) */
+.dark table th,
+[data-theme="dark"] table th {
+  background-color: #1E3A2E !important;
+  border: 1px solid #2D5A45 !important;
+  color: #86EFAC !important;
+}
+
+.dark table td,
+[data-theme="dark"] table td {
+  border: 1px solid #374151 !important;
+}
+
+.dark table tr:nth-child(even),
+[data-theme="dark"] table tr:nth-child(even) {
+  background-color: #1F2937 !important;
+}
+
+/* Prevent code in tables from wrapping mid-word */
+table code {
+  color: #D97706 !important;
+  white-space: nowrap !important;
+}
