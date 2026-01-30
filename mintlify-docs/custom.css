@@ -81,3 +81,133 @@ table code {
   color: #D97706 !important;
   white-space: nowrap !important;
 }
+
+/* Dark mode text improvements - lighter text for better contrast on green background */
+/* Only target content areas - use specific container selectors */
+@media (prefers-color-scheme: dark) {
+  /* Content container and its children */
+  [class*="content"] p,
+  [class*="content"] li,
+  [class*="content"] td,
+  [class*="content"] span,
+  [class*="content"] div,
+  [class*="content"] a,
+  main:not(nav):not(aside) p,
+  main:not(nav):not(aside) li,
+  main:not(nav):not(aside) td,
+  main:not(nav):not(aside) span,
+  main:not(nav):not(aside) div,
+  main:not(nav):not(aside) a {
+    color: #F3F4F6 !important;
+  }
+
+  [class*="content"] h1,
+  [class*="content"] h2,
+  [class*="content"] h3,
+  [class*="content"] h4,
+  [class*="content"] h5,
+  [class*="content"] h6,
+  main:not(nav):not(aside) h1,
+  main:not(nav):not(aside) h2,
+  main:not(nav):not(aside) h3,
+  main:not(nav):not(aside) h4,
+  main:not(nav):not(aside) h5,
+  main:not(nav):not(aside) h6 {
+    color: #FFFFFF !important;
+  }
+
+  /* Brighter orange for code in dark mode for better contrast */
+  code:not(pre code),
+  table code {
+    color: #FFA500 !important;
+  }
+}
+
+.dark [class*="content"] p,
+.dark [class*="content"] li,
+.dark [class*="content"] td,
+.dark [class*="content"] span,
+.dark [class*="content"] div,
+.dark [class*="content"] a,
+.dark main:not(nav):not(aside) p,
+.dark main:not(nav):not(aside) li,
+.dark main:not(nav):not(aside) td,
+.dark main:not(nav):not(aside) span,
+.dark main:not(nav):not(aside) div,
+.dark main:not(nav):not(aside) a,
+[data-theme="dark"] [class*="content"] p,
+[data-theme="dark"] [class*="content"] li,
+[data-theme="dark"] [class*="content"] td,
+[data-theme="dark"] [class*="content"] span,
+[data-theme="dark"] [class*="content"] div,
+[data-theme="dark"] [class*="content"] a,
+[data-theme="dark"] main:not(nav):not(aside) p,
+[data-theme="dark"] main:not(nav):not(aside) li,
+[data-theme="dark"] main:not(nav):not(aside) td,
+[data-theme="dark"] main:not(nav):not(aside) span,
+[data-theme="dark"] main:not(nav):not(aside) div,
+[data-theme="dark"] main:not(nav):not(aside) a {
+  color: #F3F4F6 !important;
+}
+
+.dark [class*="content"] h1,
+.dark [class*="content"] h2,
+.dark [class*="content"] h3,
+.dark [class*="content"] h4,
+.dark [class*="content"] h5,
+.dark [class*="content"] h6,
+.dark main:not(nav):not(aside) h1,
+.dark main:not(nav):not(aside) h2,
+.dark main:not(nav):not(aside) h3,
+.dark main:not(nav):not(aside) h4,
+.dark main:not(nav):not(aside) h5,
+.dark main:not(nav):not(aside) h6,
+[data-theme="dark"] [class*="content"] h1,
+[data-theme="dark"] [class*="content"] h2,
+[data-theme="dark"] [class*="content"] h3,
+[data-theme="dark"] [class*="content"] h4,
+[data-theme="dark"] [class*="content"] h5,
+[data-theme="dark"] [class*="content"] h6,
+[data-theme="dark"] main:not(nav):not(aside) h1,
+[data-theme="dark"] main:not(nav):not(aside) h2,
+[data-theme="dark"] main:not(nav):not(aside) h3,
+[data-theme="dark"] main:not(nav):not(aside) h4,
+[data-theme="dark"] main:not(nav):not(aside) h5,
+[data-theme="dark"] main:not(nav):not(aside) h6 {
+  color: #FFFFFF !important;
+}
+
+.dark code:not(pre code),
+.dark table code,
+[data-theme="dark"] code:not(pre code),
+[data-theme="dark"] table code {
+  color: #FFA500 !important;
+}
+
+/* Active navigation link styling for dark mode */
+@media (prefers-color-scheme: dark) {
+  /* Target Mintlify's active link - border-primary is on the li, not the a */
+  li.toc-item.border-primary a,
+  li.toc-item.border-primary a *,
+  li.toc-item.border-primary,
+  /* Also highlight parent section when child is active */
+  li.toc-item:has(.border-primary) > a,
+  li.toc-item:has(.border-primary) > a * {
+    color: #22C55E !important;
+    font-weight: 600 !important;
+  }
+}
+
+.dark li.toc-item.border-primary a,
+.dark li.toc-item.border-primary a *,
+.dark li.toc-item.border-primary,
+.dark li.toc-item:has(.border-primary) > a,
+.dark li.toc-item:has(.border-primary) > a *,
+[data-theme="dark"] li.toc-item.border-primary a,
+[data-theme="dark"] li.toc-item.border-primary a *,
+[data-theme="dark"] li.toc-item.border-primary,
+[data-theme="dark"] li.toc-item:has(.border-primary) > a,
+[data-theme="dark"] li.toc-item:has(.border-primary) > a * {
+  color: #22C55E !important;
+  font-weight: 600 !important;
+}
