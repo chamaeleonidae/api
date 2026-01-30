@@ -9,7 +9,7 @@ description: "Sync user and company data to Chameleon for targeting users with T
 
 
 <a id="profile"></a>
-## Identifying user
+## Identifying users (`chmln.identify()`)
 **Users need to be identified with a unique ID** (`UID`) to enable them to see Tours. This can be your database ID or another stable user identifier.
 We also recommend also sending `email` to maintain a user's identity across Chameleon and any integrations you enable.
 
@@ -167,8 +167,8 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 
 
 <a id="clear"></a>
-## Clearing / disabling the Chameleon install
-Use this function to de-identify the user and stop Chameleon from operating on the page (including showing no more Experiences).
+## Clearing / disabling the Chameleon install (`chmln.clear()`)
+Use `chmln.clear()` to de-identify the user and stop Chameleon from operating on the page (including showing no more Experiences).
 
 - When the user is logged out of a single page app that does not perform a full-page refresh
 - When your application enters a "mode" where automatic delivery of Chameleon Experiences should no longer happen (i.e. in full-screen mode)
