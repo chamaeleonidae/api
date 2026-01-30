@@ -8,7 +8,6 @@ description: "Sync user and company data to Chameleon for targeting users with T
 - Better URL matching (merge tags in URLs).
 
 
-<a id="profile"></a>
 ## Identifying users (`chmln.identify()`)
 **Users need to be identified with a unique ID** (`UID`) to enable them to see Tours. This can be your database ID or another stable user identifier.
 We also recommend also sending `email` to maintain a user's identity across Chameleon and any integrations you enable.
@@ -59,7 +58,6 @@ A UID simply needs to be a stable, unique string that identifies the current use
 No user will share a UID one with another user, and stable meaning it won't change between servers, logins, or browsers.
 
 
-<a id="company"></a>
 ## Identifying companies/accounts
 Simply include a company key in the call to identify
 
@@ -166,8 +164,7 @@ Here are some more examples of what you might send (in Ruby, Javascript, Ajax an
 ```
 
 
-<a id="clear"></a>
-## Clearing / disabling the Chameleon install (`chmln.clear()`)
+## Clearing and disabling the Chameleon install (`chmln.clear()`)
 Use `chmln.clear()` to de-identify the user and stop Chameleon from operating on the page (including showing no more Experiences).
 
 - When the user is logged out of a single page app that does not perform a full-page refresh
@@ -178,7 +175,6 @@ chmln.clear();
 ```
 
 
-<a id="disable"></a>
 ## Disabling Experiences for specific users
 By default, all users that match the target audience will see a Chameleon Experience when they first visit the page where that Experience automatically begins.
 Users will see this Experience until they complete or exit it, and then not again. 
