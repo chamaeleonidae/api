@@ -6,6 +6,42 @@ description: "Chameleon supports a robust data pipeline including receiving data
 ---------
 
 
+## Data into Chameleon
+
+These webhooks are a simple way to get data into Chameleon.
+
+Currently, our Incoming Webhooks API supports the following two advanced use cases:
+
+- To send data from your Backend into Chameleon for targeting with [Segments](/apis/segments).
+- To send data directly from our Integration partners. Some examples are [Heap](https://heap.io?utm_source=Chameleon) and [Customer.io](https://customer.io?utm_source=Chameleon) which both have the robust omni-webhook functionality to send Data directly into Chameleon.
+
+
+| Model + details | URL |
+|-----------------|-----|
+| [User Profiles](/webhooks/profiles) | `POST /v3/observe/hooks/:account_secret/profiles` |
+| [Companies](/webhooks/companies) | `POST /v3/observe/hooks/:account_secret/companies` |
+| [Events](/webhooks/events) | `POST /v3/observe/hooks/:account_secret/events` |
+
+
+### Integration partners
+- [Heap webhooks](https://help.chameleon.io/en/articles/1349836-heap-integration-user-guide)
+- [Customer.io webhooks](https://help.chameleon.io/en/articles/1349829-customer-io-integration-user-guide)
+
+
+### Limits
+
+- Up to a total of 768 bytes are stored for each scalar value where each Array item and each Hash value can reach this limit.
+- See the full page on [Limits](/concepts/normalization#limits) for more information.
+- Any data received that exceeds this limit will be truncated at the 768th byte and a warning surfaced on the data management page for [user data](https://app.chameleon.io/data/properties/profile) or for [company data](https://app.chameleon.io/data/properties/company).
+
+### Normalization
+
+- Property names are normalized to lower case and underscored i.e. `planName` => `plan_name`.
+- See the full page on [Normalization](/concepts/normalization#properties) for more information.
+
+------------
+
+
 <a id="outgoing-webhooks"></a>
 ## Data out of Chameleon
 A webhook is an agreed-upon method of data exchange across a **secure channel**. Since you will be adding a new endpoint to your backend servers to handle this webhook, is it **strongly recommended** that you [verify the signature](/webhooks/overview#verification) of any webhook requests before processing any included data.
