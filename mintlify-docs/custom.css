@@ -41,24 +41,7 @@ table tr:nth-child(even) {
   background-color: #F9FAFB !important;
 }
 
-/* Dark mode table styling */
-@media (prefers-color-scheme: dark) {
-  table th {
-    background-color: #1E3A2E !important;
-    border: 1px solid #2D5A45 !important;
-    color: #86EFAC !important;
-  }
-
-  table td {
-    border: 1px solid #374151 !important;
-  }
-
-  table tr:nth-child(even) {
-    background-color: #1F2937 !important;
-  }
-}
-
-/* Dark mode via class/attribute (Mintlify support) */
+/* Dark mode table styling via class/attribute (Mintlify support) */
 .dark table th,
 [data-theme="dark"] table th {
   background-color: #1E3A2E !important;
@@ -84,45 +67,6 @@ table code {
 
 /* Dark mode text improvements - lighter text for better contrast on green background */
 /* Only target content areas - use specific container selectors */
-@media (prefers-color-scheme: dark) {
-  /* Content container and its children */
-  [class*="content"] p,
-  [class*="content"] li,
-  [class*="content"] td,
-  [class*="content"] span,
-  [class*="content"] div,
-  [class*="content"] a,
-  main:not(nav):not(aside) p,
-  main:not(nav):not(aside) li,
-  main:not(nav):not(aside) td,
-  main:not(nav):not(aside) span,
-  main:not(nav):not(aside) div,
-  main:not(nav):not(aside) a {
-    color: #F3F4F6 !important;
-  }
-
-  [class*="content"] h1,
-  [class*="content"] h2,
-  [class*="content"] h3,
-  [class*="content"] h4,
-  [class*="content"] h5,
-  [class*="content"] h6,
-  main:not(nav):not(aside) h1,
-  main:not(nav):not(aside) h2,
-  main:not(nav):not(aside) h3,
-  main:not(nav):not(aside) h4,
-  main:not(nav):not(aside) h5,
-  main:not(nav):not(aside) h6 {
-    color: #FFFFFF !important;
-  }
-
-  /* Brighter orange for code in dark mode for better contrast */
-  code:not(pre code),
-  table code {
-    color: #FFA500 !important;
-  }
-}
-
 .dark [class*="content"] p,
 .dark [class*="content"] li,
 .dark [class*="content"] td,
@@ -185,19 +129,6 @@ table code {
 }
 
 /* Active navigation link styling for dark mode */
-@media (prefers-color-scheme: dark) {
-  /* Target Mintlify's active link - border-primary is on the li, not the a */
-  li.toc-item.border-primary a,
-  li.toc-item.border-primary a *,
-  li.toc-item.border-primary,
-  /* Also highlight parent section when child is active */
-  li.toc-item:has(.border-primary) > a,
-  li.toc-item:has(.border-primary) > a * {
-    color: #22C55E !important;
-    font-weight: 600 !important;
-  }
-}
-
 .dark li.toc-item.border-primary a,
 .dark li.toc-item.border-primary a *,
 .dark li.toc-item.border-primary,
