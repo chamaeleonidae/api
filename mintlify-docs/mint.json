@@ -1,0 +1,124 @@
+{
+  "name": "Developer Docs",
+  "logo": {
+    "light": "/logo-light.png",
+    "dark": "/logo-dark.png",
+    "height": 56
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#22C55E",
+    "light": "#4ADE80",
+    "dark": "#16A34A",
+    "background": {
+      "light": "#FFFFFF",
+      "dark": "#18362E"
+    },
+    "anchors": {
+      "from": "#22C55E",
+      "to": "#16A34A"
+    }
+  },
+  "theme": "venus",
+  "topbarLinks": [
+    {
+      "name": "Help Center",
+      "url": "https://help.chameleon.io"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Go to Dashboard",
+    "url": "https://app.chameleon.io"
+  },
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "introduction",
+        "concepts/authentication",
+        "concepts/errors",
+        "concepts/pagination",
+        "concepts/rate-limiting",
+        "concepts/filters",
+        "concepts/normalization",
+        "concepts/any-model",
+        "concepts/personalizing",
+        "apis/translation",
+        "concepts/custom-triggers"
+      ]
+    },
+    {
+      "group": "JavaScript API",
+      "pages": [
+        "js/overview",
+        "js/profiles",
+        "js/demos",
+        "js/events",
+        "js/show-tour",
+        "js/show-launcher",
+        "js/show-automation",
+        "js/show-demo",
+        "js/listen"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/js/installing-correctly",
+        "guides/helpbar/user-generated-content",
+        "guides/scripts/bulk-tagging"
+      ]
+    },
+    {
+      "group": "Webhooks",
+      "pages": [
+        "webhooks/overview",
+        "webhooks/profiles",
+        "webhooks/events",
+        "webhooks/companies"
+      ]
+    },
+    {
+      "group": "REST API",
+      "pages": [
+        "apis/overview",
+        "apis/profiles",
+        "apis/profiles-search",
+        "apis/companies",
+        "apis/segments",
+        "apis/demos",
+        "apis/search",
+        "apis/properties",
+        "apis/translation",
+        "apis/surveys",
+        "apis/survey-responses",
+        "apis/tours",
+        "apis/tour-interactions",
+        "apis/steps",
+        "apis/elements",
+        "apis/deliveries",
+        "apis/limit-groups",
+        "apis/alert-groups",
+        "apis/imports",
+        "apis/launchers",
+        "apis/tooltips",
+        "apis/changes",
+        "apis/urls",
+        "apis/webhooks",
+        "apis/buttons",
+        "apis/tags"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "website": "https://www.chameleon.io"
+  },
+  "analytics": {
+    "segment": {
+      "key": "WmlbvdtG9hJU7p75UIGtZcZbnpg8ibkC"
+    }
+  },
+  "customCss": [
+    "/custom.css"
+  ]
+}
