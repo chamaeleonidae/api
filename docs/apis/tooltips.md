@@ -17,7 +17,7 @@ With the Chameleon API for Tooltips, you can:
 
 - List all the Tooltips that follow a specified set of parameters.
 
-- Retrieve a single Tooltip based on the `id`.
+- Retrieve a single Tooltip based on the `id`, including analytics data such as view counts and engagement metrics.
 
 
 ## Schema :id=schema
@@ -31,6 +31,9 @@ With the Chameleon API for Tooltips, you can:
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](apis/tags.md) attached to this model |
+| `stats` | object | Aggregated statistics for this Tooltip (all-time) |
+| `stats.started_count` | number | Number of your end-users who saw this Tooltip |
+| `stats.last_started_at` | timestamp | Most recent time any user saw this Tooltip |
 
 
 ## List Tooltips :id=tooltips-index
@@ -148,9 +151,15 @@ GET https://api.chameleon.io/v3/edit/tooltips/:id
   "tooltip": {
     "id": "5f3c4232c712de665632a2a1",
     "name": "Admin Self-serve menu",
-    "style": "auto",
     "position": 0,
     "published_at": "2029-04-07T12:38:00Z",
+    "created_at": "2029-04-01T10:15:00Z",
+    "updated_at": "2029-04-07T12:38:00Z",
+    "tag_ids": [],
+    "stats": {
+      "started_count": 124,
+      "last_started_at": "2029-04-07T11:45:00Z"
+    },
     ...
   }
 }
