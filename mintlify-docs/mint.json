@@ -93,6 +93,7 @@
         "apis/surveys",
         "apis/survey-responses",
         "apis/tours",
+        "apis/embeddables",
         "apis/tour-interactions",
         "apis/steps",
         "apis/elements",
