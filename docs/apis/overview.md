@@ -29,6 +29,7 @@ Currently, our REST API supports the following endpoints:
 | [Alert Groups](apis/alert-groups.md)              | `GET /v3/edit/alert_groups`    | `GET v3/edit/alert_groups/:id` |
 | [Launchers](apis/launchers.md)                    | `GET /v3/edit/launchers`       | `GET /v3/edit/launchers/:id` |
 | [Tooltips](apis/tooltips.md)                      | `GET /v3/edit/tooltips`        | `GET /v3/edit/tooltips/:id`  |
+| [Embeddables](apis/embeddables.md)                | `GET /v3/edit/embeds`          | `GET /v3/edit/embeds/:id`    |
 | [Webhooks](apis/webhooks.md)                      | `GET /v3/edit/webhooks`        | `GET v3/edit/webhooks/:id` |
 | [Domains](apis/urls.md)                           | `GET /v3/edit/urls`            | `GET /v3/edit/urls/:id`      |
 | [Tags](apis/tags.md)                              | `GET /v3/edit/tags`            | `GET v3/edit/tags/:id` |

@@ -60,6 +60,7 @@
   - [Data Imports](apis/imports.md)
   - [Launchers](apis/launchers.md)
   - [Tooltips](apis/tooltips.md)
+  - [Embeddables](apis/embeddables.md)
   - [Changes](apis/changes.md)
   - [Domains / Environments](apis/urls.md)
   - [Webhooks](apis/webhooks.md)
