@@ -1,11 +1,24 @@
 # Chameleon API Docs
 
-A descriptions of the routing and endpoints available on the Chameleon API
+Documentation for the Chameleon API, hosted at [developers.chameleon.io](https://developers.chameleon.io).
 
-The documentation can be viewed locally by running any webserver in the `docs` directory.
+## Local Development
 
-For example, the following command will start a WEBrick server available on http://localhost:8000:
+Documentation is built with [Mintlify](https://mintlify.com). To run locally:
 
+```bash
+# Install Mintlify CLI
+npm install -g mintlify
+
+# Start local dev server
+cd mintlify-docs
+mintlify dev
 ```
-ruby -run -e httpd docs -p 8000
-```
+
+This starts a local server at http://localhost:3000.
+
+## Making Changes
+
+1. Edit `.mdx` files in `mintlify-docs/`
+2. Update `mint.json` for navigation changes
+3. Commit and push to `main` - Mintlify auto-deploys
