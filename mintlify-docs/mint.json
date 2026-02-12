@@ -102,6 +102,7 @@
         "apis/imports",
         "apis/launchers",
         "apis/tooltips",
+        "apis/embeddables",
         "apis/changes",
         "apis/urls",
         "apis/webhooks",
