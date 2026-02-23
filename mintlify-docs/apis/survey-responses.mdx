@@ -1,7 +1,7 @@
 ---
 title: "Microsurvey Responses"
 description: >
-  A Microsurvey response is a single object with all of the information about the microsurvey interactions: the buttons clicked on the first step, the text input entered in the follow-up step, and the time that the microsurvey was finished.
+  A Microsurvey response is a single object with all of the information about the survey interactions: the buttons clicked on the first step, the text input entered in the follow-up step, and the time that the survey was finished.
 ---
 
 ------
@@ -43,8 +43,8 @@ Using Chameleon's API for Microsurvey responses, you can:
 ## List Microsurvey Responses
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/analyze/responses
+```http title="GET"
+https://api.chameleon.io/v3/analyze/responses
 ```
 
 | param          | -        | description                                                  |
@@ -65,13 +65,13 @@ GET https://api.chameleon.io/v3/analyze/responses
 # As a URL parameter
 expand[profile]=all&expand[company]=skip
 
-# In the Reqeust body
+# In the Request body
 {"expand":{"profile":"all","company":"skip"}}
 ```
 
 Notes:
 - A `profile` key will always be present with an object value. The `company` (embedded within `profile`) will be missing when the User Profile is not attached to a Company, otherwise it will be an object.
-- The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Survey Response (send the max ID from your last import as the `after` parameter).
+- The combination of `before` and `after` can be used to limit pagination to "stop" at your most recently cached Microsurvey Response (send the max ID from your last import as the `after` parameter).
 
 
 #### HTTP Response
@@ -126,8 +126,8 @@ Deleting a Microsurvey response also clears the associated metrics and summaries
 
 #### HTTP Request
 
-```
-DELETE https://api.chameleon.io/v3/edit/responses/:id
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/responses/:id
 ```
 
 | param | -        | description             |

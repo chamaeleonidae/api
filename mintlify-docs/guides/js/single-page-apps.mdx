@@ -1,0 +1,178 @@
+---
+title: "Installing in Single Page Apps"
+description: "How to install and configure Chameleon in React, Vue, Angular, and other Single Page Applications."
+---
+
+Single Page Applications (SPAs) handle routing on the client side, which means page navigations don't trigger full page reloads. Chameleon needs to be aware of these route changes to show Experiences on the right pages.
+
+---
+
+## Installing the snippet
+
+### Using npm (recommended)
+
+```bash
+npm install @chamaeleonidae/chmln
+```
+
+Initialize Chameleon once in your app's entry point:
+
+```javascript
+import chmln from '@chamaeleonidae/chmln';
+
+chmln.init('YOUR_ACCOUNT_TOKEN');
+```
+
+### Using the script tag
+
+If you prefer not to use npm, add the script tag to your `index.html`:
+
+```html
+<script>
+!function(d,w){var t='YOUR_ACCOUNT_TOKEN',c='chmln',i=d.createElement('script');
+i.src='https://fast.chameleon.io/messo/'+t+'/messo.min.js';
+i.async=1;d.head.appendChild(i);w[c]=w[c]||function(){(w[c].q=w[c].q||[]).push(arguments)};
+}(document,window);
+</script>
+```
+
+---
+
+## Identifying users
+
+Call `chmln.identify` once your user is authenticated. In SPAs, this is typically after login or when your auth state resolves:
+
+```javascript
+chmln.identify(user.id, {
+  email: user.email,
+  name: user.name,
+  created: user.createdAt,
+  plan: user.plan,
+  company: {
+    uid: user.companyId,
+    name: user.companyName,
+  },
+});
+```
+
+> **Important:** You only need to call `chmln.identify` once per session. Do not call it on every route change.
+
+---
+
+## Handling route changes
+
+Chameleon automatically detects URL changes in most SPAs. However, for the best experience, register a navigation handler so Chameleon can navigate your app programmatically (e.g., when a Tour button links to another page).
+
+### React (with React Router v5)
+
+```jsx
+import { useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
+
+export const ChmlnHooks = () => {
+  const history = useHistory();
+
+  useMemo(() => {
+    window.chmln && window.chmln.on('app:navigate', (opts) => {
+      return history.push(opts.to);
+    });
+  }, [history]);
+
+  return null;
+};
+
+// In your App.js:
+<ChmlnHooks />
+```
+
+### React (with React Router v6+)
+
+```jsx
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+export const ChmlnHooks = () => {
+  const navigate = useNavigate();
+
+  useMemo(() => {
+    window.chmln && window.chmln.on('app:navigate', (opts) => {
+      return navigate(opts.to);
+    });
+  }, [navigate]);
+
+  return null;
+};
+
+// In your App.js:
+<ChmlnHooks />
+```
+
+### Vue (with Vue Router)
+
+```javascript
+// In your main app setup or a plugin
+const router = useRouter();
+
+window.chmln && window.chmln.on('app:navigate', (opts) => {
+  return router.push(opts.to);
+});
+```
+
+### Angular
+
+```typescript
+// In your root component or a service
+import { Router } from '@angular/router';
+
+constructor(private router: Router) {
+  (window as any).chmln?.on('app:navigate', (opts: { to: string }) => {
+    return this.router.navigateByUrl(opts.to);
+  });
+}
+```
+
+### Generic (using History API)
+
+If your SPA framework isn't listed, use the browser's History API:
+
+```javascript
+chmln.on('app:navigate', (opts) => {
+  return history.pushState(null, null, opts.to);
+});
+```
+
+---
+
+## Clearing on logout
+
+When a user logs out of your SPA (without a full page reload), call `chmln.clear()` to stop Chameleon from showing Experiences:
+
+```javascript
+function handleLogout() {
+  // Your logout logic...
+  chmln.clear();
+}
+```
+
+This de-identifies the user and prevents any further Experiences from showing until `chmln.identify` is called again.
+
+---
+
+## Common SPA pitfalls
+
+**1. Calling `identify` on every route change**
+Only call `chmln.identify` when the user identity is first established (e.g., after login or app load). Calling it on every route change is unnecessary and can cause issues.
+
+**2. Not registering the `app:navigate` handler**
+Without the navigation handler, Chameleon can't programmatically route your app. Tour buttons that link to other pages will fall back to full page reloads.
+
+**3. Loading Chameleon before the user is known**
+Initialize with `chmln.init()` early, but don't call `chmln.identify` until you have the user's data. Chameleon won't show Experiences to unidentified users.
+
+**4. Forgetting to clear on logout**
+If your SPA doesn't reload on logout, the previous user's Experiences may still show. Always call `chmln.clear()` on logout.
+
+See also:
+- [JavaScript API Overview](/js/overview) — full JS API reference
+- [Send user properties](/js/profiles) — detailed `chmln.identify` reference
+- [Installing correctly](/guides/js/installing-correctly) — general installation best practices

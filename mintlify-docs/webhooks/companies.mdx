@@ -13,6 +13,7 @@ A Company that does not yet exist by `uid` will first be created and then update
 
 
 
+<a id="companies-update"></a>
 ## Create/Update a Company
 
 - When you are creating the Company, simply send the `uid` and any other properties pertinent to that company.
@@ -22,10 +23,14 @@ A Company that does not yet exist by `uid` will first be created and then update
 
 #### HTTP Request
 
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/companies
 ```
-POST https://api.chameleon.io/v3/observe/hooks/companies
-# OR
-POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/companies
 ```
 
 | param   | -        | description                                                          |
@@ -77,10 +82,14 @@ POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies
 
 #### HTTP Request
 
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/companies/batch
 ```
-POST https://api.chameleon.io/v3/observe/hooks/companies/batch
-# OR
-POST https://api.chameleon.io/v3/observe/hooks/:account_secret/companies/batch
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/companies/batch
 ```
 
 | param              | -                    | description                                                                                                                              |

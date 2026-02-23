@@ -1,7 +1,14 @@
 ---
 title: "Steps"
-description: "Steps are the building blocks of Tours, Microsurveys, and Embeddables"
+description: "Steps are the building blocks of Tours, Microsurveys, and Embeddables. Each Step defines the content, positioning, triggers, and interactions for a single screen in an Experience."
 ---
+
+A Step represents a single screen within a multi-step Experience. Steps define:
+- **What** to show — title, body text, buttons, and input fields
+- **Where** to show it — positioned relative to the screen, snapped to an element, or rendered inline
+- **When** to show it — triggered on page load, element visibility, click, hover, or custom events
+
+------
 
 <a id="schema"></a>
 ## Schema
@@ -12,21 +19,124 @@ description: "Steps are the building blocks of Tours, Microsurveys, and Embeddab
 | `updated_at`                 | timestamp                  | The last time any property was updated                                                                                                                                                                      |
 | `title`                      | string                     | The configured title text for this Step                                                                                                                                                                     |
 | `body`                       | string                     | The configured body copy for this Step                                                                                                                                                                      |
-| `preset`                     | string                     | The template this step follows: One of `survey_two`, `survey_nps`, `survey_csat`, `survey_ces`, `response`, `thank_you`, `survey_three`, `survey_four`, `survey_five`, `survey_input`, or `survey_dropdown` |
-| `dropdown_items`             | array&lt;String&gt;        | For a dropdown Microsurvey, the configured options for the dropdown                                                                                                                                         |
+| `preset`                     | string                     | The template this step follows (see [Step presets](#step-presets) below)                                                                                                                                    |
+| `dropdown_items`             | array&lt;String&gt;        | For a dropdown Microsurvey Step, the configured options for the dropdown                                                                                                                                         |
 | `follow_up_delay`            | integer                    | Delay in milliseconds before follow-up actions are triggered                                                                                                                                                |
 | `cta_has_custom_click`       | boolean                    | Whether the CTA requires custom click handling                                                                                                                                                              |
 | `step_trigger`               | string                     | Primary trigger condition. One of: `page_load`, `element_match`, or `element_not_match`                                                                                                                     |
 | `position_type`              | string                     | How the step is positioned on the page. One of: `relative_to_screen`, `snap_to_element`, `snap_to_trigger`, or `inline`                                                                                     |
 | `step_additional_trigger`    | string                     | Additional trigger condition. One of: `element_match` or `element_not_match`                                                                                                                                |
 | `secondary_trigger`          | string                     | Secondary trigger condition. One of: `click`, `hover`, `time_on_page`, `smart_delay`, `input`, or `custom_trigger`                                                                                          |
-| `trigger_element`            | [Elements](/apis/elements) | Present if `step_trigger` is `element_match` or `element_not_match`.                                                                                                                                        |
-| `trigger_additional_element` | [Elements](/apis/elements) | Present if a `trigger_additional_element` has been selected in the UI.                                                                                                                                      |
-| `trigger_secondary_element`  | [Elements](/apis/elements) | Present if `position_type` is `snap_to_trigger` OR if `secondary_trigger` is one of `click`, `hover`, `input`.                                                                                              |
-| `position_element`           | [Elements](/apis/elements) | Present if `position_type` is `snap_to_element` or `inline`.                                                                                                                                                |
-| `exit_element`               | [Elements](/apis/elements) | Present if `cta_has_custom_click` is true.                                                                                                                                                                  |
-| `buttons`                    | array&lt;button&gt;        | Array of [Buttons](/apis/buttons) for this step                                                                                                                                                           |
+| `trigger_element`            | [Element](/apis/elements)  | Present if `step_trigger` is `element_match` or `element_not_match`.                                                                                                                                        |
+| `trigger_additional_element` | [Element](/apis/elements)  | Present if a `trigger_additional_element` has been selected in the UI.                                                                                                                                      |
+| `trigger_secondary_element`  | [Element](/apis/elements)  | Present if `position_type` is `snap_to_trigger` OR if `secondary_trigger` is one of `click`, `hover`, `input`.                                                                                              |
+| `position_element`           | [Element](/apis/elements)  | Present if `position_type` is `snap_to_element` or `inline`.                                                                                                                                                |
+| `exit_element`               | [Element](/apis/elements)  | Present if `cta_has_custom_click` is true.                                                                                                                                                                  |
+| `buttons`                    | array&lt;Button&gt;        | Array of [Buttons](/apis/buttons) for this step                                                                                                                                                             |
 | `quantifier_urls`            | array                      | List of URL matching conditions that must match the current page URL                                                                                                                                        |
 | `quantifier_urls.id`         | ID                         | Unique identifier for this URL condition                                                                                                                                                                    |
 | `quantifier_urls.url`        | string                     | The specific URL used in this matching condition                                                                                                                                                            |
 | `quantifier_urls.match_type` | string                     | The type of matching used. One of: `simple`, `exact`, `regex`, `inverse_simple`, or `inverse_exact`                                                                                                         |
+
+<a id="step-presets"></a>
+### Step presets
+
+Steps use a `preset` to define their type and behavior:
+
+| Preset             | Type     | Description                                        |
+|--------------------|----------|----------------------------------------------------|
+| `survey_two`       | Microsurvey | Two-choice survey (e.g., Yes/No, Thumbs Up/Down)   |
+| `survey_nps`       | Microsurvey | Net Promoter Score (0-10 scale)                     |
+| `survey_csat`      | Microsurvey | Customer Satisfaction score                         |
+| `survey_ces`       | Microsurvey | Customer Effort Score                               |
+| `survey_three`     | Microsurvey | Three-choice survey                                 |
+| `survey_four`      | Microsurvey | Four-choice survey                                  |
+| `survey_five`      | Microsurvey | Five-choice survey (e.g., Likert scale)             |
+| `survey_input`     | Microsurvey | Free-text input survey                              |
+| `survey_dropdown`  | Microsurvey | Dropdown selection survey                           |
+| `response`         | Follow-up | A follow-up question shown after the primary survey |
+| `thank_you`        | Follow-up | A thank-you message shown after survey completion   |
+
+Steps without a survey-related `preset` are standard Tour steps (tooltips, modals, banners, etc.).
+
+### Step positioning
+
+| `position_type`      | Description                                                                    |
+|----------------------|--------------------------------------------------------------------------------|
+| `relative_to_screen` | Positioned relative to the viewport (e.g., center of screen, bottom-right).    |
+| `snap_to_element`    | Anchored next to the `position_element` on the page.                           |
+| `snap_to_trigger`    | Anchored next to the trigger element (the element that caused this step to show). |
+| `inline`             | Rendered inline in the DOM near the `position_element`, used by Embeddables.   |
+
+------
+
+#### Example Step JSON (Tour step)
+
+```json
+{
+  "id": "5f3c4232c712de665632a8f1",
+  "created_at": "2029-04-07T12:18:00Z",
+  "updated_at": "2029-04-07T12:18:00Z",
+  "title": "Welcome to your dashboard",
+  "body": "This is where you'll find an overview of your key metrics.",
+  "preset": null,
+  "step_trigger": "element_match",
+  "position_type": "snap_to_element",
+  "secondary_trigger": null,
+  "trigger_element": {
+    "id": "5f3c4232c712de665632a7e1",
+    "selector": ".dashboard-header",
+    "tag": "div",
+    "use": ["attr_class"]
+  },
+  "position_element": {
+    "id": "5f3c4232c712de665632a7e2",
+    "selector": ".metrics-panel",
+    "tag": "section",
+    "use": ["attr_class"]
+  },
+  "buttons": [
+    {
+      "id": "5f3c4232c712de665632a9b1",
+      "text": "Next",
+      "position": "bottom_right",
+      "tour_action": "next"
+    }
+  ],
+  "quantifier_urls": [
+    {
+      "id": "5f3c4232c712de665632aab1",
+      "url": "/dashboard",
+      "match_type": "simple"
+    }
+  ]
+}
+```
+
+#### Example Step JSON (Microsurvey step)
+
+```json
+{
+  "id": "5f3c4232c712de665632a8f2",
+  "title": null,
+  "body": "How easy was it to complete this task?",
+  "preset": "survey_five",
+  "step_trigger": "page_load",
+  "position_type": "relative_to_screen",
+  "buttons": [],
+  "quantifier_urls": []
+}
+```
+
+------
+
+## Steps in context
+
+Steps appear as embedded objects within [Tours](/apis/tours), [Microsurveys](/apis/surveys), and [Embeddables](/apis/embeddables). They are included when you retrieve an Experience with the appropriate `expand` parameter.
+
+See also:
+- [Tours](/apis/tours) — contain ordered sequences of Steps
+- [Microsurveys](/apis/surveys) — contain survey-type Steps
+- [Embeddables](/apis/embeddables) — contain inline Steps
+- [Elements](/apis/elements) — define the DOM targets Steps use
+- [Buttons](/apis/buttons) — define the interactive actions within Steps

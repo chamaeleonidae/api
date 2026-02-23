@@ -39,6 +39,7 @@ With the Chameleon API for Embeddables, you can:
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](/apis/tags) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
+| `dashboard_url` | string | Direct link to this Embeddable in the Chameleon Dashboard |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
 | `stats.last_started_at` | timestamp | Most recent time any user saw this |
@@ -55,8 +56,8 @@ List all the Embeddables that follow a specified set of parameters.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/embeds
+```http title="GET"
+https://api.chameleon.io/v3/edit/embeds
 ```
 
 | param  | -        | description                                                  |
@@ -104,8 +105,8 @@ Retrieve a single Embeddable.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/embeds/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/embeds/:id
 ```
 
 | param | -        | description               |
@@ -133,8 +134,8 @@ Update a single Embeddable to change its properties or to Publish it.
 
 #### HTTP Request
 
-```
-PATCH https://api.chameleon.io/v3/edit/embeds/:id
+```http title="PATCH"
+https://api.chameleon.io/v3/edit/embeds/:id
 ```
 
 | param          | -        | description                                                                                      |

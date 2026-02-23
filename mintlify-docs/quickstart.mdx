@@ -1,0 +1,172 @@
+---
+title: "Quickstart"
+description: "Get up and running with the Chameleon API in 5 minutes. Install the JavaScript snippet, identify a user, make your first REST API call, and set up a webhook."
+---
+
+This guide walks you through the core integration steps to start using Chameleon programmatically.
+
+## Prerequisites
+
+- A [Chameleon account](https://app.chameleon.io) (free trial available)
+- Your **Account Token** for installation (found on the [Install page](https://app.chameleon.io/install))
+- Your **API Secret** for REST API calls (generated in [Settings → Tokens](https://app.chameleon.io/settings/tokens))
+
+> Your Account Token is embedded in the JavaScript snippet (client-side) and is safe to include in frontend code. Your API Secret is used for REST API authentication (server-side) — keep it secure and never expose it in client-side code.
+
+---
+
+## Step 1: Install Chameleon
+
+Add Chameleon to your application. Visit the [Install page](https://app.chameleon.io/install) in your dashboard to get your personalized snippet and choose your installation method.
+
+**Installation methods:**
+
+| Method | Best for |
+|--------|----------|
+| **npm** | React, Vue, Angular, and other SPAs |
+| **JavaScript** | Direct script tag in your HTML |
+| **Segment** | If you use Segment as your CDP |
+| **Google Tag Manager** | If you manage scripts via GTM |
+| **Freshpaint** | If you use Freshpaint as your CDP |
+
+**Using npm (recommended for SPAs):**
+
+```bash
+npm install @chamaeleonidae/chmln
+```
+
+```javascript
+import chmln from '@chamaeleonidae/chmln';
+chmln.init('YOUR_ACCOUNT_TOKEN');
+```
+
+**Using the script tag:**
+
+```html
+<script>
+!function(d,w){var t='YOUR_ACCOUNT_TOKEN',c='chmln',i=d.createElement('script');
+i.src='https://fast.chameleon.io/messo/'+t+'/messo.min.js';
+i.async=1;d.head.appendChild(i);w[c]=w[c]||function(){(w[c].q=w[c].q||[]).push(arguments)};
+}(document,window);
+</script>
+```
+
+> Replace `YOUR_ACCOUNT_TOKEN` with the token from your [Install page](https://app.chameleon.io/install). For Segment, GTM, and Freshpaint setup, follow the instructions on the Install page.
+
+---
+
+## Step 2: Identify your users
+
+Once the snippet is installed, identify users so Chameleon can target them with Experiences. Call `chmln.identify` when the user is known (e.g., after login).
+
+```javascript
+chmln.identify(USER.ID_IN_DB, {
+  email: USER.EMAIL,
+  name: USER.NAME,
+  created: USER.SIGN_UP_DATE,  // ISO 8601 format: "2024-01-15T10:30:00Z"
+  plan: USER.PLAN,
+
+  // Optional: company/account data
+  company: {
+    uid: COMPANY.ID_IN_DB,
+    name: COMPANY.NAME,
+    plan: COMPANY.PLAN,
+  },
+});
+```
+
+After identifying, visit your app and verify the user appears in [Chameleon Dashboard → Users](https://app.chameleon.io/data/profiles).
+
+For full details, see [Send user properties via JS API](/js/profiles).
+
+---
+
+## Step 3: Make your first REST API call
+
+Use the REST API to read data from Chameleon. Let's list your Tours.
+
+```bash
+curl -H "X-Account-Secret: YOUR_API_SECRET" \
+  https://api.chameleon.io/v3/edit/tours
+```
+
+You should get a response like:
+
+```json
+{
+  "tours": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "name": "Welcome Tour",
+      "style": "auto",
+      "published_at": "2024-01-15T12:00:00Z"
+    }
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a6d5"
+  }
+}
+```
+
+> Replace `YOUR_API_SECRET` with your API Secret from [Settings → Tokens](https://app.chameleon.io/settings/tokens).
+
+For the full REST API reference, see [REST API Overview](/apis/overview).
+
+---
+
+## Step 4: Trigger an Experience via API
+
+Use the [Deliveries API](/apis/deliveries) to trigger a Tour for a specific user on their next page load:
+
+```bash
+curl -X POST \
+  -H "X-Account-Secret: YOUR_API_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model_kind": "tour",
+    "model_id": "TOUR_ID",
+    "uid": "USER_UID"
+  }' \
+  https://api.chameleon.io/v3/edit/deliveries
+```
+
+The Tour will display to the user on their next page load where Chameleon is installed.
+
+---
+
+## Step 5: Set up a webhook
+
+Receive real-time notifications when users interact with your Experiences. Register a webhook endpoint:
+
+```bash
+curl -X POST \
+  -H "X-Account-Secret: YOUR_API_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://your-app.com/webhooks/chameleon",
+    "topics": ["tour.completed", "response.finished"]
+  }' \
+  https://api.chameleon.io/v3/edit/webhooks
+```
+
+When a user completes a Tour or finishes a Microsurvey, Chameleon will `POST` a JSON payload to your endpoint. See [Webhooks Overview](/webhooks/overview) for payload schemas and verification.
+
+---
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="JavaScript API" icon="js" href="/js/overview">
+    Send user data, track events, and show Experiences from your frontend.
+  </Card>
+  <Card title="REST API Reference" icon="code" href="/apis/overview">
+    Full reference for all REST API endpoints.
+  </Card>
+  <Card title="Webhooks" icon="webhook" href="/webhooks/overview">
+    Receive real-time data from Chameleon Experiences.
+  </Card>
+  <Card title="Filters & Segmentation" icon="filter" href="/concepts/filters">
+    Target specific users with powerful filter expressions.
+  </Card>
+</CardGroup>

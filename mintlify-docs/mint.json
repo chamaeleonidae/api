@@ -20,6 +20,15 @@
     }
   },
   "theme": "venus",
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "mcp"
+    ]
+  },
   "topbarLinks": [
     {
       "name": "Help Center",
@@ -30,11 +39,15 @@
     "name": "Go to Dashboard",
     "url": "https://app.chameleon.io"
   },
+  "integrations": {
+    "llmsTxt": true
+  },
   "navigation": [
     {
       "group": "Getting Started",
       "pages": [
         "introduction",
+        "quickstart",
         "concepts/authentication",
         "concepts/errors",
         "concepts/pagination",
@@ -65,6 +78,9 @@
       "group": "Guides",
       "pages": [
         "guides/js/installing-correctly",
+        "guides/js/single-page-apps",
+        "guides/webhooks/testing-webhooks",
+        "guides/api/bulk-operations",
         "guides/helpbar/user-generated-content",
         "guides/scripts/bulk-tagging"
       ]
@@ -82,32 +98,63 @@
       "group": "REST API",
       "pages": [
         "apis/overview",
-        "apis/profiles",
-        "apis/profiles-search",
-        "apis/companies",
-        "apis/segments",
-        "apis/demos",
-        "apis/search",
-        "apis/properties",
-        "apis/translation",
-        "apis/surveys",
-        "apis/survey-responses",
-        "apis/tours",
-        "apis/embeddables",
-        "apis/tour-interactions",
-        "apis/steps",
-        "apis/elements",
-        "apis/deliveries",
-        "apis/limit-groups",
-        "apis/alert-groups",
-        "apis/imports",
-        "apis/launchers",
-        "apis/tooltips",
-        "apis/changes",
-        "apis/urls",
-        "apis/webhooks",
-        "apis/buttons",
-        "apis/tags"
+        {
+          "group": "Users & Companies",
+          "pages": [
+            "apis/profiles",
+            "apis/profiles-search",
+            "apis/companies",
+            "apis/segments"
+          ]
+        },
+        {
+          "group": "Experiences",
+          "pages": [
+            "apis/tours",
+            "apis/embeddables",
+            "apis/surveys",
+            "apis/tooltips",
+            "apis/launchers",
+            "apis/demos",
+            "apis/deliveries"
+          ]
+        },
+        {
+          "group": "HelpBar",
+          "pages": [
+            "apis/search"
+          ]
+        },
+        {
+          "group": "Interactions & Responses",
+          "pages": [
+            "apis/tour-interactions",
+            "apis/survey-responses"
+          ]
+        },
+        {
+          "group": "Configuration",
+          "pages": [
+            "apis/steps",
+            "apis/elements",
+            "apis/buttons",
+            "apis/themes",
+            "apis/properties",
+            "apis/event-names",
+            "apis/urls",
+            "apis/tags",
+            "apis/limit-groups",
+            "apis/alert-groups"
+          ]
+        },
+        {
+          "group": "Management",
+          "pages": [
+            "apis/imports",
+            "apis/changes",
+            "apis/webhooks"
+          ]
+        }
       ]
     }
   ],

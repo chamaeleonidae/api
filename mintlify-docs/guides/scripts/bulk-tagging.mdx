@@ -41,7 +41,7 @@ tour_updates = [
 ]
 
 body = { updates: tour_updates }.to_json
-response = JSON.parse(`curl -X POST 'https://api.chameleon.io/edit/v3/tags/bulk' -H 'X-Account-Secret: #{api_key}' -H 'Content-Type: application/json' --data '#{body}'`.chomp)
+response = JSON.parse(`curl -X POST 'https://api.chameleon.io/v3/edit/tags/bulk' -H 'X-Account-Secret: #{api_key}' -H 'Content-Type: application/json' --data '#{body}'`.chomp)
 
 if response['code'] # code is presented back with error states
   puts "Updating encountered an error code=#{response['code']}, messages=#{response['messages'].join(', ')}"
@@ -64,7 +64,7 @@ mixed_updates = [
 ]
 
 body = { updates: mixed_updates }.to_json
-response = JSON.parse(`curl -X POST 'https://api.chameleon.io/edit/v3/tags/bulk' -H 'X-Account-Secret: #{api_key}' -H 'Content-Type: application/json' --data '#{body}'`.chomp)
+response = JSON.parse(`curl -X POST 'https://api.chameleon.io/v3/edit/tags/bulk' -H 'X-Account-Secret: #{api_key}' -H 'Content-Type: application/json' --data '#{body}'`.chomp)
 
 if response['code']
   puts "Updating encountered an error: #{response['messages'].join(', ')}"

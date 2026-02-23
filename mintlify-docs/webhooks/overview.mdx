@@ -348,8 +348,7 @@ When a User searches for `"data importing"` only 0 results were found. This indi
     "action": {
       "id": "5f885a88e7daf3000e3eb4f7",
       "query": "data importing",
-      "results_count": 2,
-      "url": "https://app.your-product.com/widgets/import"
+      "results_count": 2
     },
     "profile": {
       "id": "5f885a88f30e7da00e3eb4f6",
@@ -375,8 +374,7 @@ When a User searches for `"widget categories"` only 7 results were found.
     "action": {
       "id": "5f885a8af30008e7de3eb4f9",
       "query": "widget categories",
-      "results_count": 7,
-      "url": "https://app.your-product.com/widgets/import"
+      "results_count": 7
     },
     "profile": {
       "id": "5f885a88e7daf3000e3eb4f6",
@@ -430,7 +428,7 @@ In the example below, the `script` item is not working properly and should be ch
 ```json
 {
   "id": "5eb7c393300000dcb381a25a",
-  "kind": "helpbar.item.action",
+  "kind": "helpbar.item.error",
   "sent_at": "2029-12-11T00:28:18.651Z",
   "data": {
     "action": {
@@ -532,7 +530,7 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
        "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
        ...
     }
-  },
+  }
 }
 ```
 
@@ -541,6 +539,8 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 <a id="example-tour-button-clicked"></a>
 ##### Example tour-button-clicked
 Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
+
+> The key will be "tour", "survey", or "embed" depending on the Experience type.
 
 ```json
 {
@@ -557,7 +557,7 @@ Every Button that is clicked in a Tour / Microsurvey will send a webhook to this
       "last_seen_session_count": 83,
       ...
     },
-    "tour": { // or "survey" or "embed"
+    "tour": {
       "id": "5fb6e4ab8af58a00073f0d98",
       "name": "Usage upsell banner - A",
       "segment_id": "5f885a88e7daf3000e3eb4f7",
@@ -663,7 +663,7 @@ When an Embed is snoozed it is set to come back after a certain amount of time h
        "body": "You've grown beyond your current plan by {{mau_blocks fallback='a lot'}}! 🎉 -- Next billing cycle, you will be charged for the additional users or pre-pay to save",
        ...
     }
-  },
+  }
 }
 ```
 
@@ -763,7 +763,7 @@ The primary use case for this is to notify the person in charge of the Experienc
 ##### Example survey-all
 These three topics are considered lifecycle events and occur when the user is presented with or interacts with a Chameleon
 Microsurvey. The `response.finished` Webhook is only sent when we consider the user **done** with the Microsurvey and will
-no longer interact with it. A [Microsurvey Response](/apis/survey-responses) is generated when the Survey Step + associated
+no longer interact with it. A [Microsurvey Response](/apis/survey-responses) is generated when the Microsurvey Step + associated
 Response Step are finished; it sends a `response.finished` Webhook.
 
 A Microsurvey is started on the _Survey_ Step and either `completed` or `exited` when the first step is "actioned". It then automatically
@@ -1000,7 +1000,7 @@ It will be sent when the last step of the Demo is reached with `finished_kind=la
             ...
           ]
         }
-      ],
+      ]
     },
     "demo": {
       "id": "5fb7936edee1f70011bfc4c9",
@@ -1085,8 +1085,8 @@ each data item has a `field` as [DemoFormField](/apis/demos#schema-demo-form-fie
             "value": "this week"
           },
           ...
-        }
-      ],
+        ]
+      }
     },
     "demo_run": {
       ...,

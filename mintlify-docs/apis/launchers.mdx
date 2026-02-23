@@ -33,7 +33,7 @@ With the Chameleon API for Launchers, you can:
 | `title` | string | The display title |
 | `description` | string | The display description |
 | `preset` | string | The preconfigured type: One of `icon`, `element`, `icon_checklist`, `updates`, or `faqs` |
-| `segment_id` | ID | The Chameleon ID of the configured [Segment](/apis/segments#schema) |
+| `segment_ids` | array&lt;ID&gt; | The Chameleon IDs of the configured [Segments](/apis/segments#schema) |
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](/apis/tags) attached to this model |
 | `list_type` | string | If this is a checklist or a normal list: One of `default` or `checklist` |
@@ -64,7 +64,7 @@ With the Chameleon API for Launchers, you can:
 | `id` | ID | The Chameleon ID |
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
-| `kind` | string | The type of item this is: One of `url`, `tour`, `survey`, `script`, or `divider` |
+| `kind` | string | The type of item this is: One of `url`, `tour`, `survey` (Microsurvey), `script`, or `divider` |
 | `title` | string | The display title in the Launcher menu |
 | `description` | string | The display description in the Launcher menu |
 | `segment_id` | ID | The Chameleon ID of the configured [Segment](/apis/segments#schema) |
@@ -79,8 +79,8 @@ List all Launchers based on the specified set of parameters.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/launchers
+```http title="GET"
+https://api.chameleon.io/v3/edit/launchers
 ```
 
 | param  | -        | description                                                  |
@@ -124,8 +124,8 @@ Update a single Launcher to change its properties or to Publish it.
 
 #### HTTP Request
 
-```
-PATCH https://api.chameleon.io/v3/edit/launchers/:id
+```http title="PATCH"
+https://api.chameleon.io/v3/edit/launchers/:id
 ```
 
 | param          | -        | description                                                                                      |
@@ -179,8 +179,8 @@ Retrieve a single Launcher.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/launchers/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/launchers/:id
 ```
 
 | param | - | description |

@@ -64,8 +64,8 @@ Retrieve a list of **all** Limit Groups. An account typically has 1-5 Limit Grou
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/limit_groups
+```http title="GET"
+https://api.chameleon.io/v3/edit/limit_groups
 ```
 
 #### HTTP Response
@@ -118,8 +118,8 @@ Retrieve a single Limit Group.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/limit_groups/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/limit_groups/:id
 ```
 
 | param | - | description |
@@ -145,12 +145,12 @@ GET https://api.chameleon.io/v3/edit/limit_groups/:id
 
 <a id="limit-group-experiences-index"></a>
 ## Listing Related Experiences
-A Limit Group is attached to many Chameleon Experiences (Tours/Microsurveys). This endpoint allows you to get a complete picture of all Experiences currently attached to the Limit Group. 
+A Limit Group is attached to many Chameleon Experiences (Tours/Microsurveys). This endpoint allows you to get a complete picture of all Experiences currently attached to the Limit Group.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/limit_groups/:id/experiences
+```http title="GET"
+https://api.chameleon.io/v3/edit/limit_groups/:id/experiences
 ```
 
 | param | - | description |

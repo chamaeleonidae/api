@@ -62,8 +62,8 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 ## List all Imports
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/imports
+```http title="GET"
+https://api.chameleon.io/v3/edit/imports
 ```
 
 
@@ -107,8 +107,8 @@ GET https://api.chameleon.io/v3/edit/imports
 
 #### HTTP Request
 
-```
-POST https://api.chameleon.io/v3/edit/imports
+```http title="POST"
+https://api.chameleon.io/v3/edit/imports
 ```
 
 | param               | -        | type                  | description    |
@@ -468,8 +468,8 @@ The Import is finished when `stats.last_import_state` is `completed`, at that po
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/imports/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/imports/:id
 ```
 
 | param | -        | description                                                  |
@@ -508,8 +508,8 @@ GET https://api.chameleon.io/v3/edit/imports/:id
 
 #### HTTP Request
 
-```
-PATCH https://api.chameleon.io/v3/edit/imports/:id
+```http title="PATCH"
+https://api.chameleon.io/v3/edit/imports/:id
 ```
 
 **See options for [Creating an Import](/apis/imports#imports-create)**
@@ -527,8 +527,8 @@ the `Content-Disposition` will be in this format => `attachment; filename="your 
 
 #### HTTP Request
 
-```
-GET https://api.trychameleon.com/v3/edit/imports/:id.csv
+```http title="GET"
+https://api.chameleon.io/v3/edit/imports/:id.csv
 ```
 
 | param | -        | description                                                  |
@@ -679,13 +679,13 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/v3/edit/imp
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Gmail users", "model_kind": "profile", "kind": "tag_filters", "filters": [{"kind": "property", "prop": "email", "op": "in", "value": "gmail.com"}], "import_at": "$now"}' \
-  'https://api.trychameleon.com/v3/edit/imports'
+  'https://api.chameleon.io/v3/edit/imports'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/v3/edit/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/v3/edit/imports/IMPORT_ID'
 ```
 
 </details>
@@ -710,7 +710,7 @@ First, Create the import, naming it and mapping the `User ID` CSV header to the 
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Data deletion request 54Dw", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"User ID","prop":"uid"}] }' \
-  'https://api.trychameleon.com/v3/edit/imports'
+  'https://api.chameleon.io/v3/edit/imports'
 ```
 
 Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the import with `import_at=now`
@@ -720,13 +720,13 @@ Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the impo
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -F file=@data-deletion-request-54Dw.csv \
-  'https://api.trychameleon.com/v3/edit/imports/IMPORT_ID?import_at=now'
+  'https://api.chameleon.io/v3/edit/imports/IMPORT_ID?import_at=now'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/v3/edit/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/v3/edit/imports/IMPORT_ID'
 ```
 
 </details>
@@ -752,7 +752,7 @@ First, Create the import, naming it and mapping the `Email address` CSV header t
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Data deletion request 54Dw", "model_kind": "profile", "kind": "delete_csv", "properties": [{"name":"Email address","prop":"email"}] }' \
-  'https://api.trychameleon.com/v3/edit/imports'
+  'https://api.chameleon.io/v3/edit/imports'
 ```
 
 Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the import with `import_at=now`
@@ -762,13 +762,13 @@ Then Upload the CSV called `data-deletion-request-54Dw.csv` and trigger the impo
 ```bash
 curl -X PATCH -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -F file=@data-deletion-request-54Dw.csv \
-  'https://api.trychameleon.com/v3/edit/imports/IMPORT_ID?import_at=now'
+  'https://api.chameleon.io/v3/edit/imports/IMPORT_ID?import_at=now'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/v3/edit/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/v3/edit/imports/IMPORT_ID'
 ```
 
 </details>
@@ -782,13 +782,13 @@ curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/v3/edit
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"name": "Remove users not seen in a year", "model_kind": "profile", "kind": "delete_filters", "filters": [{"kind": "property","prop":"last_seen_at","op":"lt-d","value":"365"}], "import_at": "$now"}' \
-  'https://api.trychameleon.com/v3/edit/imports'
+  'https://api.chameleon.io/v3/edit/imports'
 ```
 
 Optional: Check on the Import status:
 
 ```bash
-curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.trychameleon.com/v3/edit/imports/IMPORT_ID'
+curl -H 'X-Account-Secret: ACCOUNT_SECRET' 'https://api.chameleon.io/v3/edit/imports/IMPORT_ID'
 ```
 
 </details>

@@ -1,0 +1,134 @@
+---
+title: "Event Names"
+description: "Event Names represent the tracked and custom events in your Chameleon account. Use the Event Names API to list and retrieve your configured events."
+---
+
+Event Names represent the events that Chameleon tracks for your account. These include events sent via the [JavaScript API](/js/events) (e.g. `chmln.track('Signed up')`) and events forwarded from integrations like Segment. Events can be used in [Segmentation Filters](/concepts/filters) to target users who have (or haven't) performed specific actions.
+
+------
+
+With the Chameleon API for Event Names, you can:
+
+- Retrieve a list of all Event Names in your account.
+- Retrieve a single Event Name by its `id`.
+- See which events are published (actively tracked) vs. unpublished.
+
+<a id="schema"></a>
+## Schema
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `name` | string | The display name given by an administrator of Chameleon |
+| `description` | string | A description of the event |
+| `uid` | string | The normalized identifier for the event (e.g. `chmln.track('Signed up')` becomes `signed_up`). See [Normalization](/concepts/normalization#events) |
+| `kind` | enum | The kind of event. One of `tracked` or `custom` |
+| `source` | enum | The source of the event. One of `api_js`, `api_v3`, `segment`, `freshpaint`, `heap`, `mixpanel`, `rudderstack`, or `amplitude` |
+| `published_at` | timestamp | When this event was set to be a Tracked event. `null` if not actively tracked |
+| `last_seen_at` | timestamp | When this event was last triggered by any user |
+| `filters` | array | Custom event property filters configured for this event |
+| `content_summary` | string | A summary of the event |
+| `dashboard_url` | string | A link to the Event Name in the Chameleon Dashboard |
+
+-----
+
+<a id="event-names-index"></a>
+## Listing Event Names
+Retrieve a list of Event Names for your account.
+
+#### HTTP Request
+
+```http title="GET"
+https://api.chameleon.io/v3/edit/event_names
+```
+
+| param | - | description |
+| --- | --- | --- |
+| `limit` | optional | Defaults to `50` with a maximum of `500` |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `after` | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+
+#### HTTP Response
+
+```json
+{
+  "event_names": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "created_at": "2029-01-15T10:30:00Z",
+      "updated_at": "2029-06-20T14:22:00Z",
+      "name": "Signed up",
+      "description": "User completed the signup flow",
+      "uid": "signed_up",
+      "kind": "tracked",
+      "source": "api_js",
+      "published_at": "2029-01-15T10:35:00Z",
+      "last_seen_at": "2029-08-10T09:15:00Z",
+      "filters": [],
+      "content_summary": null,
+      "dashboard_url": "https://app.chameleon.io/data/events/profile/5f3c4232c712de665632a6d5"
+    },
+    {
+      "id": "5f3c4232c712de665632a6d6",
+      "created_at": "2029-02-01T08:00:00Z",
+      "updated_at": null,
+      "name": "Imported data",
+      "description": null,
+      "uid": "imported_data",
+      "kind": "tracked",
+      "source": "segment",
+      "published_at": null,
+      "last_seen_at": "2029-08-05T14:30:00Z",
+      "filters": [],
+      "content_summary": null,
+      "dashboard_url": "https://app.chameleon.io/data/events/profile/5f3c4232c712de665632a6d6"
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a6d5"
+  }
+}
+```
+
+-----
+
+<a id="event-names-show"></a>
+## Showing an Event Name
+Retrieve a single Event Name.
+
+#### HTTP Request
+
+```http title="GET"
+https://api.chameleon.io/v3/edit/event_names/:id
+```
+
+| param | - | description |
+| --- | --- | --- |
+| `id` | required | An Event Name ID to lookup |
+
+#### HTTP Response
+
+```json
+{
+  "event_name": {
+    "id": "5f3c4232c712de665632a6d5",
+    "created_at": "2029-01-15T10:30:00Z",
+    "updated_at": "2029-06-20T14:22:00Z",
+    "name": "Signed up",
+    "description": "User completed the signup flow",
+    "uid": "signed_up",
+    "kind": "tracked",
+    "source": "api_js",
+    "published_at": "2029-01-15T10:35:00Z",
+    "last_seen_at": "2029-08-10T09:15:00Z",
+    "filters": [],
+    "content_summary": null,
+    "dashboard_url": "https://app.chameleon.io/data/events/profile/5f3c4232c712de665632a6d5"
+  }
+}
+```

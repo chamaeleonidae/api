@@ -58,8 +58,8 @@ An account typically has 1-5 Alert Groups so this response should be relatively 
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/alert_groups
+```http title="GET"
+https://api.chameleon.io/v3/edit/alert_groups
 ```
 
 
@@ -90,7 +90,7 @@ GET https://api.chameleon.io/v3/edit/alert_groups
           "name": "Research: New Feature Z",
           ...
         }
-      ],
+      ]
     },
     {
       "id": "5f3c4232c712de665632a6e1",
@@ -126,7 +126,7 @@ GET https://api.chameleon.io/v3/edit/alert_groups
 -----
 
 <a id="alert-groups-show"></a>
-## Showing a Alert Group
+## Showing an Alert Group
 Retrieve a single Alert Group and **all** currently matching [Experiences](/concepts/experiences).
 
 #### HTTP Request
@@ -136,8 +136,8 @@ Retrieve a single Alert Group and **all** currently matching [Experiences](/conc
 | `id`  | required | An Alert Group ID to lookup |
 
 
-```
-GET https://api.chameleon.io/v3/edit/alert_groups/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/alert_groups/:id
 ```
 
 #### HTTP Response

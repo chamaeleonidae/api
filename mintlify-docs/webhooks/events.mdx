@@ -15,10 +15,14 @@ Looking for the [JavaScript API](/js/events)?
 ## Create an Event
 #### HTTP Request
 
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/events
 ```
-POST https://api.chameleon.io/v3/observe/hooks/events
-# OR
-POST to https://api.chameleon.io/v3/observe/hooks/:account_secret/events
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/events
 ```
 
 | param   | -        | description                                                               |
@@ -67,7 +71,7 @@ All other properties will be added to the Event and will be made available for c
   "name": "Payment succeeded",
   "plan": "Enterprise",
   "amount": "129500",
-  "lifetime_value": "42905000",
+  "lifetime_value": "42905000"
 }
 ```
 

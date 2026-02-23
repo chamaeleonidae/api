@@ -152,7 +152,7 @@ Book a demo with {{delivery "account_manager.name"}} ✨
 ### Use custom logic | `if` block helper
 When the _condition_ evaluates to truthy, the content in the `if` block is used, otherwise the `else` block is used.
 A condition is a JS-like combination of a "left hand side", and "operator" and a "right hand side". If you're having
-issues with this or have a use case that does not seem to be supported, please [Contact us](https://app.trychameleon.com/help). 
+issues with this or have a use case that does not seem to be supported, please [Contact us](https://app.chameleon.io/help). 
 
 - Start an `if` block, use `{{if <CONDITION>}}`
 - To end and `if` block use `{{/if}}`
@@ -289,12 +289,13 @@ conditions on user properties can be handled with `filter`.
 ```
 
 
+<a id="example-user-data"></a>
 <a id="custom-helpers"></a>
 ## Custom helpers
 - Your developers can define the implementation for a custom helper to fit you merge tag needs. A merge tag helper is simply a function that takes arguments (args) and options (opts) and outputs a string.
 - A merge tag follows the typical "mustache syntax" like the other examples above `{{helper_name ["arg1", "arg2", ...] [option1="value1" option2="value2"]}}`
 - To define a new merge tag pass the name and callback function to `chmln.lib.personalize.Mustache.addHelper`
-- Please [Contact us](https://app.trychameleon.com/help) if you need any help or inspiration
+- Please [Contact us](https://app.chameleon.io/help) if you need any help or inspiration
 
 This is a fully working example 🎉
 

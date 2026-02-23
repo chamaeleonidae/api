@@ -1,15 +1,52 @@
 ---
 title: "Errors"
-description: "Reference this page for HTTP status codes and error messages returned by the Chameleon API."
+description: "Reference this page for HTTP status codes, error response formats, and troubleshooting guidance for the Chameleon API."
 ---
 
-The Chameleon API is robust with 99.99% uptime and extensive monitoring. In case you are facing any error, you can check our [Status Page](https://status.chameleon.io).
+The Chameleon API is robust with 99.99% uptime and extensive monitoring. In case you are facing any issues, you can check our [Status Page](https://status.chameleon.io).
+
+---
+
+## Error response format
+
+All error responses from the Chameleon API follow a consistent JSON format:
+
+```json
+{
+  "code": 422,
+  "messages": ["Unprocessable: A description of what went wrong"]
+}
+```
+
+| Field      | Type             | Description                                              |
+|------------|------------------|----------------------------------------------------------|
+| `code`     | integer          | The HTTP status code                                     |
+| `messages` | array\<string\>  | One or more human-readable error messages                |
+| `wait`     | integer          | (429 only) Number of seconds to wait before retrying     |
+
+---
+
+## Status codes at a glance
+
+| Code  | Meaning                    | Common cause                                          |
+|-------|----------------------------|-------------------------------------------------------|
+| `200` | OK                         | Request succeeded                                     |
+| `201` | Created                    | Resource was created successfully                     |
+| `403` | Unauthorized               | Invalid or revoked API token                          |
+| `404` | Not Found                  | Bad URL or resource doesn't exist                     |
+| `409` | Conflict                   | Resource is in an incompatible state                  |
+| `422` | Unprocessable              | Invalid request parameters                            |
+| `429` | Rate Limited               | Too many requests                                     |
+| `500` | Internal Server Error      | Unexpected server-side error                          |
+| `503` | Service Unavailable        | Server maintenance or overload                        |
+| `504` | Gateway Timeout            | Request took too long to process                      |
 
 ---
 
 <a id="code-403"></a>
-## Status Code 403
-Account token is not valid or has been revoked
+## Status Code 403 — Unauthorized
+
+Account token is not valid or has been revoked.
 
 ```json
 {
@@ -18,14 +55,18 @@ Account token is not valid or has been revoked
 }
 ```
 
+**Troubleshooting:**
+- Verify your `X-Account-Secret` header value matches a token from [Settings → Tokens](https://app.chameleon.io/settings/tokens).
+- Check that the token hasn't been revoked. You can generate a new one from the dashboard.
+- Ensure you're using the **Account Secret** (not the Account Token, which is for the JavaScript snippet).
+- Confirm the header name is exactly `X-Account-Secret` (case-sensitive).
+
+---
+
 <a id="code-404"></a>
-## Status Code 404
-Endpoint or Resource not found
+## Status Code 404 — Not Found
 
-404's happen for a couple of reasons:
-
- - The URL was not pasted correctly from these docs. URLs have an environment specifier directly after the version, make sure to include this
- - A resource/collection you tried to access is not found for this Secret token
+Endpoint or resource not found.
 
 ```json
 {
@@ -34,13 +75,18 @@ Endpoint or Resource not found
 }
 ```
 
-<a id="code-409"></a>
-## Status Code 409
-Conflicting state of the Resource
+**Troubleshooting:**
+- Verify the URL was copied correctly. URLs include an environment specifier after the version (e.g., `/v3/edit/tours`, `/v3/analyze/profiles`).
+- Check that the resource ID exists and belongs to your account.
+- Ensure the base URL is `https://api.chameleon.io` (not a typo or old URL).
+- For profile lookups, confirm the `uid` or `email` has been previously identified to Chameleon.
 
- - The Tour is not live when trying to create a Delivery
- - The specified update is not compatible with the current state of the Model
- - The Delivery has already been triggered when the `until` time is updated
+---
+
+<a id="code-409"></a>
+## Status Code 409 — Conflict
+
+The resource is in a state that conflicts with the requested operation.
 
 ```json
 {
@@ -49,12 +95,19 @@ Conflicting state of the Resource
 }
 ```
 
-<a id="code-422"></a>
-## Status Code 422
-The request parameters cannot be processed as-is
+**Common scenarios:**
+- **Delivery to unpublished Experience** — The Tour or Microsurvey must be published before creating a Delivery. Publish it first via the dashboard or API.
+- **Updating a triggered Delivery** — Once a Delivery has been triggered (`at` has a value), it can no longer be modified or deleted.
+- **Too many pending Deliveries** — A user has reached the pending Delivery limit (default: 3). Use `delivery_ids_at_limit=drop` to replace the oldest, or delete existing Deliveries first.
+- **Import already started** — Once `import_at` is set on an Import, it can't be updated.
+- **Search item/group limits exceeded** — HelpBar content limits reached. See [HelpBar limits](/apis/search#limits).
 
- - The parameter that is specifies a timestamp cannot be parsed/interpreted as a timestamp
- - The identifier is missing when looking up a User Profile
+---
+
+<a id="code-422"></a>
+## Status Code 422 — Unprocessable
+
+The request parameters can't be processed as provided.
 
 ```json
 {
@@ -63,20 +116,24 @@ The request parameters cannot be processed as-is
 }
 ```
 
+**Common scenarios:**
+- **Invalid timestamp** — A parameter expected as a timestamp can't be parsed. Use ISO 8601 format (e.g., `"2024-01-15T10:30:00Z"`).
+- **Missing identifier** — Looking up a User Profile requires at least one of `id`, `uid`, or `email`.
+- **Invalid filter expression** — A [segmentation filter](/concepts/filters) has incorrect syntax or unsupported operators.
+- **Import property mismatch** — CSV column headers don't match the specified `properties` mapping.
+- **Invalid enum value** — A parameter like `kind` or `model_kind` has an unrecognized value.
+
+---
+
 <a id="code-429"></a>
-## Status Code 429
-You have made too many concurrent or bucketed requests and exceeded your Rate limit.
+## Status Code 429 — Rate Limited
 
-See also [Rate limiting](/concepts/rate-limiting)
-
-- Headers
+You've exceeded the rate limit for concurrent or bucketed requests.
 
 ```
 X-Ratelimit-Wait: 114
 X-Ratelimit-Limit: 2
 ```
-
-- Body
 
 ```json
 {
@@ -86,11 +143,19 @@ X-Ratelimit-Limit: 2
 }
 ```
 
-<a id="code-500"></a>
-## Status Code 500
-Server error
+**Troubleshooting:**
+- Check the `wait` field in the response body — this tells you how many seconds to wait before retrying.
+- Check the `X-Ratelimit-Wait` header for the wait time in seconds.
+- Implement exponential backoff: wait the specified time, then retry with increasing delays if still limited.
+- Review your concurrency: the Chameleon API limits concurrent requests per endpoint. See [Rate limiting](/concepts/rate-limiting) for per-endpoint limits.
+- For bulk operations, consider using batch endpoints (e.g., [bulk tagging](/apis/tags#tags-bulk)) instead of individual requests.
 
-An Internal server error occurred (one that we otherwise had not planned on receiving). Typically these issues stem from downstream issues such as when a database is in the middle of failing over, an External dependency cannot be met temporarily or less often our code is not working
+---
+
+<a id="code-500"></a>
+## Status Code 500 — Internal Server Error
+
+An unexpected server-side error occurred.
 
 ```json
 {
@@ -99,11 +164,17 @@ An Internal server error occurred (one that we otherwise had not planned on rece
 }
 ```
 
-<a id="code-503"></a>
-## Status Code 503
-Server not available or backend didn't respond in time -- possibly not a JSON response depending on the origin of the 503
+**Troubleshooting:**
+- This is typically a transient issue. Wait a few seconds and retry.
+- If the error persists, check [status.chameleon.io](https://status.chameleon.io) for any ongoing incidents.
+- If the problem continues after retrying, [contact support](https://app.chameleon.io/help) with the request details and timestamp.
 
-Unexpected maintenance, API downtime or the inability to shed enough load with [Rate limiting](/concepts/rate-limiting)
+---
+
+<a id="code-503"></a>
+## Status Code 503 — Service Unavailable
+
+Server not available or backend didn't respond in time. The response may not be JSON depending on the origin.
 
 ```json
 {
@@ -112,11 +183,17 @@ Unexpected maintenance, API downtime or the inability to shed enough load with [
 }
 ```
 
-<a id="code-504"></a>
-## Status Code 504
-The Server contacted or proxied your request to a different Service which took too long to respond
+**Troubleshooting:**
+- This typically indicates maintenance or temporary unavailability. Check [status.chameleon.io](https://status.chameleon.io).
+- Implement retry logic with exponential backoff.
+- If you see frequent 503 errors, you may be hitting system-wide rate limits. See [Rate limiting](/concepts/rate-limiting).
 
-This can happen when a request is too complex or the system load is too high. You may retry your request again after a suitable delay.
+---
+
+<a id="code-504"></a>
+## Status Code 504 — Gateway Timeout
+
+An internal operation took too long to complete.
 
 ```json
 {
@@ -124,3 +201,8 @@ This can happen when a request is too complex or the system load is too high. Yo
   "messages": ["Internal timeout: An internal operation took too long."]
 }
 ```
+
+**Troubleshooting:**
+- The request may have been too complex (e.g., a broad search query or large filter set). Try narrowing your request.
+- Retry after a brief delay. If the issue persists, simplify the request parameters.
+- For large dataset operations, use [pagination](/concepts/pagination) with smaller `limit` values.
