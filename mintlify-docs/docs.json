@@ -1,0 +1,172 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Developer Docs",
+  "colors": {
+    "primary": "#22C55E",
+    "light": "#4ADE80",
+    "dark": "#16A34A"
+  },
+  "favicon": "/favicon.png",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "introduction",
+          "quickstart",
+          "concepts/authentication",
+          "concepts/errors",
+          "concepts/pagination",
+          "concepts/rate-limiting",
+          "concepts/filters",
+          "concepts/normalization",
+          "concepts/any-model",
+          "concepts/personalizing",
+          "apis/translation",
+          "concepts/custom-triggers"
+        ]
+      },
+      {
+        "group": "JavaScript API",
+        "pages": [
+          "js/overview",
+          "js/profiles",
+          "js/demos",
+          "js/events",
+          "js/show-tour",
+          "js/show-launcher",
+          "js/show-automation",
+          "js/show-demo",
+          "js/listen"
+        ]
+      },
+      {
+        "group": "Guides",
+        "pages": [
+          "guides/js/installing-correctly",
+          "guides/js/single-page-apps",
+          "guides/webhooks/testing-webhooks",
+          "guides/api/bulk-operations",
+          "guides/helpbar/user-generated-content",
+          "guides/scripts/bulk-tagging"
+        ]
+      },
+      {
+        "group": "Webhooks",
+        "pages": [
+          "webhooks/overview",
+          "webhooks/outgoing",
+          "webhooks/profiles",
+          "webhooks/events",
+          "webhooks/companies"
+        ]
+      },
+      {
+        "group": "REST API",
+        "pages": [
+          "apis/overview",
+          {
+            "group": "Users & Companies",
+            "pages": [
+              "apis/profiles",
+              "apis/profiles-search",
+              "apis/companies",
+              "apis/segments"
+            ]
+          },
+          {
+            "group": "Experiences",
+            "pages": [
+              "apis/tours",
+              "apis/embeddables",
+              "apis/surveys",
+              "apis/tooltips",
+              "apis/launchers",
+              "apis/demos",
+              "apis/deliveries"
+            ]
+          },
+          {
+            "group": "HelpBar",
+            "pages": [
+              "apis/search"
+            ]
+          },
+          {
+            "group": "Interactions & Responses",
+            "pages": [
+              "apis/tour-interactions",
+              "apis/survey-responses"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "apis/steps",
+              "apis/elements",
+              "apis/buttons",
+              "apis/themes",
+              "apis/properties",
+              "apis/event-names",
+              "apis/urls",
+              "apis/tags",
+              "apis/limit-groups",
+              "apis/alert-groups"
+            ]
+          },
+          {
+            "group": "Management",
+            "pages": [
+              "apis/imports",
+              "apis/changes",
+              "apis/webhooks"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo-light.png",
+    "dark": "/logo-dark.png"
+  },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#18362E"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Help Center",
+        "href": "https://help.chameleon.io"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Go to Dashboard",
+      "href": "https://app.chameleon.io"
+    }
+  },
+  "footer": {
+    "socials": {
+      "website": "https://www.chameleon.io"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "mcp"
+    ]
+  },
+  "integrations": {
+    "segment": {
+      "key": "WmlbvdtG9hJU7p75UIGtZcZbnpg8ibkC"
+    }
+  }
+}
