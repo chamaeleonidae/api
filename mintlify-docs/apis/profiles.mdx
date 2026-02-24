@@ -128,10 +128,14 @@ It is also possible to clear a user profile through the [Chameleon Dashboard](ht
 
 #### HTTP Request
 
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/profiles/:id
 ```
-DELETE https://api.chameleon.io/v3/edit/profiles/:id
-# OR
-DELETE https://api.chameleon.io/v3/edit/profiles?uid=:uid
+
+or
+
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/profiles?uid=:uid
 ```
 
 | param | -        | description                                                  |
@@ -166,10 +170,14 @@ At the end of the process no record of this user exists in our database. Additio
 
 #### HTTP Request
 
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/profiles/:id/forget
 ```
-DELETE https://api.chameleon.io/v3/edit/profiles/:id/forget
-# OR
-DELETE https://api.chameleon.io/v3/edit/profiles/forget?uid=:uid
+
+or
+
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/profiles/forget?uid=:uid
 ```
 
 | param | -        | description                                                  |

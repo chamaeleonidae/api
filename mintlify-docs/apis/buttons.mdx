@@ -1,7 +1,11 @@
 ---
 title: "Buttons"
-description: "Buttons are the configuration for a specific call to action on a Step. They can contain information about styling and about any actions that should be taken when clicked."
+description: "Buttons are the configuration for a specific call to action on a Step. They contain information about styling, positioning, and any actions that should be taken when clicked."
 ---
+
+Buttons define the interactive call-to-action elements within [Steps](/apis/steps). Each Step can have one or more Buttons that control what happens when a user clicks them — navigating the Tour, opening a URL, running JavaScript, triggering another Experience, and more.
+
+------
 
 <a id="schema"></a>
 ## Schema
@@ -14,9 +18,92 @@ description: "Buttons are the configuration for a specific call to action on a S
 | `position`           | string              | The placement of this button: One of `bottom_left`, `bottom_center`, `bottom_right`, `center_right`, or `center_left`                                                                                       |
 | `tour_action`        | string              | What does this [Tour](/apis/tours) do when clicked: One of `next`, `previous`, or `exit`                                                                                                                  |
 | `additional_actions` | array&lt;string&gt; | What else does this Button do when clicked: One of `cta`, `cta_url`, `any_click`, `code`, `element_click`, `hero_button`, `tour`, `survey`, `exit`, `tag_user`, `property`, `helpbar`, `automation`, `demo` |
-| `action_url`         | string              | When `additional_action` includes `cta_url` this is the URL to load (action_new_window=tue opens this URL in a new `_blank` tab)                                                                            |
+| `action_url`         | string              | When `additional_actions` includes `cta_url` this is the URL to load (`action_new_window=true` opens this URL in a new tab)                                                                                  |
 | `action_new_window`  | boolean             | Should the `action_url` open in a new tab                                                                                                                                                                   |
-| `action_script`      | string              | When `additional_actions=code` this is the JavaScript code snippet to evaluate                                                                                                                              |
-| `action_element`     | object              | When `additional_actions` includes `element_click` this is the element targeted for clicking                                                                                                                |
-| `action_campaign_id` | ID                  | When `additional_actions` includes `{tour,survey}` uses this attribute to determine which Tour or Microsurvey to link to                                                                                    |
+| `action_script`      | string              | When `additional_actions` includes `code` this is the JavaScript code snippet to evaluate                                                                                                                   |
+| `action_element`     | object              | When `additional_actions` includes `element_click` this is the [Element](/apis/elements) targeted for clicking                                                                                               |
+| `action_campaign_id` | ID                  | When `additional_actions` includes `tour` or `survey`, the ID of the Tour or Microsurvey to link to                                                                                                               |
 
+### Button action types
+
+| Action           | Description                                                                                    |
+|------------------|------------------------------------------------------------------------------------------------|
+| `cta_url`        | Navigate the user to a URL. Set `action_url` and optionally `action_new_window`.               |
+| `code`           | Execute a JavaScript snippet defined in `action_script`.                                       |
+| `element_click`  | Programmatically click an element on the page defined by `action_element`.                     |
+| `tour`           | Start another Tour specified by `action_campaign_id`.                                          |
+| `survey`         | Start a Microsurvey specified by `action_campaign_id`.                                              |
+| `exit`           | Dismiss/close the current Experience.                                                          |
+| `tag_user`       | Apply a Tag to the current user.                                                               |
+| `property`       | Set a property on the current user's profile.                                                  |
+| `helpbar`        | Open the HelpBar.                                                                              |
+| `automation`     | Start a Chameleon Automation.                                                                  |
+| `demo`           | Start a Chameleon Demo.                                                                        |
+| `hero_button`    | A primary hero-style button with emphasis styling.                                             |
+| `any_click`      | Trigger on any click within the step (not just the button).                                    |
+
+#### Example button JSON
+
+```json
+{
+  "id": "5f3c4232c712de665632a9b1",
+  "created_at": "2029-04-07T12:18:00Z",
+  "updated_at": "2029-04-07T12:18:00Z",
+  "text": "Learn more",
+  "position": "bottom_right",
+  "tour_action": "next",
+  "additional_actions": ["cta_url"],
+  "action_url": "https://help.chameleon.io/getting-started",
+  "action_new_window": true
+}
+```
+
+#### Example button with JavaScript action
+
+```json
+{
+  "id": "5f3c4232c712de665632a9b2",
+  "text": "Open settings",
+  "position": "bottom_right",
+  "tour_action": "exit",
+  "additional_actions": ["code"],
+  "action_script": "window.location.hash = '#/settings';"
+}
+```
+
+------
+
+## Buttons in context
+
+Buttons appear as an array within [Step](/apis/steps) objects. They are not listed or retrieved independently.
+
+```json
+{
+  "step": {
+    "id": "5f3c4232c712de665632a8f1",
+    "title": "Welcome!",
+    "body": "Let's get you started with a quick tour.",
+    "buttons": [
+      {
+        "id": "5f3c4232c712de665632a9b1",
+        "text": "Show me",
+        "position": "bottom_right",
+        "tour_action": "next",
+        "additional_actions": []
+      },
+      {
+        "id": "5f3c4232c712de665632a9b2",
+        "text": "Not now",
+        "position": "bottom_left",
+        "tour_action": "exit",
+        "additional_actions": []
+      }
+    ]
+  }
+}
+```
+
+See also:
+- [Steps](/apis/steps) — where buttons are defined
+- [Tours](/apis/tours) — which contain steps with buttons
+- [Webhook: tour.button.clicked](/webhooks/outgoing#example-tour-button-clicked) — receive events when buttons are clicked

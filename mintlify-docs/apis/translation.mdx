@@ -1,16 +1,45 @@
 ---
-title: "Localization / Internationalization [BETA]"
+title: "Localization / Internationalization"
 description: "The content of Chameleon Experiences can be Localized / Internationalized into a reasonable number of languages"
 ---
 
-> Localization is in BETA at the moment ([Contact us](https://app.chameleon.io/help) to join) and available as an add-on to our Grown / Enterprise plans.
+> Localization is available as an add-on to our Growth / Enterprise plans.
 >
 > The main [Help page](https://help.chameleon.io/en/articles/5868890) on this topic may be more helpful for a typical workflow.
 
-1. [Download](/apis/translation#i18ns-show) or from the [various lists of Experiences](https://app.chameleon.io).
-2. Translate
-3. [Upload](/apis/translation#i18ns-create) or from the [Localization page](https://app.chameleon.io/settings/translations).
-4. Set Experiences live
+------
+
+## Workflow overview
+
+1. [Download](/apis/translation#i18ns-show) a translation file for your Experiences (or export from the [Experience list](https://app.chameleon.io)).
+2. **Translate** the content into your target languages using your preferred translation tool or service.
+3. **Rename** the file to include the language code (e.g., `translation-es.yaml`, `translation-fr.json`).
+4. [Upload](/apis/translation#i18ns-create) the translated file(s) via the API or from the [Localization page](https://app.chameleon.io/settings/translations).
+5. **Publish** the Experiences to make translations live.
+
+### Supported file formats
+
+| Format | Extension | Best for |
+|--------|-----------|----------|
+| YAML   | `.yaml`   | Human-readable, easy to edit manually |
+| JSON   | `.json`   | Machine-readable, easy to process programmatically |
+
+### How language targeting works
+
+Chameleon determines the user's language from the `browser_l` property (the browser's `Accept-Language` header). The `language.options` array in the translation file shows all configured language codes for your account.
+
+- `"default"` is always the primary language (your original Experience content).
+- Language codes follow [BCP 47](https://en.wikipedia.org/wiki/IETF_language_tag) format (e.g., `"es"`, `"fr"`, `"pt-BR"`).
+
+### Merge tags in translations
+
+Translations fully support [Handlebars merge tags](/concepts/personalizing). You can use merge tags in your translated content:
+
+```yaml
+translations:
+  body:
+    text: "Hola {{first_name}}, bienvenido a tu panel de control."
+```
 
 ----
 
@@ -32,12 +61,12 @@ GET|POST https://api.chameleon.io/v3/edit/experiences/i18n(.:format)
 
 | param                |                     | -        | description                                                                                                             |
 |----------------------|---------------------|----------|-------------------------------------------------------------------------------------------------------------------------|
-| `kind`               | string              | optional | One of `tour`, `survey`, `lanuncher`, `tooltip`                                                                         |
+| `kind`               | string              | optional | One of `tour`, `survey`, `launcher`, `tooltip`                                                                          |
 | `id`                 | ID                  | optional | The ID of a Chameleon Experience                                                                                        |
 | `format`             | string              | required | One of `yaml`, `json`                                                                                                   |
 | `experiences`        | array&lt;Object&gt; | optional | Each member of this array has two keys `kind` and `id` [examples](/apis/translation#example-download-experiences) |
-| `experiences.$.kind` | string              | optional | One of `tour`, `survey`, `lanuncher`, `tooltip`                                                                                                              |
-| `experiences.$.id`   | string              | optional | The ID of a Chameleon Experience                                                                                                                       |
+| `experiences.$.kind` | string              | optional | One of `tour`, `survey`, `launcher`, `tooltip`                                                                          |
+| `experiences.$.id`   | string              | optional | The ID of a Chameleon Experience                                                                                        |
 
 
 
@@ -45,9 +74,9 @@ GET|POST https://api.chameleon.io/v3/edit/experiences/i18n(.:format)
 
 <a id="example-download-model-yaml"></a>
 ###### Downloading into `.yaml`
-```
+```http title="GET"
 # Example [A]
-GET https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a5f1/i18n.yaml
+https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a5f1/i18n.yaml
 ```
 
 ```yaml
@@ -82,9 +111,9 @@ experiences:
 
 <a id="example-download-json"></a>
 ###### Downloading into `.json`
-```
+```http title="GET"
 # Example [A]
-GET https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a5f1/i18n.json
+https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a5f1/i18n.json
 ```
 
 ```json
@@ -129,9 +158,9 @@ GET https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a5f1/i18n.json
 
 <a id="example-download-experiences"></a>
 ##### Example with mixed Experiences
-```
+```http title="POST"
 # Example [B]
-POST https://api.chameleon.io/v3/edit/experiences/i18n.yaml
+https://api.chameleon.io/v3/edit/experiences/i18n.yaml
 ```
 
 ###### Request body
@@ -151,10 +180,15 @@ POST https://api.chameleon.io/v3/edit/experiences/i18n.yaml
 
 <a id="i18ns-create"></a>
 ## Uploading Translation files
+
+Upload one or more translated files. Each file should be a renamed copy of the downloaded translation file with translated text values.
+
+**Important:** The `language.code` in the uploaded file **must** be changed to the target language code (e.g., `"es"`, `"fr"`). If it remains `"default"`, it will overwrite your primary language content.
+
 #### HTTP Request
 
-```
-POST https://api.chameleon.io/v3/edit/i18n
+```http title="POST"
+https://api.chameleon.io/v3/edit/i18n
 ```
 
 
@@ -163,24 +197,73 @@ POST https://api.chameleon.io/v3/edit/i18n
 | `file`               | File              | optional | A single file to process for translations  |
 | `files`              | array&lt;File&gt; | optional | Multiple files to process for translations |
 
+### Example: Translating a Tour to Spanish
 
-**Single file**:
-
-```text
-curl -X POST -H "X-Account-Secret: CHAMELEON_SECRET" https://api.chameleon.io/v3/edit/i18n \
-  -F file=@renamed-translation-file-in-ES.yaml
-
-curl -X POST -H "X-Account-Secret: CHAMELEON_SECRET" https://api.chameleon.io/v3/edit/i18n \
-  -F file=@renamed-translation-file-in-FR.yaml
+**Step 1:** Download the translation file:
+```bash
+curl -H "X-Account-Secret: CHAMELEON_SECRET" \
+  https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a5f1/i18n.yaml \
+  -o onboarding-tour.yaml
 ```
 
-**Multiple files**:
+**Step 2:** Copy and translate the file. Change `language.code` from `"default"` to `"es"`:
 
-```text
-curl -X POST -H "X-Account-Secret: CHAMELEON_SECRET" https://api.chameleon.io/v3/edit/i18n \
-  -F 'files[]='@renamed-translation-file-in-ES.yaml -F 'files[]='@renamed-translation-file-in-FR.yaml
+```yaml
+id: "6f3c4232c712de665632a419"
+
+language:
+  code: "es"
+  options: ["default", "es", "fr"]
+
+experiences:
+  -
+    id: "6f3c4232c712de665632a5f1"
+    name: "01 Onboarding 🚧"
+    steps:
+      -
+        id: "6f3c4232c712de665632a5f2"
+        translations:
+          title:
+            text: "¡Hola y bienvenido!"
+          body:
+            text: "El mejor lugar para comenzar es aquí, importa tus primeros 100 puntos de datos"
+          dismiss_text:
+            text: "ahora no"
 ```
 
+**Step 3:** Upload the translated file:
 
+```bash
+curl -X POST -H "X-Account-Secret: CHAMELEON_SECRET" \
+  https://api.chameleon.io/v3/edit/i18n \
+  -F file=@onboarding-tour-es.yaml
+```
 
+### Uploading multiple files at once
 
+Upload translations for several languages in a single request:
+
+```bash
+curl -X POST -H "X-Account-Secret: CHAMELEON_SECRET" \
+  https://api.chameleon.io/v3/edit/i18n \
+  -F 'files[]=@onboarding-tour-es.yaml' \
+  -F 'files[]=@onboarding-tour-fr.yaml'
+```
+
+### Translation file structure
+
+The translation file contains a nested structure:
+
+| Level | Key | Description |
+|-------|-----|-------------|
+| Root | `id` | The translation set ID |
+| Root | `language.code` | The language code (`"default"` for primary, or a BCP 47 code) |
+| Root | `language.options` | All available language codes for the account |
+| Root | `experiences` | Array of Experiences and their translatable content |
+| Experience | `id` | The Experience ID |
+| Experience | `name` | The Experience name (for reference only, not translated) |
+| Experience | `steps` | Array of Steps with translatable fields |
+| Step | `id` | The Step ID |
+| Step | `translations` | Object containing translatable fields (`title`, `body`, `dismiss_text`, button text) |
+
+> Only the `text` values within `translations` should be changed. Do not modify `id` fields or the structure of the file.

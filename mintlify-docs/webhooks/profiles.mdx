@@ -18,10 +18,14 @@ A User Profile that does not yet exist by `uid` will first be created and then u
 
 #### HTTP Request
 
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/profiles
 ```
-POST https://api.chameleon.io/v3/observe/hooks/profiles
-# OR
-POST https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles
 ```
 
 | param         | -        | description                                                                                                       |
@@ -90,10 +94,14 @@ To disable all Chameleon Experiences you can add the `disabled: true` boolean va
 
 #### HTTP Request
 
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/profiles/batch
 ```
-POST https://api.chameleon.io/v3/observe/hooks/profiles/batch
-# OR
-POST https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles/batch
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/profiles/batch
 ```
 
 | param              | -                         | description                                                                                                                                |

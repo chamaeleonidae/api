@@ -1,0 +1,159 @@
+---
+title: "Testing Webhooks"
+description: "How to test Chameleon webhooks locally, verify signatures, and debug common issues."
+---
+
+This guide covers how to test Chameleon webhooks during development, including local testing with tunneling tools, signature verification, and debugging patterns.
+
+---
+
+## Testing locally with ngrok
+
+[ngrok](https://ngrok.com) creates a public URL that tunnels to your local development server.
+
+**Step 1:** Start your local webhook endpoint (e.g., on port 3000).
+
+**Step 2:** Start ngrok:
+
+```bash
+ngrok http 3000
+```
+
+**Step 3:** Copy the HTTPS URL (e.g., `https://abc123.ngrok.io`) and register it as a webhook endpoint:
+
+```bash
+curl -X POST \
+  -H "X-Account-Secret: YOUR_API_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://abc123.ngrok.io/webhooks/chameleon",
+    "topics": ["tour.completed", "response.finished"]
+  }' \
+  https://api.chameleon.io/v3/edit/webhooks
+```
+
+**Step 4:** Trigger an Experience in your product and observe the webhook arriving at your local server.
+
+> Remember to update the webhook URL when your ngrok session restarts (the URL changes each time unless you use a paid plan with reserved domains).
+
+---
+
+## Testing with webhook.site
+
+[webhook.site](https://webhook.site) provides an instant URL that captures and displays webhook payloads — no local server needed.
+
+1. Visit [webhook.site](https://webhook.site) and copy your unique URL.
+2. Register it as a Chameleon webhook endpoint.
+3. Trigger an Experience and inspect the payload on the webhook.site dashboard.
+
+This is useful for quickly inspecting payload formats without writing any code.
+
+---
+
+## Verifying webhook signatures
+
+Every Chameleon webhook includes an `X-Chameleon-Signature` header containing a SHA256-HMAC of the request body, signed with your Webhook Secret.
+
+**Always verify signatures in production** to ensure webhooks are genuinely from Chameleon.
+
+### Verification steps
+
+1. Retrieve your Webhook Secret from [Settings → Webhooks](https://app.chameleon.io/integrations/webhooks).
+2. Compute the SHA256-HMAC of the raw request body using your secret.
+3. Compare the computed signature with the `X-Chameleon-Signature` header.
+4. Reject the request if signatures don't match (respond with `400`).
+5. Optionally, check that `sent_at` is within a few minutes of the current time to prevent replay attacks.
+
+### Node.js example
+
+```javascript
+const crypto = require('crypto');
+
+function verifyWebhook(req) {
+  const secret = process.env.CHAMELEON_WEBHOOK_SECRET;
+  const received = req.headers['x-chameleon-signature'];
+  const rawBody = req.rawBody; // Ensure you capture the raw body
+
+  const expected = crypto
+    .createHmac('sha256', secret)
+    .update(rawBody)
+    .digest('hex');
+
+  const signatureValid = crypto.timingSafeEqual(
+    Buffer.from(received),
+    Buffer.from(expected)
+  );
+
+  const payload = JSON.parse(rawBody);
+  const sentAt = new Date(payload.sent_at);
+  const now = new Date();
+  const fiveMinutes = 5 * 60 * 1000;
+  const timeValid = Math.abs(now - sentAt) < fiveMinutes;
+
+  return signatureValid && timeValid;
+}
+```
+
+### Rails example
+
+```ruby
+secret = ENV['CHAMELEON_VERIFICATION_SECRET']
+received = request.headers['X-Chameleon-Signature']
+expected = OpenSSL::HMAC.hexdigest('SHA256', secret, request.raw_post)
+
+verified = ActiveSupport::SecurityUtils.secure_compare(received, expected) &&
+  (sent_at = Time.zone.parse(params[:sent_at])) &&
+  (sent_at > 5.minutes.ago && sent_at < 5.minutes.from_now)
+```
+
+### Python example
+
+```python
+import hmac
+import hashlib
+import os
+from datetime import datetime, timedelta, timezone
+
+def verify_webhook(request):
+    secret = os.environ['CHAMELEON_WEBHOOK_SECRET'].encode()
+    received = request.headers.get('X-Chameleon-Signature')
+    raw_body = request.get_data()
+
+    expected = hmac.new(secret, raw_body, hashlib.sha256).hexdigest()
+    signature_valid = hmac.compare_digest(received, expected)
+
+    payload = request.get_json()
+    sent_at = datetime.fromisoformat(payload['sent_at'].replace('Z', '+00:00'))
+    now = datetime.now(timezone.utc)
+    time_valid = abs(now - sent_at) < timedelta(minutes=5)
+
+    return signature_valid and time_valid
+```
+
+---
+
+## Retry behavior
+
+When Chameleon doesn't receive a `2xx` response from your webhook endpoint:
+
+- Chameleon retries a total of **9 times** over approximately **43 hours**.
+- Retries use exponential backoff, giving you time to fix errors without losing webhooks.
+- Chameleon sends webhooks from specific [IP addresses](/concepts/authentication#ip-addresses) — you can allowlist these in your firewall.
+
+---
+
+## Debugging checklist
+
+If webhooks aren't arriving as expected:
+
+1. **Check the endpoint URL** — Ensure it's HTTPS and publicly accessible (not `localhost`).
+2. **Check the response code** — Your endpoint must respond with a `2xx` status code. Non-2xx triggers retries.
+3. **Respond quickly** — Process webhooks asynchronously. Return `200` immediately, then handle the payload in a background job.
+4. **Check the topics** — Verify the webhook is registered for the topics you expect. See [webhook topics](/webhooks/outgoing#topics).
+5. **Check the Chameleon dashboard** — View webhook delivery status at [Settings → Webhooks](https://app.chameleon.io/integrations/webhooks).
+6. **Verify the signature** — If you're rejecting requests, ensure your verification code uses the correct secret and processes the raw (not parsed) body.
+7. **Check IP allowlisting** — If your server restricts incoming IPs, add the [Chameleon IP addresses](/concepts/authentication#ip-addresses).
+
+See also:
+- [Outgoing Webhooks](/webhooks/outgoing) — full reference for topics, schemas, and payload examples
+- [Webhook API](/apis/webhooks) — manage webhook endpoints via REST API

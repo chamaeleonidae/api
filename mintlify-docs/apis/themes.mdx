@@ -1,0 +1,233 @@
+---
+title: "Themes"
+description: "Themes define the visual styling for your Chameleon Experiences. Use the Themes API to list and retrieve your configured Themes."
+---
+
+Themes control the colors, fonts, spacing, and other visual properties applied to your Chameleon Experiences (Tours, Microsurveys, Launchers, and Tooltips). Each account has a default Theme, and additional Themes can be created to apply different styling to different Experiences.
+
+> For more on using Themes and Templates to style Experiences, see the [Help Center article](https://help.chameleon.io/en/articles/5519498).
+
+------
+
+With the Chameleon API for Themes, you can:
+
+- Retrieve a list of all Themes configured for your account.
+- Retrieve a single Theme by its `id`.
+
+<a id="schema"></a>
+## Schema
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `id` | ID | The Chameleon ID |
+| `created_at` | timestamp | When this happened or when this was added to the Database |
+| `updated_at` | timestamp | The last time any property was updated |
+| `name` | string | The name given by an administrator of Chameleon |
+| `description` | string | A description of the Theme |
+| `css` | string | Custom CSS applied to Experiences using this Theme |
+| `default` | boolean | Whether this is the default Theme for the account |
+| `content_summary` | string | A summary of the Theme's visual differences from the default |
+| `dashboard_url` | string | A link to the Theme in the Chameleon Dashboard |
+
+### Style properties
+
+Themes include many `style_*` properties that control the visual appearance of Experiences. These are grouped by category:
+
+**Typography:**
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `style_font` | string | The font family (e.g. `"system-ui"`, `"Inter"`) |
+| `style_font_size` | string | The base font size (e.g. `"14px"`) |
+| `style_font_weight` | string | The base font weight (e.g. `"normal"`, `"bold"`) |
+| `style_line_height` | string | The base line height (e.g. `"100%"`) |
+| `style_title_font_size` | string | The title font size |
+| `style_title_font_weight` | string | The title font weight |
+| `style_title_line_height` | string | The title line height |
+| `style_button_font_size` | string | The button font size |
+
+**Colors:**
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `style_color_background` | string | Background color (hex, e.g. `"19362d"`) |
+| `style_color_text` | string | Body text color |
+| `style_color_title` | string | Title text color |
+| `style_color_button_highlight` | string | Primary button background color |
+| `style_color_button_text` | string | Primary button text color |
+| `style_color_button_hover` | string | Primary button hover color |
+| `style_color_button_border` | string | Primary button border color |
+| `style_color_secondary_button_highlight` | string | Secondary button background color |
+| `style_color_secondary_button_text` | string | Secondary button text color |
+| `style_color_secondary_button_hover` | string | Secondary button hover color |
+| `style_color_secondary_button_border` | string | Secondary button border color |
+| `style_color_link` | string | Link text color |
+| `style_color_dismiss` | string | Dismiss button color |
+| `style_color_shroud` | string | Overlay/shroud color |
+| `style_color_hotspot` | string | Hotspot indicator color |
+| `style_color_icon` | string | Icon color |
+| `style_color_icon_background` | string | Icon background color |
+| `style_color_progress` | string | Progress bar color |
+| `style_color_timer` | string | Timer color |
+| `style_color_checkmark` | string | Checkmark color |
+| `style_color_border` | string | Border color |
+| `style_color_highlight` | string | Highlight color |
+
+**Spacing & Layout:**
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `style_corner_radius` | string | Corner radius for the Experience container (e.g. `"8px"`) |
+| `style_button_corner_radius` | string | Corner radius for buttons |
+| `style_button_border_width` | string | Border width for buttons |
+| `style_border_width` | string | Border width for the container |
+| `style_spacing_canvas` | string | Internal padding of the Experience |
+| `style_spacing_items` | string | Spacing between items |
+| `style_spacing_button_vertical` | string | Vertical padding for buttons |
+| `style_spacing_button_horizontal` | string | Horizontal padding for buttons |
+| `style_width` | string | Width of the Experience |
+| `style_height` | string | Height of the Experience |
+| `style_opacity_shroud` | string | Opacity of the overlay/shroud (e.g. `"50%"`) |
+| `style_size_dismiss` | string | Size of the dismiss button |
+
+> Themes may include additional `style_*` properties not listed above. Please ignore any properties you don't need.
+
+-----
+
+<a id="themes-index"></a>
+## Listing Themes
+Retrieve a list of Themes for your account.
+
+#### HTTP Request
+
+```http title="GET"
+https://api.chameleon.io/v3/edit/themes
+```
+
+| param | - | description |
+| --- | --- | --- |
+| `limit` | optional | Defaults to `50` with a maximum of `500` |
+| `before` | optional | Used when paginating, use directly from the `cursor` object from the previous response |
+| `before` | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time |
+| `after` | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
+
+#### HTTP Response
+
+```json
+{
+  "themes": [
+    {
+      "id": "5f3c4232c712de665632a6d5",
+      "created_at": "2029-01-15T10:30:00Z",
+      "updated_at": "2029-06-20T14:22:00Z",
+      "name": "Brand Theme",
+      "description": "Primary brand styling",
+      "css": "",
+      "default": true,
+      "style_font": "system-ui",
+      "style_font_size": "14px",
+      "style_line_height": "100%",
+      "style_font_weight": "normal",
+      "style_title_font_size": "25px",
+      "style_title_font_weight": "bold",
+      "style_color_background": "FFFFFF",
+      "style_color_text": "333333",
+      "style_color_title": "333333",
+      "style_color_button_highlight": "4F46E5",
+      "style_color_button_text": "FFFFFF",
+      "style_color_button_hover": "3730A3",
+      "style_color_button_border": "4F46E5",
+      "style_color_secondary_button_highlight": "F3F4F6",
+      "style_color_secondary_button_text": "333333",
+      "style_color_link": "4F46E5",
+      "style_color_dismiss": "333333",
+      "style_color_shroud": "000000",
+      "style_opacity_shroud": "50%",
+      "style_corner_radius": "8px",
+      "style_button_corner_radius": "8px",
+      "style_button_border_width": "2px",
+      "style_spacing_canvas": "24px",
+      "style_spacing_items": "12px",
+      "content_summary": null,
+      "dashboard_url": "https://app.chameleon.io/styling/themes/5f3c4232c712de665632a6d5"
+    },
+    {
+      "id": "5f3c4232c712de665632a6d6",
+      "name": "Dark Mode Theme",
+      "description": "Dark theme for onboarding flows",
+      "default": false,
+      ...
+    },
+    ...
+  ],
+  "cursor": {
+    "limit": 50,
+    "before": "5f3c4232c712de665632a6d5"
+  }
+}
+```
+
+-----
+
+<a id="themes-show"></a>
+## Showing a Theme
+Retrieve a single Theme.
+
+#### HTTP Request
+
+```http title="GET"
+https://api.chameleon.io/v3/edit/themes/:id
+```
+
+| param | - | description |
+| --- | --- | --- |
+| `id` | required | A Theme ID to lookup |
+
+#### HTTP Response
+
+```json
+{
+  "theme": {
+    "id": "5f3c4232c712de665632a6d5",
+    "created_at": "2029-01-15T10:30:00Z",
+    "updated_at": "2029-06-20T14:22:00Z",
+    "name": "Brand Theme",
+    "description": "Primary brand styling",
+    "css": ".chmln-step .chmln-inner { border: 2px solid #4F46E5; }",
+    "default": true,
+    "style_font": "system-ui",
+    "style_font_size": "14px",
+    "style_line_height": "100%",
+    "style_font_weight": "normal",
+    "style_title_font_size": "25px",
+    "style_title_font_weight": "bold",
+    "style_color_background": "FFFFFF",
+    "style_color_text": "333333",
+    "style_color_title": "333333",
+    "style_color_button_highlight": "4F46E5",
+    "style_color_button_text": "FFFFFF",
+    "style_color_button_hover": "3730A3",
+    "style_color_button_border": "4F46E5",
+    "style_color_secondary_button_highlight": "F3F4F6",
+    "style_color_secondary_button_text": "333333",
+    "style_color_secondary_button_hover": "E5E7EB",
+    "style_color_secondary_button_border": "D1D5DB",
+    "style_color_link": "4F46E5",
+    "style_color_dismiss": "333333",
+    "style_size_dismiss": "14px",
+    "style_color_shroud": "000000",
+    "style_opacity_shroud": "50%",
+    "style_color_hotspot": "1A86FF",
+    "style_color_progress": "4F46E5",
+    "style_corner_radius": "8px",
+    "style_button_corner_radius": "8px",
+    "style_button_border_width": "2px",
+    "style_spacing_canvas": "24px",
+    "style_spacing_items": "12px",
+    "style_spacing_button_vertical": "8px",
+    "style_spacing_button_horizontal": "12px",
+    "content_summary": null,
+    "dashboard_url": "https://app.chameleon.io/styling/themes/5f3c4232c712de665632a6d5"
+  }
+}
+```

@@ -1,0 +1,189 @@
+---
+title: "Bulk Operations"
+description: "Patterns for bulk tagging, bulk imports, pagination through large datasets, and handling rate limits."
+---
+
+This guide covers common patterns for working with the Chameleon API at scale: bulk tagging, CSV imports, paginating large datasets, and handling rate limits gracefully.
+
+---
+
+## Bulk tagging
+
+Use the [bulk tag endpoint](/apis/tags#tags-bulk) to apply multiple tag operations across multiple Experiences in a single request.
+
+### Example: Tag multiple Experiences
+
+```bash
+curl -X POST \
+  -H "X-Account-Secret: YOUR_API_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "updates": [
+      {
+        "model_id": "TOUR_ID_1",
+        "model_type": "Campaign",
+        "tag_name": "+Feature Release"
+      },
+      {
+        "model_id": "TOUR_ID_2",
+        "model_type": "Campaign",
+        "tag_name": "+Feature Release"
+      },
+      {
+        "model_id": "TOOLTIP_ID_1",
+        "model_type": "Tooltip",
+        "tag_name": "+Onboarding"
+      }
+    ]
+  }' \
+  https://api.chameleon.io/v3/edit/tags/bulk
+```
+
+> **Note:** Tours, Microsurveys, and Embeddables all use `model_type: "Campaign"`. Tooltips use `"Tooltip"` and Launchers use `"List"`.
+
+### Three tag operation types
+
+1. **By tag ID** — Use `tag_id` with `+` or `-` prefix to add/remove a specific tag.
+2. **By tag name** — Use `tag_name` with `+` or `-` prefix to add/remove by name (creates the tag if it doesn't exist).
+3. **Set exact tags** — Use `tag_names` array to set the exact set of tags (removes any not in the list).
+
+See the full [bulk tag API reference](/apis/tags#tags-bulk) for details.
+
+---
+
+## Bulk imports via CSV
+
+Use the [Imports API](/apis/imports) to tag, update, or delete users/companies via CSV upload.
+
+### Workflow
+
+```bash
+# Step 1: Create the import
+curl -X POST \
+  -H "X-Account-Secret: YOUR_API_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Q1 Feature Users",
+    "kind": "tag_csv",
+    "model_kind": "profile",
+    "properties": [{"name": "User ID", "prop": "uid"}]
+  }' \
+  https://api.chameleon.io/v3/edit/imports
+
+# Step 2: Upload CSV and trigger import
+curl -X PATCH \
+  -H "X-Account-Secret: YOUR_API_SECRET" \
+  -F file=@users.csv \
+  'https://api.chameleon.io/v3/edit/imports/IMPORT_ID?import_at=now'
+
+# Step 3: Check progress
+curl -H "X-Account-Secret: YOUR_API_SECRET" \
+  https://api.chameleon.io/v3/edit/imports/IMPORT_ID
+```
+
+### Import types
+
+| `kind`           | Description                          |
+|------------------|--------------------------------------|
+| `tag_csv`        | Tag users/companies from a CSV       |
+| `tag_filters`    | Tag users/companies matching filters |
+| `update_csv`     | Update user/company properties       |
+| `delete_csv`     | Delete users/companies from a CSV    |
+| `delete_filters` | Delete users/companies matching filters |
+
+See the full [Imports API reference](/apis/imports) for complete documentation with examples.
+
+---
+
+## Paginating large datasets
+
+All list endpoints return paginated results. Use cursor-based pagination to iterate through all records.
+
+### Pagination pattern
+
+```javascript
+async function fetchAll(endpoint, secretKey) {
+  let results = [];
+  let before = null;
+
+  while (true) {
+    const url = new URL(`https://api.chameleon.io${endpoint}`);
+    url.searchParams.set('limit', '500');
+    if (before) url.searchParams.set('before', before);
+
+    const response = await fetch(url, {
+      headers: { 'X-Account-Secret': secretKey },
+    });
+    const data = await response.json();
+
+    // Get the collection name (first key that isn't 'cursor')
+    const key = Object.keys(data).find(k => k !== 'cursor');
+    const items = data[key];
+
+    if (!items || items.length === 0) break;
+
+    results = results.concat(items);
+    before = data.cursor?.before;
+
+    if (!before) break;
+  }
+
+  return results;
+}
+
+// Usage
+const tours = await fetchAll('/v3/edit/tours', 'YOUR_API_SECRET');
+```
+
+### Key parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| `limit`   | Number of results per page (default: `50`, max: `500`) |
+| `before`  | Cursor for the next page — use the `cursor.before` value from the previous response |
+| `after`   | Filter by creation time — only return items created after this timestamp or ID |
+
+---
+
+## Handling rate limits
+
+The Chameleon API enforces per-endpoint rate limits on concurrent requests. When you exceed the limit, you'll receive a `429` response.
+
+### Exponential backoff
+
+```javascript
+async function fetchWithRetry(url, options, maxRetries = 5) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const response = await fetch(url, options);
+
+    if (response.status === 429) {
+      const data = await response.json();
+      const waitSeconds = data.wait || Math.pow(2, attempt);
+      console.log(`Rate limited. Waiting ${waitSeconds}s...`);
+      await new Promise(resolve => setTimeout(resolve, waitSeconds * 1000));
+      continue;
+    }
+
+    return response;
+  }
+
+  throw new Error(`Failed after ${maxRetries} retries`);
+}
+```
+
+### Tips for staying within limits
+
+- **Use the `wait` field** from 429 responses — it tells you exactly how long to wait.
+- **Limit concurrency** — Don't fire many requests in parallel to the same endpoint.
+- **Use bulk endpoints** where available (e.g., [bulk tagging](/apis/tags#tags-bulk), [CSV imports](/apis/imports)).
+- **Use `limit=500`** to minimize the number of pagination requests needed.
+
+See the full [Rate limiting reference](/concepts/rate-limiting) for per-endpoint concurrency limits.
+
+---
+
+See also:
+- [Tags API](/apis/tags) — tag management and bulk operations
+- [Imports API](/apis/imports) — CSV-based data imports
+- [Pagination](/concepts/pagination) — pagination reference
+- [Rate limiting](/concepts/rate-limiting) — rate limit details per endpoint

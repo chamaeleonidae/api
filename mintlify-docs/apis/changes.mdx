@@ -4,7 +4,8 @@ description: "Changes are a record of every update made to your key models (Expe
 ---
 
 - [Tours](/apis/tours)
-- [Mirosurveys](/apis/surveys)
+- [Surveys](/apis/surveys)
+- [Embeds](/apis/embeddables)
 - [Launchers](/apis/launchers)
 - [Tooltips](/apis/tooltips)
 - [Steps](/apis/steps)
@@ -31,6 +32,7 @@ Use the feed of changes to:
 | `path`          | string    | They keypath this change represents                                                                                                                                                                                   |
 | `object`        | object    | The underlying value of this change. It can be an object with scalar values (for a `kind=create` or `kind=destroy`) or values as a 2-item array of the [`before`, `after`] [diff](/apis/changes#schema-diff-item) |
 | `options`       | object    | A hash of other information about this change. Values are a [diff](/apis/changes#schema-diff-item).                                                                                                               |
+| `user`          | object    | The Chameleon admin who made this change. Contains `id`, `name`, and `email`                                                                                                                                      |
 
 
 <a id="schema-diff-item"></a>
@@ -56,9 +58,14 @@ List all Changes.
 
 #### HTTP Request
 
+```http title="GET"
+https://api.chameleon.io/v3/edit/changes
 ```
-GET https://api.chameleon.io/v3/edit/changes
-GET https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes
+
+or
+
+```http title="GET"
+https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes
 ```
 
 | param        | -        | description                                                                                                                 |
@@ -68,7 +75,7 @@ GET https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes
 | `before`     | optional | Read as "created `before`" and can be given as a timestamp to get only `limit` items that were created before this time     |
 | `after`      | optional | Read as "created `after`" and can be given as a timestamp or ID to get only `limit` items that were created after this time |
 | `filters`    | optional | An array of properties to filter `Changes` with; use this to fetch "all changes for a specific set of properties"           |
-| `model_kind` | optional | A `kind` of model to fetch changes for. One of `tour`, `survey`, `launcher`, or `tooltip`.                                  |
+| `model_kind` | optional | A `kind` of model to fetch changes for. One of `tour`, `survey`, `embed`, `launcher`, or `tooltip`.                                  |
 | `model_id`   | optional | The ID of the model to fetch changes for                                                                                    |
 
 
@@ -76,14 +83,14 @@ GET https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes
 
 Only changes for the `6f3c4232c712de665632a6d5` Tour
 
-```
-GET https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a6d5/changes
+```http title="GET"
+https://api.chameleon.io/v3/edit/tours/6f3c4232c712de665632a6d5/changes
 ```
 
 Only changes to the `published_at` property of any Experience
 
-```
-GET https://api.chameleon.io/v3/edit/changes?filter=published_at
+```http title="GET"
+https://api.chameleon.io/v3/edit/changes?filter=published_at
 ```
 
 
@@ -98,47 +105,44 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
       "experience_id": "6f3c1931c712d632a6d5e665",
       "model_id": "6f3c1931c712d632a6d5e665",
       "model_type": "Campaign",
-      "kind": "create",
+      "kind": "update",
       "path": "model",
       "object": {
-        "id": "6f3c1931c712d632a6d5e665",
-        "name": "New data importing options",
-        ...
+        "published_at": [
+          "2029-04-07T10:00:00Z",
+          "2029-04-07T12:38:00Z"
+        ],
+        "published_at_count": [1, 2]
       },
-      ...
+      "options": {},
+      "user": {
+        "id": "5e3c4232c712de665632a6a1",
+        "name": "Jane Smith",
+        "email": "jane@example.com"
+      }
     },
     {
       "id": "6f3c4232c712de665632a6d6",
-      "created_at": "2029-04-07T12:38:00Z",
+      "created_at": "2029-04-07T12:30:00Z",
       "experience_id": "6f3c1931c712d632a6d5e665",
       "model_id": "6e3c193a6d5e51c712d63266",
       "model_type": "Step",
-      "kind": "create",
+      "kind": "update",
       "path": "model",
       "object": {
-        "id": "6f3c1931c712d632a6d5e665",
-        "body": "### We've updated all of the data things!",
-        ...
+        "body": [
+          "### We've updated all of the data things!",
+          "### We've upgraded the data things!"
+        ]
       },
-      ...
-    },
-    {
-      "id": "6f3c4232c712de665632a6d6",
-      "created_at": "2029-04-07T12:38:00Z",
-      "experience_id": "6f3c1931c712d632a6d5e665",
-      "model_id": "6e3c193a6d5e51c712d63266",
-      "model_type": "Step",
-      "kind": "create",
-      "path": "model",
-      "object": {
-        "body": ["### We've updated all of the data things!", "### We've upgraded the data things!"],
-        "modal_width": [450, 520],
-        ...
-      },
-      "object": {
+      "options": {
         "capture_id": ["6d3c4232c665632a712de2f1", "6d3c423665632a2c712de2f7"]
       },
-      ...
+      "user": {
+        "id": "5e3c4232c712de665632a6a1",
+        "name": "Jane Smith",
+        "email": "jane@example.com"
+      }
     },
     ...
   ],
@@ -150,7 +154,7 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 ```
 
 
-# Summary of Changes
+## Summary of Changes
 
 <a id="schema-summary"></a>
 ## Summary Schema
@@ -192,7 +196,7 @@ GET https://api.chameleon.io/v3/edit/changes?filter=published_at
 {
   "name": "Body",
   "description": "The content of the Step",
-  "value": ["New features are here!", "New features have arrived!"],
+  "value": ["New features are here!", "New features have arrived!"]
 }
 ```
 
@@ -203,13 +207,13 @@ List all Change Summaries
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes/summary
+```http title="GET"
+https://api.chameleon.io/v3/edit/:model_kind/:model_id/changes/summary
 ```
 
 | param        | -        | description                                                                                |
 |--------------|----------|--------------------------------------------------------------------------------------------|
-| `model_kind` | required | A `kind` of model to fetch changes for. One of `tour`, `survey`, `launcher`, or `tooltip`. |
+| `model_kind` | required | A `kind` of model to fetch changes for. One of `tour`, `survey`, `embed`, `launcher`, or `tooltip`. |
 | `model_id`   | required | The ID of the model to fetch changes for                                                   |
 
 

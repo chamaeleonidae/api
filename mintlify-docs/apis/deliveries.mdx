@@ -20,7 +20,7 @@ description: "Deliveries are used to directly trigger an Experience to one speci
 | `created_at` | timestamp | When this happened or when this was added to the Database |
 | `updated_at` | timestamp | The last time any property was updated |
 | `model_id` | ID | The Chameleon ID of Experience this Delivery will trigger. |
-| `model_kind` | string | The kind of Experience: One of `tour` or `survey` |
+| `model_kind` | string | The kind of Experience: One of `tour` or `survey` (Microsurvey) |
 | `profile_id` | ID | The Chameleon ID of the [User Profile](/apis/profiles#schema) |
 | `idempotency_key` | string | A key that is used to enforce server-side "at most once delivery" for the given `profile_id`. [Learn more ↓](/apis/deliveries#idempotency) |
 | `options` | mixed | Any content to be used in the Experience, accessible via merge tag. |
@@ -47,7 +47,7 @@ description: "Deliveries are used to directly trigger an Experience to one speci
 
 | Code  | description                                                  |
 | ----- | ------------------------------------------------------------ |
-| `404` | A related model cannot be found (Tour, Survey or Profile) |
+| `404` | A related model cannot be found (Tour, Microsurvey or Profile) |
 | `409` | The Experience is not live, please publish and retry |
 | `409` | The Experience has already been triggered (it can no longer be subsequently changed) |
 | `409` | Too many outstanding deliveries for this User Profile, use `delivery_ids_at_limit` with value of `drop` |
@@ -113,8 +113,8 @@ get feedback on your hypothetical "data import flow".
 ## List all Deliveries
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/deliveries
+```http title="GET"
+https://api.chameleon.io/v3/edit/deliveries
 ```
 
 | param              | -        | type        | description    |
@@ -155,15 +155,15 @@ GET https://api.chameleon.io/v3/edit/deliveries
 ## Create a Delivery
 #### HTTP Request
 
-```
-POST https://api.chameleon.io/v3/edit/deliveries
+```http title="POST"
+https://api.chameleon.io/v3/edit/deliveries
 ```
 
 Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour#options)
 
 | param              | -        | type        | description    |
 | ------------------ | -------- | ----------- | -------------- |
-| `model_kind`       | required | string | The kind of Experience this Delivery will trigger either `tour` or `survey` |
+| `model_kind`       | required | string | The kind of Experience this Delivery will trigger either `tour` or `survey` (Microsurvey) |
 | `model_id`         | required | ID | The Chameleon ID of Experience this Delivery will trigger |
 | `profile_id`       | optional* | ID | The Chameleon ID of User Profile to target |
 | `uid`              | optional* | string | The User Profile Identifier (typically the Database ID from your backend -- same value passed to `chmln.identify`) |
@@ -240,8 +240,8 @@ Mirrors to the options for [Showing an Experience via JavaScript](/js/show-tour#
 
 #### HTTP Request
 
-```
-PATCH https://api.chameleon.io/v3/edit/deliveries/:id
+```http title="PATCH"
+https://api.chameleon.io/v3/edit/deliveries/:id
 ```
 
 | param | -        | description                                                  |
@@ -258,8 +258,8 @@ Cancel a Delivery that has yet to happen
 
 #### HTTP Request
 
-```
-DELETE https://api.chameleon.io/v3/edit/deliveries/:id
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/deliveries/:id
 ```
 
 | param | -        | description                                                  |

@@ -5,14 +5,53 @@ description: "Start a Chameleon Automation using the JavaScript API."
 
 *To learn more about the Chameleon Automations product, please read [this article](https://help.chameleon.io/en/articles/9556244-understanding-automations).*
 
-
+------
 
 ## Start an Automation (`chmln.show()`)
 
-Call `chmln.show`  with the Chameleon ID of the Automation (part of the Automation URL, or copyable from the dashboard slideout)
-
+Call `chmln.show` with the Chameleon ID of the Automation (part of the Automation URL, or copyable from the dashboard slideout).
 
 ```javascript
-chmln.show('AUTOMATION ID', { kind: 'automation' });
+chmln.show('AUTOMATION_ID', { kind: 'automation' });
 ```
 
+> The `kind: 'automation'` option is required to distinguish Automations from Tours, which also use `chmln.show`.
+
+### Finding the Automation ID
+
+1. Open the [Chameleon Dashboard](https://app.chameleon.io).
+2. Navigate to the Automation you want to trigger.
+3. Copy the ID from the URL (e.g., `https://app.chameleon.io/automations/AUTOMATION_ID`) or use the "Copy ID" option in the dashboard slideout.
+
+### Options
+
+You can pass additional options as the second argument:
+
+| Option             | Default | Description                                                                                    |
+|--------------------|---------|------------------------------------------------------------------------------------------------|
+| `kind`             | -       | **Required.** Must be `'automation'` to start an Automation.                                   |
+| `use_segmentation` | `false` | Whether to apply the Audience (Segmentation) before starting. If `true`, the Automation only starts if the user matches the configured Segment. |
+| `once`             | `false` | Whether to check if the user has already seen this Automation. If `true`, it will not show again for users who have already completed it. |
+
+### Examples
+
+Start an Automation immediately for the current user:
+
+```javascript
+chmln.show('5f3c4232c712de665632a6d5', { kind: 'automation' });
+```
+
+Start only if the user matches the configured Segment and hasn't seen it before:
+
+```javascript
+chmln.show('5f3c4232c712de665632a6d5', {
+  kind: 'automation',
+  use_segmentation: true,
+  once: true,
+});
+```
+
+See also:
+- [Show a Tour](/js/show-tour) — trigger Tours via JavaScript
+- [Show a Demo](/js/show-demo) — trigger Demos via JavaScript
+- [Deliveries API](/apis/deliveries) — trigger Experiences via REST API (server-side)

@@ -1,16 +1,67 @@
 ---
 title: "Show a Product Demo via JS API"
-description: ""
+description: "Trigger a Chameleon Product Demo using the JavaScript API."
 ---
 
----
+*To learn more about the Chameleon Demos product, visit our [product documentation](https://help.chameleon.io/en/collections/7829085-embeddables).*
 
+------
 
 ## Show the Demo (`chmln.show()`)
 
-Call `chmln.show`  with the Chameleon ID of the Demo (part of the Demo URL, or copyable from the dashboard slideout)
-
+Call `chmln.show` with the Chameleon ID of the Demo (part of the Demo URL, or copyable from the dashboard slideout).
 
 ```javascript
-chmln.show('DEMO ID', { kind: 'demo' });
+chmln.show('DEMO_ID', { kind: 'demo' });
 ```
+
+> The `kind: 'demo'` option is required to distinguish Demos from Tours, which also use `chmln.show`.
+
+### Finding the Demo ID
+
+1. Open the [Chameleon Dashboard](https://app.chameleon.io).
+2. Navigate to the Demo you want to trigger.
+3. Copy the ID from the URL or use the "Copy ID" option in the dashboard slideout.
+
+### Options
+
+| Option             | Default | Description                                                                                    |
+|--------------------|---------|------------------------------------------------------------------------------------------------|
+| `kind`             | -       | **Required.** Must be `'demo'` to show a Demo.                                                |
+| `use_segmentation` | `false` | Whether to apply the Audience (Segmentation) before showing. If `true`, the Demo only shows if the user matches the configured Segment. |
+| `once`             | `false` | Whether to check if the user has already seen this Demo. If `true`, it will not show again for users who have already completed it. |
+
+### Examples
+
+Show a Demo immediately:
+
+```javascript
+chmln.show('5f3c4232c712de665632a6d5', { kind: 'demo' });
+```
+
+Show only for users who haven't seen it before:
+
+```javascript
+chmln.show('5f3c4232c712de665632a6d5', {
+  kind: 'demo',
+  once: true,
+});
+```
+
+### Consent handling
+
+When embedding Demos on your marketing website for anonymous visitors, you may need to handle consent. Use the `data-consent-mode` attribute on the Demo iframe element:
+
+```html
+<iframe src="https://app.chameleon.io/demos/DEMO_ID"
+  data-consent-mode="granted">
+</iframe>
+```
+
+Setting `consent_mode` to `"granted"` enables features like [Clearbit Reveal](https://app.chameleon.io/integrations/clearbit) for identifying anonymous traffic. See the [demo.reveal webhook](/webhooks/outgoing#example-demo-reveal) for details.
+
+See also:
+- [Show a Tour](/js/show-tour) — trigger Tours via JavaScript
+- [Start an Automation](/js/show-automation) — trigger Automations via JavaScript
+- [Demos REST API](/apis/demos) — manage Demos via REST API
+- [Demo webhooks](/webhooks/outgoing#example-demo-started) — receive Demo interaction events

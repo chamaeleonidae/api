@@ -18,7 +18,7 @@ See the specific APIs for more information on how to use Search your product.
 
 1. Create a [HelpBar](/apis/search#schema), configure it with `placeholder` etc.
 2. Add your Help center as a [`SearchGroup`](/apis/search#schema-search-groups).
-3. Add the top-level navigation within your product; First download this CSV [template](/apis/search#search-imports-template) or [example](/apis/search#search-imports-example) then [Import](/apis/search#schema-search-imports) it.
+3. Add the top-level navigation within your product; First download this CSV [template](/apis/search#schema-search-imports) or [example](/apis/search#schema-search-imports) then [Import](/apis/search#schema-search-imports) it.
 4. [Optional] Add specific content from your database by creating a [SearchItem](/apis/search#schema-search-items) per database record you want to be searchable.
 5. Publish your HelpBar by setting the `published_at` timestamp on the `Search`.
 6. Visit your product where Chameleon is installed and hit `CMD` + `k` (or how you configured `key_meta` and `key_uid`).
@@ -120,8 +120,8 @@ There is only one per account.
 
 #### HTTP Request
 
-```
-GET https://api.trychameleon.com/v3/edit/searches
+```http title="GET"
+https://api.chameleon.io/v3/edit/searches
 ```
 
 
@@ -149,8 +149,8 @@ There is only one per account so an update uses the same endpoint as create. Use
 
 #### HTTP Request
 
-```
-POST https://api.trychameleon.com/v3/edit/searches
+```http title="POST"
+https://api.chameleon.io/v3/edit/searches
 ```
 
 ###### Examples
@@ -305,13 +305,13 @@ A search item is a discrete unit of searchable content akin to a Google search r
 They can be scoped on a per-company basis and there can be many thousands of custom search items,
 use the `cursor` to list as many as you need.
 
-> Note: this is how you iterate through all searchable content but it's not how your Users search for this content, if you want to query your data like and end-user, feel free to [Contact us](https://app.trychameleon.com/help) to learn more.
+> Note: this is how you iterate through all searchable content but it's not how your Users search for this content, if you want to query your data like and end-user, feel free to [Contact us](https://app.chameleon.io/help) to learn more.
 
 
 #### HTTP Request
 
-```
-GET https://api.trychameleon.com/v3/edit/search_items
+```http title="GET"
+https://api.chameleon.io/v3/edit/search_items
 ```
 
 | param              | -        | description                                                                                                                                     |
@@ -341,7 +341,7 @@ GET https://api.trychameleon.com/v3/edit/search_items
       "title": "Invite your team",
       "description": "Enable the rest of your team to collaborate, close items in your boards and see your workflows.",
       ...
-    },
+    }
   ],
   "cursor": {
     "limit": 50,
@@ -363,14 +363,14 @@ When content relates to a specific database item, include the database ID of tha
 
 With the parameter of `uid`; this endpoint will "create or update" (upsert) your content:
 
-```
-POST https://api.trychameleon.com/v3/edit/search_items
+`POST` | ```http title="PATCH"
+https://api.chameleon.io/v3/edit/search_items
 ```
 
-or if you have stored the SearchItem ID field from when you created it:
+or
 
-```
-PATCH https://api.trychameleon.com/v3/edit/search_items/:id
+```http title="PATCH"
+https://api.chameleon.io/v3/edit/search_items/:id
 ```
 
 ###### Examples
@@ -481,7 +481,7 @@ Target content to a Chameleon [User Profile](/apis/profiles) -- Only this specif
 ```
 
 A hypothetical "car dealership" wants to make a used car searchable, track an event to
-all [configured Integrations](https://app.trychameleon.com/integrations) and open the listing in a new tab.
+all [configured Integrations](https://app.chameleon.io/integrations) and open the listing in a new tab.
 It also includes a title label of `NEW` themed with an [example theme](/apis/search#searches-create-http-response) from above.
 
 ```json
@@ -511,8 +511,9 @@ It also includes a title label of `NEW` themed with an [example theme](/apis/sea
 
 <a id="search-items-batch-update"></a>
 ## Batch Update your `SearchItem`s
-```
-POST https://api.trychameleon.com/v3/edit/search_items/batch
+
+```http title="POST"
+https://api.chameleon.io/v3/edit/search_items/batch
 ```
 
 | param     | -        | description                                                                                                  |
@@ -559,8 +560,8 @@ Send the `uid` of a previously created `SearchItem`.
 
 #### HTTP Request
 
-```
-DELETE https://api.trychameleon.com/v3/edit/search_items
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/search_items
 ```
 
 
@@ -571,8 +572,8 @@ Send the `ids` of a previously created `SearchItem`.
 
 #### HTTP Request
 
-```
-DELETE https://api.trychameleon.com/v3/edit/search_items/batch
+```http title="DELETE"
+https://api.chameleon.io/v3/edit/search_items/batch
 ```
 
 ```json
@@ -968,7 +969,7 @@ Open the `Beacon` to a specific search query. Help users understand what is avai
 {
    "kind": "helpscout",
    "helpscout_kind": "search_term",
-   "query": "Import data",
+   "query": "Import data"
 }
 ```
 
@@ -1372,46 +1373,46 @@ type BlankOpts = {
 };
 
 type SearchOpts = {
-  query: string,
+  query: string;
 };
 
 type QuestionOpts = {
-   query: string,
-   groups: array<SearchGroup>,
-   onAnswer(opts: { text: string, links?: array<ReferenceItem> }): null,
+   query: string;
+   groups: Array<SearchGroup>;
+   onAnswer(opts: { text: string; links?: Array<ReferenceItem> }): void;
 }
 
 type AnswerOpts = {
-  query: string,
-  answer: string,
+  query: string;
+  answer: string;
 };
 
 type SearchItemsOpts = {
-  query: string,
-  items: array<SearchItem>,
+  query: string;
+  items: Array<SearchItem>;
 };
 
 type RecentOpts = {
-  items: array<SearchItem>,
+  items: Array<SearchItem>;
 };
 
 // See SearchAction above for schema
 type ActionOpts = {
-  item: <SearchItem>,
+  item: SearchItem;
 };
 
 type ActionErrorOpts = {
-  item: <SearchItem>,
-  action: <SearchAction>,
+  item: SearchItem;
+  action: SearchAction;
 };
 
 type NavigateOpts = {
-  to: string,
+  to: string;
 };
 
 type ReferenceItem = {
-  href: string,
-  text: string,
+  href: string;
+  text: string;
 }
 
 ```
@@ -1422,7 +1423,7 @@ type ReferenceItem = {
 
 <a id="limits"></a>
 ## Limits
-> When these limits are exceeded, the endpoints will return a status code `409` with a descriptive error message please [Contact us](https://app.trychameleon.com/help) with any questions.
+> When these limits are exceeded, the endpoints will return a status code `409` with a descriptive error message please [Contact us](https://app.chameleon.io/help) with any questions.
 
 1. Each `SearchItem` can be targeted to one or many `Company`, `Segment`, or `Profile`s. 
    1. An Free/Startup account is limited to 10 per `SearchItem` and in aggregate across all `SearchItem`s.
@@ -1467,8 +1468,8 @@ Use `Content-Type: multipart/form-data` to create an Import in one request, incl
 
 #### HTTP Request
 
-```
-POST https://api.trychameleon.com/v3/edit/search_imports
+```http title="POST"
+https://api.chameleon.io/v3/edit/search_imports
 ```
 
 <a id="search-imports-show"></a>
@@ -1477,8 +1478,8 @@ Useful to track the progress of this import. Small imports (< 100 rows) will fin
 
 #### HTTP Request
 
-```
-GET https://api.trychameleon.com/v3/edit/search_imports/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/search_imports/:id
 ```
 
 <a id="trigger-search-api"></a>

@@ -63,17 +63,17 @@ When a User has access to a Dashboard they will see it in their list of Dashboar
 ```bash
 # 1.
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
-  -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-413", "title": "Q3 Northstar metrics", "profile_uids": ["134"], actions: [{ "kind": "navigate", "url": "/dashboards/413" }] }' \
+  -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-413", "title": "Q3 Northstar metrics", "profile_uids": ["134"], "actions": [{ "kind": "navigate", "url": "/dashboards/413" }] }' \
   'https://api.chameleon.io/v3/edit/search_items'
 
 # 2.
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
-  -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-476", "title": "Website/Ads metrics 2029-03", "profile_uids": ["134", "137"], actions: [{ "kind": "navigate", "url": "/dashboards/476" }] }' \
+  -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-476", "title": "Website/Ads metrics 2029-03", "profile_uids": ["134", "137"], "actions": [{ "kind": "navigate", "url": "/dashboards/476" }] }' \
   'https://api.chameleon.io/v3/edit/search_items'
 
 # 3.
 curl -X POST -H 'X-Account-Secret: ACCOUNT_SECRET' -H 'Content-Type: application/json' \
-  -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-498", "title": "FY29 Financial reports", "company_uids": ["f2d3a"], actions: [{ "kind": "navigate", "url": "/dashboards/498" }] }' \
+  -d '{"search_group_id": SEARCH_GROUP_ID, "uid": "dashboards-498", "title": "FY29 Financial reports", "company_uids": ["f2d3a"], "actions": [{ "kind": "navigate", "url": "/dashboards/498" }] }' \
   'https://api.chameleon.io/v3/edit/search_items'
 ```
 

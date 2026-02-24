@@ -3,7 +3,7 @@ title: "Microsurveys"
 description: "Chameleon Microsurveys are a primary question step that allows you to get immediate and contextual user feedback."
 ---
 
-*To know more about Surveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/1752073-surveys).*
+*To know more about Microsurveys, you can visit our [product documentation](https://help.chameleon.io/en/collections/1752073-surveys).*
 
 ------
 
@@ -25,10 +25,16 @@ With the Chameleon Microsurveys API, you can:
 | `updated_at` | timestamp | The last time any property was updated |
 | `name` | string | The name given by an administrator of Chameleon |
 | `position` | number | The order that these appear in lists (starting from 0) |
-| `segment_id` | ID | The Chameleon ID of the configured [Segment](/apis/segments#schema) |
+| `segment_ids` | array&lt;ID&gt; | The Chameleon IDs of the configured [Segments](/apis/segments#schema) |
 | `published_at` | timestamp | The time this was most recently published |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](/apis/tags) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
+| `dashboard_url` | string | Direct link to this Microsurvey in the Chameleon Dashboard |
+| `experiment_at` | timestamp | When [Experimentation](https://help.chameleon.io/en/articles/1069709-a-b-testing-chameleon-tours) was turned on |
+| `experiment_range` | string | The range of `Profile#percent` that will be included in the experiment |
+| `content_summary` | string | A brief summary of the Microsurvey content |
+| `content_semantics` | string | Semantic analysis of the Microsurvey content |
+| `audience_summary` | string | A brief summary of the target audience |
 | `last_dropdown_items` | array&lt;String&gt; | For a dropdown Microsurvey, all of the `dropdown_items` that have been selected by any User |
 | `stats` | object | Aggregated statistics for this model (all-time) |
 | `stats.started_count` | number | Number of your end-users who saw this |
@@ -44,8 +50,8 @@ List all Microsurveys that follow your indicated parameters.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/surveys
+```http title="GET"
+https://api.chameleon.io/v3/edit/surveys
 ```
 
 | param  | -        | description                                                  |
@@ -91,8 +97,8 @@ Update a single Microsurvey to change the [Environments](/apis/urls) or to Publi
 
 #### HTTP Request
 
-```
-PATCH https://api.chameleon.io/v3/edit/surveys/:id
+```http title="PATCH"
+https://api.chameleon.io/v3/edit/surveys/:id
 ```
 
 | param           | -        | description                                                                                     |
@@ -137,8 +143,8 @@ Retrieve a single Microsurvey.
 
 #### HTTP Request
 
-```
-GET https://api.chameleon.io/v3/edit/surveys/:id
+```http title="GET"
+https://api.chameleon.io/v3/edit/surveys/:id
 ```
 
 
