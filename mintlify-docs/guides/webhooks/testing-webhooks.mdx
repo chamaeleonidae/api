@@ -149,11 +149,11 @@ If webhooks aren't arriving as expected:
 1. **Check the endpoint URL** — Ensure it's HTTPS and publicly accessible (not `localhost`).
 2. **Check the response code** — Your endpoint must respond with a `2xx` status code. Non-2xx triggers retries.
 3. **Respond quickly** — Process webhooks asynchronously. Return `200` immediately, then handle the payload in a background job.
-4. **Check the topics** — Verify the webhook is registered for the topics you expect. See [webhook topics](/webhooks/overview#topics).
+4. **Check the topics** — Verify the webhook is registered for the topics you expect. See [webhook topics](/webhooks/outgoing#topics).
 5. **Check the Chameleon dashboard** — View webhook delivery status at [Settings → Webhooks](https://app.chameleon.io/integrations/webhooks).
 6. **Verify the signature** — If you're rejecting requests, ensure your verification code uses the correct secret and processes the raw (not parsed) body.
 7. **Check IP allowlisting** — If your server restricts incoming IPs, add the [Chameleon IP addresses](/concepts/authentication#ip-addresses).
 
 See also:
-- [Webhooks Overview](/webhooks/overview) — full reference for topics, schemas, and payload examples
+- [Outgoing Webhooks](/webhooks/outgoing) — full reference for topics, schemas, and payload examples
 - [Webhook API](/apis/webhooks) — manage webhook endpoints via REST API

@@ -89,6 +89,7 @@
       "group": "Webhooks",
       "pages": [
         "webhooks/overview",
+        "webhooks/outgoing",
         "webhooks/profiles",
         "webhooks/events",
         "webhooks/companies"
