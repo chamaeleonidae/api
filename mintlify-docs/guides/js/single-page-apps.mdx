@@ -29,12 +29,11 @@ If you prefer not to use npm, add the script tag to your `index.html`:
 
 ```html
 <script>
-!function(d,w){var t='YOUR_ACCOUNT_TOKEN',c='chmln',i=d.createElement('script');
-i.src='https://fast.chameleon.io/messo/'+t+'/messo.min.js';
-i.async=1;d.head.appendChild(i);w[c]=w[c]||function(){(w[c].q=w[c].q||[]).push(arguments)};
-}(document,window);
+!function(d,w){var t="YOUR_ACCOUNT_TOKEN",c="chmln",i=d.createElement("script");if(w[c]||(w[c]={}),!w[c].root){w[c].accountToken=t,w[c].location=w.location.href.toString(),w[c].now=new Date,w[c].fastUrl="https://fast.chameleon.io/";var m="identify alias track clear set show on off custom help _data".split(" ");for(var s=0;s<m.length;s++){!function(){var t=w[c][m[s]+"_a"]=[];w[c][m[s]]=function(){t.push(arguments);};}();}i.src=w[c].fastUrl+"messo/"+t+"/messo.min.js",i.async=!0,d.head.appendChild(i);}}(document,window);
 </script>
 ```
+
+> For the most up-to-date, pre-filled version of this snippet, copy it from your [Install page](https://app.chameleon.io/install).
 
 ---
 
