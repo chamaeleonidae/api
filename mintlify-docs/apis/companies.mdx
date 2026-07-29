@@ -135,13 +135,47 @@ expand[profile]=min&expand[company]=skip
 ### Search Companies
 Searching Companies through the Chameleon API allows you to:
 
-- Search for a company by `id` and `uid`
+- Search for a company by `id`, `uid`, or any custom company property you have sent to us.
+- Filter companies using [Segmentation Filter Expressions](/concepts/filters) with the `property` and `group` kinds.
+- Sort the matching companies by any company property.
+- Get the [Count of Companies](#companies-count) matching a set of filters.
 
 > *Note: [Rate Limiting](/concepts/rate-limiting) applies according to the table below.*
 
 | endpoint           | Maximum concurrent requests |
 |--------------------| --------------------------- |
 | `/companies`       | 2                           |
+
+
+#### HTTP Request
+
+```
+GET|POST https://api.chameleon.io/v3/analyze/companies
+```
+
+| param  | -        | description                                                  |
+| ------ | -------- | ------------------------------------------------------------ |
+| `filters`    | optional | The array of [Segmentation filter expressions](/concepts/filters) used to match companies. Only the `property` and `group` kinds are supported (see the note below) |
+| `filters_op` | optional | The operator to apply between each filter. Use either `or` or `and` (default) |
+| `sort_by`    | optional | A company property name to sort by — one of `id`, `uid`, `created_at`, `last_seen_at`, `profile_count`, or any custom company property you have sent to us |
+| `sort_dir`   | optional | The sort direction. Use either `asc` (default) or `desc` |
+| `limit`      | optional | Defaults to `50` with a maximum of `500` |
+| `offset`     | optional | The number of matching companies to skip before returning results — used to page through filtered or sorted results (see the note below). Defaults to `0` |
+
+> *Note: Company filters support only the `property` and `group` filter kinds. The `event`, `tour`, and `survey` kinds available for [profile search](/apis/profiles-search) are not supported for companies.*
+
+> *Note: When `filters` or `sort_by` is provided, results are paginated with an offset-based `cursor`. Pass the returned `offset` back on the next request to fetch the following page:*
+
+```json
+{
+  "cursor": {
+    "limit": 50,
+    "offset": 50
+  }
+}
+```
+
+Without `filters` or `sort_by`, companies use the standard `before` / `after` [cursor pagination](/concepts/pagination) shown under [List Companies](#companies-index).
 
 
 <a id="companies-search-examples"></a>
@@ -182,6 +216,86 @@ curl -H "X-Account-Secret: ACCOUNT_SECRET" \
      -d '{"filters":[{"kind":"property","prop":"uid","op":"eq","value":"123"}]}' \
      https://api.chameleon.io/v3/analyze/companies
 ```
+
+The following examples show the full JSON request body.
+
+##### Companies matching multiple properties
+
+Find companies on the `enterprise` plan **or** with a lifetime value (`clv`) greater than `100000`, combining two property filters with `filters_op`:
+
+```json
+{
+  "filters_op": "or",
+  "filters": [
+    {
+      "kind": "property",
+      "prop": "plan",
+      "op": "eq",
+      "value": "enterprise"
+    },
+    {
+      "kind": "property",
+      "prop": "clv",
+      "op": "gt",
+      "value": 100000
+    }
+  ]
+}
+```
+
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"filters_op":"or","filters":[{"kind":"property","prop":"plan","op":"eq","value":"enterprise"},{"kind":"property","prop":"clv","op":"gt","value":100000}]}' \
+     https://api.chameleon.io/v3/analyze/companies
+```
+
+##### Companies sorted by profile count
+
+Return companies ordered by `profile_count`, highest first:
+
+```json
+{
+  "sort_by": "profile_count",
+  "sort_dir": "desc"
+}
+```
+
+```bash
+curl -H "X-Account-Secret: ACCOUNT_SECRET" \
+     -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"sort_by":"profile_count","sort_dir":"desc"}' \
+     https://api.chameleon.io/v3/analyze/companies
+```
+
+
+<a id="companies-count"></a>
+### Counting Companies
+Return the number of companies matching a set of filters, without fetching the companies themselves.
+
+#### HTTP Request
+
+```
+GET|POST https://api.chameleon.io/v3/analyze/companies/count
+```
+
+| param  | -        | description                                                  |
+| ------ | -------- | ------------------------------------------------------------ |
+| `filters`    | optional | The array of [Segmentation filter expressions](/concepts/filters) used to match companies. Only the `property` and `group` kinds are supported |
+| `filters_op` | optional | The operator to apply between each filter. Use either `or` or `and` (default) |
+
+Counting uses the same `filters` / `filters_op` as [Search Companies](#companies-search); `sort_by`, `sort_dir`, `limit`, and `offset` do not apply.
+
+#### HTTP Response
+
+```json
+{
+  "count": 128
+}
+```
+
 
 <a id="companies-delete"></a>
 ## Delete a Company
