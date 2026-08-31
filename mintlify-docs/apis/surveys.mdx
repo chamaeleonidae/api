@@ -27,6 +27,8 @@ With the Chameleon Microsurveys API, you can:
 | `position` | number | The order that these appear in lists (starting from 0) |
 | `segment_ids` | array&lt;ID&gt; | The Chameleon IDs of the configured [Segments](/apis/segments#schema) |
 | `published_at` | timestamp | The time this was most recently published |
+| `scheduled_publish_at` | timestamp | The time this is scheduled to be published (cleared once it publishes); `null` when no publish is scheduled |
+| `scheduled_unpublish_at` | timestamp | The time this is scheduled to stop running (cleared once it unpublishes); `null` when no unpublish is scheduled |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](/apis/tags) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
 | `dashboard_url` | string | Direct link to this Microsurvey in the Chameleon Dashboard |
@@ -43,6 +45,24 @@ With the Chameleon Microsurveys API, you can:
 | `stats.last_completed_at` | timestamp | Most recent time any user completed/finished this |
 | `stats.exited_count` | number | Number of your end-users who dismissed/exited this |
 | `stats.last_exited_at` | timestamp | Most recent time any user dismissed/exited this |
+
+#### Scheduled publishing
+
+`scheduled_publish_at` and `scheduled_unpublish_at` are **read-only**. They report a schedule set elsewhere in Chameleon, and cannot be set or cleared by [updating a Microsurvey](#surveys-update).
+
+Both report a **pending** schedule only, never history. Chameleon clears the timestamp the moment the schedule runs, so a Microsurvey that has already gone dark on schedule returns `scheduled_unpublish_at: null` rather than the time it stopped. Read `published_at` to tell whether a Microsurvey is currently live — it becomes `null` once the Microsurvey is unpublished.
+
+A pending schedule can also disappear **without** the Microsurvey publishing or unpublishing: if the person who set it loses the *Publish Experiences* permission, or leaves the team, before the schedule runs, Chameleon cancels the schedule and emails everyone on your team who can publish Experiences instead. The Microsurvey is left exactly as it was, and the timestamp becomes `null`.
+
+A draft scheduled to publish looks like this:
+
+```json
+{
+  "published_at": null,
+  "scheduled_publish_at": "2029-04-21T08:00:00Z",
+  "scheduled_unpublish_at": null
+}
+```
 
 ## List Microsurveys
 
@@ -73,6 +93,8 @@ https://api.chameleon.io/v3/edit/surveys
       "name": "Task #2 completion CES",
       "position": 1,
       "published_at": "2029-04-07T12:18:00Z",
+      "scheduled_publish_at": null,
+      "scheduled_unpublish_at": "2029-05-01T09:00:00Z",
        ...
     },
     {
@@ -80,6 +102,8 @@ https://api.chameleon.io/v3/edit/surveys
       "name": "Admin account setup #1 completion question",
       "position": 0,
       "published_at": "2029-04-07T12:38:00Z",
+      "scheduled_publish_at": null,
+      "scheduled_unpublish_at": null,
        ...
     },
     ...
@@ -159,6 +183,8 @@ https://api.chameleon.io/v3/edit/surveys/:id
     "name": "Admin Self-serve menu",
     "position": 0,
     "published_at": "2029-04-07T12:38:00Z",
+    "scheduled_publish_at": null,
+    "scheduled_unpublish_at": null,
     ...
   }
 }
