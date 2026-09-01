@@ -50,24 +50,6 @@ With the Chameleon API for Embeddables, you can:
 | `stats.exited_count` | number | Number of your end-users who dismissed/exited this |
 | `stats.last_exited_at` | timestamp | Most recent time any user dismissed/exited this |
 
-#### Scheduled publishing
-
-`scheduled_publish_at` and `scheduled_unpublish_at` are **read-only**. They report a schedule set elsewhere in Chameleon, and cannot be set or cleared by [updating an Embeddable](#embeddables-update).
-
-Both report a **pending** schedule only, never history. Chameleon clears the timestamp the moment the schedule runs, so an Embeddable that has already gone dark on schedule returns `scheduled_unpublish_at: null` rather than the time it stopped. Read `published_at` to tell whether an Embeddable is currently live — it becomes `null` once the Embeddable is unpublished.
-
-A pending schedule can also disappear **without** the Embeddable publishing or unpublishing: if the person who set it loses the *Publish Experiences* permission, or leaves the team, before the schedule runs, Chameleon cancels the schedule and emails everyone on your team who can publish Experiences instead. The Embeddable is left exactly as it was, and the timestamp becomes `null`.
-
-A draft scheduled to publish looks like this:
-
-```json
-{
-  "published_at": null,
-  "scheduled_publish_at": "2029-04-21T08:00:00Z",
-  "scheduled_unpublish_at": null
-}
-```
-
 
 <a id="embeddables-index"></a>
 ## List Embeddables
