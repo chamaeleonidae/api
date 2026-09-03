@@ -84,3 +84,109 @@ By default, Events are grouped by their case insensitive and normalized name val
 - "imported-leads" => `imported_leads`
 
 To know more about how Events are normalized, visit the [Normalization](/concepts/normalization#events) page.
+
+<a id="events-bulk"></a>
+## Bulk Create Events
+- When sending a bulk create, send an array of Event objects as the `events` parameter
+- Every Event carries its own identifier, so one request can track Events for many different Users.
+- For each Event, send the User ID as `uid`, the `name` of the Event, and any other properties pertinent to that Event.
+- Instead of the `uid` you may use the Chameleon ID as `id` or the Email address as `email`. When more than one is given, `id` wins, then `uid`, then `email`.
+- The `id`, `uid`, `email` and `name` keys address the item; every other key is added to the Event as a property.
+
+#### HTTP Request
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/events/batch
+```
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/events/batch
+```
+
+| param              | -                  | description                                                                                                |
+|--------------------|--------------------|--------------------------------------------------------------------------------------------------------------|
+| `events`           | array&lt;Event&gt; | The list of Events to track; each item has the same schema as [Create an Event](/webhooks/events#events-create) |
+| `on_model_missing` | optional           | The treatment of User Profiles not previously sent to Chameleon. Defaults to `create`. One of `create`, `ignore` |
+
+```json
+{
+  "events": [
+    {
+      "uid": 18821,
+      "name": "Phase changed",
+      "phase": "onboarding"
+    },
+    {
+      "uid": 28421,
+      "name": "Phase changed",
+      "phase": "activated"
+    },
+    ...
+  ],
+  "on_model_missing": "create"
+}
+```
+
+Batched Events are tracked through the same live path as a [Single Event](/webhooks/events#events-create), so Experiences triggered by them respond with the same latency.
+
+#### HTTP Response
+
+`count` is the number of Events accepted for processing.
+
+```json
+{
+  "events": {
+    "count": 2
+  }
+}
+```
+
+#### HTTP Response error
+
+An invalid item never rejects its valid neighbours; the valid Events are still tracked and every invalid item is reported with its zero-based `index`.
+
+When the 2nd item had no value for the `id`, `uid` or `email` keys
+
+Note: The status code will be the normal 202 for (Accepted for processing)
+
+```json
+{
+  "events": {
+    "count": 1
+  },
+  "errors": [
+    {
+      "code": 422,
+      "index": 1,
+      "message": "No identifier found for the 2nd item. Pass your User ID as the `uid` parameter or the Email address as the `email` parameter"
+    }
+  ]
+}
+```
+
+An item is also reported this way when it is not an object, or when it has no `name` value.
+
+### Missing User Profiles
+
+- With `on_model_missing=create` (the default), an item whose `uid` has not been seen by Chameleon creates the User Profile first and then tracks the Event to it, exactly as a [Single Event](/webhooks/events#events-create) does.
+- A User Profile can only be created from a `uid`. An unrecognized item addressed solely by `email` or `id` is not tracked, and gets an `errors` entry reading "No User Profile was found for the 2nd item; pass `uid` to create it".
+- With `on_model_missing=ignore`, an item whose User Profile is not found is skipped: no User Profile is created, no Event is tracked, and no `errors` entry is returned for it.
+
+## Limits
+
+- Each batch request is limited to **1,000 Events**; split larger workloads across several requests.
+- A batch counts as one request against [rate limiting](/concepts/rate-limiting), however many Events it carries.
+- As with a [Single Event](/webhooks/events#events-create), Event properties are subject to the [Normalization](/concepts/normalization#limits) limits.
+
+#### HTTP Response error
+
+When the request carried more than 1,000 Events. The status code will be 422 (Unprocessable)
+
+```json
+{
+  "code": 422,
+  "messages": ["Each batch is limited to 1000 Events, split the batch into smaller requests"]
+}
+```
