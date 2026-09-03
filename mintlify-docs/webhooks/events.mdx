@@ -92,7 +92,9 @@ To know more about how Events are normalized, visit the [Normalization](/concept
 - For each Event, send the User ID as `uid`, the `name` of the Event, and any other properties pertinent to that Event.
 - Instead of the `uid` you may use the Chameleon ID as `id` or the Email address as `email`. When more than one is given they are tried in order — `id` first, then `uid`, then `email` — and the User Profile matched by the first of them wins. An identifier that matches no User Profile falls through to the next one you supplied.
 - `id` must be a 24-character hexadecimal string, the form Chameleon returns it in (for example `5f3c4232c712de665632a2a3`). A value of any other form — a JSON number, or a string of a different length or carrying non-hex characters — is ignored rather than reported, and the item falls through to `uid` and then `email` as though no `id` had been sent. An item whose only identifier was such a value is reported as having no identifier.
-- The `id`, `uid`, `email` and `name` keys address the item; every other key is added to the Event as a property.
+- The `id`, `uid`, `email` and `name` keys address the item; every other key is added to the Event as a property, except for the reserved names below.
+- These key names are reserved for Chameleon's own use. Sending one as an Event property removes it from the item — no error is raised and no `errors` entry is returned, so the property is simply absent from the tracked Event: `source`, `at`, `now`, `created_at`, `updated_at`, `percent`, `integration`, `ip`, `agent`, `options`, `uid_hash`, `user_id`, `profile_id`, `company_id`, `company_uid`, `chameleon_tag_ids`, `entered_campaign_options`, `account_id`, `account_token`, `account_secret`, `controller`, `action`, `format`, `last_seen_at`, `last_request_at`, `last_campaign_at`, `last_campaign_id`, `last_campaign_state`, `last_seen_session_count`, `last_cleared_at`, and any key beginning with an underscore. A `company` key is kept only when its value is a string, and dropped the same silent way when it is not. Other `last_` names, such as `last_login_method`, are not reserved and are tracked normally.
+- Where one of your property names collides with a reserved name, rename it before sending — for example send `source` as `event_source` and `action` as `event_action`. There is no response field to detect the collision from, so a property you never rename stays missing from every Event you send.
 
 #### HTTP Request
 
@@ -211,11 +213,12 @@ With `on_model_missing=ignore` an item whose User Profile is not found is skippe
 }
 ```
 
-A 200 is not always a terminal result. Whether an item can be sent again unchanged depends on the error it carried.
+A 200 is not always a terminal result. Whether an item can be sent again unchanged depends on why it was returned.
 
 - An item reported as not being an object, as having no Event `name`, or as having no identifier is malformed. Correct it before sending it again — retrying it unchanged fails the same way.
 - An item reported as "No User Profile was found" is a lookup miss rather than malformed input. Send it again unchanged and it is tracked, as soon as the User Profile it addresses exists.
-- A 200 that carries no `errors` at all is the same lookup miss, with the per-item reporting suppressed by `on_model_missing=ignore`. The same batch can succeed on a later retry, once the User Profiles it addresses exist.
+- A 200 carrying `"count": 0` and no `errors` key is the same lookup miss, with the per-item reporting suppressed by `on_model_missing=ignore`. The same batch can succeed on a later retry, once the User Profiles it addresses exist.
+- A 200 whose body is an empty `{}`, with no `events` key at all, is **not** a lookup miss — your Account is on the Events suppression list, so nothing in the batch was tracked. Retrying it unchanged, now or later, returns the same empty body. [Contact support](https://app.chameleon.io/help) rather than retrying.
 
 ### Missing User Profiles
 
