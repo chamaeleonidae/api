@@ -107,8 +107,10 @@ https://api.chameleon.io/v3/observe/hooks/:account_secret/events/batch
 
 | param              | -                  | description                                                                                                |
 |--------------------|--------------------|--------------------------------------------------------------------------------------------------------------|
-| `events`           | array&lt;Event&gt; | The list of Events to track; each item has the same schema as [Create an Event](/webhooks/events#events-create) |
+| `events`           | required           | The list of Events to track, as an array&lt;Event&gt;; each item has the same schema as [Create an Event](/webhooks/events#events-create) |
 | `on_model_missing` | optional           | The treatment of User Profiles not previously sent to Chameleon. Defaults to `create`. One of `create`, `ignore` |
+
+`events` must be present and must be a non-empty array. A request that omits `events`, sends it as something other than an array, or sends an empty array is rejected in full with a 422 (Unprocessable) — no Events are tracked and no per-item `errors` are returned.
 
 ```json
 {
@@ -143,6 +145,12 @@ Batched Events are tracked through the same live path as a [Single Event](/webho
 }
 ```
 
+When your Account is on the Events suppression list the request succeeds with a 200 and an empty body — `{}` — with no `events` key at all. Read `count` defensively (for example `body.events?.count ?? 0`) rather than dereferencing `events` directly.
+
+```json
+{}
+```
+
 #### HTTP Response error
 
 An invalid item never rejects its valid neighbours; the valid Events are still tracked and every invalid item is reported with its zero-based `index`.
@@ -168,6 +176,30 @@ Note: The status code will be the normal 202 for (Accepted for processing)
 
 An item is also reported this way when it is not an object, or when it has no `name` value.
 
+When **every** item in the batch is invalid, nothing is accepted for processing, so the status code is 200 (OK) rather than 202. The body carries `"count": 0` and one `errors` entry per item.
+
+```json
+{
+  "events": {
+    "count": 0
+  },
+  "errors": [
+    {
+      "code": 422,
+      "index": 0,
+      "message": "No Event name was supplied for the 1st item"
+    },
+    {
+      "code": 422,
+      "index": 1,
+      "message": "No identifier found for the 2nd item. Pass your User ID as the `uid` parameter or the Email address as the `email` parameter"
+    }
+  ]
+}
+```
+
+This is a terminal result, not a transient one — retrying the same batch unchanged will fail the same way. Correct the reported items before sending them again.
+
 ### Missing User Profiles
 
 - With `on_model_missing=create` (the default), an item whose `uid` has not been seen by Chameleon creates the User Profile first and then tracks the Event to it, exactly as a [Single Event](/webhooks/events#events-create) does.
@@ -187,6 +219,13 @@ When the request carried more than 1,000 Events. The status code will be 422 (Un
 ```json
 {
   "code": 422,
-  "messages": ["Each batch is limited to 1000 Events, split the batch into smaller requests"]
+  "messages": [
+    "Unprocessable: Please check the request parameters with the API docs https://developers.trychameleon.com",
+    "Details: Each batch is limited to 1000 Events, split the batch into smaller requests",
+    "Or contact us with details about this error https://app.chameleon.io/help",
+    "Request Id: 9f1c8f0e-2b47-4d5a-9c31-7a6e0d4b8f22"
+  ]
 }
 ```
+
+The specific cause is the `Details:` entry; the surrounding entries are the standard 422 envelope described on the [Errors](/concepts/errors#code-422) page. `Request Id` echoes the `X-Request-Id` header of your request — quote it when contacting support. The same shape is returned for the `events` validation failures described above.
