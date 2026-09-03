@@ -91,6 +91,7 @@ To know more about how Events are normalized, visit the [Normalization](/concept
 - Every Event carries its own identifier, so one request can track Events for many different Users.
 - For each Event, send the User ID as `uid`, the `name` of the Event, and any other properties pertinent to that Event.
 - Instead of the `uid` you may use the Chameleon ID as `id` or the Email address as `email`. When more than one is given they are tried in order — `id` first, then `uid`, then `email` — and the User Profile matched by the first of them wins. An identifier that matches no User Profile falls through to the next one you supplied.
+- `id` must be a 24-character hexadecimal string, the form Chameleon returns it in (for example `5f3c4232c712de665632a2a3`). A value of any other form — a JSON number, or a string of a different length or carrying non-hex characters — is ignored rather than reported, and the item falls through to `uid` and then `email` as though no `id` had been sent. An item whose only identifier was such a value is reported as having no identifier.
 - The `id`, `uid`, `email` and `name` keys address the item; every other key is added to the Event as a property.
 
 #### HTTP Request
@@ -210,7 +211,11 @@ With `on_model_missing=ignore` an item whose User Profile is not found is skippe
 }
 ```
 
-A 200 is not always a terminal result. Where the body reports `errors`, correct those items before sending them again — retrying them unchanged fails the same way. Where it does not, the same batch can succeed on a later retry, once the User Profiles it addresses exist.
+A 200 is not always a terminal result. Whether an item can be sent again unchanged depends on the error it carried.
+
+- An item reported as not being an object, as having no Event `name`, or as having no identifier is malformed. Correct it before sending it again — retrying it unchanged fails the same way.
+- An item reported as "No User Profile was found" is a lookup miss rather than malformed input. Send it again unchanged and it is tracked, as soon as the User Profile it addresses exists.
+- A 200 that carries no `errors` at all is the same lookup miss, with the per-item reporting suppressed by `on_model_missing=ignore`. The same batch can succeed on a later retry, once the User Profiles it addresses exist.
 
 ### Missing User Profiles
 
