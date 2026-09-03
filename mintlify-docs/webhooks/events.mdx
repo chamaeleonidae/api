@@ -203,7 +203,7 @@ Where each item produced an error, the body carries one `errors` entry per item.
 }
 ```
 
-With `on_model_missing=ignore` an item whose User Profile is not found is skipped without an `errors` entry, so a batch in which no User Profile is found returns a 200 with `"count": 0` and **no `errors` key at all**.
+With `on_model_missing=ignore` an item whose User Profile is not found is skipped without an `errors` entry, so `count` reflects only the Events accepted — compare it to the number you sent to see how many were skipped. When none are found the response is a 200 with `"count": 0` and **no `errors` key at all**.
 
 ```json
 {
