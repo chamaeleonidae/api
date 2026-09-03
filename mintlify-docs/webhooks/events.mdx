@@ -90,7 +90,7 @@ To know more about how Events are normalized, visit the [Normalization](/concept
 - When sending a bulk create, send an array of Event objects as the `events` parameter
 - Every Event carries its own identifier, so one request can track Events for many different Users.
 - For each Event, send the User ID as `uid`, the `name` of the Event, and any other properties pertinent to that Event.
-- Instead of the `uid` you may use the Chameleon ID as `id` or the Email address as `email`. When more than one is given, `id` wins, then `uid`, then `email`.
+- Instead of the `uid` you may use the Chameleon ID as `id` or the Email address as `email`. When more than one is given they are tried in order — `id` first, then `uid`, then `email` — and the User Profile matched by the first of them wins. An identifier that matches no User Profile falls through to the next one you supplied.
 - The `id`, `uid`, `email` and `name` keys address the item; every other key is added to the Event as a property.
 
 #### HTTP Request
@@ -176,7 +176,9 @@ Note: The status code will be the normal 202 for (Accepted for processing)
 
 An item is also reported this way when it is not an object, or when it has no `name` value.
 
-When **every** item in the batch is invalid, nothing is accepted for processing, so the status code is 200 (OK) rather than 202. The body carries `"count": 0` and one `errors` entry per item.
+When **no** Events at all are accepted for processing, the status code is 200 (OK) rather than 202 and `count` is `0`. That covers every item being invalid, and also every item being well-formed but addressed to a User Profile that could not be found.
+
+Where each item produced an error, the body carries one `errors` entry per item.
 
 ```json
 {
@@ -198,7 +200,17 @@ When **every** item in the batch is invalid, nothing is accepted for processing,
 }
 ```
 
-This is a terminal result, not a transient one — retrying the same batch unchanged will fail the same way. Correct the reported items before sending them again.
+With `on_model_missing=ignore` an item whose User Profile is not found is skipped without an `errors` entry, so a batch in which no User Profile is found returns a 200 with `"count": 0` and **no `errors` key at all**.
+
+```json
+{
+  "events": {
+    "count": 0
+  }
+}
+```
+
+A 200 is not always a terminal result. Where the body reports `errors`, correct those items before sending them again — retrying them unchanged fails the same way. Where it does not, the same batch can succeed on a later retry, once the User Profiles it addresses exist.
 
 ### Missing User Profiles
 
