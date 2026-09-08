@@ -41,7 +41,7 @@ When receiving a webhook from Chameleon you should:
 | `survey.completed`      | [example](#example-survey-all)          | [Action](#schema-actions-campaign), [Microsurvey](/apis/surveys), [Step](/apis/steps), [User Profile](/apis/profiles) | Sent when the Microsurvey is completed with the Step the user completed                                                                                                                                                                           |
 | `survey.exited`         | [example](#example-survey-all)          | [Action](#schema-actions-campaign), [Microsurvey](/apis/surveys), [Step](/apis/steps), [User Profile](/apis/profiles) | Sent when the Microsurvey is exited with the Step the user exited                                                                                                                                                                                 |
 | `survey.snoozed`        | [example](#example-survey-snooze)       | [Action](#schema-actions-snooze), [Microsurvey](/apis/surveys), [Step](/apis/steps), [User Profile](/apis/profiles)   | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                  |
-| `survey.button.clicked` | [example](#example-tour-button-clicked) | [Microsurvey](/apis/surveys), [Step](/apis/steps), [Button](/apis/buttons), [User Profile](/apis/profiles)                                 | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
+| `survey.button.clicked` | [example](#example-tour-button-clicked) | [Microsurvey](/apis/surveys), [Step](/apis/steps), [Button](#schema-button-survey-button-clicked), [User Profile](/apis/profiles)                                 | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
 | `embed.started`         | [example](#example-embed-all)           | [Action](#schema-actions-campaign), [Embed](/apis/tours), [Step](/apis/steps), [User Profile](/apis/profiles)         | Sent when the Embed is started; includes the first Step in the payload                                                                                                                                                                            |
 | `embed.completed`       | [example](#example-embed-all)           | [Action](#schema-actions-campaign), [Embed](/apis/tours), [Step](/apis/steps), [User Profile](/apis/profiles)         | Sent when the Embed is completed; includes the Step the user completed                                                                                                                                                                            |
 | `embed.exited`          | [example](#example-embed-all)           | [Action](#schema-actions-campaign), [Embed](/apis/tours), [Step](/apis/steps), [User Profile](/apis/profiles)         | Sent when the Embed is exited; includes the Step the user exited                                                                                                                                                                                  |
@@ -174,6 +174,44 @@ Each Webhook can contain an `action` key in the payload. It will contain context
 | `url`           | string              | The page that the user was on when the answer was generated               |
 | `results_count` | integer             | Number of source results that were used to generate this answer           |
 | `references`    | array&lt;string&gt; | Array of reference URLs or sources that support the provided answer       |
+
+<a id="schema-button-survey-button-clicked"></a>
+### Button (`survey.button.clicked`)
+A Microsurvey click can come from a Button on the page or from a Button that answers a Question, so the `button` object of a `survey.button.clicked` payload has **two shapes**.
+
+**`question_id` is the discriminator.** It is present only on a Question's answer Button. Branch on it rather than on `tour_action`, which an answer Button does not reliably carry — a subscriber switching on that field sees `undefined` for a Question answer.
+
+| Shape           | Identified by            | Properties to expect                                                                                                                       |
+|-----------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Page Button     | no `question_id`         | `tour_action`, `position`, `additional_actions` and the `style_*` properties — the full [Button](/apis/buttons) schema                      |
+| Question Button | `question_id` is present | `question_id`, `order`, `enabled`, plus `score_type` on an `nps` Question. `tour_action` and `position` are normally absent — see below     |
+
+Both shapes carry `id` and `text`. `order`, `enabled` and `additional_actions` appear on both, but on an answer Button `order` is its place within its Question and `enabled` is whether that answer is offered.
+
+`tour_action`, `position` and the `style_*` properties are not meaningful on an answer Button, because a Question lays out and colours its own Buttons. A `rating` and an `nps` answer Button never carries them — its Buttons come from the Question's preset and cannot be edited. A `multibutton` answer Button is edited through the same panel as a page Button, so one can carry them without their having any effect. Either way, `question_id` is what tells the two shapes apart.
+
+Only a `multibutton`, `rating` or `nps` Question answers through Buttons. A `text`, `choice`, `multi_choice` or `dropdown` answer sends no `survey.button.clicked` webhook.
+
+<a id="schema-button-question"></a>
+#### Question Button properties
+| Property      | Type    | Description                                                                                                                                                                    |
+|---------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `question_id` | ID      | The Chameleon ID of the Question this Button answers. Its presence is what identifies the object as a Question's Button                                                         |
+| `order`       | integer | The place of this Button within its Question, starting from `0`                                                                                                                |
+| `enabled`     | boolean | Whether this Button is offered. Only meaningful for a `multibutton` Question — a `rating` and an `nps` always present their full preset set                                     |
+| `score_type`  | string  | Only on an `nps` Question: which bucket this Button's score falls in. One of `detractor` (scores 0-6), `passive` (7-8) or `promoter` (9-10). Absent on every other Question type |
+
+#### Example question button
+```json
+"button": {
+  "id": "5fb6e4ab8af58a00073f0d9a",
+  "text": "9",
+  "order": 9,
+  "enabled": true,
+  "question_id": "5fb6e4ab8af58a00073f0d91",
+  "score_type": "promoter"
+}
+```
 
 
 ### Payload Examples
@@ -502,6 +540,8 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
 
 > The key will be "tour", "survey", or "embed" depending on the Experience type.
+
+> For `survey.button.clicked` the `button` object has [two shapes](#schema-button-survey-button-clicked) — a Question's answer Button carries `question_id` and no `tour_action`.
 
 ```json
 {
