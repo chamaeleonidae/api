@@ -84,3 +84,168 @@ By default, Events are grouped by their case insensitive and normalized name val
 - "imported-leads" => `imported_leads`
 
 To know more about how Events are normalized, visit the [Normalization](/concepts/normalization#events) page.
+
+<a id="events-bulk"></a>
+## Bulk Create Events
+- When sending a bulk create, send an array of Event objects as the `events` parameter
+- Every Event carries its own identifier, so one request can track Events for many different Users.
+- For each Event, send the User ID as `uid`, the `name` of the Event, and any other properties pertinent to that Event.
+- Instead of the `uid` you may use the Chameleon ID as `id` or the Email address as `email`. When more than one is given they are tried in order — `id` first, then `uid`, then `email` — and the User Profile matched by the first of them wins. An identifier that matches no User Profile falls through to the next one you supplied.
+- `id` must be a 24-character hexadecimal string, the form Chameleon returns it in (for example `5f3c4232c712de665632a2a3`). A value of any other form — a JSON number, or a string of a different length or carrying non-hex characters — is ignored rather than reported, and the item falls through to `uid` and then `email` as though no `id` had been sent. An item whose only identifier was such a value is reported as having no identifier.
+- The `id`, `uid`, `email` and `name` keys address the item; every other key is added to the Event as a property, except for the reserved names below.
+- These key names are reserved for Chameleon's own use. Sending one as an Event property removes it from the item — no error is raised and no `errors` entry is returned, so the property is simply absent from the tracked Event: `source`, `at`, `now`, `created_at`, `updated_at`, `percent`, `integration`, `ip`, `agent`, `options`, `uid_hash`, `user_id`, `profile_id`, `company_id`, `company_uid`, `chameleon_tag_ids`, `entered_campaign_options`, `account_id`, `account_token`, `account_secret`, `controller`, `action`, `format`, `last_seen_at`, `last_request_at`, `last_campaign_at`, `last_campaign_id`, `last_campaign_state`, `last_seen_session_count`, `last_cleared_at`, and any key beginning with an underscore. A `company` key is kept only when its value is a string, and dropped the same silent way when it is not. Other `last_` names, such as `last_login_method`, are not reserved and are tracked normally.
+- Where one of your property names collides with a reserved name, rename it before sending — for example send `source` as `event_source` and `action` as `event_action`. There is no response field to detect the collision from, so a property you never rename stays missing from every Event you send.
+
+#### HTTP Request
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/events/batch
+```
+
+or
+
+```http title="POST"
+https://api.chameleon.io/v3/observe/hooks/:account_secret/events/batch
+```
+
+| param              | -                  | description                                                                                                |
+|--------------------|--------------------|--------------------------------------------------------------------------------------------------------------|
+| `events`           | required           | The list of Events to track, as an array&lt;Event&gt;; each item has the same schema as [Create an Event](/webhooks/events#events-create) |
+| `on_model_missing` | optional           | The treatment of User Profiles not previously sent to Chameleon. Defaults to `create`. One of `create`, `ignore` |
+
+`events` must be present and must be a non-empty array. A request that omits `events`, sends it as something other than an array, or sends an empty array is rejected in full with a 422 (Unprocessable) — no Events are tracked and no per-item `errors` are returned.
+
+```json
+{
+  "events": [
+    {
+      "uid": 18821,
+      "name": "Phase changed",
+      "phase": "onboarding"
+    },
+    {
+      "uid": 28421,
+      "name": "Phase changed",
+      "phase": "activated"
+    },
+    ...
+  ],
+  "on_model_missing": "create"
+}
+```
+
+Batched Events are tracked through the same live path as a [Single Event](/webhooks/events#events-create), so Experiences triggered by them respond with the same latency.
+
+#### HTTP Response
+
+`count` is the number of Events accepted for processing.
+
+```json
+{
+  "events": {
+    "count": 2
+  }
+}
+```
+
+When your Account is on the Events suppression list the request succeeds with a 200 and an empty body — `{}` — with no `events` key at all. Read `count` defensively (for example `body.events?.count ?? 0`) rather than dereferencing `events` directly.
+
+```json
+{}
+```
+
+#### HTTP Response error
+
+An invalid item never rejects its valid neighbours; the valid Events are still tracked and every invalid item is reported with its zero-based `index`.
+
+When the 2nd item had no value for the `id`, `uid` or `email` keys
+
+Note: The status code will be the normal 202 for (Accepted for processing)
+
+```json
+{
+  "events": {
+    "count": 1
+  },
+  "errors": [
+    {
+      "code": 422,
+      "index": 1,
+      "message": "No identifier found for the 2nd item. Pass your User ID as the `uid` parameter or the Email address as the `email` parameter"
+    }
+  ]
+}
+```
+
+An item is also reported this way when it is not an object, or when it has no `name` value.
+
+When **no** Events at all are accepted for processing, the status code is 200 (OK) rather than 202 and `count` is `0`. That covers every item being invalid, and also every item being well-formed but addressed to a User Profile that could not be found.
+
+Where each item produced an error, the body carries one `errors` entry per item.
+
+```json
+{
+  "events": {
+    "count": 0
+  },
+  "errors": [
+    {
+      "code": 422,
+      "index": 0,
+      "message": "No Event name was supplied for the 1st item"
+    },
+    {
+      "code": 422,
+      "index": 1,
+      "message": "No identifier found for the 2nd item. Pass your User ID as the `uid` parameter or the Email address as the `email` parameter"
+    }
+  ]
+}
+```
+
+With `on_model_missing=ignore` an item whose User Profile is not found is skipped without an `errors` entry, so `count` reflects only the Events accepted — compare it to the number you sent to see how many were skipped. When none are found the response is a 200 with `"count": 0` and **no `errors` key at all**.
+
+```json
+{
+  "events": {
+    "count": 0
+  }
+}
+```
+
+A 200 is not always a terminal result. Whether an item can be sent again unchanged depends on why it was returned.
+
+- An item reported as not being an object, as having no Event `name`, or as having no identifier is malformed. Correct it before sending it again — retrying it unchanged fails the same way.
+- An item reported as "No User Profile was found" is a lookup miss rather than malformed input. Send it again unchanged and it is tracked, as soon as the User Profile it addresses exists.
+- A 200 carrying `"count": 0` and no `errors` key is the same lookup miss, with the per-item reporting suppressed by `on_model_missing=ignore`. The same batch can succeed on a later retry, once the User Profiles it addresses exist.
+- A 200 whose body is an empty `{}`, with no `events` key at all, is **not** a lookup miss — your Account is on the Events suppression list, so nothing in the batch was tracked. Retrying it unchanged, now or later, returns the same empty body. [Contact support](https://app.chameleon.io/help) rather than retrying.
+
+### Missing User Profiles
+
+- With `on_model_missing=create` (the default), an item whose `uid` has not been seen by Chameleon creates the User Profile first and then tracks the Event to it, exactly as a [Single Event](/webhooks/events#events-create) does.
+- A User Profile can only be created from a `uid`. An unrecognized item addressed solely by `email` or `id` is not tracked, and gets an `errors` entry reading "No User Profile was found for the 2nd item; pass `uid` to create it".
+- With `on_model_missing=ignore`, an item whose User Profile is not found is skipped: no User Profile is created, no Event is tracked, and no `errors` entry is returned for it.
+
+## Limits
+
+- Each batch request is limited to **1,000 Events**; split larger workloads across several requests.
+- A batch counts as one request against [rate limiting](/concepts/rate-limiting), however many Events it carries.
+- As with a [Single Event](/webhooks/events#events-create), Event properties are subject to the [Normalization](/concepts/normalization#limits) limits.
+
+#### HTTP Response error
+
+When the request carried more than 1,000 Events. The status code will be 422 (Unprocessable)
+
+```json
+{
+  "code": 422,
+  "messages": [
+    "Unprocessable: Please check the request parameters with the API docs https://developers.trychameleon.com",
+    "Details: Each batch is limited to 1000 Events, split the batch into smaller requests",
+    "Or contact us with details about this error https://app.chameleon.io/help",
+    "Request Id: 9f1c8f0e-2b47-4d5a-9c31-7a6e0d4b8f22"
+  ]
+}
+```
+
+The specific cause is the `Details:` entry; the surrounding entries are the standard 422 envelope described on the [Errors](/concepts/errors#code-422) page. `Request Id` echoes the `X-Request-Id` header of your request — quote it when contacting support. The same shape is returned for the `events` validation failures described above.
