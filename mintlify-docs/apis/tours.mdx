@@ -36,6 +36,8 @@ With the Chameleon API for Tours, you can:
 | `experiment_range` | string | The range of `Profile#percent` that will be included in the experiment |
 | `segment_ids` | array&lt;ID&gt; | The Chameleon IDs of the configured [Segments](/apis/segments#schema) |
 | `published_at` | timestamp | The time this was most recently published |
+| `scheduled_publish_at` | timestamp | The time this is scheduled to be published (cleared once it publishes); `null` when no publish is scheduled |
+| `scheduled_unpublish_at` | timestamp | The time this is scheduled to stop running (cleared once it unpublishes); `null` when no unpublish is scheduled |
 | `tag_ids` | array&lt;ID&gt; | The Chameleon IDs of the [Tags](/apis/tags) attached to this model |
 | `rate_unlimit_at` | timestamp | This item is excluded from [Rate limiting](https://help.chameleon.io/en/articles/3513345-rate-limiting-experiences) |
 | `dashboard_url` | string | Direct link to this Tour in the Chameleon Dashboard |
@@ -79,6 +81,8 @@ https://api.chameleon.io/v3/edit/tours
       "style": "auto",
       "position": 4,
       "published_at": "2029-04-07T12:18:00Z",
+      "scheduled_publish_at": null,
+      "scheduled_unpublish_at": "2029-05-01T09:00:00Z",
        ...
     },
     {
@@ -87,6 +91,8 @@ https://api.chameleon.io/v3/edit/tours
       "style": "auto",
       "position": 3,
       "published_at": "2029-04-07T12:18:00Z",
+      "scheduled_publish_at": null,
+      "scheduled_unpublish_at": null,
        ...
     },
     ...
@@ -176,6 +182,8 @@ https://api.chameleon.io/v3/edit/tours/:id
     "style": "auto",
     "position": 3,
     "published_at": "2029-04-07T12:18:00Z",
+    "scheduled_publish_at": null,
+    "scheduled_unpublish_at": null,
     ...
   }
 }
