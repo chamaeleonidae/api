@@ -26,8 +26,7 @@ When receiving a webhook from Chameleon you should:
 | Topic                   | Example Payload                                                | Included models                                                                                                                                    | Description                                                                                                                                                                                                                                       |
 |-------------------------|----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ping`                  | [example](#example-ping)                | Account                                                                                                                                            | Sent as a simple check to make sure the endpoint is working                                                                                                                                                                                       |
-| `response.finished`     | [example](#example-response-finished)   | [Response](/apis/survey-responses), [Microsurvey](/apis/surveys), [User Profile](/apis/profiles)                                             | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured)                                                                                                                                                 |
-| `multisurvey.finished` | [example](#example-multisurvey-finished) | [Submission](#schema-multisurvey-submission), Survey, [User Profile](/apis/profiles) | Sent when a multi-step Survey is submitted. Delivered to endpoints subscribed to `response.finished` ("Survey submitted") — see the example for why a `kind` check needs both |
+| `response.finished`     | [example](#example-response-finished)   | [Response](/apis/survey-responses), [Microsurvey](/apis/surveys), [User Profile](/apis/profiles)                                             | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured), and when a multi-step Survey is submitted — with the same fields, plus `response.answers` ([details](#schema-multi-step-response)) |
 | `alert.triggered`       | [example](#example-alert-triggered)     | [Alert Group](/apis/alert-groups), [Experiences](/concepts/experiences)                                                                        | Sent when an Alert is triggered by a violation of the alerting conditions                                                                                                                                                                         |
 | `helpbar.answer`        | [example](#example-helpbar-answer)      | [Action](#schema-actions-helpbar-answer), [User Profile](/apis/profiles)                                                          | Sent when a Search query generates an AI Answer in HelpBar                                                                                                                                                                                        |
 | `helpbar.search`        | [example](#example-helpbar-search)      | [Action](#schema-actions-helpbar-search), [User Profile](/apis/profiles)                                                          | Sent when a Search query displays its results in the HelpBar                                                                                                                                                                                      |
@@ -199,7 +198,7 @@ Only a `multibutton`, `rating` or `nps` Question answers through Buttons. A `tex
 A Question's answer Button is not reported at the moment it is clicked. Its webhooks are sent when the respondent moves on from the Step — to the next Step, or by submitting the Survey — with **one webhook for each selected Button**, so a `multibutton` Question with three Buttons selected sends three.
 
 - If the respondent comes back to a Step and changes an answer, only the Buttons the change adds are reported. A Button that was already reported is not sent again, and deselecting a Button sends nothing.
-- An "Other" answer on a `multibutton` Question is free text, matches no Button, and sends no `survey.button.clicked` webhook. Its text arrives with [`survey.question.answered`](#example-survey-question-answered) and in the [submitted Survey](#example-multisurvey-finished).
+- An "Other" answer on a `multibutton` Question is free text, matches no Button, and sends no `survey.button.clicked` webhook. Its text arrives with [`survey.question.answered`](#example-survey-question-answered) and in the [submitted Survey](#example-response-finished-multi-step) (`response.answers`).
 
 <a id="schema-button-question"></a>
 #### Question Button properties
@@ -236,20 +235,28 @@ A Question's answer Button is not reported at the moment it is clicked. Its webh
 #### Answer Buttons in `data.step.buttons`
 The `step` object of a Survey webhook lists the Step's own Buttons and, after them, the answer Buttons of its Questions (a disabled `multibutton` Button is left out). Every entry in `data.step.buttons` is trimmed to whichever of `id`, `updated_at`, `text`, `additional_actions` and `tour_action` it has, so an answer Button appears there **without** `question_id` and cannot be told apart from one of the Step's own Buttons. Use the `button` object of `survey.button.clicked`, not `data.step.buttons`, to tell which Question a Button answers.
 
-<a id="schema-multisurvey-submission"></a>
-### Submission (`multisurvey.finished`)
-> Sent to endpoints subscribed to `response.finished` ("Survey submitted"), with `kind` set to `multisurvey.finished`
+<a id="schema-multi-step-response"></a>
+### Multi-step Survey response (`response.finished`)
+A submitted multi-step Survey is sent to `response.finished` like any other Survey, with the same `kind` and the same payload: `profile`, `survey` (with `kind` set to `multisurvey`) and `response`. The `response` carries every field a Microsurvey response has, so a handler written for `response.finished` keeps working, and adds one: `answers`, which holds every answer.
 
-A multi-step Survey is submitted as one `submission` holding every answer, rather than as a [Response](/apis/survey-responses). The payload carries `profile`, `survey` (with `kind` set to `multisurvey`) and `submission`.
+The Microsurvey fields describe the first Step. For a multi-step Survey they are filled from its **primary Question** — its NPS Question when the Survey has one, otherwise its first Question — and are `null` when the Survey has nothing for them. The primary Question is the same for every submission of a Survey, answered or not, so each field always describes the same Question.
 
-| Property             | Type      | Description                                                                                                         |
-|----------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
-| `id`                 | ID        | The Chameleon ID of this submission                                                                                 |
-| `profile_id`         | ID        | The [User Profile](/apis/profiles) the answers were given under                                                     |
-| `campaign_id`        | ID        | The Chameleon ID of the Survey                                                                                      |
-| `finished_at`        | timestamp | When the Survey was submitted                                                                                       |
-| `answers`            | object    | Every answer, keyed by Question ID. Each is an [answer](#schema-survey-answer) object                               |
-| `shown_question_ids` | array&lt;ID&gt; | The Questions the respondent was shown; a Question skipped by a condition is not listed                   |
+| Property                  | Type          | For a multi-step Survey                                                                                                                                   |
+|---------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`                      | ID            | The Chameleon ID of the submission                                                                                                                        |
+| `survey_id`               | ID            | The Chameleon ID of the Survey                                                                                                                            |
+| `profile_id`              | ID            | The respondent's [User Profile](/apis/profiles), the same as `profile.id`                                                                                 |
+| `href`                    | string        | Always `null`: a multi-step Survey does not record the page it was answered on                                                                            |
+| `finished_at`             | timestamp     | When the Survey was submitted                                                                                                                             |
+| `button_order`            | number        | An `nps` primary Question: the score (0–10). A `rating` one: the score minus 1 (the Button's position). A `multibutton` one: the position of the chosen Button |
+| `button_id`               | ID            | The Button the primary Question was answered with; `null` for an "Other" answer or when more than one Button was selected                                 |
+| `button_text`             | string        | That Button's text; for a `multibutton` Question with several selections or an "Other" answer, the selected texts separated by ", "                     |
+| `input_text`              | string        | The answer, when the primary Question is a `text` Question                                                                                                |
+| `dropdown_items`          | array&lt;string&gt; | The selections, when the primary Question is a `choice`, `multi_choice` or `dropdown` Question. An "Other" answer appears as the text that was typed  |
+| `comment_step_input_text` | string        | The answer to the first `text` Question other than the primary one — the comment of an NPS Survey                                                         |
+| `answers`                 | object        | **Added for multi-step Surveys.** Every answer, keyed by Question ID. Each is an [answer](#schema-survey-answer) object                                   |
+
+`other_text`, `input_text2`, `comment_step_input_text2`, `comment_step_dropdown_items`, `comment_step_dropdown_items2`, `comment_step_other_text`, `comment_step_other_text2`, `comment_step_buttons_selected` and `comment_step_buttons_selected2` are present and `null`. To tell a multi-step Survey apart, check `survey.kind == "multisurvey"`.
 
 <a id="schema-survey-answer"></a>
 #### Answer
@@ -301,7 +308,7 @@ Typically do process Verification for this topic but nothing really to be done w
 
 <a id="example-response-finished"></a>
 ##### Example response-finished
-Every Microsurvey that is finished will send a webhook to this topic. A multi-step Survey is sent as [`multisurvey.finished`](#example-multisurvey-finished) instead, to the same subscribers.
+Every Microsurvey that is finished will send a webhook to this topic. A submitted multi-step Survey is sent to this topic too, with the same fields — see the [multi-step example](#example-response-finished-multi-step).
 
 ```json
 {
@@ -358,16 +365,14 @@ Every Microsurvey that is finished will send a webhook to this topic. A multi-st
 }
 ```
 
-<a id="example-multisurvey-finished"></a>
-##### Example multisurvey-finished
-Every multi-step Survey that is submitted sends this to endpoints subscribed to `response.finished` ("Survey submitted"). The `kind` is `multisurvey.finished`, not `response.finished`.
-
-> **A handler that switches on `kind == "response.finished"` drops these.** Accept both kinds, or branch on whether `data.submission` (multi-step Survey) or `data.response` is present.
+<a id="example-response-finished-multi-step"></a>
+##### Example response-finished (multi-step Survey)
+A submitted multi-step Survey, sent to `response.finished`. The Survey below has an NPS Question and a "Why?" `text` Question, so `button_order`, `button_id` and `button_text` carry the score and `comment_step_input_text` the comment, as for an NPS Microsurvey. See [Multi-step Survey response](#schema-multi-step-response) for each field.
 
 ```json
 {
   "id": "5fb70dcbc39330000325a81b",
-  "kind": "multisurvey.finished",
+  "kind": "response.finished",
   "sent_at": "2029-12-11T00:28:59.651Z",
   "data": {
     "profile": {
@@ -387,26 +392,46 @@ Every multi-step Survey that is submitted sends this to endpoints subscribed to 
       "published_at": "2029-11-11T00:12:59.002Z",
       ...
     },
-    "submission": {
+    "response": {
       "id": "5fb7afb5ea19724169374270",
       "created_at": "2029-12-11T00:26:41.000Z",
       "updated_at": "2029-12-11T00:28:59.641Z",
+      "survey_id": "5fb7936edee1f70011bfc4c9",
       "profile_id": "5f885a88e7daf3000e3eb4f6",
-      "campaign_id": "5fb7936edee1f70011bfc4c9",
+      "href": null,
+      "button_text": "9",
+      "button_order": 9,
+      "button_id": "5fb6e4ab8af58a00073f0d99",
+      "input_text": null,
+      "other_text": null,
+      "dropdown_items": null,
       "finished_at": "2029-12-11T00:28:59.641Z",
+      "comment_step_dropdown_items": null,
+      "comment_step_other_text": null,
+      "comment_step_dropdown_items2": null,
+      "comment_step_other_text2": null,
+      "comment_step_buttons_selected": null,
+      "comment_step_buttons_selected2": null,
+      "input_text2": null,
+      "comment_step_input_text": "It saves our team hours every week",
+      "comment_step_input_text2": null,
       "answers": {
         "5fb6e4ab8af58a00073f0d91": {
           "type": "nps",
           "body": "How likely are you to recommend us to a friend?",
           "value": 9
         },
+        "5fb6e4ab8af58a00073f0d93": {
+          "type": "text",
+          "body": "Why?",
+          "value": "It saves our team hours every week"
+        },
         "5fb6e4ab8af58a00073f0d92": {
           "type": "multi_choice",
           "body": "Which features do you use?",
           "value": ["Tours", "Surveys"]
         }
-      },
-      "shown_question_ids": ["5fb6e4ab8af58a00073f0d91", "5fb6e4ab8af58a00073f0d92"]
+      }
     }
   }
 }
