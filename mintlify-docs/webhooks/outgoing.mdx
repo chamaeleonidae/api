@@ -27,6 +27,7 @@ When receiving a webhook from Chameleon you should:
 |-------------------------|----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `ping`                  | [example](#example-ping)                | Account                                                                                                                                            | Sent as a simple check to make sure the endpoint is working                                                                                                                                                                                       |
 | `response.finished`     | [example](#example-response-finished)   | [Response](/apis/survey-responses), [Microsurvey](/apis/surveys), [User Profile](/apis/profiles)                                             | Sent when the Microsurvey is finished (all Steps completed; including text comment if configured)                                                                                                                                                 |
+| `multisurvey.finished` | [example](#example-multisurvey-finished) | [Submission](#schema-multisurvey-submission), Survey, [User Profile](/apis/profiles) | Sent when a multi-step Survey is submitted. Delivered to endpoints subscribed to `response.finished` ("Survey submitted") — see the example for why a `kind` check needs both |
 | `alert.triggered`       | [example](#example-alert-triggered)     | [Alert Group](/apis/alert-groups), [Experiences](/concepts/experiences)                                                                        | Sent when an Alert is triggered by a violation of the alerting conditions                                                                                                                                                                         |
 | `helpbar.answer`        | [example](#example-helpbar-answer)      | [Action](#schema-actions-helpbar-answer), [User Profile](/apis/profiles)                                                          | Sent when a Search query generates an AI Answer in HelpBar                                                                                                                                                                                        |
 | `helpbar.search`        | [example](#example-helpbar-search)      | [Action](#schema-actions-helpbar-search), [User Profile](/apis/profiles)                                                          | Sent when a Search query displays its results in the HelpBar                                                                                                                                                                                      |
@@ -41,7 +42,8 @@ When receiving a webhook from Chameleon you should:
 | `survey.completed`      | [example](#example-survey-all)          | [Action](#schema-actions-campaign), [Microsurvey](/apis/surveys), [Step](/apis/steps), [User Profile](/apis/profiles) | Sent when the Microsurvey is completed with the Step the user completed                                                                                                                                                                           |
 | `survey.exited`         | [example](#example-survey-all)          | [Action](#schema-actions-campaign), [Microsurvey](/apis/surveys), [Step](/apis/steps), [User Profile](/apis/profiles) | Sent when the Microsurvey is exited with the Step the user exited                                                                                                                                                                                 |
 | `survey.snoozed`        | [example](#example-survey-snooze)       | [Action](#schema-actions-snooze), [Microsurvey](/apis/surveys), [Step](/apis/steps), [User Profile](/apis/profiles)   | Sent when the Tour is exited on Step configured to snooze (re-display the Step at a later time).                                                                                                                                                  |
-| `survey.button.clicked` | [example](#example-tour-button-clicked) | [Microsurvey](/apis/surveys), [Step](/apis/steps), [Button](#schema-button-survey-button-clicked), [User Profile](/apis/profiles)                                 | Sent when the Tour is exited with the Step the user exited                                                                                                                                                                                        |
+| `survey.button.clicked` | [example](#example-tour-button-clicked) | [Microsurvey](/apis/surveys), [Step](/apis/steps), [Button](#schema-button-survey-button-clicked), [User Profile](/apis/profiles)                                 | Sent when a Button in a Survey is clicked, including a Button that answers a Question                                                                                                                                                             |
+| `survey.question.answered` | [example](#example-survey-question-answered) | [Question](#schema-survey-question-answered), Survey, [User Profile](/apis/profiles) | Sent when a respondent saves or changes an answer to one Question of a multi-step Survey; one webhook per Question |
 | `embed.started`         | [example](#example-embed-all)           | [Action](#schema-actions-campaign), [Embed](/apis/tours), [Step](/apis/steps), [User Profile](/apis/profiles)         | Sent when the Embed is started; includes the first Step in the payload                                                                                                                                                                            |
 | `embed.completed`       | [example](#example-embed-all)           | [Action](#schema-actions-campaign), [Embed](/apis/tours), [Step](/apis/steps), [User Profile](/apis/profiles)         | Sent when the Embed is completed; includes the Step the user completed                                                                                                                                                                            |
 | `embed.exited`          | [example](#example-embed-all)           | [Action](#schema-actions-campaign), [Embed](/apis/tours), [Step](/apis/steps), [User Profile](/apis/profiles)         | Sent when the Embed is exited; includes the Step the user exited                                                                                                                                                                                  |
@@ -177,29 +179,41 @@ Each Webhook can contain an `action` key in the payload. It will contain context
 
 <a id="schema-button-survey-button-clicked"></a>
 ### Button (`survey.button.clicked`)
-A Microsurvey click can come from a Button on the page or from a Button that answers a Question, so the `button` object of a `survey.button.clicked` payload has **two shapes**.
+A Survey click can come from one of the Step's own Buttons or from a Button that answers a Question, so the `button` object of a `survey.button.clicked` payload has **two shapes**.
 
 **`question_id` is the discriminator.** It is present only on a Question's answer Button. Branch on it rather than on `tour_action`, which an answer Button does not reliably carry — a subscriber switching on that field sees `undefined` for a Question answer.
 
-| Shape           | Identified by            | Properties to expect                                                                                                                       |
-|-----------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| Page Button     | no `question_id`         | `tour_action`, `position`, `additional_actions` and the `style_*` properties — the full [Button](/apis/buttons) schema                      |
-| Question Button | `question_id` is present | `question_id`, `order`, `enabled`, plus `score_type` on an `nps` Question. `tour_action` and `position` are normally absent — see below     |
+| Shape           | Identified by            | Properties to expect                                                                                                                                              |
+|-----------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step Button     | no `question_id`         | `tour_action`, `position`, `additional_actions` and the `style_*` properties — the full [Button](/apis/buttons) schema                                             |
+| Question Button | `question_id` is present | `question_id`, `step_id`, `order`, `enabled`, `icon`, `icon_position`, `action_element`, plus `score_type` on an `nps` Question. `tour_action` and `position` are normally absent — see below |
 
-Both shapes carry `id` and `text`. `order`, `enabled` and `additional_actions` appear on both, but on an answer Button `order` is its place within its Question and `enabled` is whether that answer is offered.
+Both shapes carry `id`, `text` and `additional_actions`. `order` and `enabled` appear on both, but on an answer Button `order` is its place within its Question and `enabled` is whether that answer is offered.
 
-`tour_action`, `position` and the `style_*` properties are not meaningful on an answer Button, because a Question lays out and colours its own Buttons. A `rating` and an `nps` answer Button never carries them — its Buttons come from the Question's preset and cannot be edited. A `multibutton` answer Button is edited through the same panel as a page Button, so one can carry them without their having any effect. Either way, `question_id` is what tells the two shapes apart.
+`tour_action`, `position` and the `style_*` properties are not meaningful on an answer Button, because a Question lays out and colours its own Buttons. A `rating` and an `nps` answer Button never carries them — its Buttons come from the Question's preset and cannot be edited. A `multibutton` answer Button is edited through the same panel as one of the Step's own Buttons, so one can carry them without their having any effect. Either way, `question_id` is what tells the two shapes apart.
 
 Only a `multibutton`, `rating` or `nps` Question answers through Buttons. A `text`, `choice`, `multi_choice` or `dropdown` answer sends no `survey.button.clicked` webhook.
 
+<a id="schema-button-question-timing"></a>
+#### When answer Buttons are reported
+A Question's answer Button is not reported at the moment it is clicked. Its webhooks are sent when the respondent moves on from the Step — to the next Step, or by submitting the Survey — with **one webhook for each selected Button**, so a `multibutton` Question with three Buttons selected sends three.
+
+- If the respondent comes back to a Step and changes an answer, only the Buttons the change adds are reported. A Button that was already reported is not sent again, and deselecting a Button sends nothing.
+- An "Other" answer on a `multibutton` Question is free text, matches no Button, and sends no `survey.button.clicked` webhook. Its text arrives with [`survey.question.answered`](#example-survey-question-answered) and in the [submitted Survey](#example-multisurvey-finished).
+
 <a id="schema-button-question"></a>
 #### Question Button properties
-| Property      | Type    | Description                                                                                                                                                                    |
-|---------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `question_id` | ID      | The Chameleon ID of the Question this Button answers. Its presence is what identifies the object as a Question's Button                                                         |
-| `order`       | integer | The place of this Button within its Question, starting from `0`                                                                                                                |
-| `enabled`     | boolean | Whether this Button is offered. Only meaningful for a `multibutton` Question — a `rating` and an `nps` always present their full preset set                                     |
-| `score_type`  | string  | Only on an `nps` Question: which bucket this Button's score falls in. One of `detractor` (scores 0-6), `passive` (7-8) or `promoter` (9-10). Absent on every other Question type |
+| Property             | Type          | Description                                                                                                                                                                    |
+|----------------------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `question_id`        | ID            | The Chameleon ID of the Question this Button answers. Its presence is what identifies the object as a Question's Button                                                         |
+| `step_id`            | ID            | The Step the Question is on                                                                                                                                                    |
+| `order`              | integer       | The place of this Button within its Question, starting from `0`                                                                                                                |
+| `enabled`            | boolean       | Whether this Button is offered. In a click payload it is `true`: a disabled `multibutton` Button is never shown, so it cannot be clicked. A `rating` and an `nps` always present their full preset set |
+| `additional_actions` | array&lt;string&gt; | Always sent; `[]` unless additional actions were set on a `multibutton` Button                                                                                         |
+| `icon`               | object        | Always sent; `{}` when the Button has no icon                                                                                                                                  |
+| `icon_position`      | string        | Always sent; `leading` unless changed                                                                                                                                          |
+| `action_element`     | object        | Always sent; `{}` on an answer Button                                                                                                                                          |
+| `score_type`         | string        | Only on an `nps` Question: which bucket this Button's score falls in. One of `detractor` (scores 0-6), `passive` (7-8) or `promoter` (9-10). Absent on every other Question type |
 
 #### Example question button
 ```json
@@ -208,10 +222,59 @@ Only a `multibutton`, `rating` or `nps` Question answers through Buttons. A `tex
   "text": "9",
   "order": 9,
   "enabled": true,
+  "additional_actions": [],
+  "icon": {},
+  "icon_position": "leading",
+  "step_id": "5fb6e4ab8af58a00073f0d99",
   "question_id": "5fb6e4ab8af58a00073f0d91",
+  "action_element": {},
   "score_type": "promoter"
 }
 ```
+
+<a id="schema-step-buttons-survey"></a>
+#### Answer Buttons in `data.step.buttons`
+The `step` object of a Survey webhook lists the Step's own Buttons and, after them, the answer Buttons of its Questions (a disabled `multibutton` Button is left out). Every entry in `data.step.buttons` is trimmed to whichever of `id`, `updated_at`, `text`, `additional_actions` and `tour_action` it has, so an answer Button appears there **without** `question_id` and cannot be told apart from one of the Step's own Buttons. Use the `button` object of `survey.button.clicked`, not `data.step.buttons`, to tell which Question a Button answers.
+
+<a id="schema-multisurvey-submission"></a>
+### Submission (`multisurvey.finished`)
+> Sent to endpoints subscribed to `response.finished` ("Survey submitted"), with `kind` set to `multisurvey.finished`
+
+A multi-step Survey is submitted as one `submission` holding every answer, rather than as a [Response](/apis/survey-responses). The payload carries `profile`, `survey` (with `kind` set to `multisurvey`) and `submission`.
+
+| Property             | Type      | Description                                                                                                         |
+|----------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| `id`                 | ID        | The Chameleon ID of this submission                                                                                 |
+| `profile_id`         | ID        | The [User Profile](/apis/profiles) the answers were given under                                                     |
+| `campaign_id`        | ID        | The Chameleon ID of the Survey                                                                                      |
+| `finished_at`        | timestamp | When the Survey was submitted                                                                                       |
+| `answers`            | object    | Every answer, keyed by Question ID. Each is an [answer](#schema-survey-answer) object                               |
+| `shown_question_ids` | array&lt;ID&gt; | The Questions the respondent was shown; a Question skipped by a condition is not listed                   |
+
+<a id="schema-survey-answer"></a>
+#### Answer
+| Property | Type   | Description                                                                                                                                                    |
+|----------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`   | string | The Question type. One of `text`, `choice`, `multi_choice`, `dropdown`, `rating`, `nps` or `multibutton`                                                        |
+| `body`   | string | The Question's text as the respondent saw it                                                                                                                   |
+| `value`  | mixed  | The answer: a number for `rating` and `nps`, an array of strings for `multi_choice` and for any Question that allows more than one selection, a string otherwise |
+
+<a id="schema-survey-question-answered"></a>
+### Question (`survey.question.answered`)
+Sent each time a respondent's answer to one Question of a multi-step Survey is saved or changed — one webhook per Question. The payload carries `profile`, `survey`, `submission` and `question`.
+
+- The answer is read when the webhook is sent, so two quick changes to one Question can both carry the latest value.
+- An answer that has been removed by the time the webhook is sent is not sent at all.
+
+| Property                 | Type      | Description                                                                                       |
+|--------------------------|-----------|---------------------------------------------------------------------------------------------------|
+| `submission.id`          | ID        | The Chameleon ID of the submission this answer belongs to                                         |
+| `submission.campaign_id` | ID        | The Chameleon ID of the Survey                                                                    |
+| `submission.finished_at` | timestamp | When the Survey was submitted; `null` while the respondent is still answering                     |
+| `question.id`            | ID        | The Chameleon ID of the Question                                                                  |
+| `question.type`          | string    | The Question type, as on an [answer](#schema-survey-answer)                                       |
+| `question.body`          | string    | The Question's text as the respondent saw it                                                      |
+| `question.value`         | mixed     | The answer, as on an [answer](#schema-survey-answer)                                              |
 
 
 ### Payload Examples
@@ -238,7 +301,7 @@ Typically do process Verification for this topic but nothing really to be done w
 
 <a id="example-response-finished"></a>
 ##### Example response-finished
-Every Microsurvey that is finished will send a webhook to this topic.
+Every Microsurvey that is finished will send a webhook to this topic. A multi-step Survey is sent as [`multisurvey.finished`](#example-multisurvey-finished) instead, to the same subscribers.
 
 ```json
 {
@@ -290,6 +353,100 @@ Every Microsurvey that is finished will send a webhook to this topic.
         "email": "jim@acme.co",
         "name": "Jim B"
       }
+    }
+  }
+}
+```
+
+<a id="example-multisurvey-finished"></a>
+##### Example multisurvey-finished
+Every multi-step Survey that is submitted sends this to endpoints subscribed to `response.finished` ("Survey submitted"). The `kind` is `multisurvey.finished`, not `response.finished`.
+
+> **A handler that switches on `kind == "response.finished"` drops these.** Accept both kinds, or branch on whether `data.submission` (multi-step Survey) or `data.response` is present.
+
+```json
+{
+  "id": "5fb70dcbc39330000325a81b",
+  "kind": "multisurvey.finished",
+  "sent_at": "2029-12-11T00:28:59.651Z",
+  "data": {
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "survey": {
+      "id": "5fb7936edee1f70011bfc4c9",
+      "name": "2029-11 Onboarding feedback",
+      "kind": "multisurvey",
+      "segment_id": "5f885a88e7daf3000e3eb4f7",
+      "published_at": "2029-11-11T00:12:59.002Z",
+      ...
+    },
+    "submission": {
+      "id": "5fb7afb5ea19724169374270",
+      "created_at": "2029-12-11T00:26:41.000Z",
+      "updated_at": "2029-12-11T00:28:59.641Z",
+      "profile_id": "5f885a88e7daf3000e3eb4f6",
+      "campaign_id": "5fb7936edee1f70011bfc4c9",
+      "finished_at": "2029-12-11T00:28:59.641Z",
+      "answers": {
+        "5fb6e4ab8af58a00073f0d91": {
+          "type": "nps",
+          "body": "How likely are you to recommend us to a friend?",
+          "value": 9
+        },
+        "5fb6e4ab8af58a00073f0d92": {
+          "type": "multi_choice",
+          "body": "Which features do you use?",
+          "value": ["Tours", "Surveys"]
+        }
+      },
+      "shown_question_ids": ["5fb6e4ab8af58a00073f0d91", "5fb6e4ab8af58a00073f0d92"]
+    }
+  }
+}
+```
+
+<a id="example-survey-question-answered"></a>
+##### Example survey-question-answered
+Sent each time a respondent saves or changes an answer to one Question of a multi-step Survey. See [Question](#schema-survey-question-answered) for when it is and is not sent.
+
+```json
+{
+  "id": "5fb70dcbc39330000325a81c",
+  "kind": "survey.question.answered",
+  "sent_at": "2029-12-11T00:27:12.402Z",
+  "data": {
+    "profile": {
+      "id": "5f885a88e7daf3000e3eb4f6",
+      "email": "jane@example.com",
+      "uid": "92340834",
+      "name": "Jane E",
+      "last_seen_at": "2029-12-11T00:21:59.109Z",
+      "last_seen_session_count": 83,
+      ...
+    },
+    "survey": {
+      "id": "5fb7936edee1f70011bfc4c9",
+      "name": "2029-11 Onboarding feedback",
+      "kind": "multisurvey",
+      ...
+    },
+    "submission": {
+      "id": "5fb7afb5ea19724169374270",
+      "campaign_id": "5fb7936edee1f70011bfc4c9",
+      "finished_at": null
+    },
+    "question": {
+      "id": "5fb6e4ab8af58a00073f0d92",
+      "type": "multi_choice",
+      "body": "Which features do you use?",
+      "value": ["Tours", "Surveys"]
     }
   }
 }
@@ -537,11 +694,11 @@ When a Tour is snoozed it is set to come back after a certain amount of time has
 
 <a id="example-tour-button-clicked"></a>
 ##### Example tour-button-clicked
-Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration.
+Every Button that is clicked in a Tour / Microsurvey will send a webhook to this topic. It includes the Step and the Button configuration. In a multi-step Survey, a Button that answers a Question is reported when the respondent moves on from the Step rather than at the click — see [When answer Buttons are reported](#schema-button-question-timing).
 
 > The key will be "tour", "survey", or "embed" depending on the Experience type.
 
-> For `survey.button.clicked` the `button` object has [two shapes](#schema-button-survey-button-clicked) — a Question's answer Button carries `question_id` and no `tour_action`.
+> For `survey.button.clicked` the `button` object has [two shapes](#schema-button-survey-button-clicked) — a Question's answer Button carries `question_id`, and usually no `tour_action`. `data.step.buttons` also lists answer Buttons, [without `question_id`](#schema-step-buttons-survey).
 
 ```json
 {
@@ -675,7 +832,7 @@ When an Embed is snoozed it is set to come back after a certain amount of time h
 When Experiences are in violation of the Alert conditions.
 The primary use case for this is to notify the person in charge of the Experience when X days have passed without activity (on something that is otherwise expected to have activity).
 
-> [Experiences](/concepts/experiences) are either `kind=tour` for a [Tour](/apis/tours) or `kind=survey` for a [Microsurvey](/apis/surveys)
+> [Experiences](/concepts/experiences) are either `kind=tour` for a [Tour](/apis/tours), `kind=survey` for a [Microsurvey](/apis/surveys) or `kind=multisurvey` for a multi-step Survey
 
 > For Tags and Environments see the `"tags"` and `"url_groups"` keys below and see [Experience](/concepts/experiences) page.
 
