@@ -239,9 +239,11 @@ The `step` object of a Survey webhook lists the Step's own Buttons and, after th
 ### Multi-step Survey response (`response.finished`)
 A submitted multi-step Survey is sent to `response.finished` like any other Survey, with the same `kind` and the same payload: `profile`, `survey` (with `kind` set to `multisurvey`) and `response`. The `response` carries every field a Microsurvey response has, so a handler written for `response.finished` keeps working, and adds one: `answers`, which holds every answer.
 
-The Microsurvey fields describe the first Step. For a multi-step Survey they are filled from its **primary Question**: its first Question, by page and then by place on the page. For a Survey created as an NPS Survey, or copied from one, that is its NPS Question, which always stays first. In any other Survey an `nps` Question is primary only when it comes first; otherwise its score is only in `answers`. Each field is `null` when the Survey has nothing for it, including when the respondent did not answer the primary Question.
+A Microsurvey fills `button_order`, `button_id`, `button_text`, `input_text` and `dropdown_items` from its first Step. A multi-step Survey fills them from its **primary Question**: its first Question, by page and then by place on the page. For a Survey created as an NPS Survey, or copied from one, that is its NPS Question, which always stays first. In any other Survey an `nps` Question is primary only when it comes first; otherwise its score is only in `answers`. Each of these five fields is `null` when the primary Question has nothing for it, and all five are `null` when the respondent did not answer the primary Question.
 
-The primary Question is chosen when the webhook is sent, from the Survey's Questions at that time. Reordering, adding or removing Questions can make a different Question primary for the submissions sent after the change.
+`comment_step_input_text` does not depend on the primary Question's answer. It is read from a Question of its own (see its row below), so it can carry an answer when the primary Question has none.
+
+The primary Question, and the Question `comment_step_input_text` is read from, are chosen when the webhook is sent, from the Survey's Questions at that time. Reordering, adding or removing Questions can change either one for the submissions sent after the change.
 
 | Property                  | Type          | For a multi-step Survey                                                                                                                                   |
 |---------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -255,7 +257,7 @@ The primary Question is chosen when the webhook is sent, from the Survey's Quest
 | `button_text`             | string        | That Button's text; for a `multibutton` Question that allows more than one selection, or an "Other" answer, the selected texts separated by ", "           |
 | `input_text`              | string or number | The answer, when the primary Question is a `text` Question. A number, not a string, when that Question's Answer format is Number                       |
 | `dropdown_items`          | array&lt;string&gt; | The selections, when the primary Question is a `choice`, `multi_choice` or `dropdown` Question. An "Other" answer appears as the text that was typed  |
-| `comment_step_input_text` | string or number | The answer to the first `text` Question other than the primary one — the comment of an NPS Survey. A number, not a string, when that Question's Answer format is Number |
+| `comment_step_input_text` | string or number | The answer to the first `text` Question after the primary one, by page and then by place on the page. It is always that Question, whether or not the respondent was shown it or answered it: when it has no answer this is `null`, even if a later `text` Question was answered. A Survey created as an NPS Survey asks for its comment in three follow-up `text` Questions, one per score band, with the detractors' (scores 0-6) first. Unless the author changes them, this field holds only a detractor's comment, and a passive's or a promoter's comment is only in `answers`. A number, not a string, when that Question's Answer format is Number |
 | `answers`                 | object        | **Added for multi-step Surveys.** Every answer, keyed by Question ID. Each is an [answer](#schema-survey-answer) object                                   |
 
 `other_text`, `input_text2`, `comment_step_input_text2`, `comment_step_dropdown_items`, `comment_step_dropdown_items2`, `comment_step_other_text`, `comment_step_other_text2`, `comment_step_buttons_selected` and `comment_step_buttons_selected2` are present and `null`. To tell a multi-step Survey apart, check `survey.kind == "multisurvey"`.
@@ -371,7 +373,7 @@ Every Microsurvey that is finished will send a webhook to this topic. A submitte
 
 <a id="example-response-finished-multi-step"></a>
 ##### Example response-finished (multi-step Survey)
-A submitted multi-step Survey, sent to `response.finished`. The Survey below was created as an NPS Survey, so its first Question, the primary one, is its NPS Question, and a "Why?" `text` Question follows it. `button_order`, `button_id` and `button_text` carry the score and `comment_step_input_text` the comment, as for an NPS Microsurvey. See [Multi-step Survey response](#schema-multi-step-response) for each field.
+A submitted multi-step Survey, sent to `response.finished`. The Survey below opens on an `nps` Question, which makes it the primary Question, followed by a "Why?" `text` Question with no display condition, so every respondent is shown it. `button_order`, `button_id` and `button_text` carry the score and `comment_step_input_text` the "Why?" answer, as for an NPS Microsurvey. A Survey created as an NPS Survey fills `comment_step_input_text` differently. See [Multi-step Survey response](#schema-multi-step-response) for each field.
 
 ```json
 {
