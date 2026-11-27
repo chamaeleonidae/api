@@ -22,6 +22,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 | `model_kind`                | string                     | The target data collection to update: One of `profile` or `company`. Note that deleting companies is not currently supported.                                                                                                                                                              |
 | `tag_import_id`             | ID                         | To add members to a previous Import, specify this as the ID of a previous Import                                                                                                                                                                                                           |
 | `on_model_missing`          | string                     | The strategy to use when data present in the Import is missing in Chameleon (i.e. [User Profile](/apis/profiles) or [Company](/apis/companies) has **not yet** been identified to Chameleon): One of `create` or `ignore`                                                                                         |
+| `replace_members`           | boolean                    | When `true`, records in the Tag named by `tag_import_id` that are not in this file lose it, including ones tagged by hand or through filters. A file that matches no existing records, or one that would remove more than 750,000 records, fails and leaves the Tag unchanged. Only for `kind=tag_csv`; defaults to adding to the Tag           |
 | `head_columns`              | array&lt;Object&gt;        | A list representing the parsed version of the first 5 lines. Each object has a header column `name` and `values` are an ordered array of the next 4 rows for that column                                                                                                                   |
 | `import_at`                 | timestamp                  | The "trigger" to start the importing process (for convenience, use the string `$now`). At this point, the CSV upload is completed, all `properties` are confirmed, and the Import starts                                                                                                   |
 | `properties`                | array&lt;Property&gt;      | The list of definitions of how to map CSV column headers to [Properties](/apis/properties) on the model. [example ↓](/apis/imports#examples-profiles-tag-all)                                                                                                                                                                               |
@@ -41,6 +42,7 @@ Using a tagging `kind` (`tag_csv` or `tag_filters`) will either create a new Use
 | `stats.last_import_elapsed` | number                     | The total time (in seconds) that the import took.                                                                                                                                                                                                                                          |
 | `stats.created_count`       | number                     | The number of records created by this Import                                                                                                                                                                                                                                               |
 | `stats.updated_count`       | number                     | The number of records updated by this Import                                                                                                                                                                                                                                               |
+| `stats.removed_count`       | number                     | The number of records that lost the Tag because they were not in the file (when `replace_members` is `true`)                                                                                                                                                                               |
 
 ------
 
@@ -118,6 +120,7 @@ https://api.chameleon.io/v3/edit/imports
 | `model_kind`        | optional | string                | The target data collection to update: One of `profile` or `company`. Defaults to `profile` |
 | `tag_import_id`     | optional | ID                    | To add members to a previous Import, specify this as the ID of a previous Import |
 | `on_model_missing`  | optional | string                | The strategy to use when data present in the Import is missing in Chameleon (i.e. a User Profile or Company has **not yet** been identified to Chameleon): One of `create` or `ignore`. Defaults to `create` |
+| `replace_members`   | optional | boolean               | When `true`, records in the Tag named by `tag_import_id` that are not in this file lose it, including ones tagged by hand or through filters. A file that matches no existing records, or one that would remove more than 750,000 records, fails and leaves the Tag unchanged. Only for `kind=tag_csv`. Defaults to `false`, which adds to the Tag |
 | `properties`        | required | array&lt;Property&gt; | The list of definitions of how to map CSV column headers to [Properties](/apis/properties) on the model. |
 | `properties.$.name` | required | string                | The column header of this property in the CSV file |
 | `properties.$.prop` | required | string                | The `prop` value of the [Property](/apis/properties) to store on the model |
@@ -133,6 +136,9 @@ https://api.chameleon.io/v3/edit/imports
 - When the `on_model_missing` is `create` and the `uid` property is not mapped in properties.
 - When any of the supplied `properties` are not found as Headers in the uploaded file.
 - When the `tag_import_id` refers to an import that has not been finished
+- When `replace_members` is present and is not a boolean.
+- When `replace_members` is `true` and `kind` is not `tag_csv`.
+- When `replace_members` is `true` and `tag_import_id` is not given or does not refer to a root Tag (the Import that created the Tag, not a later Import that added to it).
 
 
 | Code  | description                                                                                                            |
@@ -148,6 +154,9 @@ https://api.chameleon.io/v3/edit/imports
 | `422` | The `kind=tag_csv` + `model_kind=profile` and `properties` does not map to a `uid` or `email`                          |
 | `422` | The `kind=tag_csv` + `model_kind=company` and `properties` does not map to a `uid`                                     |
 | `422` | The `tag_import_id` refers to an import that has not been finished (when `stats.last_import_state` is not `completed`) |
+| `422` | The `replace_members` is sent and is not `true` or `false`                                                             |
+| `422` | The `replace_members` is `true` and `kind` is not `tag_csv`                                                            |
+| `422` | The `replace_members` is `true` and `tag_import_id` is not given or does not refer to a root Tag                       |
 
 
 ##### Errors during Import
